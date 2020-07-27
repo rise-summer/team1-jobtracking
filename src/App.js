@@ -1,10 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import Login from './login';
 
 function App() {
   return (
     <BrowserRouter>
         <div className="App">
+          <Login/>
           {/*<Navbar />*/}
           <Switch>
             {/*<Route exact path="/" component={LandingPage} />
