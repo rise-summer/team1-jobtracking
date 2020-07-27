@@ -30,5 +30,5 @@ CREATE TABLE IF NOT EXISTS `post` (
   CONSTRAINT fk_post_user_id FOREIGN KEY (`id`) REFERENCES users(`id`)
 );
 
-SELECT u.name, j.job_title from users u Left Join job j on u.id = n.id
+SELECT u.username, j.job_title from users u Left Join job j on u.id = j.id
 
