@@ -30,5 +30,6 @@ CREATE TABLE IF NOT EXISTS `post` (
   CONSTRAINT fk_post_user_id FOREIGN KEY (`id`) REFERENCES users(`id`)
 );
 
-SELECT u.username, j.job_title from users u Left Join job j on u.id = j.id
+SELECT u.username, j.job_title from users u Left Join job j on u.id = j.id;
 
+-- ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'my-secret-password';

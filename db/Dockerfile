@@ -1,5 +1,4 @@
 FROM mysql
-
-COPY ./setup.sql /docker-entrypoint-initdb.d/
-
+USER root
+COPY ./mysql_init.sql /docker-entrypoint-initdb.d/
 EXPOSE 3306
