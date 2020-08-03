@@ -1,21 +1,24 @@
 import React from 'react';
-//import { BrowserRouter, Switch, Route } from "react-router-dom";
-//import Login from './login';
-
+import { BrowserRouter, Route } from "react-router-dom";
+import Login from './login';
+import SignUp from "./SignUp/SignUp";
+import MainFeed from "./mainfeed"
 
 //import './App.css';
 //import Navigation from "./Navigation/Navigation";
-import SignUp from "./SignUp/SignUp";
+
  
 
 class App extends React.Component{
   render() {
     return(
       <div>
-      {/*<Navigation />*/}
-      <SignUp/>
+        <BrowserRouter>
+          <Route path='/' exact component={MainFeed}></Route>
+          <Route path='/Login' exact component={Login}></Route>
+          <Route path='/SignUp' exact component={SignUp}></Route>
+        </BrowserRouter>
       </div>
-
     );  
   } 
 }
