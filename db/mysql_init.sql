@@ -1,3 +1,4 @@
+ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'my-secret-pw';
 CREATE DATABASE IF NOT EXISTS mydb;
 use mydb;
 
@@ -22,6 +23,7 @@ CREATE TABLE IF NOT EXISTS `job` (
 
 CREATE TABLE IF NOT EXISTS `post` (
   `post_id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(80) NOT NULL,
   `content` longtext NOT NULL,
   `tag` varchar(80),
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -32,4 +34,3 @@ CREATE TABLE IF NOT EXISTS `post` (
 
 SELECT u.username, j.job_title from users u Left Join job j on u.id = j.id;
 
--- ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'my-secret-password';
