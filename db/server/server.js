@@ -11,14 +11,16 @@ const mc = mysql.createConnection({
   host: 'localhost',
   port: 3306,
   user: 'root',
-  password: '',
+  password: dbpwd,
   database: db,
   insecureAuth : true
 });
 
 // connect to database
 mc.connect((err) => {
-  console.log('error: ' + err.message);
+  if (err != null) {
+    console.log('error: ' + err);
+  }
 });
 
 app.listen(port);
