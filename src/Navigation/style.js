@@ -31,22 +31,13 @@ export const NavSearch = styled.input.attrs({
 `;
 export const Addition = styled.div `
     position:absolute;
-    right:0;
     top:0;
-    height:56px;
-    .pic{
-        float:right;
-        height:50px;
-    }
+    right:80px;
 `;
 export const Button = styled.div `
-    float:right;
-    margin-top:9px;
-    margin-right:20px;
-    padding:0 20px;
-    line-height:38px;
-    border-radius:19px;
-    border:1px solid #ec6149;
+    margin-top:6px;
+    padding:0 18px;
+    line-height:18px;
     &.reg{
         color: #ec6149;
     }
@@ -55,3 +46,11 @@ export const Button = styled.div `
         background:#ec6149;
     }
 `
+export const Pic = styled.div`
+    position:absolute;
+    top:0;
+    right:0;
+    .profilePic{
+        height:50px;
+    }
+`;
