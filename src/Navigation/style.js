@@ -47,10 +47,22 @@ export const Button = styled.div `
     }
 `
 export const Pic = styled.div`
-    position:absolute;
-    top:0;
-    right:0;
     .profilePic{
+        position:absolute;
+        top:0;
+        right:0;
         height:50px;
     }
+    .notif{
+        position:absolute;
+        top:18px;
+        right:120px;
+        height:20px;
+    }
+
+`;
+export const LogOut = styled.div`
+    position:absolute;
+    top:15px;
+    right:200px;
 `;
