@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express'),
   app = express(),
   bodyParser = require('body-parser'),
@@ -11,9 +12,9 @@ const mysql = require('mysql');
 const mc = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: dbpwd,
-  database: dbname,
-  port: dbport
+  password: 'my-secret-pw',
+  database: 'mydb',
+  port: 3306
 });
 
 // connect to database

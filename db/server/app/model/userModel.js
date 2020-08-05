@@ -3,14 +3,15 @@ const uuid = require('uuid');
 
 // user object construction
 function User(user) {
-  console.log("user: " + JSON.stringify(user));
+  console.log('user: ' + JSON.stringify(user));
   this.id = uuid.v4();
   this.username = user.username;
   this.email = user.email;
-};
+  this.password = user.password;
+}
 
 User.createUser = (newUser) => {
-  console.log("Create a user");
+  console.log('Create a user');
   sql.query('INSERT INTO users SET ?', newUser, (err, res) => {
     if (err) {
       console.log('error: ', err);
