@@ -1,6 +1,10 @@
+USE mysql;
+ALTER USER 'root'@'%' IDENTIFIED BY 'my-secret-pw';
 ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'my-secret-pw';
+FLUSH PRIVILEGES;
+
 CREATE DATABASE IF NOT EXISTS mydb;
-use mydb;
+USE mydb;
 
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -32,5 +36,5 @@ CREATE TABLE IF NOT EXISTS `post` (
   CONSTRAINT fk_post_user_id FOREIGN KEY (`id`) REFERENCES users(`id`)
 );
 
-SELECT u.username, j.job_title from users u Left Join job j on u.id = j.id;
+SELECT u.username, j.job_title FROM users u Left Join job j on u.id = j.id;
 

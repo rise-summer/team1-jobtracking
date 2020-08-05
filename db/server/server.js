@@ -2,18 +2,18 @@ const express = require('express'),
   app = express(),
   bodyParser = require('body-parser'),
   port = process.env.PORT || 3000,
-  db = process.env.MYSQL_DATABASE,
-  dbpwd = process.env.MYSQL_ROOT_PASSWORD;
+  dbname = process.env.MYSQL_DATABASE,
+  dbpwd = process.env.MYSQL_ROOT_PASSWORD,
+  dbport = process.env.MYSQL_PORT;
 
 const mysql = require('mysql');
 // connection configurations
 const mc = mysql.createConnection({
   host: 'localhost',
-  port: 3306,
   user: 'root',
   password: dbpwd,
-  database: db,
-  insecureAuth : true
+  database: dbname,
+  port: dbport
 });
 
 // connect to database

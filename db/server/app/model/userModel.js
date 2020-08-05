@@ -1,4 +1,4 @@
-let sql = require('./db');
+let sql = require('../db');
 const uuid = require('uuid');
 
 // user object construction

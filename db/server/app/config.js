@@ -1,12 +1,13 @@
-const db = process.env.MYSQL_DATABASE,
-    dbpwd = process.env.MYSQL_ROOT_PASSWORD;
+const dbname = process.env.MYSQL_DATABASE,
+  dbpwd = process.env.MYSQL_ROOT_PASSWORD,
+  dbport = process.env.MYSQL_PORT;
+
 const connection = {
-    host: 'localhost',
-    user: 'root',
-    password: dbpwd,
-    database: db,
-    port: 3306,
-    insecureAuth : true
+  host: 'localhost',
+  user: 'root',
+  password: dbpwd,
+  database: dbname,
+  port: dbport
 };
 
 module.exports = connection;
