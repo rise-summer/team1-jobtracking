@@ -3,9 +3,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import Login from './login';
 import SignUp from "./SignUp/SignUp";
 import MainFeed from "./mainfeed"
-
-//import './App.css';
-//import Navigation from "./Navigation/Navigation";
+import userMain from "./userMainfeed"
 
  
 
@@ -17,6 +15,7 @@ class App extends React.Component{
           <Route path='/' exact component={MainFeed}></Route>
           <Route path='/Login' exact component={Login}></Route>
           <Route path='/SignUp' exact component={SignUp}></Route>
+          <Route path='/UserMain' exact component={userMain}></Route>
         </BrowserRouter>
       </div>
     );  

@@ -5,6 +5,8 @@ export const PostWrapper = styled.div`
 `; 
 export const Addition = styled.div`
     padding-top:20px;
+    padding-bottom:30px;
+    width:100%
     .time{
         float:left;
     }
@@ -16,3 +18,8 @@ export const Addition = styled.div`
         padding-right:50px;
     }
 `; 
+export const LoadComment = styled.div`
+    background:#fafafa;
+    padding:20px;
+`;
+
