@@ -1,21 +1,48 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
+import CongratsCard from "./CongratsCard/Congrat"
+ 
+ 
 
-function App() {
+ 
+
+class App extends React.Component{
+  render() {
+    return(
+      <div>
+        <BrowserRouter>
+         
+          <Route path='/' exact component={CongratsCard}></Route>
+          
+        </BrowserRouter>
+      </div>
+    );  
+  } 
+}
+export default App;
+
+
+
+
+
+
+/*function App() {
   return (
     <BrowserRouter>
         <div className="App">
-          {/*<Navbar />*/}
+         <Login/>
+          <Navigation/>
+          <Navbar />
           <Switch>
             {/*<Route exact path="/" component={LandingPage} />
             <Route exact path="/startups" component={Startups} />
             
-            <Route path="*" component={NotFoundPage} />*/}
+            <Route path="*" component={NotFoundPage} />
           </Switch>
-          {/*<Footer />*/}
+          <Footer />
         </div>
       </BrowserRouter>
   );
 }
 
-export default App;
+export default App; */
