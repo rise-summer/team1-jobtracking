@@ -3,19 +3,26 @@ import styled from 'styled-components';
 export const PostWrapper = styled.div`
     padding:50px 80px 50px 80px;
 `; 
+export const Header = styled.div`
+    font-size:25px;
+    padding-bottom:15px;
+    button{
+        float:right;
+    }
+`;
 export const Addition = styled.div`
     padding-top:20px;
     padding-bottom:30px;
-    width:100%;
+    width:100%
     .time{
-        float:right;
+        float:left;
     }
     .position{
-        float:left;
+        float:right;
     }
     .status{
-        float:left;
-        padding-left:50px;
+        float:right;
+        padding-right:20px;
     }
 `; 
 export const LoadComment = styled.div`

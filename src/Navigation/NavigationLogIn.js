@@ -12,7 +12,7 @@ class NavigationLogIn extends React.Component{
         return (
           <NavWrapper>
             <SearchWrapper>
-              <span>Logo</span><NavSearch></NavSearch>
+              <a href="/userMain"><span>Logo</span></a><NavSearch></NavSearch>
             </SearchWrapper>
             <Pic><img class='notif'src="https://image.flaticon.com/icons/svg/2097/2097743.svg"></img></Pic>
             <LogOut>Log Out</LogOut>
