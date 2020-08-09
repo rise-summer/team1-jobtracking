@@ -1,11 +1,13 @@
 import React from 'react';
 import { BrowserRouter, Route } from "react-router-dom";
+//import AppPopUp from "./AppPopUp/AppPopUp";
 import Profile from "./Profile/profile"
-import Login from './login';
-import SignUp from "./SignUp/SignUp";
+//import Login from './login';
+//import SignUp from "./SignUp/SignUp";
 
 //import './App.css';
-//import Navigation from "./Navigation/Navigation";
+import NavProfile from "./Navigation/NavProfile";
+
 
  
 
@@ -14,16 +16,19 @@ class App extends React.Component{
     return(
       <div>
         <BrowserRouter>
-          <Route path='/' exact component={Profile}></Route>
-          <Route path='/Login' exact component={Login}></Route>
+           
+            <Profile/>
+        
+        {/*<Route path='/' exact component={AppPopUp}></Route>
+          
           <Route path='/SignUp' exact component={SignUp}></Route>
+          <Route path='/Login' exact component={Login}></Route>*/}
         </BrowserRouter>
       </div>
     );  
   } 
 }
 export default App;
-
 
 
 

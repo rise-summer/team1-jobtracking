@@ -1,7 +1,67 @@
-.nav-container
+
+/*body {
+    font-family: Arial;
+    padding: 20px;
+    background: #f1f1f1;
+  }
+
+.header {
+  padding: 30px;
+  font-size: 40px;
+  text-align: center;
+  background: white;
+}*/
+.leftcolumn { 
+    float: left;
+    width: 75%;
+    top: 60px;
+  }
+
+  .rightcolumn {
+    float: left;
+    width: 25%;
+    padding-left: 20px;
+    top: 60px
+  }
+
+   
+
+  @media screen and (max-width: 800px) {
+    .leftcolumn, .rightcolumn { 
+      width: 100%;
+      padding: 0;
+    }
+  }
+
+
+
+
+/*.split {
+    height: 100%;
+    width: 40%;
+    position: fixed;
+    z-index: 1;
+    top: 60px;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+  
+   
+  .left {
+    left: 0;
+    background-color: white;
+  }
+
+  .right {
+    right: 0;
+    background-color: white;
+  }*/
+
+
+.profile
 {
     display: flex;
-    /*flex-direction: row;*/
+    flex-direction: row;
     justify-content: space-evenly;
 
     width: 80%;
@@ -12,3 +72,7 @@
     text-align: left;
 
 }
+
+ 
+ 
+
