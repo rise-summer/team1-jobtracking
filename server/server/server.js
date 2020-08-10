@@ -3,19 +3,11 @@ const express = require('express'),
   app = express(),
   bodyParser = require('body-parser'),
   port = process.env.PORT || 3000,
-  dbname = process.env.MYSQL_DATABASE,
-  dbpwd = process.env.MYSQL_ROOT_PASSWORD,
-  dbport = process.env.MYSQL_PORT;
+  { connection } = require('./app/config');
 
 const mysql = require('mysql');
 // connection configurations
-const mc = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'my-secret-pw',
-  database: 'mydb',
-  port: 3306
-});
+const mc = mysql.createConnection(connection);
 
 // connect to database
 mc.connect((err) => {
