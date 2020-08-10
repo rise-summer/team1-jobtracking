@@ -6,6 +6,18 @@ export const PostWrapper = styled.div`
     width:200px
     border: 100px 100px 100px 100px;
 `; 
+
+export const ProgressBar = styled.div`
+padding-left:500px;
+.slidecontainer {
+    width: 100%;
+    float: left;
+  }
+
+`; 
+
+
+
 export const Addition = styled.div`
     padding-top:20px;
     .enter{
@@ -26,13 +38,29 @@ export const Addition = styled.div`
         padding-right:200px;
     }
     .position2{
-        float:middle;
+        float:left;
         padding-left:100px;
     }
     .position3{
-        float:right;
+        float:left;
         padding-right:200px;
     }
+
+    .editIcon{
+        float:left;
+        height:50px;
+        position:absolute;
+        top:10px;
+        right:60px;
+        height:25px;
+        
+    }
+    .slidecontainer {
+        position:absolute;
+        float: right;
+        width: 95%;
+    }
+    
 
 `; 
  
