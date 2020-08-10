@@ -15,6 +15,7 @@ class Profile extends Component {
           <PostWrapper>
              
             <Card style={{ marginTop: 16 }} type="inner">
+              <progressBar/>
               
               <Addition>
               <div class="nav-container" >
