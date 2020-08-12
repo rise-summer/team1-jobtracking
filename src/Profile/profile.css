@@ -1,7 +1,71 @@
-.nav-container
+
+ 
+.leftcolumn { 
+    float: left;
+    width: 75%;
+    top: 20px;
+  }
+
+  .rightcolumn {
+    float: left;
+    width: 23%;
+    margin-top: 60px;
+    padding: 20px;
+    box-shadow: 0 0 8px rgba(0,0,0,.1);
+    top: 60px;
+    background-color:rgb(211,211,211);
+    border-radius: 25px;
+  }
+
+  .view{
+    text-align: center;
+    margin: auto;
+    display: flex;
+   
+  }
+
+  
+
+   
+
+  @media screen and (max-width: 800px) {
+    .leftcolumn, .rightcolumn { 
+      width: 100%;
+      padding: 0;
+    }
+  }
+
+
+
+
+/*.split {
+    height: 100%;
+    width: 40%;
+    position: fixed;
+    z-index: 1;
+    top: 60px;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+  
+   
+  .left {
+    left: 0;
+    background-color: white;
+  }
+
+  .right {
+    right: 0;
+    background-color: white;
+  }
+  
+ */
+
+
+.profile
 {
     display: flex;
-    /*flex-direction: row;*/
+    flex-direction: row;
     justify-content: space-evenly;
 
     width: 80%;
@@ -12,3 +76,9 @@
     text-align: left;
 
 }
+
+
+
+ 
+ 
+

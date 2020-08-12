@@ -14,39 +14,40 @@ class CongratsCard extends Component {
         <Fragment>
           <PostWrapper>
             
-            <Card style={{ marginTop: 16 }} type="inner">
-               
+               <Card>
                <span className= "header"> <h1> CONGRATS!</h1> 
                     <h2>Onto the next step in this jouney! Amajing Job :)</h2>
               </span>
             
               
                 <Addition >
-
-                    <p className="add"> Add Notes to your Application Log? </p>
-                    <img className='editIcon'src="https://image.flaticon.com/icons/svg/282/282153.svg"></img>
+                    <div className= "addNotes">
+                    <p > Add Notes to your Application Log? </p>
+                    <img className="editIcon" src="https://image.flaticon.com/icons/svg/282/282153.svg"></img>
                     <img className="crossIcon" src="https://image.flaticon.com/icons/svg/748/748122.svg"></img>
-                    <input className="text"  placeholder="Current description user able to edit"/>  
+                    </div>
+                    
+                    <input className="text"  placeholder="Current description shows up as greyed out text, user able to edit."/>  
                     
                     
-                    <span className= "share">
+                    
+                    <div className= "share">
                       <p> Share your experience in this update as a post? </p>
                       <img className="shareIcon" src="https://image.flaticon.com/icons/svg/638/638862.svg"></img>
-                    </span>
+                    </div>
 
-
-                    <label className="see" > See similar post here: 
-                    <input type="similar" placeholder="#Facebook Software Engineering Intern"/></label>
+                    <div>
+                    <label > See similar post here: 
+                    <input  className="similar" placeholder="#Facebook Software Engineering Intern"/></label>
+                    </div>
                     
 
-                    <button className="backButton"> Back to Your Application</button> 
+                    <span className="backButton"> <button> Back to Your Application</button> </span>
                   
             
                 </Addition>
-                
-
-               </Card>
-
+              
+              </Card>
            </PostWrapper>
        </Fragment>
       )

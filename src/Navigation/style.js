@@ -38,12 +38,22 @@ export const Addition = styled.div `
         float:right;
         height:50px;
     }
+    .notif{
+        float:left;
+        height:50px;
+        position:absolute;
+        top:18px;
+        right:200px;
+        height:20px;
+        
+    }
 `;
+ 
 export const Button = styled.div `
     float:right;
     margin-top:9px;
     margin-right:20px;
-    padding:0 20px;
+    padding:0 0px;
     line-height:38px;
      }
 `

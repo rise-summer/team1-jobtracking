@@ -2,10 +2,11 @@ import styled from 'styled-components';
 
 export const PostWrapper = styled.div`
     padding:50px 50px 50px 50px;
-    width: 60%;
-    
+    width: 55%;
     margin: auto;
-    border: 1px solid #eee;
+    margin-top: 60px;
+    border-radius: 15px;
+    border: 1px solid grey;
     box-shadow: 0 2px 3px #ccc;
     
     .header{
@@ -14,82 +15,74 @@ export const PostWrapper = styled.div`
 
 `; 
 export const Addition = styled.div`
-    padding-top:20px;
 
+padding-top: 50px;
+padding-right:100px;
      
-    .add {   
-        flex-flow: column wrap;
-        align-items: left;
-        flex-direction: column;
-        align-items: stretch;
-        }
 
-        .text{
-            width: 100%;
-            padding: 5px;  
-            border: 1px solid #ccc;  
-            border-radius: 4px;  
-            box-sizing: border-box; /* Make sure that padding and width stays in place */
-            margin-top: 6px; /* Add a top margin */
-            margin-bottom: 16px; /* Bottom margin */
-            resize: vertical
-        }
+    .addNotes{
+      display: flex;
+      justify-content:Space-evenly;
+      margin-left: -80px;
       
-        .see {  
-            display: flex; 
-            flex-flow: column wrap;
-            align-items: left;
-            flex-direction: row;
-            width: 60%;
-            align-items: stretch;
-            }
-      
-      .form-outline label {
-        margin: 5px 10px 5px 0;
-      }
-      
-      
-      .backButton {
-        padding: 10px 20px;
-        background-color: #C0C0C0;
-        border: 1px solid #ddd;
-        color: black;
-        cursor: pointer;
-        text-align: center;
-        display: flex;
-      }
+          
+    } 
 
-      .editIcon{
-        float:left;
-        height:50px;
-        position:absolute;
-        top:10px;
-        right:60px;
-        height:25px;
+    .editIcon{
+       width:20px;
+    }
 
-      }
+    .crossIcon{
+      width:18px;
 
-        .crossIcon{
-            position:absolute;
-            top:20px;
-            right:100px;
-            height:25px;
-
-        }
+    }
+    
+    .text{
+        width: 85%;
+        padding: 5px;  
+        border: 1px solid #ccc;  
+        border-radius: 4px;  
+        box-sizing: border-box; /* Make sure that padding and width stays in place */
+        margin-top: 6px; /* Add a top margin */
+        margin-bottom: 16px; /* Bottom margin */
+        resize: vertical
+    }  
 
         .share{
-            flex-direction: row;
+          display: flex;
 
-        }
+      }
 
-        .shareIcon{
-            
-            top:10px;
-            right:200px;
-            width:25px;
-            height:-25px;
 
-        }
+      .shareIcon{
+         width:25px;
+         margin-top: -15px;
+         margin-left: 20px;
+      }
+
+     
+       
+      .similar{
+        width: 60%;
+        border: 1px solid #ccc;
+        border-radius: 4px; 
+        margin-left: 5px;
+      }
+      
+      .backButton {
+        display: flex;
+        justify-content: center;
+        margin-top: 50px;
+        
+      }
+
+      
+
+        
+
+        
+
+       
 
       
       
