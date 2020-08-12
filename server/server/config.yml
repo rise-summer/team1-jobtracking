@@ -4,6 +4,6 @@ app:
 db:
   address: localhost
   port: 3306
-  name: jobtracking
+  name: mydb
   user: root
   password: my-secret-pw
