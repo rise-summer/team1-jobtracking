@@ -1,7 +1,7 @@
-let mysql = require('mysql');
-let config = require('./config');
+const mysql = require('mysql');
+const { connectionConfig } = require('./config');
 
-let connection = mysql.createConnection(config);
+const connection = mysql.createConnection(connectionConfig);
 
 connection.connect(function (err) {
   if (err) throw err;

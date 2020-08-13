@@ -3,11 +3,11 @@ const express = require('express'),
   app = express(),
   bodyParser = require('body-parser'),
   port = process.env.PORT || 3000,
-  { connection } = require('./app/config');
+  { connectionConfig } = require('./app/config');
 
 const mysql = require('mysql');
 // connection configurations
-const mc = mysql.createConnection(connection);
+const mc = mysql.createConnection(connectionConfig);
 
 // connect to database
 mc.connect((err) => {
