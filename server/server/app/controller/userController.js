@@ -10,14 +10,19 @@ exports.list_all_users = (req, res) => {
 };
 
 exports.create_a_user = (req, res) => {
-  console.log('Create a new user');
   let newUser = new User(req.body);
-  console.log('newUser:' + newUser);
   if (!newUser.username || !newUser.email) {
     res.status(400).send({ error: true, message: 'Please provide username/email' });
   } else {
     User.createUser(newUser);
-    fbapp.auth().createUserWithEmailAndPassword(newUser.email, newUser.password);
+    fbapp
+      .auth()
+      .createUserWithEmailAndPassword(newUser.email, newUser.password)
+      .catch(function (error) {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        res.status(400).sned({ error: true, message: errorCode + ' ' + errorMessage });
+      });
     res.json(newUser);
   }
 };
