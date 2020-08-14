@@ -41,7 +41,24 @@ exports.create_a_user = async (req, res) => {
   });
 };
 
-exports.log_in_user = (req, res) => {};
+exports.log_in_user = (req, res) => {
+  let user = new User(req.body);
+
+  try {
+    await fbapp.auth().signInWithEmailAndPassword(user.email, user.password);
+  } catch (error) {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+
+    if (errorCode == 'auth/wrong-password' || errorCode == 'auth/invalid-email') {
+      res.status(422);
+    } else if (errorCode == 'auth/user-not-found') {
+      res.status(400);
+    }
+    res.send({ error: true, message: errorMessage });
+    return;
+  }
+};
 
 exports.delete_a_user = (req, res) => {
   User.remove(req.params.userId);
