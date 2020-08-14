@@ -1,5 +1,4 @@
 
- 
 .leftcolumn { 
     float: left;
     width: 75%;
@@ -23,7 +22,6 @@
     display: flex;
    
   }
-
   
 
    
@@ -35,31 +33,6 @@
     }
   }
 
-
-
-
-/*.split {
-    height: 100%;
-    width: 40%;
-    position: fixed;
-    z-index: 1;
-    top: 60px;
-    overflow-x: hidden;
-    padding-top: 20px;
-  }
-  
-   
-  .left {
-    left: 0;
-    background-color: white;
-  }
-
-  .right {
-    right: 0;
-    background-color: white;
-  }
-  
- */
 
 
 .profile
@@ -77,12 +50,7 @@
 
 }
 
-.slidecontainer {
 
-    width: 100%;
-    text-align: right;
-    float: left;
-  }
 
  
  

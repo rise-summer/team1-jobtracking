@@ -6,16 +6,16 @@ export const PostWrapper = styled.div`
 export const Addition = styled.div`
     padding-top:20px;
     padding-bottom:30px;
-    width:100%
+    width:100%;
     .time{
-        float:left;
+        float:right;
     }
     .position{
-        float:right;
+        float:left;
     }
     .status{
-        float:right;
-        padding-right:50px;
+        float:left;
+        padding-left:50px;
     }
 `; 
 export const LoadComment = styled.div`

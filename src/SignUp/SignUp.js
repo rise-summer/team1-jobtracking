@@ -19,7 +19,7 @@ import "./SignUp.css"
                     <Item>Confirm Password</Item>
                     <Textfield className='ConPwd'></Textfield>
                     </LoginBoard>
-                    <Button>Sign Up</Button>
+                    <a href="/UserMain"><Button>Sign Up</Button></a>
              </LoginWrapper>
              </div>
          )

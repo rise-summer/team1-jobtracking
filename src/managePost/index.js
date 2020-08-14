@@ -1,10 +1,9 @@
 import React,{Component, Fragment} from 'react';
-import Navigation from "../Navigation/NavigationLogOut";
+import Navigation from "../Navigation/NavigationLogIn";
 import 'antd/dist/antd.css';
 import { Card } from 'antd';
-import {PostWrapper, Addition,LoadComment}from './style';
-import Comments from './components/comments'
-
+import {PostWrapper, Addition,LoadComment,Header}from './style';
+import Comments from '../mainfeed/components/comments'
 class MainFeed extends Component {
 
     constructor(props){
@@ -19,12 +18,13 @@ class MainFeed extends Component {
         <Fragment>
           <Navigation/>
           <PostWrapper>
-            <Card type="inner" title="CREATE TITLE OF POST/UPDATE">
+            <Header><span>Manage Posts</span><button>Create new post</button></Header>
+            <Card type="inner" title="CREATE TITLE OF POST/UPDATE" extra={<a href="#">Delete</a>}>
               Here is where the user can update on their application status or talk about their experience.
               <Addition>
                 <span className='time'>Time</span>
-                <span className='position'>#Position</span>
-                <span className='status'>#Status</span>
+                <button className='position'>Position▼</button>
+                <button className='status'>Status▼</button>
               </Addition>
               <ul>{
               this.state.list.map((item,index) => {
@@ -34,12 +34,12 @@ class MainFeed extends Component {
             </ul>
             </Card>
             <LoadComment onClick={this.getMoreComments.bind(this)}>See the Comments</LoadComment>
-            <Card style={{ marginTop: 30 }} type="inner" title="TITLE OF POST/UPDATE">
+            <Card style={{ marginTop: 30 }} type="inner" title="TITLE OF POST/UPDATE" extra={<a href="#">Delete</a>}>
               The user can talk about their experience here before being cut off 100 words, then it goes under the fold.
               <Addition>
                 <span className='time'>Time</span>
-                <span className='position'>#Position</span>
-                <span className='status'>#Status</span>
+                <button className='position'>Position▼</button>
+                <button className='status'>Status▼</button>
               </Addition>
             </Card>
             <LoadComment><Comments/></LoadComment>
@@ -53,7 +53,7 @@ class MainFeed extends Component {
       })
     }
 }
-export default MainFeed
+export default MainFeed;
 
 
 

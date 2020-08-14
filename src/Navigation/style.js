@@ -28,32 +28,45 @@ export const NavSearch = styled.input.attrs({
     &.focused {
         width: 240px;
     }
+
+    
 `;
 export const Addition = styled.div `
     position:absolute;
-    right:0;
     top:0;
-    height:56px;
-    .pic{
-        float:right;
+    right:80px;
+`;
+export const Button = styled.div `
+    margin-top:6px;
+    padding:0 18px;
+    line-height:18px;
+    &.reg{
+        color: #ec6149;
+    }
+    &.writing{
+        color:#fff;
+        background:#ec6149;
+    }
+     
+
+`
+export const Pic = styled.div`
+    .profilePic{
+        position:absolute;
+        top:0;
+        right:0;
         height:50px;
     }
     .notif{
-        float:left;
-        height:50px;
         position:absolute;
         top:18px;
-        right:200px;
+        right:120px;
         height:20px;
-        
     }
+
 `;
- 
-export const Button = styled.div `
-    float:right;
-    margin-top:9px;
-    margin-right:20px;
-    padding:0 0px;
-    line-height:38px;
-     }
-`
+export const LogOut = styled.div`
+    position:absolute;
+    top:15px;
+    right:200px;
+`;

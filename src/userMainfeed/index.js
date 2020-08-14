@@ -1,9 +1,10 @@
 import React,{Component, Fragment} from 'react';
-import Navigation from "../Navigation/NavigationLogOut";
+import Navigation from "../Navigation/NavigationLogIn";
 import 'antd/dist/antd.css';
 import { Card } from 'antd';
 import {PostWrapper, Addition,LoadComment}from './style';
-import Comments from './components/comments'
+import Comments from '../mainfeed/components/comments'
+import NewPost from './components/index'
 
 class MainFeed extends Component {
 
@@ -19,12 +20,14 @@ class MainFeed extends Component {
         <Fragment>
           <Navigation/>
           <PostWrapper>
-            <Card type="inner" title="CREATE TITLE OF POST/UPDATE">
-              Here is where the user can update on their application status or talk about their experience.
+            <NewPost/>
+            <div>Most recent posts:</div>
+            <Card type="inner" title="Google SWE Experience">
+              Last summer I interned at Google as a SWE. It was a great experience, and here are some of my key insights.
               <Addition>
-                <span className='time'>Time</span>
                 <span className='position'>#Position</span>
                 <span className='status'>#Status</span>
+                <span className='time'>Time</span>
               </Addition>
               <ul>{
               this.state.list.map((item,index) => {
@@ -34,15 +37,21 @@ class MainFeed extends Component {
             </ul>
             </Card>
             <LoadComment onClick={this.getMoreComments.bind(this)}>See the Comments</LoadComment>
-            <Card style={{ marginTop: 30 }} type="inner" title="TITLE OF POST/UPDATE">
-              The user can talk about their experience here before being cut off 100 words, then it goes under the fold.
+            <Card style={{ marginTop: 30 }} type="inner" title="Google SWE Experience">
+              Last summer I interned at Google as a SWE. It was a great experience, and here are some of my key insights.
               <Addition>
-                <span className='time'>Time</span>
                 <span className='position'>#Position</span>
                 <span className='status'>#Status</span>
+                <span className='time'>Time</span>
               </Addition>
+              <ul>{
+              this.state.list.map((item,index) => {
+                return <li key={index}><Comments/></li>
+              })
+            }
+            </ul>
             </Card>
-            <LoadComment><Comments/></LoadComment>
+            <LoadComment onClick={this.getMoreComments.bind(this)}>See the Comments</LoadComment>
           </PostWrapper>
       </Fragment>
       )
@@ -54,6 +63,10 @@ class MainFeed extends Component {
     }
 }
 export default MainFeed
+
+
+
+
 
 
 

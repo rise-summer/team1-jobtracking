@@ -14,7 +14,7 @@ import {
                     <Item>Password</Item>
                     <Textfield className='pwd'></Textfield>
                     </LoginBoard>
-                    <Button>Log In</Button>
+                    <a href="/UserMain"><Button>Log In</Button></a>
              </LoginWrapper>
          )
      }

@@ -1,8 +1,8 @@
 import React,{Component, Fragment} from 'react';
-import Navigation from "../Navigation/NavProfile";
+import Navigation from "../Navigation/NavigationLogIn";
 import 'antd/dist/antd.css';
 import { Card } from 'antd';
-import {PostWrapper, Addition, ProgressBar} from './profileStyle'
+import {PostWrapper, Addition} from './profileStyle'
 import "./profile.css"
  
 
@@ -14,7 +14,6 @@ class Profile extends Component {
     return (
       <Fragment>
         <Navigation/>
-
         <div class="leftcolumn">
          
           <PostWrapper>
@@ -22,7 +21,7 @@ class Profile extends Component {
                
 
               <Addition> 
-                <button class="enter"> Enter a new Application</button>
+                <a href="/userApp1"><button class="enter"> Enter a new Application</button></a>
                 <button class= "archive"> Archive </button>
                 <button class="search"> Search Apps</button> 
               </Addition>
@@ -39,6 +38,7 @@ class Profile extends Component {
 
                   <img class='editIcon'src="https://image.flaticon.com/icons/svg/282/282153.svg"></img>
                   <h1>Facebook</h1>
+                  
                   <h2>#Software Engineer 2021 Summer Intern</h2>
                   <p>The description goes here, the webscraper would ideally take this form the application site so that the user doen't have to manually enter it</p>
                   <p> Date Applied:11/01/2020 || Deadline: 12/01/2020</p>

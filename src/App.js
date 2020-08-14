@@ -1,12 +1,17 @@
 import React from 'react';
 import { BrowserRouter, Route } from "react-router-dom";
-//import AppPopUp from "./AppPopUp/AppPopUp";
+import NavigationLogIn from "./Navigation/NavigationLogIn";
+import NavigationLogOut from "./Navigation/NavigationLogOut";
+import Login from './login';
+import SignUp from "./SignUp/SignUp";
 import Profile from "./Profile/profile"
-//import Login from './login';
-//import SignUp from "./SignUp/SignUp";
+import CongratsCard from "./CongratsCard/Congrat"
 
-//import './App.css';
-import NavProfile from "./Navigation/NavProfile";
+import MainFeed from "./mainfeed"
+import managePosts from "./managePost"
+import userMain from "./userMainfeed"
+import App1 from "./EnterApp1/App1";
+import App2 from "./EnterApp2/App2";
 
 
  
@@ -15,14 +20,19 @@ class App extends React.Component{
   render() {
     return(
       <div>
-        <BrowserRouter>
+        <BrowserRouter> 
+          <Route path='/userProfile' exact component={Profile}></Route>
+          <Route path='/userApp1' exact component={App1}></Route>
+          <Route path='/userApp2' exact component={App2}></Route>
+          <Route path='/userApp3' exact component={CongratsCard}></Route>
+          <Route path='/NavLogOut' exact component={NavigationLogOut}></Route>
            
-            <Profile/>
-        
-        {/*<Route path='/' exact component={AppPopUp}></Route>
-          
+          <Route path='/' exact component={MainFeed}></Route>
+          <Route path='/Login' exact component={Login}></Route> 
           <Route path='/SignUp' exact component={SignUp}></Route>
-          <Route path='/Login' exact component={Login}></Route>*/}
+          <Route path='/UserMain' exact component={userMain}></Route>
+          <Route path='/managePosts' exact component={managePosts}></Route>
+        
         </BrowserRouter>
       </div>
     );  
