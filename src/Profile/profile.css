@@ -1,0 +1,57 @@
+
+.leftcolumn { 
+    float: left;
+    width: 75%;
+    top: 20px;
+  }
+
+  .rightcolumn {
+    float: left;
+    width: 23%;
+    margin-top: 60px;
+    padding: 20px;
+    box-shadow: 0 0 8px rgba(0,0,0,.1);
+    top: 60px;
+    background-color:rgb(211,211,211);
+    border-radius: 25px;
+  }
+
+  .view{
+    text-align: center;
+    margin: auto;
+    display: flex;
+   
+  }
+  
+
+   
+
+  @media screen and (max-width: 800px) {
+    .leftcolumn, .rightcolumn { 
+      width: 100%;
+      padding: 0;
+    }
+  }
+
+
+
+.profile
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+    width: 80%;
+    margin: auto;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 3px #ccc;
+    padding: 16px;
+    text-align: left;
+
+}
+
+
+
+ 
+ 
+
