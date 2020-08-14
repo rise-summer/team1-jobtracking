@@ -10,14 +10,12 @@ function User(user) {
   this.password = user.password;
 }
 
-User.createUser = (newUser) => {
-  console.log('Create a user');
+User.createUser = (newUser, result) => {
   sql.query('INSERT INTO users SET ?', newUser, (err, res) => {
     if (err) {
-      console.log('error: ', err);
-      return sql.rollback(() => {
-        throw err;
-      });
+      result(err, null);
+    } else {
+      result(null, newUser);
     }
   });
 };
