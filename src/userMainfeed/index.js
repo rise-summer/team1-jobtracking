@@ -11,7 +11,7 @@ class MainFeed extends Component {
     constructor(props){
       super(props);
       this.state = {
-        list:[]
+        list:[],
       }
     }
 
@@ -44,14 +44,7 @@ class MainFeed extends Component {
                 <span className='status'>#Status</span>
                 <span className='time'>Time</span>
               </Addition>
-              <ul>{
-              this.state.list.map((item,index) => {
-                return <li key={index}><Comments/></li>
-              })
-            }
-            </ul>
             </Card>
-            <LoadComment onClick={this.getMoreComments.bind(this)}>See the Comments</LoadComment>
           </PostWrapper>
       </Fragment>
       )
