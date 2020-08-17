@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Route } from "react-router-dom";
-import Login from './login';
-import SignUp from "./SignUp/SignUp";
-import MainFeed from "./mainfeed"
-import managePosts from "./managePost"
-import userMain from "./userMainfeed"
+import Login from './components/login';
+import SignUp from "./components/SignUp/SignUp";
+import MainFeed from "./components/mainfeed"
+import managePosts from "./components/managePost"
+import userMain from "./components/userMainfeed"
 
  
 
@@ -14,10 +14,10 @@ class App extends React.Component{
       <div>
         <BrowserRouter>
           <Route path='/' exact component={MainFeed}></Route>
-          <Route path='/Login' exact component={Login}></Route>
-          <Route path='/SignUp' exact component={SignUp}></Route>
-          <Route path='/UserMain' exact component={userMain}></Route>
-          <Route path='/managePosts' exact component={managePosts}></Route>
+          <Route path='/login' exact component={Login}></Route>
+          <Route path='/signup' exact component={SignUp}></Route>
+          <Route path='/usermain' exact component={userMain}></Route>
+          <Route path='/manageposts' exact component={managePosts}></Route>
         </BrowserRouter>
       </div>
     );  
