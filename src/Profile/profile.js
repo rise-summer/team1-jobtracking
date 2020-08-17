@@ -15,7 +15,7 @@ class Profile extends Component {
       <Fragment>
         <Navigation/>
         <div class="leftcolumn">
-         
+          
           <PostWrapper>
             <Card style={{ marginTop: 16 }} type="inner">
                
@@ -36,7 +36,7 @@ class Profile extends Component {
                     <input type="range" min="1" max="100" value="50"></input>
                   </span>
 
-                  <img class='editIcon'src="https://image.flaticon.com/icons/svg/282/282153.svg"></img>
+                  <a href="/editApp1"><img class='editIcon'src="https://image.flaticon.com/icons/svg/282/282153.svg"></img></a>
                   <h1>Facebook</h1>
                   
                   <h2>#Software Engineer 2021 Summer Intern</h2>
@@ -73,7 +73,7 @@ class Profile extends Component {
                 <span className='position2'>#UX Research</span>
                 <span className='position3'>#Developer</span>
                 
-                <button className='view'> View Your Post</button>
+                <a href="/managePosts"><button className='view'> View Your Post</button></a>
                 
              </Addition>
 

@@ -17,30 +17,12 @@ export const PostWrapper = styled.div`
 export const Addition = styled.div`
 
 padding-top: 50px;
-padding-right:100px;
-     
 
-    .addNotes{
-      display: flex;
-      justify-content:Space-evenly;
-      margin-left: -80px;
-      
-          
-    } 
-
-    .editIcon{
-       width:20px;
-    }
-
-    .crossIcon{
-      width:18px;
-
-    }
     
-    .text{
+    .postButton{
         width: 85%;
         padding: 5px;  
-        border: 1px solid #ccc;  
+      
         border-radius: 4px;  
         box-sizing: border-box; /* Make sure that padding and width stays in place */
         margin-top: 6px; /* Add a top margin */
@@ -50,23 +32,36 @@ padding-right:100px;
 
         .share{
           display: flex;
+          justify-content:flex-start;
+
 
       }
 
 
       .shareIcon{
-         width:25px;
-         margin-top: -15px;
-         margin-left: 20px;
+         width:20px;
+         margin-top: -5px;
+         margin-left: 5px;
+      }
+
+
+      .see{
+        display: flex;
+        justify-content:flex-start;
+
       }
 
      
        
       .similar{
-        width: 60%;
-        border: 1px solid #ccc;
-        border-radius: 4px; 
-        margin-left: 5px;
+        width: 85%;
+        padding: 5px;  
+        border: 1px solid #ccc;  
+        border-radius: 4px;  
+        box-sizing: border-box; /* Make sure that padding and width stays in place */
+        margin-top: 6px; /* Add a top margin */
+        margin-bottom: 16px; /* Bottom margin */
+        resize: vertical
       }
       
       .backButton {
