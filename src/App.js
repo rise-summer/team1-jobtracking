@@ -1,17 +1,17 @@
 import React from 'react';
 import { BrowserRouter, Route } from "react-router-dom";
-import NavigationLogIn from "./Navigation/NavigationLogIn";
-import NavigationLogOut from "./Navigation/NavigationLogOut";
-import Login from './login';
-import SignUp from "./SignUp/SignUp";
-import Profile from "./Profile/profile"
-import CongratsCard from "./CongratsCard/Congrat"
+import NavigationLogIn from "./components/Navigation/NavigationLogIn";
+import NavigationLogOut from "./components/Navigation/NavigationLogOut";
+import Login from './components/login';
+import SignUp from "./components/SignUp/SignUp";
+import Profile from "./components/Profile/profile"
+import CongratsCard from "./components/CongratsCard/Congrat"
 
-import MainFeed from "./mainfeed"
-import managePosts from "./managePost"
-import userMain from "./userMainfeed"
-import App1 from "./EnterApp1/App1";
-import App2 from "./EnterApp2/App2";
+import MainFeed from "./components/mainfeed"
+import managePosts from "./components/managePost"
+import userMain from "./components/userMainfeed"
+import App1 from "./components/EnterApp1/App1";
+import App2 from "./components/EnterApp2/App2";
 
 
  
