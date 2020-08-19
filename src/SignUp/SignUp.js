@@ -1,28 +1,38 @@
-import React,{Component} from 'react';
+import React,{Component, Fragment} from 'react';
 import { LoginWrapper,Item,Button,Textfield,LoginBoard} from './SignUpStyle';
-import "./SignUp.css"
+ 
+import Navigation from "../Navigation/NavigationLogOut";
 
 
- class Login extends Component {
+
+ class signUp extends Component {
      render(){
          return (
-            <div class="signUp-container" >
-             <LoginWrapper>
-            <Item className='title'> <h1> Let's Get Ready for your Career!</h1> </Item>
-                    <LoginBoard>
-                    <Item>Name</Item>
-                    <Textfield className='Name'></Textfield>
-                    <Item>Email ID</Item>
-                    <Textfield className='email'></Textfield>
-                    <Item>Password</Item>
-                    <Textfield className='pwd'></Textfield>
-                    <Item>Confirm Password</Item>
-                    <Textfield className='ConPwd'></Textfield>
-                    </LoginBoard>
-                    <a href="/UserMain"><Button>Sign Up</Button></a>
+            <Fragment>
+                <Navigation/>
+                    <LoginWrapper>
+                        <div className="signUp-container"> 
+                             <h1> WELCOME___________</h1>  
+                                <input className="name"  placeholder="  create your username"/> 
+                                <input className="name"  placeholder="  youremail@email.com"/> 
+                                <input className="name"  placeholder="  set your password"/> 
+                                <input className="name"  placeholder="  confirm your password"/> 
+
+
+                                <div className= "signUp">
+                                    <h2> <a href="/userMain"> COMPLETE SIGN UP</a></h2>
+                                   <h5 className="option"> <a href="/Login"> Have an account? Sign in here. </a></h5>
+                                   
+                               </div>
+
+                        </div>
+                                
+                               
+              
+             
              </LoginWrapper>
-             </div>
+             </Fragment>
          )
      }
  }
- export default Login;
+ export default signUp;

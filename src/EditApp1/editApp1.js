@@ -30,7 +30,7 @@ class editApp1 extends Component {
                        <br></br>
 
  
-                      <span className="complete"><a href="/congrates"><span>Complete Update</span></a></span>
+                      <span className="complete"><a href="/userMain"><span>Complete Update</span></a></span>
                   </Addition>
               </Card>
           </PostWrapper>

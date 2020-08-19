@@ -52,7 +52,7 @@ class Profile extends Component {
                     <input type="range" min="1" max="100" value="50"></input>
                   </span>
                   
-                  <img class='editIcon'src="https://image.flaticon.com/icons/svg/282/282153.svg"></img>
+                  <a href="/editApp1"><img class='editIcon'src="https://image.flaticon.com/icons/svg/282/282153.svg"></img> </a>
                   <h1>Microsoft</h1>
                   <h2>#Software Engineer 2020 Summer Intern</h2>
                   <p>The description goes here, the webscraper would ideally take this form the application site so that the user doen't have to manually enter it</p>

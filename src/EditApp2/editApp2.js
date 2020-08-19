@@ -39,7 +39,7 @@ class editApp2 extends Component {
                       </textarea>
 
  
-                      <span className="complete"><a href="/congrates"><span>Complete Update</span></a></span>
+                      <span className="complete"><a href="/congrates">Complete Update</a></span>
 
                       
 

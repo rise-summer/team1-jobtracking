@@ -7,6 +7,7 @@ export const NavWrapper = styled.div`
 `; 
 export const SearchWrapper = styled.div`
     width:1000px;
+    padding-left: 20px;
 `;
 export const NavSearch = styled.input.attrs({
     placeholder:'Search'

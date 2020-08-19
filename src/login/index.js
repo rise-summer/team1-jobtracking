@@ -1,21 +1,34 @@
-import React,{Component} from 'react';
-import { 
-    LoginWrapper,Item,Button,Textfield,LoginBoard
- } from './style';
+import React,{Component, Fragment} from 'react';
+import { LoginWrapper} from './style';
+ 
+import Navigation from "../Navigation/NavigationLogOut";
+
+
 
  class Login extends Component {
      render(){
          return (
-             <LoginWrapper>
-                 <Item className='title'>Log In</Item>
-                    <LoginBoard>
-                    <Item>Email ID</Item>
-                    <Textfield className='email'></Textfield>
-                    <Item>Password</Item>
-                    <Textfield className='pwd'></Textfield>
-                    </LoginBoard>
-                    <a href="/UserMain"><Button>Log In</Button></a>
+            <Fragment>
+                <Navigation/>
+                    <LoginWrapper>
+                        <div className="logIn-container"> 
+                             <h1> WELCOME___________</h1>  
+                                <input className="name"  placeholder="   username/email"/> 
+                                <input className="name"  placeholder="  password"/> 
+                            
+                                <div className= "signUp">
+                                    <h2> <a href="/userMain"> LOG IN</a></h2>
+                                   <h5 className="option"> <a href="/SignUp"> Don't have an account? Sign up here. </a></h5>
+                                   
+                               </div>
+
+                        </div>
+                                
+                               
+              
+             
              </LoginWrapper>
+             </Fragment>
          )
      }
  }

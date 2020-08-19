@@ -1,30 +1,45 @@
 import styled from 'styled-components';
 
 export const LoginWrapper = styled.div`
-    font-size:24px;
-`;
+    font-size: 14px;
+    margin-top: 5%;
 
-export const LoginBoard = styled.div`
-    width:360px;
-    margin:100px auto;
-`;
-
-export const Item = styled.div`
-    &.title {
-        font-size:48px;
-        padding:15px;
-        text-align:center;
+    .logIn-container
+    {
+        margin-top:40px;
+        border-radius: 20px;
+    
+        width: 40%;
+         
+        margin: auto;
+        border: 1px solid #eee;
+        
+        padding: 45px;
+        text-align: center;
+        background-color: lightgrey;
+    
     }
-    padding:10px;
-`;
-export const Button = styled.button`
-    height:20px; 
-    width:100px; 
-    margin: -20px -50px; 
-    position:relative;
-    top:50%; 
-    left:50%;
-`;
-export const Textfield = styled.input`
-    width:350px;
+
+    .name{
+        width: 100%;
+        padding: 6px; 
+        border: 1px solid #ccc;  
+        border-radius: 25px;  
+        box-sizing: border-box; /* Make sure that padding and width stays in place */
+        margin-bottom: 16px; /* Bottom margin */
+        resize: vertical
+    }  
+
+    .signUp{
+        display: flex;
+        justify-content: space-evenly;
+        color: palevioletred;
+
+       }
+
+    
+    .option{
+        padding-top: 10px;
+       
+    }
 `;

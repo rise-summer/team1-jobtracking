@@ -13,11 +13,19 @@ export const PostWrapper = styled.div`
     text-align: center;
     }
 
+    .crossIcon{
+      width:25px;
+      margin-top: px;
+      display: flex;
+    }
+
 `; 
 export const Addition = styled.div`
 
 padding-top: 50px;
 padding-right:100px;
+
+
      
 
 .text{
