@@ -46,7 +46,7 @@ describe('user controller', () => {
       sinon.assert.calledWith(res.json, sinon.match({ password: req.body.password }));
     });
 
-    it('should return status 400 on server error', () => {
+    it('should return status 422 on server error', () => {
       const error = {
         code: 'auth/email-already-in-use',
         message: 'email in use'
@@ -56,7 +56,18 @@ describe('user controller', () => {
       userController.create_a_user(req, res);
       sinon.assert.calledOnce(userModel.createUser);
       sinon.assert.calledWith(res.status, 422);
-      // sinon.assert.calledOnce(res.status(422).end);
+    });
+
+    it('should return status 400 on server error', () => {
+      const error = {
+        code: 'auth/invalid-email',
+        message: 'invalid email address'
+      };
+      sinon.stub(userModel, 'createUser').yields(error);
+
+      userController.create_a_user(req, res);
+      sinon.assert.calledOnce(userModel.createUser);
+      sinon.assert.calledWith(res.status, 400);
     });
   });
 });
