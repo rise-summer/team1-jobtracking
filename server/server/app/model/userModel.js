@@ -1,5 +1,11 @@
 let sql = require('../db');
 const uuid = require('uuid');
+const firebase = require('firebase/app');
+require('firebase/auth');
+
+const { firebaseConfig } = require('../config');
+
+const fbapp = firebase.initializeApp(firebaseConfig);
 
 // user object construction
 function User(user) {
@@ -11,6 +17,14 @@ function User(user) {
 }
 
 User.createUser = (newUser, result) => {
+  fbapp
+    .auth()
+    .createUserWithEmailAndPassword(newUser.email, newUser.password)
+    .catch((err) => {
+      result(err, null);
+      return;
+    });
+
   sql.query('INSERT INTO users SET ?', newUser, (err, res) => {
     if (err) {
       result(err, null);
