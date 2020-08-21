@@ -61,7 +61,7 @@ export const Addition = styled.div`
       box-sizing: border-box; /* Make sure that padding and width stays in place */
       margin-top: 6px; /* Add a top margin */
       margin-bottom: 16px; /* Bottom margin */
-  margin-left:30px;
+      margin-left:15px;
   }
  
     

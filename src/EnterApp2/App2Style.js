@@ -21,6 +21,10 @@ export const PostWrapper = styled.div`
  
 export const Addition = styled.div`
 
+.header{
+  text-align: center;
+}
+
 .text{
         width: 100%;
         padding: 5px;  
@@ -37,24 +41,24 @@ export const Addition = styled.div`
     }
 
     .position{
-      padding: 5px;  
+        padding: 5px;  
         border: 1px solid #ccc;  
         border-radius: 4px;  
         box-sizing: border-box; /* Make sure that padding and width stays in place */
         margin-top: 6px; /* Add a top margin */
         margin-bottom: 16px; /* Bottom margin */
-      width: 60%;
+        width: 80%;
      
     }
 
     .name{
-      padding: 5px;  
+        padding: 5px;  
         border: 1px solid #ccc;  
         border-radius: 4px;  
         box-sizing: border-box; /* Make sure that padding and width stays in place */
         margin-top: 6px; /* Add a top margin */
         margin-bottom: 16px; /* Bottom margin */
-    margin-left:30px;
+        margin-left:15px;
     }
 
     .textArea{

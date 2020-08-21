@@ -2,21 +2,22 @@ import React,{Component, Fragment} from 'react';
 import Navigation from "../Navigation/NavigationLogIn";
 import 'antd/dist/antd.css';
 import { Card } from 'antd';
-import {PostWrapper, Addition} from './profileStyle'
-import "./profile.css"
+import {PostWrapper, Addition} from './style'
+ 
  
 
 
  
-class Profile extends Component {
+class ProfileMini extends Component {
 
   render(){
     return (
       <Fragment>
         <Navigation/>
-        <div class="leftcolumn">
+        
           
           <PostWrapper>
+            <span className="left">
             <Card style={{ marginTop: 16 }} type="inner">
                
 
@@ -59,47 +60,18 @@ class Profile extends Component {
                   <p> Date Applied:11/01/2019 || Deadline: 12/01/2019</p>
               </Addition>
             </Card>
+            </span>
+
+             
+              <a href="/userProfile"><img class='profile'src="https://image.flaticon.com/icons/svg/2622/2622309.svg"></img> </a>
+             
 
           </PostWrapper>
-        </div>
+        
+        
          
-        <div class="rightcolumn">
-
-            <div className="icon">
-              <a href="/userProfileMini"><img className="crossIcon" src="https://image.flaticon.com/icons/svg/545/545676.svg"></img></a>
-              <a href="/userProfile"><img class='pEditIcon'src="https://image.flaticon.com/icons/svg/282/282153.svg"></img> </a>
-            </div>
-
-            <div className="info">
-                <span className='header'> <h1>UXStudent</h1></span>
-                <h2> Sharifa Jesmin </h2>
-                <p> Majoring in Informatics</p>
-                <p> Attending University of California, Irvine</p>
-            </div>
-           
-             
-             <Addition>
-               <div className="hash">
-                  <span className='position'>#UX/UI </span>
-                  <span className='position'>#UX Research</span>
-                  <span className='position'>#Developer</span>
-                  <button className='position'>+New Interest</button> 
-                </div>
-
-                
-             </Addition>
-
-                <h4>Recent Searches: </h4>
-                <h5>#Backend</h5>
-                <h5>#Software Developement</h5>
-                <h5>#Tag</h5>
-
-             <a href="/managePosts"><button className='view'> View Your Post</button></a>
-
-             
-          </div>
     </Fragment>
     )
   }
 }
-export default Profile;
+export default ProfileMini;

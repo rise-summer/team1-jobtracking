@@ -5,6 +5,7 @@ import NavigationLogOut from "./Navigation/NavigationLogOut";
 import Login from './login';
 import SignUp from "./SignUp/SignUp";
 import Profile from "./Profile/profile"
+import ProfileMini from "./ProfileMini/ProfileMini"
 import CongratsCard from "./CongratsCard/Congrat"
 
 import MainFeed from "./mainfeed"
@@ -27,6 +28,8 @@ class App extends React.Component{
       <div>
         <BrowserRouter> 
           <Route path='/userProfile' exact component={Profile}></Route>
+          <Route path='/userProfileMini' exact component={ProfileMini}></Route>
+
           <Route path='/userApp1' exact component={App1}></Route>
           <Route path='/userApp2' exact component={App2}></Route>
           <Route path='/userApp3' exact component={App3}></Route>

@@ -1,11 +1,35 @@
 import styled from 'styled-components';
 
 export const PostWrapper = styled.div`
-    padding:50px 50px 50px 50px;
+    padding:20px 20px 20px 20px;
     height: 100px
     width:200px
     border: 100px 100px 100px 100px;
+    display: flex;
+    
+
+    .left{ 
+        float: left;
+        width: 95%;
+        top: 20px;
+      }
+
+    .right{ 
+        float: right;
+        width: 50%;
+        top: 20px;
+      }
+
+      .profile{
+        float:left;
+        width: 40px;
+    }
+
+
+
 `; 
+
+
 
 
 export const Addition = styled.div`

@@ -32,8 +32,13 @@ class editApp2 extends Component {
                         <input className="position"  placeholder="Software Engineering Intern"/> 
                         <input className="name"  placeholder="Facebook"/> 
                       </div>
+
+                      <div className= "post">
+                        <input className="position"  placeholder="Dealine: 10/01/2020"/> 
+                        <input className="name"  placeholder="Menlo Park, California"/> 
+                      </div>
                       
-                      <input className="text"  placeholder="Date of the dealine: 10/01/2020"/> 
+                      
                       <textarea className="textArea"> As an intern, you'll become an expert on the Facebook Terminal and gain a deeper understanding of technology and finance. 
                       In addition to your projects, you'll participate in coding challenges, attend tech talks and network with other interns.
                       </textarea>

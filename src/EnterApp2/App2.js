@@ -24,7 +24,12 @@ class App2 extends Component {
                         <input className="name"  placeholder="Facebook"/> 
                       </div>
                       
-                      <input className="text"  placeholder="Date of the dealine: 10/01/2020"/> 
+                      <div className= "post">
+                        <input className="position"  placeholder="Dealine: 10/01/2020"/> 
+                        <input className="name"  placeholder="Menlo Park, California"/> 
+                      </div>
+                    
+
                       <textarea className="textArea"> As an intern, you'll become an expert on the Facebook Terminal and gain a deeper understanding of technology and finance. 
                       In addition to your projects, you'll participate in coding challenges, attend tech talks and network with other interns.
                       </textarea>
