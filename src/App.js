@@ -7,13 +7,8 @@ import managePosts from "./components/managePost";
 import userMain from "./components/userMainfeed";
 import NavigationLogIn from "./components/Navigation/NavigationLogIn";
 import NavigationLogOut from "./components/Navigation/NavigationLogOut";
-import Login from './components/login';
-import SignUp from "./components/SignUp/SignUp";
 import Profile from "./components/Profile/profile";
 import CongratsCard from "./components/CongratsCard/Congrat";
-import MainFeed from "./components/mainfeed";
-import managePosts from "./components/managePost";
-import userMain from "./components/userMainfeed";
 import App1 from "./components/EnterApp1/App1";
 import App2 from "./components/EnterApp2/App2";
 
