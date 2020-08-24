@@ -22,3 +22,10 @@ React Redux is the official React binding for Redux. It lets your React componen
 npm install react-redux
 ```
 [react-redux](https://react-redux.js.org/introduction/quick-start)
+
+4. use **redux-thunk** as the middleware for Redux
+Thunks are the recommended middleware for basic Redux side effects logic, including complex synchronous logic that needs access to the store, and simple async logic like AJAX requests.
+```bash
+npm install redux-thunk
+```
+[redux-thunk](https://github.com/reduxjs/redux-thunk)
