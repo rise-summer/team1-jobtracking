@@ -12,9 +12,14 @@ import CongratsCard from "./components/CongratsCard/Congrat";
 import App1 from "./components/EnterApp1/App1";
 import App2 from "./components/EnterApp2/App2";
 
+import {Provider} from 'react-redux';
+import store from './store/index.js';
+
+
 class App extends React.Component{
   render() {
     return(
+      <Provider store={store}>
       <div>
         <BrowserRouter> 
           <Route path='/userProfile' exact component={Profile}></Route>
@@ -31,6 +36,7 @@ class App extends React.Component{
         
         </BrowserRouter>
       </div>
+      </Provider>
     );  
   } 
 }
