@@ -15,3 +15,10 @@ npm install styled-components
 npm install redux
 ```
 [redux](https://redux.js.org/)
+
+3. use **React-Redux**
+React Redux is the official React binding for Redux. It lets your React components read data from a Redux store, and dispatch actions to the store to update data.
+```bash
+npm install react-redux
+```
+[react-redux](https://react-redux.js.org/introduction/quick-start)
