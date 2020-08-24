@@ -34,6 +34,8 @@ class MainFeed extends Component {
             </ul>
             </Card>
             <LoadComment onClick={this.getMoreComments.bind(this)}>See the Comments</LoadComment>
+
+            
             <Card style={{ marginTop: 30 }} type="inner" title="TITLE OF POST/UPDATE">
               The user can talk about their experience here before being cut off 100 words, then it goes under the fold.
               <Addition>

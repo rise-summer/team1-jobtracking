@@ -70,3 +70,10 @@ export const LogOut = styled.div`
     top:15px;
     right:200px;
 `;
+export const SearchTag = styled.div`
+    position:absolute;
+    padding-top:10px;
+    padding-left:30px;
+    margin-left:20px;
+    font-size:40px;
+`;

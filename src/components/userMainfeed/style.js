@@ -22,4 +22,15 @@ export const LoadComment = styled.div`
     background:#fafafa;
     padding:20px;
 `;
-
+export const NewComment = styled.div`
+    background:#fafafa;
+    padding:20px;
+    input{
+        margin-left:5%;
+        margin-right:5%;
+        width:80%;
+    }
+    button{
+        length:5%;
+    }
+`
