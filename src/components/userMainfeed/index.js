@@ -11,7 +11,9 @@ class MainFeed extends Component {
     constructor(props){
       super(props);
       this.state = {
-        open:false
+        open:false,
+        inputValue:'',
+        list:[]
       }
     }
 
@@ -35,19 +37,20 @@ class MainFeed extends Component {
                 <Comments></Comments>
                 <Comments></Comments>
                 <Comments></Comments>
+
+              <ul>{
+              this.state.list.map((item,index) => {
+              return( <p key={index}>
+                <p>UserName</p>
+                {item}
+                </p>)
+              })
+            }</ul>
+            
                 </Fragment>
               ):null}
               </Card>
-              <NewComment><span>UserName</span><input placeholder="add a new post"></input><button>Comment</button></NewComment>
-
-{/* 
-              <ul>{
-              this.state.list.map((item,index) => {
-                return <li key={index}><Comments/></li>
-              })
-            }</ul> */}
-
-            {/* <LoadComment onClick={this.getMoreComments.bind(this)}>See the Comments</LoadComment>  */}
+              <NewComment><span>UserName</span><input placeholder="add a new post" value={this.state.inputValue} onChange={this.handleInputChange.bind(this)}></input><button onClick={this.addNewComment.bind(this)}>Comment</button></NewComment>
 
             <Card style={{ marginTop: 30 }} type="inner" title="Google SWE Experience">
               Last summer I interned at Google as a SWE. It was a great experience, and here are some of my key insights.
@@ -67,6 +70,18 @@ class MainFeed extends Component {
       this.setState({
         open:!this.state.open
       })
+    }
+    handleInputChange(event){
+      const value = event.target.value;
+      this.setState(()=> ({
+        inputValue:value
+      }))
+    }
+    addNewComment(event){
+      this.setState((prevState) => ({
+        list:[...prevState.list, prevState.inputValue], 
+        inputValue: ''
+    }))
     }
 }
 export default MainFeed
