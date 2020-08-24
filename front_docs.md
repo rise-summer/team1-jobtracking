@@ -7,3 +7,11 @@ npm install styled-components
 ```
 
 [styled-components/styled-components](https://github.com/styled-components/styled-components)
+
+
+2. use **redux** to manage data and components
+
+```bash
+npm install redux
+```
+[redux](https://redux.js.org/)
