@@ -34,7 +34,7 @@ class NewPost extends Component {
     }
     else{
       return (
-        <CreatePost onClick={this.togglePost}><button>Create a post</button></CreatePost>
+        <CreatePost onClick={this.togglePost}><button>Create new post</button></CreatePost>
       )
     }
   }

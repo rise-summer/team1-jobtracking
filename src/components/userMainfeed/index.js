@@ -23,7 +23,7 @@ class MainFeed extends Component {
           <Navigation/>
           <PostWrapper>
             <NewPost/>
-            <div>Most recent posts:</div>
+            <h2>Most recent posts:</h2>
 
             <Card type="inner" title="Google SWE Experience" onClick={this.toggleCard.bind(this)}>
               Last summer I interned at Google as a SWE. It was a great experience, and here are some of my key insights.
@@ -46,11 +46,30 @@ class MainFeed extends Component {
                 </p>)
               })
             }</ul>
-            
                 </Fragment>
               ):null}
               </Card>
               <NewComment><span>UserName</span><input placeholder="add a new post" value={this.state.inputValue} onChange={this.handleInputChange.bind(this)}></input><button onClick={this.addNewComment.bind(this)}>Comment</button></NewComment>
+
+            <Card style={{ marginTop: 30 }} type="inner" title="Google SWE Experience">
+              Last summer I interned at Google as a SWE. It was a great experience, and here are some of my key insights.
+              <Addition>
+                <span className='position'>#Position</span>
+                <span className='status'>#Status</span>
+                <span className='time'>Time</span>
+              </Addition>
+            </Card>
+            <NewComment><span>UserName</span><input placeholder="add a new post"></input><button>Comment</button></NewComment>
+
+            <Card style={{ marginTop: 30 }} type="inner" title="Google SWE Experience">
+              Last summer I interned at Google as a SWE. It was a great experience, and here are some of my key insights.
+              <Addition>
+                <span className='position'>#Position</span>
+                <span className='status'>#Status</span>
+                <span className='time'>Time</span>
+              </Addition>
+            </Card>
+            <NewComment><span>UserName</span><input placeholder="add a new post"></input><button>Comment</button></NewComment>
 
             <Card style={{ marginTop: 30 }} type="inner" title="Google SWE Experience">
               Last summer I interned at Google as a SWE. It was a great experience, and here are some of my key insights.
