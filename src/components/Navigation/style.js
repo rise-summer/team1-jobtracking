@@ -50,23 +50,24 @@ export const Button = styled.div `
      
 
 `
-export const Pic = styled.div`
-    .profilePic{
-        position:absolute;
-        top:0;
-        right:0;
-        height:50px;
-    }
-    .notif{
-        position:absolute;
-        top:18px;
-        right:120px;
-        height:20px;
-    }
-
-`;
 export const LogOut = styled.div`
     position:absolute;
     top:15px;
     right:200px;
+`;
+
+export const Tracker = styled.div`
+    position:absolute;
+    top:15px;
+    right:100px;
+`
+export const SearchTag = styled.div`
+    position:absolute;
+    padding-left:30px;
+    margin-left:20px;
+    font-size:40px;
+    div{
+        font-size:15px;
+        padding-top:2px;
+    }
 `;

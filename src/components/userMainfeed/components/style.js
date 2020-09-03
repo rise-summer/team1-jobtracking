@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const NewPostWrapper = styled.div`
-    margin:30px auto;
+    margin:40px auto;
     padding:10px;
     background:#fff;
     box-shadow:0 0 8px rgba(0,0,0,.1)
@@ -20,6 +20,12 @@ export const CreatePost = styled.div`
     padding-bottom:20px;
     button{
         float:right;
+        background-color:#175596;
+        color:#FFFFFF;
+        border-radius: 8px;
+        border: none;
+        text-decoration: none;
+        padding:8px;
     }
 `;
 
@@ -28,7 +34,6 @@ export const TitleInput = styled.input`
     width:100%;
     color:#777;
     margin:10px auto;
-
 `;
 export const ContentInput = styled.textarea`
     display:block;
@@ -44,8 +49,18 @@ export const Addition = styled.div`
     width:100%;
     button{
         position:relative;
-        width:5%;
-        left:65%;
+        width:20%;
+        margin-left:2%;
         margin-right:5%;
+        text-align:left;
+        padding: 2px 15px;
+        background-color:#175596;
+        color:#FFFFFF;
+        border-radius: 8px;
+        border: none;
+    }
+    .post {
+        width: 10%;
+        float:right;
     }
 `; 

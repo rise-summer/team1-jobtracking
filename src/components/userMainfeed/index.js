@@ -2,7 +2,7 @@ import React,{Component, Fragment} from 'react';
 import Navigation from "../Navigation/NavigationLogIn";
 import 'antd/dist/antd.css';
 import { Card } from 'antd';
-import {PostWrapper, Addition,LoadComment}from './style';
+import {PostWrapper, Addition, NewComment,LoadComment}from './style';
 import Comments from '../mainfeed/components/comments'
 import NewPost from './components/index'
 
@@ -11,7 +11,9 @@ class MainFeed extends Component {
     constructor(props){
       super(props);
       this.state = {
-        list:[],
+        open:false,
+        inputValue:'',
+        list:[]
       }
     }
 
@@ -21,22 +23,34 @@ class MainFeed extends Component {
           <Navigation/>
           <PostWrapper>
             <NewPost/>
-            <div>Most recent posts:</div>
-            <Card type="inner" title="Google SWE Experience">
+            <h2>Most recent posts:</h2>
+
+            <Card type="inner" title="Google SWE Experience" onClick={this.toggleCard.bind(this)}>
               Last summer I interned at Google as a SWE. It was a great experience, and here are some of my key insights.
-              <Addition>
-                <span className='position'>#Position</span>
-                <span className='status'>#Status</span>
-                <span className='time'>Time</span>
-              </Addition>
+              {this.state.open ? (
+                <Fragment>
+                <Addition>
+                  <span className='position'>#Position</span>
+                  <span className='status'>#Status</span>
+                  <span className='time'>Time</span>
+                </Addition>
+                <Comments></Comments>
+                <Comments></Comments>
+                <Comments></Comments>
+
               <ul>{
               this.state.list.map((item,index) => {
-                return <li key={index}><Comments/></li>
+              return( <p key={index}>
+                <p>UserName</p>
+                {item}
+                </p>)
               })
-            }
-            </ul>
-            </Card>
-            <LoadComment onClick={this.getMoreComments.bind(this)}>See the Comments</LoadComment>
+            }</ul>
+                </Fragment>
+              ):null}
+              </Card>
+              <NewComment><span>UserName</span><input placeholder="add a new post" value={this.state.inputValue} onChange={this.handleInputChange.bind(this)}></input><button onClick={this.addNewComment.bind(this)}>Comment</button></NewComment>
+
             <Card style={{ marginTop: 30 }} type="inner" title="Google SWE Experience">
               Last summer I interned at Google as a SWE. It was a great experience, and here are some of my key insights.
               <Addition>
@@ -45,14 +59,48 @@ class MainFeed extends Component {
                 <span className='time'>Time</span>
               </Addition>
             </Card>
+            <NewComment><span>UserName</span><input placeholder="add a new post"></input><button>Comment</button></NewComment>
+
+            <Card style={{ marginTop: 30 }} type="inner" title="Google SWE Experience">
+              Last summer I interned at Google as a SWE. It was a great experience, and here are some of my key insights.
+              <Addition>
+                <span className='position'>#Position</span>
+                <span className='status'>#Status</span>
+                <span className='time'>Time</span>
+              </Addition>
+            </Card>
+            <NewComment><span>UserName</span><input placeholder="add a new post"></input><button>Comment</button></NewComment>
+
+            <Card style={{ marginTop: 30 }} type="inner" title="Google SWE Experience">
+              Last summer I interned at Google as a SWE. It was a great experience, and here are some of my key insights.
+              <Addition>
+                <span className='position'>#Position</span>
+                <span className='status'>#Status</span>
+                <span className='time'>Time</span>
+              </Addition>
+            </Card>
+            <NewComment><span>UserName</span><input placeholder="add a new post"></input><button>Comment</button></NewComment>
+
           </PostWrapper>
       </Fragment>
       )
     }
-    getMoreComments(event){
+    toggleCard(event){
       this.setState({
-        list:[...this.state.list,1]
+        open:!this.state.open
       })
+    }
+    handleInputChange(event){
+      const value = event.target.value;
+      this.setState(()=> ({
+        inputValue:value
+      }))
+    }
+    addNewComment(event){
+      this.setState((prevState) => ({
+        list:[...prevState.list, prevState.inputValue], 
+        inputValue: ''
+    }))
     }
 }
 export default MainFeed
