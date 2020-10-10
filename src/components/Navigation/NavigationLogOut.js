@@ -1,59 +1,75 @@
 import React, { Fragment } from "react";
 import {
-  NavWrapper,
-  SearchWrapper,
+  OuterDiv,
+  InnerDiv,
+  SearchDiv,
+  LogoDiv,
+  LogoButton,
+  NavDiv,
   NavSearch,
-  Button,
-  Addition,
-  Pic,
+  AdditionDiv,
+  AdditionWrapper,
+  AdditionButton,
   SearchTag
+
 } from './style'
 
-class NavigationLogOut extends React.Component{
+class NavigationLogOut extends React.Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      inputValue:'',
-      tag:''
+      inputValue: '',
+      tag: ''
     }
   }
 
-    render() {
-        return (
-          <Fragment>
-          <NavWrapper>
-            <SearchWrapper>
-            <a href="/userMain"><span>Logo</span></a><NavSearch></NavSearch>
-            </SearchWrapper>
-            <Addition>
-                <a href="/SignUp"> <Button>Sign Up</Button></a>
-                <a href="/Login"><Button>Log In</Button></a>
-            </Addition>
-          </NavWrapper>
-          <SearchTag>{this.state.tag}</SearchTag>
-          </Fragment>
+  render() {
+    return (
+      <Fragment>
+        <OuterDiv>
+          <InnerDiv>
+            <SearchDiv>
+              <LogoDiv>
+                <div><LogoButton href="/userMain"><div>Logo</div></LogoButton></div>
+              </LogoDiv>
+              <NavDiv>
+                <div><NavSearch></NavSearch></div>
+              </NavDiv>
+            </SearchDiv>
+            <AdditionDiv>
+              <AdditionWrapper>
+                <div><AdditionButton href="/SignUp">sign up</AdditionButton></div>
+              </AdditionWrapper>
+              <AdditionWrapper>
+                <div><AdditionButton href="/Login"><div>log in</div></AdditionButton></div>
+              </AdditionWrapper>
+            </AdditionDiv>
+          </InnerDiv>
+        </OuterDiv>
+        <SearchTag>{this.state.tag}</SearchTag>
+      </Fragment>
     );
   }
 
-  getSearchTag(){
-    if(this.state.inputValue != ''){
+  getSearchTag() {
+    if (this.state.inputValue != '') {
       this.setState({
         tag: "#" + this.state.inputValue,
-        inputValue:''
+        inputValue: ''
       })
-    }else{
+    } else {
       this.setState({
-        tag:''
+        tag: ''
       })
     }
   }
-  
-  handleInputChange(event){
+
+  handleInputChange(event) {
     this.setState({
-      inputValue:event.target.value
+      inputValue: event.target.value
     })
   }
 }
-  
-  export default NavigationLogOut;
+
+export default NavigationLogOut;

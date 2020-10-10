@@ -1,21 +1,96 @@
 import styled from 'styled-components';
 
+
+export const OuterDiv = styled.div`
+    
+`;
+
+export const InnerDiv = styled.div`
+    display: flex;
+    justify-content: space-between;
+    font-family: Sans-Serif;
+    position: relative;
+    padding: 0px 80px 0px 80px;
+    
+`;
+
+export const SearchDiv = styled.div`
+    display: flex;
+    justify-content: flex-start;
+    flex-grow: 1
+    flex-shrink: 1
+   
+`;
+
+export const AdditionDiv = styled.div`
+display: flex;
+    justify-content: flex-start;
+    flex-grow: 1
+    flex-shrink: 1  
+`;
+
+export const LogoDiv = styled.div`
+padding: 20px 102px 0px 0px     
+`;
+
+export const NavDiv = styled.div`
+padding: 20px 0px 0px 0px     
+`;
+
+
 export const NavWrapper = styled.div`
-    position:relative;
-    height:56px;
-    border-bottom: 1px solid #f0f0f0;
-`; 
+
+`;
+
+
+
+export const AdditionWrapper = styled.div`
+   padding: 20px 30px 0px 0px 
+`;
+
+export const LogoButton = styled.a`
+    font-style: normal;
+    font-weight: 800;
+    font-size: 22px;
+    line-height: 30px;
+    /* identical to box height */
+
+    letter-spacing: 0.5px;
+
+    color: #175596;
+    border: none;
+    background: none;
+    cusor: pointer
+`;
+
+export const AdditionButton = styled.a`
+    font-style: normal;
+    font-weight: 800;
+    font-size: 22px;
+    line-height: 30px;
+    /* identical to box height */
+
+    letter-spacing: 0.5px;
+
+    color: #5C5C5C;
+    border: none;
+    background: none;
+    cursor: pointer
+`;
+
+
+
+
+
 export const SearchWrapper = styled.div`
     width:1000px;
 `;
 export const NavSearch = styled.input.attrs({
     placeholder:'Search'
 })`
-    width:500px;
+    width: 614px;
     height:38px;
     padding:0 30px 0 20px;
-    margin-top:9px;
-    margin-left:20px;
     box-sizing:border-box;
     border:none;
     outline:none;
@@ -28,14 +103,9 @@ export const NavSearch = styled.input.attrs({
     &.focused {
         width: 240px;
     }
-
     
 `;
-export const Addition = styled.div `
-    position:absolute;
-    top:0;
-    right:80px;
-`;
+
 export const Button = styled.div `
     margin-top:6px;
     padding:0 18px;
@@ -48,7 +118,6 @@ export const Button = styled.div `
         background:#ec6149;
     }
      
-
 `
 export const LogOut = styled.div`
     position:absolute;
@@ -62,9 +131,7 @@ export const Tracker = styled.div`
     right:100px;
 `
 export const SearchTag = styled.div`
-    position:absolute;
-    padding-left:30px;
-    margin-left:20px;
+    position:relative;
     font-size:40px;
     div{
         font-size:15px;

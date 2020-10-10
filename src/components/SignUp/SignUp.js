@@ -1,27 +1,66 @@
 import React,{Component} from 'react';
-import { LoginWrapper,Item,Button,Textfield,LoginBoard} from './SignUpStyle';
+import { LoginWrapper,
+    Item,
+    Button,
+    Textfield,
+    LoginBoard, 
+    LoginDiv,
+     BackgroundDiv, 
+     DarkBlueDiv,
+     LightBlueDiv,
+     ContentDiv,
+     Email,
+     Pwd,
+     ButtonDiv,
+     InnerButtonDiv,
+     SignUpButton,
+     SignUpDiv,
+     FieldDiv,
+     UserName,
+     ConfirmPwd
+    } from './SignUpStyle';
 import "./SignUp.css"
 
 
  class Login extends Component {
      render(){
          return (
-            <div class="signUp-container" >
              <LoginWrapper>
-            <Item className='title'> <h1> Let's Get Ready for your Career!</h1> </Item>
-                    <LoginBoard>
-                    <Item>Name</Item>
-                    <Textfield className='Name'></Textfield>
-                    <Item>Email ID</Item>
-                    <Textfield className='email'></Textfield>
-                    <Item>Password</Item>
-                    <Textfield className='pwd'></Textfield>
-                    <Item>Confirm Password</Item>
-                    <Textfield className='ConPwd'></Textfield>
-                    </LoginBoard>
-                    <a href="/UserMain"><Button>Sign Up</Button></a>
-             </LoginWrapper>
-             </div>
+                <LoginDiv>
+                    <BackgroundDiv>
+                        <DarkBlueDiv></DarkBlueDiv>
+                        <LightBlueDiv></LightBlueDiv>
+                    </BackgroundDiv>
+                    <ContentDiv>
+                        <form onSubmit = {this.submit}>
+                            <Item className='title'>Welcome __________</Item>
+                            <LoginBoard>
+                                <FieldDiv>
+                                    <UserName className='email' type='text' name='email'></UserName>
+                                </FieldDiv>
+                                <FieldDiv>
+                                    <Email className='pwd' type='password' name='password'></Email>
+                                </FieldDiv>
+                                <FieldDiv>
+                                    <Pwd className='pwd' type='password' name='password'></Pwd>
+                                </FieldDiv>
+                                <FieldDiv>
+                                    <ConfirmPwd className='pwd' type='password' name='password'></ConfirmPwd>
+                                </FieldDiv>
+
+                            </LoginBoard>
+                            <ButtonDiv>
+                                <InnerButtonDiv>
+                                    <Button type='submit'>COMPLETE SIGN UP</Button>
+                                </InnerButtonDiv>
+                                <SignUpDiv>
+                                    <SignUpButton href="/SignUp">have an account? sign in here. </SignUpButton>
+                                </SignUpDiv>
+                            </ButtonDiv>
+                        </form>
+                    </ContentDiv>
+                </LoginDiv>
+            </LoginWrapper>
          )
      }
  }
