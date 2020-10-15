@@ -31,7 +31,7 @@ import {
                     <Item>Password</Item>
                     <Textfield className='pwd' onChange={(e, v)=>{this.setState({pwd: v})}}></Textfield>
                     </LoginBoard>
-                    <a href="/UserMain"><Button onClick={(e)=> login(e)}>Log In</Button></a>
+                    <a href="/UserMain"><Button onClick={(e)=>login()}>Log In</Button></a>
              </LoginWrapper>
          )
      }
