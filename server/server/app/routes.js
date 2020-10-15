@@ -4,4 +4,5 @@ module.exports = function (app) {
   // user routes
   app.route('/signup').post(userController.create_a_user);
   app.route('/users').get(userController.list_all_users);
+  app.route('/signin').post(userController.log_in_user);
 };
