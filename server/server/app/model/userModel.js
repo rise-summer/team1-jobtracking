@@ -32,6 +32,7 @@ User.createUser = (newUser, result) => {
       result(null, newUser);
     }
   });
+  sql.end();
 };
 
 User.getUserById = (userId) => {

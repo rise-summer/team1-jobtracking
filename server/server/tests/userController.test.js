@@ -1,6 +1,7 @@
 const userModel = require('../app/model/userModel');
 const userController = require('../app/controller/userController');
 const sinon = require('sinon');
+const mysql = require('../app/db');
 
 describe('user controller', () => {
   describe('create a new user', () => {
@@ -21,6 +22,16 @@ describe('user controller', () => {
         status: sinon.stub().returns({ end: sinon.spy() })
       };
     });
+
+    // beforeEach(() => {
+    //   const successConnectionObj = {
+    //     connect: () => {
+    //       console.log('Succesfully connected');
+    //     }
+    //   };
+    //   const mockmysql = sinon.mock(mysql);
+    //   mockmysql.expects('createConnection').returns(successConnectionObj);
+    // });
 
     // beforeEach(() => {
     // const successConnectionObj = {
