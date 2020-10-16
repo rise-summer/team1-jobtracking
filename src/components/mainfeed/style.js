@@ -13,7 +13,6 @@ border-radius: 16px;
 `;
 
 
-
 export const PostWrapper = styled.div`
     padding:50px 80px 50px 80px;
     background:  #F5F5F5;
