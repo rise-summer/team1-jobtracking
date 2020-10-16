@@ -10,7 +10,7 @@ export const InnerDiv = styled.div`
     justify-content: space-between;
     font-family: Sans-Serif;
     position: relative;
-    padding: 0px 80px 0px 80px;
+    padding: 20px 80px 20px 80px;
     
 `;
 
@@ -30,11 +30,11 @@ display: flex;
 `;
 
 export const LogoDiv = styled.div`
-padding: 20px 102px 0px 0px     
+padding: 0px 102px 0px 0px     
 `;
 
 export const NavDiv = styled.div`
-padding: 20px 0px 0px 0px     
+padding: 0px 0px 0px 0px     
 `;
 
 
@@ -45,7 +45,7 @@ export const NavWrapper = styled.div`
 
 
 export const AdditionWrapper = styled.div`
-   padding: 20px 30px 0px 0px 
+   padding: 0px 30px 0px 0px 
 `;
 
 export const LogoButton = styled.a`

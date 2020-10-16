@@ -1,67 +1,73 @@
-import React,{Component} from 'react';
-import { LoginWrapper,
+import React, { Component } from 'react';
+import {
+    LoginWrapper,
     Item,
     Button,
     Textfield,
-    LoginBoard, 
+    LoginBoard,
     LoginDiv,
-     BackgroundDiv, 
-     DarkBlueDiv,
-     LightBlueDiv,
-     ContentDiv,
-     Email,
-     Pwd,
-     ButtonDiv,
-     InnerButtonDiv,
-     SignUpButton,
-     SignUpDiv,
-     FieldDiv,
-     UserName,
-     ConfirmPwd
-    } from './SignUpStyle';
+    BackgroundDiv,
+    DarkBlueDiv,
+    LightBlueDiv,
+    ContentDiv,
+    Email,
+    Pwd,
+    ButtonDiv,
+    InnerButtonDiv,
+    SignUpButton,
+    SignUpDiv,
+    FieldDiv,
+    UserName,
+    ConfirmPwd
+} from './SignUpStyle';
 import "./SignUp.css"
 
 
- class Login extends Component {
-     render(){
-         return (
-             <LoginWrapper>
+class Login extends Component {
+
+    submit = (e) => {
+        e.preventDefault();
+        console.log('Event: Form Submit');
+    }
+
+    render() {
+        return (
+            <LoginWrapper>
                 <LoginDiv>
                     <BackgroundDiv>
                         <DarkBlueDiv></DarkBlueDiv>
                         <LightBlueDiv></LightBlueDiv>
                     </BackgroundDiv>
                     <ContentDiv>
-                        <form onSubmit = {this.submit}>
-                            <Item className='title'>Welcome __________</Item>
+                        <form onSubmit={this.submit}>
+                            <Item className='title'>Welcome ___________________</Item>
                             <LoginBoard>
                                 <FieldDiv>
-                                    <UserName className='email' type='text' name='email'></UserName>
+                                    <UserName className='username' type='text' name='username'></UserName>
                                 </FieldDiv>
                                 <FieldDiv>
-                                    <Email className='pwd' type='password' name='password'></Email>
+                                    <Email className='email' type='text' name='email'></Email>
                                 </FieldDiv>
                                 <FieldDiv>
-                                    <Pwd className='pwd' type='password' name='password'></Pwd>
+                                    <Pwd className='pwd' type='password' name='pwd'></Pwd>
                                 </FieldDiv>
                                 <FieldDiv>
-                                    <ConfirmPwd className='pwd' type='password' name='password'></ConfirmPwd>
+                                    <ConfirmPwd className='cnfmpwd' type='password' name='cnfmpwd'></ConfirmPwd>
                                 </FieldDiv>
-
                             </LoginBoard>
                             <ButtonDiv>
                                 <InnerButtonDiv>
                                     <Button type='submit'>COMPLETE SIGN UP</Button>
                                 </InnerButtonDiv>
                                 <SignUpDiv>
-                                    <SignUpButton href="/SignUp">have an account? sign in here. </SignUpButton>
+                                    <SignUpButton href="/LogIn">have an account? sign in here. </SignUpButton>
                                 </SignUpDiv>
                             </ButtonDiv>
                         </form>
                     </ContentDiv>
                 </LoginDiv>
             </LoginWrapper>
-         )
-     }
- }
- export default Login;
+        )
+    }
+}
+export default Login;
