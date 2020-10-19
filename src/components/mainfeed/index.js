@@ -3,7 +3,6 @@ import Navigation from "../Navigation/NavigationLogOut";
 import 'antd/dist/antd.css';
 import { Card } from 'antd';
 import {
-  PostWrapper,
   Addition,
   LoadComment,
   Headding,
@@ -11,7 +10,8 @@ import {
   CommentBtnDiv,
   Text,
   CommentButton,
-  My_Card
+  My_Card,
+  BackgroundDiv
 } from './style';
 import Comments from './components/comments'
 
@@ -54,7 +54,7 @@ class MainFeed extends Component {
     return (
       <Fragment>
         <Navigation />
-        <PostWrapper>
+        <BackgroundDiv>
           <Headding>
             <TextDiv>
               <Text> Most Recent Posts </Text>
@@ -102,7 +102,7 @@ class MainFeed extends Component {
             </Addition>
           </My_Card>
           <LoadComment><Comments /></LoadComment>
-        </PostWrapper>
+        </BackgroundDiv>
       </Fragment>
     )
   }

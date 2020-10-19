@@ -20,7 +20,7 @@ import {
     UserName,
     ConfirmPwd
 } from './SignUpStyle';
-import "./SignUp.css"
+
 
 
 class Login extends Component {

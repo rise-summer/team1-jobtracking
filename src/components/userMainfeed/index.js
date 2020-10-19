@@ -85,6 +85,7 @@ class MainFeed extends Component {
       </Fragment>
       )
     }
+    
     toggleCard(event){
       this.setState({
         open:!this.state.open

@@ -12,7 +12,7 @@ import {
   AdditionButton,
   SearchTag
 
-} from './style'
+} from './style.js'
 
 class NavigationLogOut extends React.Component {
 
@@ -43,6 +43,9 @@ class NavigationLogOut extends React.Component {
               </AdditionWrapper>
               <AdditionWrapper>
                 <div><AdditionButton href="/Login"><div>log in</div></AdditionButton></div>
+              </AdditionWrapper>
+              <AdditionWrapper>
+                <div><AdditionButton href="/trackr"><div>trackr</div></AdditionButton></div>
               </AdditionWrapper>
             </AdditionDiv>
           </InnerDiv>
