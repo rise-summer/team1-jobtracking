@@ -13,9 +13,10 @@ export const Headding = styled.div`
   background: #175596;
   border: 3px solid #175596;
   border-radius: 5px;
-  width: 899px;
+  width: 1296px;
   height: 88px;
   display: flex;
+  align-items: center;
 `;
 
 export const Title = styled.div`
@@ -28,7 +29,7 @@ export const Title = styled.div`
   letter-spacing: 2.08333px;
   color: #ffffff;
   display: block;
-  margin: auto 20px ;
+  margin: auto 60px;
 `;
 
 export const NewAppBtn = styled.button`
@@ -47,6 +48,7 @@ export const NewAppBtn = styled.button`
   color: #000000;
   margin: auto 10px;
   display: block;
+  height: 53px;
 `;
 
 export const Sort = styled.select`
@@ -54,6 +56,13 @@ export const Sort = styled.select`
   border: 4px solid #8191ba;
   border-radius: 10px;
   width: 158px;
+  font-family: sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 25px;
+  line-height: 34px;
+  color: #000000;
+  height: 53px;
 `;
 
 export const Option = styled.option`
@@ -64,6 +73,15 @@ export const Option = styled.option`
   line-height: 34px;
   /* identical to box height */
   color: #000000;
+  justify-content: center;
+  border-radius: 14px;
+  :hover {
+    background: #8191ba;
+    border-radius: 14px;
+  }
+  
 `;
 
-export const Apps = styled.div``;
+export const Apps = styled.div`
+
+`;

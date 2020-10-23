@@ -8,10 +8,21 @@ import {
   Sort,
   Apps,
   ContentDiv,
-  Option
+  Option,
 } from "./style";
 
 class Trackr extends Component {
+  constructor() {
+    super();
+    this.state = { no_apps: true };
+  }
+
+  getContent() {
+    if (this.state.no_apps) {
+      return <div></div>
+    }
+  }
+
   render() {
     return (
       <Fragment>
@@ -24,10 +35,10 @@ class Trackr extends Component {
                   <Title>Your Applications</Title>
                 </div>
                 <div>
-                  <NewAppBtn>Enter a new app</NewAppBtn>
+                  <NewAppBtn>Enter a new application</NewAppBtn>
                 </div>
                 <div>
-                  <Sort>
+                  <Sort class="dropdown">
                     <Option value="" selected disabled hidden>
                       Sort by
                     </Option>
@@ -36,7 +47,7 @@ class Trackr extends Component {
                   </Sort>
                 </div>
               </Headding>
-              <Apps></Apps>
+              <Apps>{this.getContent()}</Apps>
             </div>
             <div></div>
           </ContentDiv>
