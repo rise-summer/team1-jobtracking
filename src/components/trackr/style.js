@@ -7,13 +7,14 @@ export const BackgroundDiv = styled.div`
 
 export const ContentDiv = styled.div`
   padding: 60px;
+  display: flex;
 `;
 
 export const Headding = styled.div`
   background: #175596;
   border: 3px solid #175596;
   border-radius: 5px;
-  width: 1296px;
+  width: 860px;
   height: 88px;
   display: flex;
   align-items: center;
@@ -29,7 +30,7 @@ export const Title = styled.div`
   letter-spacing: 2.08333px;
   color: #ffffff;
   display: block;
-  margin: auto 60px;
+  margin: auto 10px;
 `;
 
 export const NewAppBtn = styled.button`
@@ -79,9 +80,37 @@ export const Option = styled.option`
     background: #8191ba;
     border-radius: 14px;
   }
-  
 `;
 
-export const Apps = styled.div`
+export const Apps = styled.div``;
 
+export const Content = styled.div`
+  background: #ffffff;
+  border-radius: 5px;
+  width: 860px;
+  height: 88px;
+  display: flex;
+  align-items: center;
+  font-family: Sans-Serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 25px;
+  line-height: 22px;
+  /* or 88% */
+
+  color: #000000;
+  padding-left: 25px;
+`;
+
+export const ProfileDiv = styled.div`
+  background: #ffffff;
+  box-shadow: 0px 2px 2px rgba(180, 180, 180, 0.25);
+  border-radius: 5px;
+  width: 416px;
+  height: 828px;
+  margin-left: 40px;
+`;
+
+export const HDiv = styled.div`
+  /* margin: 10px; */
 `;

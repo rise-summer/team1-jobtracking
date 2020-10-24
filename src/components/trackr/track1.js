@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import Navigation from "../Navigation/NavigationLogOut";
-import { ContentDiv, Headder, Title, Subtitle, Input, SubmitBtn, BackgroundDiv} from "./style";
+import { ContentDiv, Headder, Title, Subtitle, Input, SubmitBtn, BackgroundDiv} from "./newappstyle";
 
 class Track1 extends Component {
   render() {
@@ -23,7 +23,7 @@ class Track1 extends Component {
                 <Input></Input>
               </div>
               <div>
-                  <SubmitBtn>submit link</SubmitBtn>
+                  <a href="/trackr/track2"><SubmitBtn>submit link</SubmitBtn></a>
               </div>
             </ContentDiv>
           </div>

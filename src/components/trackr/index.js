@@ -9,6 +9,9 @@ import {
   Apps,
   ContentDiv,
   Option,
+  Content,
+  ProfileDiv,
+  HDiv
 } from "./style";
 
 class Trackr extends Component {
@@ -19,7 +22,7 @@ class Trackr extends Component {
 
   getContent() {
     if (this.state.no_apps) {
-      return <div></div>
+      return <Content>Log a new application here</Content>
     }
   }
 
@@ -29,13 +32,13 @@ class Trackr extends Component {
         <Navigation />
         <BackgroundDiv>
           <ContentDiv>
-            <div>
+            <HDiv>
               <Headding>
                 <div>
-                  <Title>Your Applications</Title>
+                  <Title>YOUR APPLICATIONS</Title>
                 </div>
                 <div>
-                  <NewAppBtn>Enter a new application</NewAppBtn>
+                  <a href="/trackr/track1"><NewAppBtn>Enter a new application</NewAppBtn></a>
                 </div>
                 <div>
                   <Sort class="dropdown">
@@ -47,9 +50,9 @@ class Trackr extends Component {
                   </Sort>
                 </div>
               </Headding>
-              <Apps>{this.getContent()}</Apps>
-            </div>
-            <div></div>
+              <div>{this.getContent()}</div>
+            </HDiv>
+            <ProfileDiv></ProfileDiv>
           </ContentDiv>
         </BackgroundDiv>
       </Fragment>

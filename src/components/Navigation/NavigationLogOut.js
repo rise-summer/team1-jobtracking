@@ -39,10 +39,10 @@ class NavigationLogOut extends React.Component {
             </SearchDiv>
             <AdditionDiv>
               <AdditionWrapper>
-                <div><AdditionButton href="/SignUp">sign up</AdditionButton></div>
+                <div><AdditionButton href="/signup">sign up</AdditionButton></div>
               </AdditionWrapper>
               <AdditionWrapper>
-                <div><AdditionButton href="/Login"><div>log in</div></AdditionButton></div>
+                <div><AdditionButton href="/login"><div>log in</div></AdditionButton></div>
               </AdditionWrapper>
               <AdditionWrapper>
                 <div><AdditionButton href="/trackr"><div>trackr</div></AdditionButton></div>
