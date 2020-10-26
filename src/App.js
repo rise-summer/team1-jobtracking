@@ -12,6 +12,7 @@ import App2 from "./components/EnterApp2/App2";
 import Trackr from "./components/trackr"
 import Track1 from "./components/trackr/track1"
 import Track2 from "./components/trackr/track2"
+import Track3 from "./components/trackr/track3"
 
 import {Provider} from 'react-redux';
 import store from './store/index.js';
@@ -36,6 +37,7 @@ class App extends React.Component{
           <Route path='/trackr' exact component={Trackr}></Route>
           <Route path='/trackr/track1' exact component={Track1}></Route>
           <Route path='/trackr/track2'exact component={Track2}></Route>
+          <Route path='/trackr/track3' exact component={Track3}></Route>
         
         </BrowserRouter>
       </div>
