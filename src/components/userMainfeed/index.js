@@ -1,6 +1,5 @@
 import React,{Component, Fragment} from 'react';
 import Navigation from "../navigation";
-import '../managepost/node_modules/antd/dist/antd.css';
 import { Card } from 'antd';
 import {PostWrapper, Addition, NewComment,LoadComment}from './style';
 import Comments from '../mainfeed/components/comments'

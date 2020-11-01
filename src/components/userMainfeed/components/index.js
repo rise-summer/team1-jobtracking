@@ -1,5 +1,4 @@
 import React,{Component} from 'react';
-import '../../managepost/node_modules/antd/dist/antd.css';
 import {NewPostWrapper,TitleInput,ContentInput,Addition,Close,CreatePost}from './style';
 
 

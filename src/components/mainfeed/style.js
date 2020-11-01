@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import "../managepost/node_modules/antd/dist/antd.css";
 import { Card } from "antd";
 
 

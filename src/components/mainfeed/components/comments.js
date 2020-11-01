@@ -1,5 +1,4 @@
 import React, { createElement, useState,Component } from 'react';
-import '../../managepost/node_modules/antd/dist/antd.css';
 import { Comment, Tooltip, Avatar } from 'antd';
 import moment from 'moment';
 
