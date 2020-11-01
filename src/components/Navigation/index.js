@@ -14,7 +14,10 @@ import {
 
 } from './style.js'
 
-class NavigationLogOut extends React.Component {
+import {useSelector} from 'react-redux'
+
+
+class Navigation extends React.Component {
 
   constructor(props) {
     super(props);
@@ -23,6 +26,8 @@ class NavigationLogOut extends React.Component {
       tag: ''
     }
   }
+
+  // const counter = useSelector(state => state.isLogged)
 
   render() {
     return (
@@ -75,4 +80,4 @@ class NavigationLogOut extends React.Component {
   }
 }
 
-export default NavigationLogOut;
+export default Navigation;

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import "antd/dist/antd.css";
+import "../managepost/node_modules/antd/dist/antd.css";
 import { Card } from "antd";
 
 

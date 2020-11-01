@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import Navigation from "../Navigation/NavigationLogOut";
+import Navigation from "../navigation";
 import { ContentDiv, Headder, Title, Subtitle, Input, SubmitBtn, BackgroundDiv} from "./newappstyle";
 
 class Track1 extends Component {

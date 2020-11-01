@@ -1,5 +1,5 @@
 import React,{Component, Fragment} from 'react';
-import Navigation from "../Navigation/NavigationLogIn";
+import Navigation from "../navigation";
 import 'antd/dist/antd.css';
 import { Card } from 'antd';
 import {PostWrapper, Addition,LoadComment,Header}from './style';

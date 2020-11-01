@@ -1,8 +1,8 @@
 import React,{Component, Fragment} from 'react';
-import Navigation from "../Navigation/NavigationLogIn";
+import Navigation from "../navigation";
 //import '../userMainfeed/components/node_modules/antd/dist/antd.css';
 import { Card } from 'antd';
-import {PostWrapper, Addition} from './profileStyle'
+import {PostWrapper, Addition} from './style'
 import "./profile.css"
  
 

@@ -1,6 +1,6 @@
 // import { Slider } from "antd";
 import React, { Component, Fragment } from "react";
-import Navigation from "../Navigation/NavigationLogOut";
+import Navigation from "../navigation";
 import {
   ContentDiv,
   Headder,
@@ -41,6 +41,12 @@ class Track2 extends Component {
     console.log(e.target.value);
     this.setState({ stage: rangeValues[e.target.value] });
   }
+
+  handleSubmit(){
+    this.setState({})
+
+  }
+  
 
   render() {
     return (
@@ -116,7 +122,7 @@ class Track2 extends Component {
               </div>
               <div>
                 <a href="/trackr/track3">
-                  <CompleteBtn style={{ width: "305px", height: "36px" }}>
+                  <CompleteBtn style={{ width: "305px", height: "36px" }} onClick = {this.handleSubmit.bind(this)}>
                     complete entering application
                   </CompleteBtn>
                 </a>

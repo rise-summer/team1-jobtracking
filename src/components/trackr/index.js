@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import Navigation from "../Navigation/NavigationLogOut";
+import Navigation from "../navigation";
 import {
   BackgroundDiv,
   Headding,
