@@ -1,0 +1,9 @@
+app:
+  port: 3000
+
+db:
+  address: localhost
+  port: 3306
+  name: mydb
+  user: root
+  password: my-secret-pw
