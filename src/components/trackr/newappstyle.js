@@ -4,6 +4,7 @@ export const BackgroundDiv = styled.div`
   padding: 47px;
   background: #ebebeb;
   display: block;
+  height: 550px;
 `;
 
 export const ContentDiv = styled.div`
@@ -59,6 +60,13 @@ export const Input = styled.input.attrs({
   width: 856px;
   height: 84px;
   display: block;
+  font-family: sans-serif;
+  font-style: italic;
+  font-weight: normal;
+  font-size: 35px;
+  line-height: 48px;
+  letter-spacing: 0.6px;
+  color: #000000;
   &::placeholder {
     font-family: sans-serif;
     font-style: italic;
@@ -114,9 +122,7 @@ export const Subtitle2 = styled.div`
   margin: 5px;
 `;
 
-export const Input1 = styled.input.attrs({
-  placeholder: "https://linkedin.com/job/0283043",
-})`
+export const Input1 = styled.input`
   font-family: "Open Sans", sans-serif;
   font-style: normal;
   font-weight: normal;
@@ -124,8 +130,7 @@ export const Input1 = styled.input.attrs({
   line-height: 31px;
 
   /* RISE for greyed out text */
-
-  color: #888888;
+  color: #000000;
   background: #ffffff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
@@ -133,6 +138,14 @@ export const Input1 = styled.input.attrs({
   height: 48px;
   display: block;
   margin: 0 auto;
+  &::placeholder {
+    font-family: sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 23px;
+    line-height: 31px;
+    color: #888888;
+  }
 `;
 
 export const Input2 = styled.input`
@@ -152,8 +165,16 @@ export const Input2 = styled.input`
 
   /* RISE for greyed out text */
 
-  color: #888888;
+  color: #000000;
   padding: 5px;
+  &::placeholder {
+    font-family: sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 23px;
+    line-height: 31px;
+    color: #888888;
+  }
 `;
 
 export const Textarea = styled.textarea`
@@ -167,10 +188,12 @@ export const Textarea = styled.textarea`
   font-weight: normal;
   font-size: 19px;
   line-height: 26px;
-
+  color: #000000;
   /* RISE for greyed out text */
+  &::placeholder {
+    color: #888888;
+  }
 
-  color: #888888;
   display: block;
   margin: 0px auto;
   padding: 5px;
@@ -228,13 +251,12 @@ export const Label = styled.div`
 export const CompleteBtn = styled.button`
   background: #175596;
   border-radius: 5px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-style: normal;
   font-weight: 600;
   font-size: 17px;
   line-height: 22px;
   /* or 129% */
-
 
   align-items: center;
   text-align: center;

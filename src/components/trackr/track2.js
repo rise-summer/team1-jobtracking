@@ -16,37 +16,34 @@ import {
   Label,
   CompleteBtn,
 } from "./newappstyle";
+import { connect } from "react-redux";
+
+const mapStateToProps = (state) => {
+  return { url: state.applicationReducer.url };
+};
 
 class Track2 extends Component {
   constructor() {
     super();
     this.state = {
-      link: "",
-      role: "",
-      company: "",
-      deadline: "",
-      location: "",
-      description: "",
-      stage: "You've selected option 1!",
+      stage: "Interested",
     };
   }
 
   handleSlider(e) {
     var rangeValues = {
-      0: "You've selected option 1!",
-      1: "...and now option 2!",
-      2: "...stackoverflow rocks for 3!",
-      3: "...and a custom label 4!",
+      0: "Interested",
+      1: "Applied",
+      2: "Interview",
+      3: "Offer",
     };
     console.log(e.target.value);
     this.setState({ stage: rangeValues[e.target.value] });
   }
 
-  handleSubmit(){
-    this.setState({})
-
+  handleSubmit() {
+    this.setState({});
   }
-  
 
   render() {
     return (
@@ -65,7 +62,12 @@ class Track2 extends Component {
                 <Subtitle2>Click to edit any of the parameters</Subtitle2>
               </div>
               <div>
-                <Input1 id="link" />
+                <Input1
+                  defaultValue={this.props.url}
+                  id="link"
+                  readonly={false}
+                  placeholder="https://paste_the_link_to_your_application_here.com"
+                />
               </div>
               <div>
                 <InputDiv>
@@ -122,7 +124,10 @@ class Track2 extends Component {
               </div>
               <div>
                 <a href="/trackr/track3">
-                  <CompleteBtn style={{ width: "305px", height: "36px" }} onClick = {this.handleSubmit.bind(this)}>
+                  <CompleteBtn
+                    style={{ width: "305px", height: "36px" }}
+                    onClick={this.handleSubmit.bind(this)}
+                  >
                     complete entering application
                   </CompleteBtn>
                 </a>
@@ -134,4 +139,4 @@ class Track2 extends Component {
     );
   }
 }
-export default Track2;
+export default connect(mapStateToProps)(Track2);

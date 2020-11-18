@@ -3,21 +3,10 @@ import React, { Component, Fragment } from "react";
 import Navigation from "../navigation";
 import {
   ContentDiv,
-  Headder,
   Title,
-  Input,
-  SubmitBtn,
   BackgroundDiv,
-  LinkDiv,
-  Input1,
-  Input2,
-  Textarea,
-  InputDiv,
-  Slider,
-  SliderDiv,
-  Label,
-  CompleteBtn,
   Subtitle,
+  Subtitle2
 } from "./newappstyle";
 
 class Track3 extends Component {
@@ -37,6 +26,7 @@ class Track3 extends Component {
                 <Title>Great job applying!</Title>
               </div>
               <div><Subtitle>You have successfully added Facebook Software Engineering Intern to your tracked applications.</Subtitle></div>
+              <div><a href="/trackr"><Subtitle2>  &lt; Back to applications</Subtitle2></a></div>
             </ContentDiv>
           </div>
         </BackgroundDiv>
