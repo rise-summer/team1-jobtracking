@@ -27,7 +27,16 @@ class Track2 extends Component {
     super();
     this.state = {
       stage: "Interested",
+      url: "",
+      role: "",
+      company: "",
+      deadline: "",
+      location: "",
+      description: "",
+      stage: "",
     };
+    // this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSlider(e) {
@@ -42,7 +51,36 @@ class Track2 extends Component {
   }
 
   handleSubmit() {
-    this.setState({});
+    this.props.dispatch({
+      type: "ADD_APPLICATION",
+      payload: {
+        role: this.state.role,
+        company: this.state.company,
+        deadline: this.state.deadline,
+        location: this.state.location,
+        description: this.state.description,
+        stage: this.state.stage,
+      },
+    });
+    this.props.history.push("/trackr/track3");
+  }
+
+  handleChange(event, key) {
+    console.log(this.state);
+    switch (key) {
+      case "URL":
+        return this.setState({ url: event.target.value });
+      case "ROLE":
+        return this.setState({ role: event.target.value });
+      case "COMPANY":
+        return this.setState({ company: event.target.value });
+      case "DEADLINE":
+        return this.setState({ deadline: event.target.value });
+      case "LOCATION":
+        return this.setState({ location: event.target.value });
+      case "DESCRIPTION":
+        return this.setState({ description: event.target.value });
+    }
   }
 
   render() {
@@ -53,7 +91,9 @@ class Track2 extends Component {
           <div>
             <ContentDiv>
               <div>
-                <Headder> &lt; back to applications</Headder>
+                <Headder>
+                  <a href="/trackr">&lt; back to applications</a>
+                </Headder>
               </div>
               <div>
                 <Title2>Great!</Title2>
@@ -61,77 +101,91 @@ class Track2 extends Component {
               <div>
                 <Subtitle2>Click to edit any of the parameters</Subtitle2>
               </div>
-              <div>
-                <Input1
-                  defaultValue={this.props.url}
-                  id="link"
-                  readonly={false}
-                  placeholder="https://paste_the_link_to_your_application_here.com"
-                />
-              </div>
-              <div>
-                <InputDiv>
-                  <Input2
-                    placeholder="Software Engineering Intern"
-                    style={{ marginRight: "10px" }}
-                    id="role"
+              <form onSubmit={this.handleSubmit}>
+                <div>
+                  <Input1
+                    defaultValue={this.props.url}
+                    id="link"
+                    readonly={false}
+                    placeholder="https://paste_the_link_to_your_application_here.com"
+                    onChange={this.handleChange.bind(this, "URL")}
+                    // value ={this.state.url}
                   />
-                  <Input2
-                    placeholder="Facebook"
-                    style={{ marginLeft: "10px" }}
-                    id="company"
+                </div>
+                <div>
+                  <InputDiv>
+                    <Input2
+                      placeholder="Software Engineering Intern"
+                      style={{ marginRight: "10px" }}
+                      id="role"
+                      onChange={(e) => this.handleChange(e, "ROLE")}
+                      value={this.state.role}
+                    />
+                    <Input2
+                      placeholder="Facebook"
+                      style={{ marginLeft: "10px" }}
+                      id="company"
+                      onChange={(e) => this.handleChange(e, "COMPANY")}
+                      value={this.state.company}
+                    />
+                  </InputDiv>
+                </div>
+                <div>
+                  <InputDiv>
+                    <Input2
+                      placeholder="Deadline: 12/01/20"
+                      style={{ marginRight: "10px" }}
+                      id="deadline"
+                      onChange={(e) => this.handleChange(e, "DEADLINE")}
+                      value={this.state.deadline}
+                    />
+                    <Input2
+                      placeholder="Menlo Park, California"
+                      style={{ marginLeft: "10px" }}
+                      id="location"
+                      onChange={(e) => this.handleChange(e, "LOCATION")}
+                      value={this.state.location}
+                    />
+                  </InputDiv>
+                </div>
+                <div>
+                  <Textarea
+                    placeholder="As an intern, you'll become an expert on the Facebook Terminal and gain a deeper understanding of technology and finance. In addition to your projects, you'll participate in coding challenges, attend tech talks and network with other interns."
+                    id="description"
+                    onChange={(e) => this.handleChange(e, "DESCRIPTION")}
+                    value={this.state.description}
                   />
-                </InputDiv>
-              </div>
-              <div>
-                <InputDiv>
-                  <Input2
-                    placeholder="Deadline: 12/01/20"
-                    style={{ marginRight: "10px" }}
-                    id="deadline"
-                  />
-                  <Input2
-                    placeholder="Menlo Park, California"
-                    style={{ marginLeft: "10px" }}
-                    id="location"
-                  />
-                </InputDiv>
-              </div>
-              <div>
-                <Textarea
-                  placeholder="As an intern, you'll become an expert on the Facebook Terminal and gain a deeper understanding of technology and finance. In addition to your projects, you'll participate in coding challenges, attend tech talks and network with other interns."
-                  id="description"
-                />
-              </div>
-              <div>
-                <Subtitle2>What stage are you in applying?</Subtitle2>
-              </div>
-              <div>
-                <SliderDiv>
-                  <Label
-                    dangerouslySetInnerHTML={{ __html: this.state.stage }}
-                  />
-                  <Slider
-                    type="range"
-                    min="0"
-                    max="3"
-                    onChange={(e) => {
-                      this.handleSlider(e);
-                    }}
-                    defaultValue="0"
-                  />
-                </SliderDiv>
-              </div>
-              <div>
-                <a href="/trackr/track3">
-                  <CompleteBtn
-                    style={{ width: "305px", height: "36px" }}
-                    onClick={this.handleSubmit.bind(this)}
-                  >
-                    complete entering application
-                  </CompleteBtn>
-                </a>
-              </div>
+                </div>
+                <div>
+                  <Subtitle2>What stage are you in applying?</Subtitle2>
+                </div>
+                <div>
+                  <SliderDiv>
+                    <Label
+                      dangerouslySetInnerHTML={{ __html: this.state.stage }}
+                    />
+                    <Slider
+                      type="range"
+                      min="0"
+                      max="3"
+                      onChange={(e) => {
+                        this.handleSlider(e);
+                      }}
+                      defaultValue="0"
+                    />
+                  </SliderDiv>
+                </div>
+                <div>
+                  <a href="/trackr/track3">
+                    <CompleteBtn
+                      style={{ width: "305px", height: "36px" }}
+                      type="submit"
+                    >
+                      complete entering application
+                    </CompleteBtn>
+                  </a>
+                </div>
+              </form>
             </ContentDiv>
           </div>
         </BackgroundDiv>

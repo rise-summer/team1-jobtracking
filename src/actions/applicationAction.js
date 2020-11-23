@@ -3,23 +3,22 @@ const ADD_APPLICATION = "ADD_APPLICATION";
 
 
 export function addUrl(url){
-let payload = {url:url}
-return {title: ADD_URL, payload}
+let payload = {url:url};
+return {title: ADD_URL, payload};
 
 }
+
 export function addApplication(
-  url,
   role,
-  title,
-  deadline,
+  company,
+  company,
   location,
   description,
   stage
 ) {
   let payload = {
-    url: url,
     role: role,
-    title: title,
+    company: company,
     deadline: deadline,
     location: location,
     description: description,
