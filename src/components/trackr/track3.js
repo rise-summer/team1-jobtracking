@@ -6,8 +6,13 @@ import {
   Title,
   BackgroundDiv,
   Subtitle,
-  Subtitle2
+  Subtitle2,
 } from "./newappstyle";
+import { connect } from "react-redux";
+
+const mapStateToProps = (state) => {
+  return { role: state.applicationReducer.role };
+};
 
 class Track3 extends Component {
   constructor() {
@@ -25,8 +30,17 @@ class Track3 extends Component {
               <div>
                 <Title>Great job applying!</Title>
               </div>
-              <div><Subtitle>You have successfully added Facebook Software Engineering Intern to your tracked applications.</Subtitle></div>
-              <div><a href="/trackr"><Subtitle2>  &lt; Back to applications</Subtitle2></a></div>
+              <div>
+                <Subtitle>
+                  You have successfully added <span style={{color: "#0000a0"}}> {this.props.role} </span> to your tracked
+                  applications.
+                </Subtitle>
+              </div>
+              <div>
+                <a href="/trackr">
+                  <Subtitle2> &lt; Back to applications</Subtitle2>
+                </a>
+              </div>
             </ContentDiv>
           </div>
         </BackgroundDiv>
@@ -34,4 +48,4 @@ class Track3 extends Component {
     );
   }
 }
-export default Track3;
+export default connect(mapStateToProps)(Track3);

@@ -59,7 +59,7 @@ class Navigation extends React.Component {
             <SearchDiv>
               <LogoDiv>
                 <div>
-                  <LogoButton href="/userMain">
+                  <LogoButton href="/">
                     <div>Logo</div>
                   </LogoButton>
                 </div>

@@ -32,8 +32,7 @@ class Track2 extends Component {
       company: "",
       deadline: "",
       location: "",
-      description: "",
-      stage: "",
+      description: ""
     };
     // this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -161,9 +160,7 @@ class Track2 extends Component {
                 </div>
                 <div>
                   <SliderDiv>
-                    <Label
-                      dangerouslySetInnerHTML={{ __html: this.state.stage }}
-                    />
+                    <Label>{this.state.stage}</Label>
                     <Slider
                       type="range"
                       min="0"
