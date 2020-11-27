@@ -17,7 +17,7 @@ export const ContentDiv = styled.div`
 `;
 
 export const Headder = styled.a`
-  font-family: Sans-Serif;
+  font-family: "Open Sans", sans-serif;;
   font-style: normal;
   font-weight: 800;
   font-size: 29px;
@@ -27,7 +27,7 @@ export const Headder = styled.a`
 `;
 
 export const Title = styled.div`
-  font-family: Sans-Serif;
+  font-family: "Open Sans", sans-serif;;
   font-style: normal;
   font-weight: 600;
   font-size: 60px;
@@ -39,7 +39,7 @@ export const Title = styled.div`
 `;
 
 export const Subtitle = styled.div`
-  font-family: Sans-Serif;
+  font-family: "Open Sans", sans-serif;;
   font-style: normal;
   font-weight: 600;
   font-size: 25px;
@@ -60,7 +60,7 @@ export const Input = styled.input.attrs({
   width: 856px;
   height: 84px;
   display: block;
-  font-family: sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-style: italic;
   font-weight: normal;
   font-size: 35px;
@@ -68,7 +68,7 @@ export const Input = styled.input.attrs({
   letter-spacing: 0.6px;
   color: #000000;
   &::placeholder {
-    font-family: sans-serif;
+    font-family: "Open Sans", sans-serif;
     font-style: italic;
     font-weight: normal;
     font-size: 35px;
@@ -86,7 +86,7 @@ export const Input = styled.input.attrs({
 export const SubmitBtn = styled.button`
   background: #175596;
   border-radius: 8px;
-  font-family: sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-style: normal;
   font-weight: bold;
   font-size: 25px;

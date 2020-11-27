@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { Card } from "antd";
 
-
 export const BackgroundDiv = styled.div`
   background: #ebebeb;
   display: block;
+  padding: 20px 180px;
 `;
 
 export const My_Card = styled(Card)`
@@ -43,13 +43,13 @@ export const Headding = styled.div`
 
 export const TextDiv = styled.div``;
 
-export const CommentBtnDiv = styled.div`
+export const PostBtnDiv = styled.div`
   margin-left: auto;
   margin-right: 0;
 `;
 
 export const Text = styled.div`
-  font-family: Sans-Serif;
+  font-family: "Open Sans", sans-serif;;
   font-style: normal;
   font-weight: bold;
   font-size: 20px;
@@ -58,14 +58,14 @@ export const Text = styled.div`
   color: #677394;
 `;
 
-export const CommentButton = styled.button`
+export const PostButton = styled.button`
   background: #175596;
   border-radius: 15px;
-  font-family: Sans-Serif;
+  font-family: "", "Open Sans", sans-serif;;
   font-style: normal;
   font-weight: bold;
-  font-size: 25px;
-  line-height: 34px;
+  font-size: 20px;
+  line-height: 27px;
   color: #ffffff;
   border: none;
   cursor: pointer;

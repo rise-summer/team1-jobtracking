@@ -50,7 +50,7 @@ export const LogoButton = styled.a`
   color: #175596;
   border: none;
   background: none;
-  cusor: pointer;
+  cursor: pointer;
 `;
 
 export const AdditionButton = styled.a`
