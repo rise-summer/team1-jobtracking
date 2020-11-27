@@ -20,7 +20,7 @@ export const My_Card = styled(Card)`
 export const Addition = styled.div`
   padding-top: 20px;
   padding-bottom: 30px;
-  width: 100% .time {
+  width: 100% time {
     float: left;
   }
   .position {
@@ -49,7 +49,7 @@ export const PostBtnDiv = styled.div`
 `;
 
 export const Text = styled.div`
-  font-family: "Open Sans", sans-serif;;
+  font-family: "Open Sans", sans-serif;
   font-style: normal;
   font-weight: bold;
   font-size: 20px;
@@ -61,7 +61,7 @@ export const Text = styled.div`
 export const PostButton = styled.button`
   background: #175596;
   border-radius: 15px;
-  font-family: "", "Open Sans", sans-serif;;
+  font-family: "", "Open Sans", sans-serif;
   font-style: normal;
   font-weight: bold;
   font-size: 20px;
