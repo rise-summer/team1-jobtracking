@@ -1,5 +1,4 @@
 import React, { createElement, useState,Component } from 'react';
-import 'antd/dist/antd.css';
 import { Comment, Tooltip, Avatar } from 'antd';
 import moment from 'moment';
 

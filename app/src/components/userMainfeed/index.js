@@ -1,6 +1,5 @@
 import React,{Component, Fragment} from 'react';
-import Navigation from "../Navigation/NavigationLogIn";
-import 'antd/dist/antd.css';
+import Navigation from "../navigation";
 import { Card } from 'antd';
 import {PostWrapper, Addition, NewComment,LoadComment}from './style';
 import Comments from '../mainfeed/components/comments'
@@ -85,6 +84,7 @@ class MainFeed extends Component {
       </Fragment>
       )
     }
+    
     toggleCard(event){
       this.setState({
         open:!this.state.open

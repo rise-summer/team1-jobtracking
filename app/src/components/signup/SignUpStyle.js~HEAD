@@ -8,7 +8,7 @@ export const BackgroundDiv = styled.div`
 
 export const ContentDiv = styled.div`
   width: 1062px;
-  height: 534px;
+  height: 726px;
   position: absolute;
   left: 10%;
   top: 10%;
@@ -56,22 +56,15 @@ export const Item = styled.div`
   z-index: 1;
 `;
 
-export const EmailDiv = styled.div`
+export const FieldDiv = styled.div`
   margin: auto;
   padding: 15px 0px 15px 0px;
-  display: inline-block;
-  width: 100%;
-`;
-
-export const PwdDiv = styled.div`
-  padding: 15px 0px 15px 0px;
-  margin: auto;
   display: inline-block;
   width: 100%;
 `;
 
 export const Email = styled.input.attrs({
-  placeholder: "email or username",
+  placeholder: "youremail@email.com",
 })`
   border-radius: 15px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -96,7 +89,7 @@ export const Email = styled.input.attrs({
 `;
 
 export const Pwd = styled.input.attrs({
-  placeholder: "password",
+  placeholder: "set your password",
 })`
   border-radius: 15px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -156,3 +149,47 @@ export const SignUpButton = styled.a`
 `;
 
 export const Form = styled.form``;
+
+export const UserName = styled.input.attrs({
+  placeholder: "create your username",
+})`
+  border-radius: 15px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background: #ffffff;
+  width: 800px;
+  height: 60px;
+  display: block;
+  margin: 0 auto;
+  &::placeholder {
+    font-family: Sans-Serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 44px;
+    line-height: 60px;
+    color: #5c5c5c;
+    padding: 3px 0px 0px 42px;
+    margin: 0 auto;
+  }
+`;
+
+export const ConfirmPwd = styled.input.attrs({
+  placeholder: "confirm your password",
+})`
+  border-radius: 15px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background: #ffffff;
+  width: 800px;
+  height: 60px;
+  display: block;
+  margin: 0 auto;
+  &::placeholder {
+    font-family: Sans-Serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 44px;
+    line-height: 60px;
+    color: #5c5c5c;
+    padding: 3px 0px 0px 42px;
+    margin: 0 auto;
+  }
+`;
