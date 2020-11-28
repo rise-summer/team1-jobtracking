@@ -20,8 +20,7 @@ export const My_Card = styled(Card)`
 export const Addition = styled.div`
   padding-top: 20px;
   padding-bottom: 30px;
-  width: 100%;
-  float: left;
+  width: 100% 
 `;
 export const LoadComment = styled.div`
   background: #fafafa;

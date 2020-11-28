@@ -5,6 +5,7 @@ export const Content = styled.div`
   box-shadow: 4px 4px 2px rgba(189, 189, 189, 0.25);
   border-radius: 16px 16px 0px 0px;
   padding: 10px;
+  min-width: 70vw;
 `;
 
 export const Comment = styled.div`
@@ -48,4 +49,11 @@ export const Text = styled.div`
   letter-spacing: 0.5px;
 
   color: #000000;
+`;
+
+export const RoleInfo = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  overflow: hidden;
 `;
