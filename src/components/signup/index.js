@@ -19,7 +19,7 @@ import {
     FieldDiv,
     UserName,
     ConfirmPwd
-} from './SignUpStyle';
+} from './style.js';
 
 
 
