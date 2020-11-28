@@ -3,7 +3,6 @@ import { BrowserRouter, Route } from "react-router-dom";
 import Login from "./components/login";
 import SignUp from "./components/signup";
 import MainFeed from "./components/mainfeed";
-import UserMain from "./components/userMainfeed";
 import Trackr from "./components/trackr";
 import Track1 from "./components/trackr/track1";
 import Track2 from "./components/trackr/track2";
@@ -18,7 +17,6 @@ class App extends React.Component {
           <Route path="/" exact component={MainFeed}></Route>
           <Route path="/login" exact component={Login}></Route>
           <Route path="/signup" exact component={SignUp}></Route>
-          <Route path="/usermain" exact component={UserMain}></Route>
           <Route path="/trackr" exact component={Trackr}></Route>
           <Route path="/trackr/track1" exact component={Track1}></Route>
           <Route path="/trackr/track2" exact component={Track2}></Route>

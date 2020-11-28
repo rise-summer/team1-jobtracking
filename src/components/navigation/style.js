@@ -36,6 +36,7 @@ export const LogoButton = styled.a`
 
   color: #175596;
   cursor: pointer;
+  text-decoration: none;
 `;
 
 export const SearchBar = styled.input.attrs({
@@ -78,4 +79,5 @@ export const AppTrackBtn = styled.a`
   letter-spacing: 0.5px;
   color: #5c5c5c;
   cursor: pointer;
+  text-decoration: none;
 `;

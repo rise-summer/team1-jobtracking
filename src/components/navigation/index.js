@@ -46,7 +46,9 @@ class Navigation extends React.Component {
           </LeftNavBarDiv>
           <RightNavBarDiv>
             {NavBar}
-            <AppTrackBtn href="/trackr">trackr</AppTrackBtn>
+            <AppTrackBtn href="/trackr">
+              <div>trackr</div>
+            </AppTrackBtn>
           </RightNavBarDiv>
         </NavBarDiv>
       </Fragment>
