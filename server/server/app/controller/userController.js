@@ -1,7 +1,13 @@
 let User = require('../model/userModel');
 
 exports.list_all_users = (req, res) => {
-  User.getAllUsers();
+  User.getAllUsers(results=>{
+    console.log(results);
+    // console.log('yo');
+    res.json(results);
+  });
+  
+  return;
 };
 
 exports.create_a_user = async (req, res) => {
