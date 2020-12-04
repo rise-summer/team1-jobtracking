@@ -12,13 +12,13 @@ const connectionConfig = {
 };
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyBXHiG2OLne7miagpCizFwNpLvq-RYTxsc',
-  authDomain: 'jobtracking001.firebaseapp.com',
-  databaseURL: 'https://jobtracking001.firebaseio.com',
-  projectId: 'jobtracking001',
-  storageBucket: 'jobtracking001.appspot.com',
-  messagingSenderId: '201224764748',
-  appId: '1:201224764748:web:03dfd879104d6c509063e9'
+  apiKey: "AIzaSyAxPIFs_C4krvHew1g7ab83m7xXQw5l2MQ",
+  authDomain: "hive-83b4f.firebaseapp.com",
+  databaseURL: "https://hive-83b4f.firebaseio.com",
+  projectId: "hive-83b4f",
+  storageBucket: "hive-83b4f.appspot.com",
+  messagingSenderId: "862422719837",
+  appId: "1:862422719837:web:f4c3826084ac5b5ac2dcb4"
 };
 
 module.exports = {

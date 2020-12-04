@@ -3,6 +3,9 @@ const uuid = require('uuid');
 const firebase = require('firebase/app');
 require('firebase/auth');
 
+const bcrypt = require('bcrypt');
+const saltRounds = 5;
+
 const { firebaseConfig } = require('../config');
 
 const fbapp = firebase.initializeApp(firebaseConfig);
@@ -13,7 +16,9 @@ function User(user) {
   this.id = uuid.v4();
   this.username = user.username;
   this.email = user.email;
-  this.password = user.password;
+
+  const hash = bcrypt.hashSync(user.password, saltRounds);
+  this.password = hash;
 }
 
 User.createUser = (newUser, result) => {
@@ -24,15 +29,17 @@ User.createUser = (newUser, result) => {
       result(err, null);
       return;
     });
-
-  sql.query('INSERT INTO users SET ?', newUser, (err, res) => {
+  
+  let stmt=`INSERT INTO users(username,email,password)
+  VALUES(?,?,?)`;
+  let info=[newUser.username,newUser.email,newUser.password]
+  sql.query(stmt, info, (err, res) => {
     if (err) {
       result(err, null);
     } else {
       result(null, newUser);
     }
   });
-  sql.end();
 };
 
 User.getUserById = (userId) => {
@@ -47,13 +54,16 @@ User.getUserById = (userId) => {
 };
 
 User.getAllUsers = (result) => {
-  sql.query('SELECT * FROM users', (err, res) => {
+  let stmt=`SELECT * FROM users`;
+  sql.query(stmt, (err, res) => {
     if (err) {
       console.log('error: ', err);
       return sql.rollback(() => {
         throw err;
       });
     }
+    result(res);
+    return res;
   });
 };
 
