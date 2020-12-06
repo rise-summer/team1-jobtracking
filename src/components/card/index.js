@@ -1,10 +1,10 @@
 import React from "react";
-import { Content, Comment, Title, Date, Text, RoleInfo } from "./style";
+import { Feed, Content, Comment, Title, Date, Text, RoleInfo } from "./style";
 import moment from "moment";
 
 export default function Card({ title, date, content, company, status }) {
   return (
-    <div>
+    <Feed>
       <Content>
         <Title>Title</Title>
         <Date>Date and time</Date>
@@ -18,6 +18,6 @@ export default function Card({ title, date, content, company, status }) {
         </RoleInfo>
       </Content>
       <Comment></Comment>
-    </div>
+    </Feed>
   );
 }

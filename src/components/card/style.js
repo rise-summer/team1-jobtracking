@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+export const Feed = styled.div`
+  padding: 10px;
+`;
+
 export const Content = styled.div`
   background: #ffffff;
   box-shadow: 4px 4px 2px rgba(189, 189, 189, 0.25);

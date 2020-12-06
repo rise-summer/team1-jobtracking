@@ -8,6 +8,7 @@ import {
   Text,
   PostButton,
   BackgroundDiv,
+  //SpaceHolder,
 } from "./style";
 import Comments from "./components/comments";
 
@@ -25,12 +26,9 @@ class MainFeed extends Component {
         <Navigation />
         <BackgroundDiv>
           <Headding>
-            <TextDiv>
-              <Text> Most Recent Posts </Text>
-            </TextDiv>
-            <PostBtnDiv>
-              <PostButton>Create new post</PostButton>
-            </PostBtnDiv>
+            <Text> Most Recent Posts </Text>
+            {/* <SpaceHolder> Search </SpaceHolder> */}
+            <PostButton>Create new post</PostButton>
           </Headding>
           <Card />
         </BackgroundDiv>
