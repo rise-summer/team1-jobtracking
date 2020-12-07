@@ -1,158 +1,130 @@
 import styled from "styled-components";
 
-export const BackgroundDiv = styled.div`
-  width: 100%;
-  height: 100%;
-  position: relative;
+export const MainBody = styled.div`
+  font-size: 24px;
+  font-family: Sans-Serif;
+  font-style: normal;
+  height: 100vh;
+  width: 100vw;
+  min-width: 500px;
+  position: absolute;
+  padding: 40px auto 40px auto;
+  //justify-content: center;
+  background: linear-gradient(
+    to right,
+    #6175a9 0%,
+    #6175a9 35%,
+    #ebebeb 35%,
+    #ebebeb 100%
+  );
 `;
+export const BackgroundDiv = styled.div``;
 
 export const ContentDiv = styled.div`
-  width: 1062px;
-  height: 534px;
-  position: absolute;
-  left: 10%;
-  top: 10%;
-  z-index: 10;
+  width: 450px;
+  height: 250px;
+  margin: 20vh auto auto auto;
+  position: relative;
+  /* left: 10%;
+  top: 20%; */
+  z-index: 2;
   background: #f5f5f5;
-  border-radius: 41px;
+  border-radius: 30px;
+  padding: 40px 60px 40px 60px;
+  //justify-content: center;
 `;
-
-export const DarkBlueDiv = styled.div`
-  display: flex;
-  background: #175596;
-  width: 30%;
-  height: 1024px;
-  position: relative;
-  float: left;
-`;
-
-export const LightBlueDiv = styled.div`
-  background: #6175a9;
-  display: flex;
-  width: 70%;
-  height: 1024px;
-  position: relative;
-`;
-
-export const LoginDiv = styled.div``;
-
-export const LoginWrapper = styled.div`
-  font-size: 24px;
-`;
-
-export const LoginBoard = styled.div``;
 
 export const Item = styled.div`
+  //justify-content: center;
+  padding: 0px 0px 30px 0px;
+  z-index: 3;
+  //margin: auto;
   &.title {
-    font-family: Sans-Serif;
-    font-style: normal;
-    font-weight: 800;
-    font-size: 66px;
-    line-height: 90px;
-    margin: 10px 10px 10px 70px;
+    font-weight: 600;
+    font-size: 40px;
+    //margin: 10px 10px 10px 70px;
     color: #175596;
   }
-  padding: 10px;
-  z-index: 1;
-`;
-
-export const EmailDiv = styled.div`
-  margin: auto;
-  padding: 15px 0px 15px 0px;
-  display: inline-block;
-  width: 100%;
-`;
-
-export const PwdDiv = styled.div`
-  padding: 15px 0px 15px 0px;
-  margin: auto;
-  display: inline-block;
-  width: 100%;
 `;
 
 export const Email = styled.input.attrs({
   placeholder: "email or username",
 })`
-  border-radius: 15px;
+  font-size: 20px;
+  border: none;
+  outline: none;
+  border-radius: 10px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   background: #ffffff;
-
-  width: 800px;
-  height: 60px;
-
-  display: block;
-  margin: 0 auto;
-
+  width: 400px;
+  height: 40px;
+  padding: 0px 30px 0 20px;
   &::placeholder {
-    font-family: Sans-Serif;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 44px;
-    line-height: 60px;
-    color: #5c5c5c;
-    border-color: #ffffff;
-    padding: 3px 0px 0px 42px;
+    font-size: 20px;
+    color: #bfbfbf;
+  }
+  &:focus {
+    font-size: 20px;
   }
 `;
 
 export const Pwd = styled.input.attrs({
   placeholder: "password",
 })`
-  border-radius: 15px;
+  font-size: 20px;
+  margin-top: 10px;
+  border: none;
+  outline: none;
+  border-radius: 10px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   background: #ffffff;
-  width: 800px;
-  height: 60px;
-  display: block;
-  margin: 0 auto;
+  width: 400px;
+  height: 40px;
+  padding: 0px 30px 0 20px;
   &::placeholder {
-    font-family: Sans-Serif;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 44px;
-    line-height: 60px;
-    color: #5c5c5c;
-    padding: 3px 0px 0px 42px;
-    margin: 0 auto;
+    font-size: 20px;
+    color: #bfbfbf;
+  }
+  &:focus {
+    font-size: 20px;
   }
 `;
 
-export const ButtonDiv = styled.div`
-  padding: 30px 0px 0px 0px;
-`;
-
 export const Button = styled.button`
-  font-family: Sans-Serif;
-  font-style: normal;
   font-weight: bold;
-  font-size: 50px;
-  line-height: 68px;
+  font-size: 25px;
   /* identical to box height */
-  color: #175596;
-  padding: 0;
+  border-radius: 10px;
+  padding: 5px 10px 5px 10px;
+  margin: 15px 20px 30px 0px;
   border: none;
-  background: none;
+  outline: none;
+  color: #ffffff;
+  background-color: #175596;
+  text-decoration: none;
   cursor: pointer;
-`;
-
-export const InnerButtonDiv = styled.div`
-  margin: 0px 0px 0px 127px;
-  display: inline-block;
-`;
-
-export const SignUpDiv = styled.div`
-  display: inline-block;
-  margin: 0px 0px 0px 102px;
+  &:hover {
+    background-color: #2071c7;
+  }
+  &:active {
+    transform: scale(0.97);
+    transition: 0.1s;
+  }
 `;
 
 export const SignUpButton = styled.a`
-  font-family: Sans-Serif;
-  font-style: normal;
+  text-decoration: none;
   font-weight: bold;
   font-size: 16px;
-  line-height: 22px;
   /* identical to box height */
   color: #5a5a5a;
+  &:hover {
+    color: #2071c7;
+  }
+  &:active {
+    transform: scale(0.97);
+    transition: 0.1s;
+  }
 `;
 
 export const Form = styled.form``;
