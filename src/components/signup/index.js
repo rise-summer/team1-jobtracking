@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {
   MainBody,
+  Logo,
   Item,
   Button,
   BackgroundDiv,
@@ -22,6 +23,7 @@ class Login extends Component {
     return (
       <MainBody>
         <BackgroundDiv>
+          <Logo>Hive</Logo>
           <ContentDiv>
             <form onSubmit={this.submit}>
               <Item className="title">Welcome</Item>

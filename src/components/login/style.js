@@ -20,6 +20,15 @@ export const MainBody = styled.div`
 `;
 export const BackgroundDiv = styled.div``;
 
+export const Logo = styled.div`
+  font-family: Sans-Serif;
+  color: #fffd77;
+  font-weight: bold;
+  font-size: 35px;
+  margin-left: 30px;
+  margin-top: 20px;
+`;
+
 export const ContentDiv = styled.div`
   width: 450px;
   height: 250px;
