@@ -146,7 +146,7 @@ class Track2 extends Component {
                   />
                 </SliderDiv>
                 <SubmitBtn>
-                  <CompleteBtn href="/trackr/track3">Complete</CompleteBtn>
+                  <CompleteBtn>Complete</CompleteBtn>
                 </SubmitBtn>
               </form>
             </Heading>

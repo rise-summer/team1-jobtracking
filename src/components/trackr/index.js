@@ -13,6 +13,7 @@ import {
   Content,
   ProfileDiv,
 } from "./style";
+import ApplicationFeed from "./components/application/index"
 
 class Trackr extends Component {
   constructor() {
@@ -46,7 +47,8 @@ class Trackr extends Component {
                   <Option>Status</Option>
                 </Sort>
               </Headding>
-              {this.getContent()}
+              {/* {this.getContent()} */}
+              <ApplicationFeed/>
             </ContentDiv>
             <ProfileDiv></ProfileDiv>
           </BackgroundDiv>
