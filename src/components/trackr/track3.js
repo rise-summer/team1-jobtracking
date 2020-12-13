@@ -6,7 +6,8 @@ import {
   Title,
   BackgroundDiv,
   Subtitle,
-  Subtitle2,
+  BackBtn,
+  Heading,
 } from "./newappstyle";
 import { connect } from "react-redux";
 
@@ -25,24 +26,17 @@ class Track3 extends Component {
       <Fragment>
         <Navigation />
         <BackgroundDiv>
-          <div>
-            <ContentDiv>
-              <div>
-                <Title>Great job applying!</Title>
-              </div>
-              <div>
-                <Subtitle>
-                  You have successfully added <span style={{color: "#0000a0"}}> {this.props.role} </span> to your tracked
-                  applications.
-                </Subtitle>
-              </div>
-              <div>
-                <a href="/trackr">
-                  <Subtitle2> &lt; Back to applications</Subtitle2>
-                </a>
-              </div>
-            </ContentDiv>
-          </div>
+          <ContentDiv>
+            <BackBtn href="/trackr"> &lt;</BackBtn>
+            <Heading>
+              <Title>Great job applying!</Title>
+              <Subtitle>
+                You have successfully added
+                <span style={{ color: "#65B6FE" }}> {this.props.role} </span> to
+                your tracked applications.
+              </Subtitle>
+            </Heading>
+          </ContentDiv>
         </BackgroundDiv>
       </Fragment>
     );

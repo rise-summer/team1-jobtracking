@@ -1,211 +1,118 @@
 import styled from "styled-components";
 
 export const BackgroundDiv = styled.div`
-  padding: 47px;
+  font-family: "Open Sans", sans-serif;
+  padding: 10vh;
   background: #ebebeb;
-  display: block;
-  height: 550px;
+  height: 100vh;
 `;
 
 export const ContentDiv = styled.div`
   background: #f5f5f5;
   border-radius: 15px;
   padding: 10px;
-  width: 1067px;
+  width: 800px;
   margin: 0px auto;
-  display: block;
+`;
+export const Heading = styled.div`
+  justify-content: center;
+  text-align: center;
 `;
 
-export const Headder = styled.a`
-  font-family: "Open Sans", sans-serif;;
-  font-style: normal;
-  font-weight: 800;
+export const BackBtn = styled.a`
+  font-weight: bold;
   font-size: 29px;
-  line-height: 39px;
-  text-align: center;
+  text-decoration: none;
   color: #5c5c5c;
+  margin: auto auto auto 20px;
+  cursor: pointer;
+  &:hover {
+    color: #c0c0c0;
+  }
+  &:active {
+    transform: scale(0.97);
+    transition: 0.1s;
+  }
 `;
 
 export const Title = styled.div`
-  font-family: "Open Sans", sans-serif;;
-  font-style: normal;
   font-weight: 600;
-  font-size: 60px;
-  line-height: 82px;
-  /* identical to box height */
+  font-size: 40px;
   text-align: center;
-  color: #000000;
   margin: 15px;
 `;
 
 export const Subtitle = styled.div`
-  font-family: "Open Sans", sans-serif;;
-  font-style: normal;
   font-weight: 600;
-  font-size: 25px;
-  line-height: 34px;
-  /* identical to box height */
+  font-size: 20px;
   text-align: center;
-  color: #000000;
   margin: 10px;
 `;
 
-export const Input = styled.input.attrs({
-  placeholder: "https://paste_the_link_to_your_application_here.com",
-})`
+export const Input = styled.input.attrs({})`
   background: #ffffff;
   box-shadow: 2px 4px 4px #9a9a9a;
-  margin: 10px auto;
   border-radius: 15px;
-  width: 856px;
-  height: 84px;
-  display: block;
-  font-family: "Open Sans", sans-serif;
-  font-style: italic;
-  font-weight: normal;
-  font-size: 35px;
-  line-height: 48px;
-  letter-spacing: 0.6px;
-  color: #000000;
+  width: 500px;
+  height: 50px;
+  border: none;
+  font-size: 20px;
+  border: none;
+  outline: none;
+  margin: 10px auto;
+  padding: 0px 20px 0px 20px;
   &::placeholder {
-    font-family: "Open Sans", sans-serif;
     font-style: italic;
-    font-weight: normal;
-    font-size: 35px;
-    line-height: 48px;
-    letter-spacing: 0.6px;
+    font-size: 20px;
     color: #6f6f6f;
   }
 `;
 
-// export const InputDiv = styled.div`
-//   width: 100%;
-//   justify-content: center;
-// `;
-
 export const SubmitBtn = styled.button`
   background: #175596;
   border-radius: 8px;
-  font-family: "Open Sans", sans-serif;
-  font-style: normal;
   font-weight: bold;
   font-size: 25px;
-  line-height: 34px;
-  /* identical to box height */
   text-align: center;
-  letter-spacing: 0.6px;
   color: #f2f0f0;
-  margin: 50px auto;
+  margin: 30px auto;
   display: block;
-  width: 261px;
+  width: 140px;
   height: 49px;
-`;
-
-export const Title2 = styled.div`
-  font-family: "Open Sans", sans-serif;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 70px;
-  line-height: 95px;
-  text-align: center;
-  color: #5a5a5a;
-`;
-
-export const Subtitle2 = styled.div`
-  font-family: "Open Sans", sans-serif;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 29px;
-  line-height: 39px;
-  text-align: center;
-  color: #5a5a5a;
-  margin: 5px;
-`;
-
-export const Input1 = styled.input`
-  font-family: "Open Sans", sans-serif;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 23px;
-  line-height: 31px;
-
-  /* RISE for greyed out text */
-  color: #000000;
-  background: #ffffff;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 15px;
-  width: 939px;
-  height: 48px;
-  display: block;
-  margin: 0 auto;
-  &::placeholder {
-    font-family: sans-serif;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 23px;
-    line-height: 31px;
-    color: #888888;
-  }
-`;
-
-export const Input2 = styled.input`
-  background: #ffffff;
-  box-shadow: 2px 4px 4px #9a9a9a;
-  border-radius: 15px;
-  width: 459px;
-  height: 48px;
-  font-family: "Open Sans", sans-serif;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 23px;
-  line-height: 31px;
-  margin-top: 10px;
-  margin-bottom: 10px;
   outline: none;
-
-  /* RISE for greyed out text */
-
-  color: #000000;
-  padding: 5px;
-  &::placeholder {
-    font-family: sans-serif;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 23px;
-    line-height: 31px;
-    color: #888888;
+  border: none;
+  cursor: pointer;
+  &:hover {
+    background: #2071c7;
+  }
+  &:active {
+    transform: scale(0.97);
+    transition: 0.1s;
   }
 `;
 
 export const Textarea = styled.textarea`
   background: #ffffff;
+  border: none;
+  outline: none;
   box-shadow: 2px 4px 4px #9a9a9a;
   border-radius: 15px;
-  width: 939px;
-  height: 117px;
-  font-family: "Open Sans", sans-serif;
-  font-style: normal;
-  font-weight: normal;
+  width: 650px;
+  height: 150px;
   font-size: 19px;
-  line-height: 26px;
-  color: #000000;
+  resize: none;
+  min-height: 5em;
+  overflow: auto;
   /* RISE for greyed out text */
+
   &::placeholder {
     color: #888888;
+    padding: 15px 15px 15px 15px;
   }
-
-  display: block;
-  margin: 0px auto;
-  padding: 5px;
-`;
-
-export const InputDiv = styled.div`
-  display: table;
   margin: 0px auto;
 `;
 
 export const Slider = styled.input`
-  display: block;
   margin: 20px auto;
   cursor: pointer;
   width: 500px;
@@ -230,39 +137,30 @@ export const Slider = styled.input`
 
 export const SliderDiv = styled.div`
   background: #ffffff;
+  width: 600px;
   box-shadow: 2px 4px 4px #9a9a9a;
   border-radius: 15px;
   padding: 10px;
-`;
-
-export const Label = styled.div`
-  font-family: "Open Sans", sans-serif;
-  font-style: normal;
-  font-weight: 800;
-  font-size: 30px;
-  line-height: 41px;
-  /* identical to box height */
-
-  color: #5c5c5c;
-  display: table;
   margin: 0px auto;
 `;
 
-export const CompleteBtn = styled.button`
-  background: #175596;
-  border-radius: 5px;
-  font-family: "Open Sans", sans-serif;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 17px;
-  line-height: 22px;
-  /* or 129% */
+export const Label = styled.div`
+  font-weight: bold;
+  font-size: 30px;
+  color: #5c5c5c;
+  /* display: table; */
+  margin: 0px auto;
+`;
 
-  align-items: center;
-  text-align: center;
-
-  color: #f5f5f5;
-  display: block;
-  margin: 10px auto;
-  outline: none;
+export const CompleteBtn = styled.a`
+  cursor: pointer;
+  text-decoration: none;
+  color: #ffffff;
+  &:hover {
+    background: #2071c7;
+  }
+  &:active {
+    transform: scale(0.97);
+    transition: 0.1s;
+  }
 `;

@@ -2,12 +2,13 @@ import React, { Component, Fragment } from "react";
 import Navigation from "../navigation";
 import {
   ContentDiv,
-  Headder,
   Title,
+  Heading,
   Subtitle,
   Input,
   SubmitBtn,
   BackgroundDiv,
+  BackBtn,
 } from "./newappstyle";
 import { connect } from "react-redux";
 
@@ -34,34 +35,23 @@ class Track1 extends Component {
       <Fragment>
         <Navigation />
         <BackgroundDiv>
-          <div>
-            <ContentDiv>
-              <div>
-                <Headder>
-                  <a href="/trackr"> &lt; back to applications</a>
-                </Headder>
-              </div>
-              <div>
-                <Title>Add a new application </Title>
-              </div>
-              <div>
-                <Subtitle>We’re excited to see where this takes you!</Subtitle>
-              </div>
+          <ContentDiv>
+            <BackBtn href="/trackr"> &lt;</BackBtn>
+            <Heading>
+              <Title>Add a new application </Title>
+              <Subtitle>We’re excited to see where this takes you!</Subtitle>
               <form onSubmit={this.handleSubmit}>
-                <div>
-                  <Input
-                    value={this.state.url}
-                    onChange={this.handleChange}
-                  ></Input>
-                </div>
-                <div>
-                  <a>
-                    <SubmitBtn type="submit">submit link</SubmitBtn>
-                  </a>
-                </div>
+                <Input
+                  placeholder="https://link_to_your_application_here.com"
+                  value={this.state.url}
+                  onChange={this.handleChange}
+                ></Input>
+                {/* <a> */}
+                <SubmitBtn type="submit">Submit</SubmitBtn>
+                {/* </a> */}
               </form>
-            </ContentDiv>
-          </div>
+            </Heading>
+          </ContentDiv>
         </BackgroundDiv>
       </Fragment>
     );
