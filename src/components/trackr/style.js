@@ -4,7 +4,7 @@ export const MainBody = styled.div`
   min-width: 700px;
   font-family: Sans-Serif;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   margin: 0 20px 20px 0;
   justify-content: center;
 `;
@@ -103,8 +103,6 @@ export const Option = styled.option`
     //border-radius: 14px;
   }
 `;
-
-export const Apps = styled.div``;
 
 export const Content = styled.div`
   background: #ffffff;
