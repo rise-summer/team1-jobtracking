@@ -12,6 +12,17 @@ import {
   Option,
   Content,
   ProfileDiv,
+  JobTitle,
+  EditBtn,
+  ExitBtn,
+  BtnDiv,
+  Info,
+  HashTagDiv,
+  HashTag,
+  SearchDiv,
+  Searches,
+  ViewPostBtnDiv,
+  ViewPostBtn,
 } from "./style";
 
 class Trackr extends Component {
@@ -48,7 +59,30 @@ class Trackr extends Component {
               </Headding>
               {this.getContent()}
             </ContentDiv>
-            <ProfileDiv></ProfileDiv>
+            <ProfileDiv>
+              <BtnDiv>
+                <EditBtn>Edit</EditBtn>
+                <ExitBtn>x</ExitBtn>
+              </BtnDiv>
+              <JobTitle>UXStudent</JobTitle>
+              <Info>Lauren Yoon</Info>
+              <Info>Majoring in Computer Science</Info>
+              <Info>Attending Stony Brook University</Info>
+              <HashTagDiv>
+                <HashTag>#SWE</HashTag>
+                <HashTag>#CSE</HashTag>
+                <HashTag>#FulLStack</HashTag>
+              </HashTagDiv>
+              <SearchDiv>
+                <div>Recent Searches:</div>
+                <Searches>#Backend</Searches>
+                <Searches>#SoftwareDev</Searches>
+                <Searches>#Tech</Searches>
+              </SearchDiv>
+              <ViewPostBtnDiv>
+                <ViewPostBtn>View Your Posts</ViewPostBtn>
+              </ViewPostBtnDiv>
+            </ProfileDiv>
           </BackgroundDiv>
         </MainBody>
       </Fragment>

@@ -31,8 +31,8 @@ class Track3 extends Component {
             <Heading>
               <Title>Great job applying!</Title>
               <Subtitle>
-                You have successfully added{" "}
-                <span style={{ color: "#0000a0" }}> {this.props.role} </span> to
+                You have successfully added
+                <span style={{ color: "#65B6FE" }}> {this.props.role} </span> to
                 your tracked applications.
               </Subtitle>
             </Heading>
