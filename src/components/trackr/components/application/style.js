@@ -5,6 +5,8 @@ export const Content = styled.div`
   border-radius: 5px;
   padding: 10px 40px;
   display: flex;
+  margin-top: 10px;
+  margin-bottom: 10px;
 `;
 
 export const CompanyName = styled.div`
@@ -25,18 +27,19 @@ export const Left = styled.div`
 `;
 export const Center = styled.div`
   padding: 10px;
+  display: flex;
 `;
 
 export const Right = styled.div`
   padding: 10px;
-  display: block;
-  float: left;
+  width: 10vw;
 `;
 
 export const BorderBox = styled.div`
   border: 2px solid #6175a9;
   box-sizing: border-box;
   border-radius: 15px;
+  margin: auto 0px;
 `;
 
 export const Status = styled.div`
@@ -61,4 +64,14 @@ export const RBtn = styled.button`
 
   color: #979797;
   background: white;
+  margin: auto 2px;
+  min-width: 5vw;
+  height: 5vh;
+`;
+
+export const ButtonBox = styled.div`
+margin: auto;
+display: flex;
+
+
 `;

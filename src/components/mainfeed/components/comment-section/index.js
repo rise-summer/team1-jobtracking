@@ -3,13 +3,14 @@ import './style.css';
 
 import AddComment from './add-comment';
 import Comment from './comment';
+import moment from 'moment';
 
 class CommentSection extends React.Component {
     render() {
         const test = [
             {
                 name: 'Lauren',
-                date: 'Monday',
+                date: moment().format('dddd'),
                 message: 'hi'
             },
             {
