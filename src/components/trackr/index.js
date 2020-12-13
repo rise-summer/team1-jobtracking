@@ -1,17 +1,17 @@
 import React, { Component, Fragment } from "react";
 import Navigation from "../navigation";
 import {
+  MainBody,
   BackgroundDiv,
   Headding,
   Title,
+  NewAppBtnDiv,
   NewAppBtn,
   Sort,
-  Apps,
   ContentDiv,
   Option,
   Content,
   ProfileDiv,
-  HDiv
 } from "./style";
 
 class Trackr extends Component {
@@ -22,39 +22,35 @@ class Trackr extends Component {
 
   getContent() {
     if (this.state.no_apps) {
-      return <Content>Log a new application here</Content>
+      return <Content>Log a new application here</Content>;
     }
   }
 
   render() {
     return (
       <Fragment>
-        <Navigation />
-        <BackgroundDiv>
-          <ContentDiv>
-            <HDiv>
+        <MainBody>
+          <Navigation />
+          <BackgroundDiv>
+            <ContentDiv>
               <Headding>
-                <div>
-                  <Title>YOUR APPLICATIONS</Title>
-                </div>
-                <div>
-                  <a href="/trackr/track1"><NewAppBtn>Enter a new application</NewAppBtn></a>
-                </div>
-                <div>
-                  <Sort class="dropdown">
-                    <Option value="" selected disabled hidden>
-                      Sort by
-                    </Option>
-                    <Option>deadline</Option>
-                    <Option>status</Option>
-                  </Sort>
-                </div>
+                <Title>Your Applications</Title>
+                <NewAppBtnDiv>
+                  <NewAppBtn href="/trackr/track1">New App</NewAppBtn>
+                </NewAppBtnDiv>
+                <Sort class="dropdown">
+                  <Option value="" selected disabled hidden>
+                    Sort by
+                  </Option>
+                  <Option>Deadline</Option>
+                  <Option>Status</Option>
+                </Sort>
               </Headding>
-              <div>{this.getContent()}</div>
-            </HDiv>
+              {this.getContent()}
+            </ContentDiv>
             <ProfileDiv></ProfileDiv>
-          </ContentDiv>
-        </BackgroundDiv>
+          </BackgroundDiv>
+        </MainBody>
       </Fragment>
     );
   }

@@ -20,13 +20,26 @@ export const MainBody = styled.div`
 `;
 export const BackgroundDiv = styled.div``;
 
-export const Logo = styled.div`
-  font-family: Sans-Serif;
-  color: #fffd77;
-  font-weight: bold;
-  font-size: 35px;
+export const LogoDiv = styled.div`
   margin-left: 30px;
   margin-top: 20px;
+  color: #000000;
+  &:active {
+    transform: scale(0.97);
+    transition: 0.1s;
+  }
+`;
+
+export const Logo = styled.a`
+  font-family: Sans-Serif;
+  color: #fffd77;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 35px;
+  cursor: pointer;
+  &:hover {
+    color: #fffd66;
+  }
 `;
 
 export const ContentDiv = styled.div`
