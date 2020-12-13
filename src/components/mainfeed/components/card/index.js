@@ -1,8 +1,9 @@
 import React from "react";
+import CommentSection from '../comment-section';
 import {
   Feed,
   Content,
-  Comment,
+//  Comment,
   Title,
   Date,
   Description,
@@ -33,7 +34,7 @@ export default function Card({ title, date, content, company, status }) {
           <div>Status</div>
         </RoleInfo>
       </Content>
-      <Comment></Comment>
+      <CommentSection />
     </Feed>
   );
 }
