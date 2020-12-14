@@ -37,12 +37,14 @@ export const BackBtn = styled.button`
 `;
 
 export const BackSvg = styled.img`
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
   &:active {
     transform: scale(0.8);
     transition: 0.1s;
+    filter: opacity(30%);
   }
+  filter: opacity(50%);
 `;
 
 export const Title = styled.div`

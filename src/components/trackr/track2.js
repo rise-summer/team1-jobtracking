@@ -94,7 +94,7 @@ class Track2 extends Component {
         <BackgroundDiv>
           <ContentDiv>
             <BackBtn>
-              <a href="/trackr">
+              <a href="/trackr/track1">
                 <BackSvg src={backarrow} alt="backarrow error"></BackSvg>
               </a>
             </BackBtn>

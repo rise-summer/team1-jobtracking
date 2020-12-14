@@ -31,7 +31,7 @@ class Track3 extends Component {
         <BackgroundDiv>
           <ContentDiv>
             <BackBtn href="/trackr">
-              <a href="/trackr">
+              <a href="/trackr" onclick="topFunction()">
                 <BackSvg src={backarrow} alt="backarrow error"></BackSvg>
               </a>
             </BackBtn>
