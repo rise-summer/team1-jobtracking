@@ -44,7 +44,7 @@ class Login extends Component {
               ></ConfirmPwd>
               <Button type="submit">Sign Up</Button>
               <SignUpButton href="/LogIn">
-                have an account? sign in here.{" "}
+                have an account? Log in here.{" "}
               </SignUpButton>
             </form>
           </ContentDiv>

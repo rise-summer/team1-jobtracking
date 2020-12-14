@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from "react";
 import Navigation from "../navigation";
+import backarrow from "../../images/backarrow.svg";
+
 import {
   ContentDiv,
   Title,
@@ -8,7 +10,13 @@ import {
   Input,
   SubmitBtn,
   BackgroundDiv,
+<<<<<<< HEAD
   BackBtn,
+||||||| e652ca3
+=======
+  BackBtn,
+  BackSvg,
+>>>>>>> 290023a0e8d066409a05901029774554b3b04199
 } from "./newappstyle";
 import { connect } from "react-redux";
 
@@ -36,7 +44,11 @@ class Track1 extends Component {
         <Navigation />
         <BackgroundDiv>
           <ContentDiv>
-            <BackBtn href="/trackr"> &lt;</BackBtn>
+            <BackBtn>
+              <a href="/trackr">
+                <BackSvg src={backarrow} alt="backarrow error"></BackSvg>
+              </a>
+            </BackBtn>
             <Heading>
               <Title>Add a new application </Title>
               <Subtitle>We’re excited to see where this takes you!</Subtitle>

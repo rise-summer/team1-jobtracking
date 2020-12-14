@@ -1,16 +1,38 @@
 // import { Slider } from "antd";
 import React, { Component, Fragment } from "react";
 import Navigation from "../navigation";
+import backarrow from "../../images/backarrow.svg";
+
 import {
   ContentDiv,
+<<<<<<< HEAD
   Heading,
   Title,
   BackBtn,
   Subtitle,
+||||||| e652ca3
+  Headder,
+  Title2,
+  Subtitle2,
+=======
+  Heading,
+  Title,
+  BackBtn,
+  BackSvg,
+  Subtitle,
+>>>>>>> 290023a0e8d066409a05901029774554b3b04199
   BackgroundDiv,
+<<<<<<< HEAD
   Input,
+||||||| e652ca3
+  Input1,
+  Input2,
+=======
+  Input,
+  Input2,
+>>>>>>> 290023a0e8d066409a05901029774554b3b04199
   Textarea,
-  InputDiv,
+  TextAreaDiv,
   Slider,
   SliderDiv,
   Label,
@@ -89,11 +111,16 @@ class Track2 extends Component {
         <Navigation />
         <BackgroundDiv>
           <ContentDiv>
-            <BackBtn href="/trackr"> &lt;</BackBtn>
+            <BackBtn>
+              <a href="/trackr/track1">
+                <BackSvg src={backarrow} alt="backarrow error"></BackSvg>
+              </a>
+            </BackBtn>
             <Heading>
               <Title>Great!</Title>
               <Subtitle>Click to edit any of the parameters</Subtitle>
               <form onSubmit={this.handleSubmit}>
+<<<<<<< HEAD
                 <Input
                   defaultValue={this.props.url}
                   id="link"
@@ -148,6 +175,146 @@ class Track2 extends Component {
                 <SubmitBtn>
                   <CompleteBtn>Complete</CompleteBtn>
                 </SubmitBtn>
+||||||| e652ca3
+                <div>
+                  <Input1
+                    defaultValue={this.props.url}
+                    id="link"
+                    readonly={false}
+                    placeholder="https://paste_the_link_to_your_application_here.com"
+                    onChange={this.handleChange.bind(this, "URL")}
+                    // value ={this.state.url}
+                  />
+                </div>
+                <div>
+                  <InputDiv>
+                    <Input2
+                      placeholder="Software Engineering Intern"
+                      style={{ marginRight: "10px" }}
+                      id="role"
+                      onChange={(e) => this.handleChange(e, "ROLE")}
+                      value={this.state.role}
+                    />
+                    <Input2
+                      placeholder="Facebook"
+                      style={{ marginLeft: "10px" }}
+                      id="company"
+                      onChange={(e) => this.handleChange(e, "COMPANY")}
+                      value={this.state.company}
+                    />
+                  </InputDiv>
+                </div>
+                <div>
+                  <InputDiv>
+                    <Input2
+                      placeholder="Deadline: 12/01/20"
+                      style={{ marginRight: "10px" }}
+                      id="deadline"
+                      onChange={(e) => this.handleChange(e, "DEADLINE")}
+                      value={this.state.deadline}
+                    />
+                    <Input2
+                      placeholder="Menlo Park, California"
+                      style={{ marginLeft: "10px" }}
+                      id="location"
+                      onChange={(e) => this.handleChange(e, "LOCATION")}
+                      value={this.state.location}
+                    />
+                  </InputDiv>
+                </div>
+                <div>
+                  <Textarea
+                    placeholder="As an intern, you'll become an expert on the Facebook Terminal and gain a deeper understanding of technology and finance. In addition to your projects, you'll participate in coding challenges, attend tech talks and network with other interns."
+                    id="description"
+                    onChange={(e) => this.handleChange(e, "DESCRIPTION")}
+                    value={this.state.description}
+                  />
+                </div>
+                <div>
+                  <Subtitle2>What stage are you in applying?</Subtitle2>
+                </div>
+                <div>
+                  <SliderDiv>
+                    <Label>{this.state.stage}</Label>
+                    <Slider
+                      type="range"
+                      min="0"
+                      max="3"
+                      onChange={(e) => {
+                        this.handleSlider(e);
+                      }}
+                      defaultValue="0"
+                    />
+                  </SliderDiv>
+                </div>
+                <div>
+                  <a href="/trackr/track3">
+                    <CompleteBtn
+                      style={{ width: "305px", height: "36px" }}
+                      type="submit"
+                    >
+                      complete entering application
+                    </CompleteBtn>
+                  </a>
+                </div>
+=======
+                <Input
+                  defaultValue={this.props.url}
+                  id="link"
+                  readonly={false}
+                  placeholder="https://link_to_your_application_here.com"
+                  onChange={this.handleChange.bind(this, "URL")}
+                  // value ={this.state.url}
+                />
+                <Input2
+                  placeholder="Software Engineering Intern"
+                  id="role"
+                  onChange={(e) => this.handleChange(e, "ROLE")}
+                  value={this.state.role}
+                />
+                <Input2
+                  placeholder="Facebook"
+                  id="company"
+                  onChange={(e) => this.handleChange(e, "COMPANY")}
+                  value={this.state.company}
+                />
+                <Input2
+                  placeholder="Deadline: 12/01/20"
+                  id="deadline"
+                  onChange={(e) => this.handleChange(e, "DEADLINE")}
+                  value={this.state.deadline}
+                />
+                <Input2
+                  placeholder="Menlo Park, California"
+                  id="location"
+                  onChange={(e) => this.handleChange(e, "LOCATION")}
+                  value={this.state.location}
+                />
+                <TextAreaDiv>
+                  <Textarea
+                    placeholder="As an intern, you'll become an expert on the Facebook Terminal and gain a deeper understanding of technology and finance. In addition to your projects, you'll participate in coding challenges, attend tech talks and network with other interns."
+                    id="description"
+                    onChange={(e) => this.handleChange(e, "DESCRIPTION")}
+                    value={this.state.description}
+                  />
+                </TextAreaDiv>
+                <Subtitle>What stage are you in applying?</Subtitle>
+                <SliderDiv>
+                  <Label>{this.state.stage}</Label>
+                  <Slider
+                    type="range"
+                    min="0"
+                    max="3"
+                    onChange={(e) => {
+                      this.handleSlider(e);
+                    }}
+                    defaultValue="0"
+                  />
+                </SliderDiv>
+                <SubmitBtn>
+                  <CompleteBtn>Complete</CompleteBtn>
+                </SubmitBtn>
+>>>>>>> 290023a0e8d066409a05901029774554b3b04199
               </form>
             </Heading>
           </ContentDiv>
