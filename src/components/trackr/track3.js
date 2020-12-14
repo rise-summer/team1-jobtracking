@@ -1,6 +1,8 @@
 // import { Slider } from "antd";
 import React, { Component, Fragment } from "react";
 import Navigation from "../navigation";
+import backarrow from "../../images/backarrow.svg";
+
 import {
   ContentDiv,
   Title,
@@ -8,6 +10,7 @@ import {
   Subtitle,
   BackBtn,
   Heading,
+  BackSvg,
 } from "./newappstyle";
 import { connect } from "react-redux";
 
@@ -27,7 +30,11 @@ class Track3 extends Component {
         <Navigation />
         <BackgroundDiv>
           <ContentDiv>
-            <BackBtn href="/trackr"> &lt;</BackBtn>
+            <BackBtn href="/trackr">
+              <a href="/trackr">
+                <BackSvg src={backarrow} alt="backarrow error"></BackSvg>
+              </a>
+            </BackBtn>
             <Heading>
               <Title>Great job applying!</Title>
               <Subtitle>
@@ -35,6 +42,7 @@ class Track3 extends Component {
                 <span style={{ color: "#65B6FE" }}> {this.props.role} </span> to
                 your tracked applications.
               </Subtitle>
+              <Subtitle>See what other people are saying here:</Subtitle>
             </Heading>
           </ContentDiv>
         </BackgroundDiv>

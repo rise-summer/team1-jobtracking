@@ -1,16 +1,20 @@
 // import { Slider } from "antd";
 import React, { Component, Fragment } from "react";
 import Navigation from "../navigation";
+import backarrow from "../../images/backarrow.svg";
+
 import {
   ContentDiv,
   Heading,
   Title,
   BackBtn,
+  BackSvg,
   Subtitle,
   BackgroundDiv,
   Input,
+  Input2,
   Textarea,
-  InputDiv,
+  TextAreaDiv,
   Slider,
   SliderDiv,
   Label,
@@ -89,7 +93,11 @@ class Track2 extends Component {
         <Navigation />
         <BackgroundDiv>
           <ContentDiv>
-            <BackBtn href="/trackr"> &lt;</BackBtn>
+            <BackBtn>
+              <a href="/trackr">
+                <BackSvg src={backarrow} alt="backarrow error"></BackSvg>
+              </a>
+            </BackBtn>
             <Heading>
               <Title>Great!</Title>
               <Subtitle>Click to edit any of the parameters</Subtitle>
@@ -102,36 +110,38 @@ class Track2 extends Component {
                   onChange={this.handleChange.bind(this, "URL")}
                   // value ={this.state.url}
                 />
-                <Input
+                <Input2
                   placeholder="Software Engineering Intern"
                   id="role"
                   onChange={(e) => this.handleChange(e, "ROLE")}
                   value={this.state.role}
                 />
-                <Input
+                <Input2
                   placeholder="Facebook"
                   id="company"
                   onChange={(e) => this.handleChange(e, "COMPANY")}
                   value={this.state.company}
                 />
-                <Input
+                <Input2
                   placeholder="Deadline: 12/01/20"
                   id="deadline"
                   onChange={(e) => this.handleChange(e, "DEADLINE")}
                   value={this.state.deadline}
                 />
-                <Input
+                <Input2
                   placeholder="Menlo Park, California"
                   id="location"
                   onChange={(e) => this.handleChange(e, "LOCATION")}
                   value={this.state.location}
                 />
-                <Textarea
-                  placeholder="As an intern, you'll become an expert on the Facebook Terminal and gain a deeper understanding of technology and finance. In addition to your projects, you'll participate in coding challenges, attend tech talks and network with other interns."
-                  id="description"
-                  onChange={(e) => this.handleChange(e, "DESCRIPTION")}
-                  value={this.state.description}
-                />
+                <TextAreaDiv>
+                  <Textarea
+                    placeholder="As an intern, you'll become an expert on the Facebook Terminal and gain a deeper understanding of technology and finance. In addition to your projects, you'll participate in coding challenges, attend tech talks and network with other interns."
+                    id="description"
+                    onChange={(e) => this.handleChange(e, "DESCRIPTION")}
+                    value={this.state.description}
+                  />
+                </TextAreaDiv>
                 <Subtitle>What stage are you in applying?</Subtitle>
                 <SliderDiv>
                   <Label>{this.state.stage}</Label>

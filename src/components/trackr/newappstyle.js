@@ -19,18 +19,28 @@ export const Heading = styled.div`
   text-align: center;
 `;
 
-export const BackBtn = styled.a`
-  font-weight: bold;
-  font-size: 29px;
+export const BackBtn = styled.button`
+  //font-weight: bold;
+  //font-size: 29px;
   text-decoration: none;
-  color: #5c5c5c;
-  margin: auto auto auto 20px;
+  background: none;
+  outline: none;
+  border: none;
+  width: 30px;
+  height: 30px;
+  //color: #5c5c5c;
+  margin: 20px auto auto 20px;
   cursor: pointer;
   &:hover {
     color: #c0c0c0;
   }
+`;
+
+export const BackSvg = styled.img`
+  width: 20px;
+  height: 20px;
   &:active {
-    transform: scale(0.97);
+    transform: scale(0.8);
     transition: 0.1s;
   }
 `;
@@ -39,7 +49,7 @@ export const Title = styled.div`
   font-weight: 600;
   font-size: 40px;
   text-align: center;
-  margin: 15px;
+  margin: 0px;
 `;
 
 export const Subtitle = styled.div`
@@ -53,13 +63,31 @@ export const Input = styled.input.attrs({})`
   background: #ffffff;
   box-shadow: 2px 4px 4px #9a9a9a;
   border-radius: 15px;
-  width: 500px;
+  width: 650px;
   height: 50px;
   border: none;
   font-size: 20px;
   border: none;
   outline: none;
   margin: 10px auto;
+  padding: 0px 20px 0px 20px;
+  &::placeholder {
+    font-style: italic;
+    font-size: 20px;
+    color: #6f6f6f;
+  }
+`;
+export const Input2 = styled.input.attrs({})`
+  background: #ffffff;
+  box-shadow: 2px 4px 4px #9a9a9a;
+  border-radius: 15px;
+  width: 300px;
+  height: 50px;
+  border: none;
+  font-size: 20px;
+  border: none;
+  outline: none;
+  margin: 10px 10px 10px 10px;
   padding: 0px 20px 0px 20px;
   &::placeholder {
     font-style: italic;
@@ -91,7 +119,12 @@ export const SubmitBtn = styled.button`
   }
 `;
 
+export const TextAreaDiv = styled.div`
+  margin: 10px auto;
+`;
+
 export const Textarea = styled.textarea`
+  font-family: "Open Sans", sans-serif;
   background: #ffffff;
   border: none;
   outline: none;
@@ -104,10 +137,10 @@ export const Textarea = styled.textarea`
   min-height: 5em;
   overflow: auto;
   /* RISE for greyed out text */
-
+  padding: 15px 15px 15px 15px;
   &::placeholder {
     color: #888888;
-    padding: 15px 15px 15px 15px;
+    //padding: 15px 15px 15px 15px;
   }
   margin: 0px auto;
 `;
