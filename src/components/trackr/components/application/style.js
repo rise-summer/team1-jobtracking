@@ -4,9 +4,11 @@ export const Content = styled.div`
   background: #ffffff;
   border-radius: 5px;
   padding: 10px 40px;
-  display: flex;
   margin-top: 10px;
   margin-bottom: 10px;
+  &:hover {
+    background: #fffd66;
+  }
 `;
 
 export const CompanyName = styled.div`
@@ -70,8 +72,38 @@ export const RBtn = styled.button`
 `;
 
 export const ButtonBox = styled.div`
-margin: auto;
-display: flex;
+  margin: auto;
+  display: flex;
+`;
 
+export const Extra = styled.div``;
 
+export const Top = styled.div`
+  display: flex;
+`;
+
+export const Topline = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 3vh;
+`;
+export const TopText = styled.div`
+  color: #5a5a5a;
+  margin: 0px 3vw;
+`;
+
+export const Description = styled.div`
+  font-weight: 300;
+  font-size: 17px;
+  line-height: 23px;
+
+  color: #5a5a5a;
+`;
+export const Notes = styled.textarea`
+  border: 2px solid #8191ba;
+  box-sizing: border-box;
+  border-radius: 14px;
+  resize: none;
+  padding: 5px;
+  width: 100%;
 `;
