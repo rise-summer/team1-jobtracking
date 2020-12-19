@@ -10,13 +10,8 @@ import {
   Input,
   SubmitBtn,
   BackgroundDiv,
-<<<<<<< HEAD
-  BackBtn,
-||||||| e652ca3
-=======
   BackBtn,
   BackSvg,
->>>>>>> 290023a0e8d066409a05901029774554b3b04199
 } from "./newappstyle";
 import { connect } from "react-redux";
 

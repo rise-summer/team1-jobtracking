@@ -107,3 +107,5 @@ export const Notes = styled.textarea`
   padding: 5px;
   width: 100%;
 `;
+
+export const Svg = styled.img``;

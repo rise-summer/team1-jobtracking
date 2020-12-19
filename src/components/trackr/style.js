@@ -1,17 +1,5 @@
 import styled from "styled-components";
 
-<<<<<<< HEAD
-export const MainBody = styled.div`
-  min-width: 700px;
-  font-family: Sans-Serif;
-  width: 100vw;
-  height: 100vh;
-  margin: 0 20px 20px 0;
-  justify-content: center;
-`;
-
-||||||| e652ca3
-=======
 export const MainBody = styled.div`
   min-width: 700px;
   font-family: Sans-Serif;
@@ -21,7 +9,6 @@ export const MainBody = styled.div`
   justify-content: center;
 `;
 
->>>>>>> 290023a0e8d066409a05901029774554b3b04199
 export const BackgroundDiv = styled.div`
   background: #ebebeb;
   display: flex;
@@ -179,50 +166,6 @@ export const Info = styled.div`
   font-size: 20px;
 `;
 
-<<<<<<< HEAD
-export const BtnDiv = styled.div`
-  display: flex;
-`;
-
-export const EditBtn = styled.button`
-  border: none;
-  outline: none;
-  cursor: pointer;
-  &:hover {
-    background: #c0c0c0;
-  }
-  &:active {
-    transform: scale(0.97);
-    transition: 0.1s;
-  }
-`;
-
-export const ExitBtn = styled.button`
-  border: none;
-  outline: none;
-  border-radius: 15px;
-  margin: 0px 0px 0px auto;
-  cursor: pointer;
-  &:hover {
-    background: #c0c0c0;
-  }
-  &:active {
-    transform: scale(0.97);
-    transition: 0.1s;
-  }
-`;
-export const JobTitle = styled.div`
-  font-size: 30px;
-  font-weight: bold;
-  margin: 20px auto auto auto;
-  text-align: center;
-`;
-
-export const Info = styled.div`
-  margin-top: 20px;
-  font-size: 20px;
-`;
-
 export const HashTagDiv = styled.div`
   margin-top: 20px;
 `;
@@ -274,60 +217,4 @@ export const ViewPostBtn = styled.button`
 
 export const ViewPostBtnDiv = styled.div`
   text-align: center;
-||||||| e652ca3
-export const HDiv = styled.div`
-  /* margin: 10px; */
-=======
-export const HashTagDiv = styled.div`
-  margin-top: 20px;
-`;
-
-export const HashTag = styled.button`
-  background: #5869d7;
-  color: #f5f5f5;
-  width: fit-content;
-  font-size: 20px;
-  padding: 10px 10px 10px 10px;
-  margin: 5px 5px 5px 5px;
-  border-radius: 5px;
-  overflow: hidden;
-  outline: none;
-  border: none;
-`;
-
-export const SearchDiv = styled.div`
-  margin-top: 15px;
-`;
-
-export const Searches = styled.button`
-  outline: none;
-  border: none;
-  background: #ffffff;
-  color: #b6b6b9;
-  width: fit-content;
-  font-size: 20px;
-  margin: 10px 10px 10px 10px;
-  border-radius: 5px;
-`;
-
-export const ViewPostBtn = styled.button`
-  outline: none;
-  border: none;
-  color: none;
-  background: none;
-  font-weight: bold;
-  font-size: 20px;
-  cursor: pointer;
-  &:hover {
-    color: 2071c7;
-  }
-  &:active {
-    transform: scale(0.97);
-    transition: 0.1s;
-  }
-`;
-
-export const ViewPostBtnDiv = styled.div`
-  text-align: center;
->>>>>>> 290023a0e8d066409a05901029774554b3b04199
 `;

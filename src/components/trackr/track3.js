@@ -8,16 +8,9 @@ import {
   Title,
   BackgroundDiv,
   Subtitle,
-<<<<<<< HEAD
-  BackBtn,
-  Heading,
-||||||| e652ca3
-  Subtitle2,
-=======
   BackBtn,
   Heading,
   BackSvg,
->>>>>>> 290023a0e8d066409a05901029774554b3b04199
 } from "./newappstyle";
 import { connect } from "react-redux";
 
