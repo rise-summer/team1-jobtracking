@@ -52,7 +52,7 @@ class Track1 extends Component {
                   placeholder="https://link_to_your_application_here.com"
                   value={this.state.url}
                   onChange={this.handleChange}
-                ></Input>
+                />
                 {/* <a> */}
                 <SubmitBtn type="submit">Submit</SubmitBtn>
                 {/* </a> */}

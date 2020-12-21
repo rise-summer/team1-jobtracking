@@ -1,8 +1,6 @@
-// import { Slider } from "antd";
 import React, { Component, Fragment } from "react";
 import Navigation from "../navigation";
 import backarrow from "../../images/backarrow.svg";
-
 import {
   ContentDiv,
   Heading,
@@ -23,22 +21,10 @@ import {
 } from "./newappstyle";
 import { connect } from "react-redux";
 
-const mapStateToProps = (state) => {
-  return { url: state.applicationReducer.url };
-};
-
 class Track2 extends Component {
   constructor() {
     super();
-    this.state = {
-      stage: "Interested",
-      url: "",
-      role: "",
-      company: "",
-      deadline: "",
-      location: "",
-      description: "",
-    };
+    this.state = { stage: "Interested" };
     // this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -51,39 +37,63 @@ class Track2 extends Component {
       3: "Offer",
     };
     console.log(e.target.value);
+
     this.setState({ stage: rangeValues[e.target.value] });
   }
 
   handleSubmit() {
-    this.props.dispatch({
-      type: "ADD_APPLICATION",
-      payload: {
-        role: this.state.role,
-        company: this.state.company,
-        deadline: this.state.deadline,
-        location: this.state.location,
-        description: this.state.description,
-        stage: this.state.stage,
-      },
-    });
+    // this.props.dispatch({
+    //   type: "ADD_APPLICATION",
+    //   payload: {
+    //     url: this.state.url,
+    //     role: this.state.role,
+    //     company: this.state.company,
+    //     deadline: this.state.deadline,
+    //     location: this.state.location,
+    //     description: this.state.description,
+    //     stage: this.state.stage,
+    //   },
+    // });
     this.props.history.push("/trackr/track3");
   }
 
   handleChange(event, key) {
-    console.log(this.state);
     switch (key) {
       case "URL":
-        return this.setState({ url: event.target.value });
+        return this.props.dispatch({
+          type: "ADD_URL",
+          payload: { url: event.target.value },
+        });
       case "ROLE":
-        return this.setState({ role: event.target.value });
+        return this.props.dispatch({
+          type: "ADD_ROLE",
+          payload: { role: event.target.value },
+        });
       case "COMPANY":
-        return this.setState({ company: event.target.value });
+        return this.props.dispatch({
+          type: "ADD_COMPANY",
+          payload: { company: event.target.value },
+        });
       case "DEADLINE":
-        return this.setState({ deadline: event.target.value });
+        return this.props.dispatch({
+          type: "ADD_DEADLINE",
+          payload: { deadline: event.target.value },
+        });
       case "LOCATION":
-        return this.setState({ location: event.target.value });
+        return this.props.dispatch({
+          type: "ADD_LOCATION",
+          payload: { location: event.target.value },
+        });
       case "DESCRIPTION":
-        return this.setState({ description: event.target.value });
+        return this.props.dispatch({
+          type: "ADD_DESCRIPTION",
+          payload: { description: event.target.value },
+        });
+      case "STAGE":
+        return this.props.dispatch({
+          type: "ADD_STAGE",
+          payload: { stage: event.target.value },
+        });
     }
   }
 
@@ -103,43 +113,48 @@ class Track2 extends Component {
               <Subtitle>Click to edit any of the parameters</Subtitle>
               <form onSubmit={this.handleSubmit}>
                 <Input
-                  defaultValue={this.props.url}
+                  value={this.props.url}
                   id="link"
-                  readonly={false}
                   placeholder="https://link_to_your_application_here.com"
-                  onChange={this.handleChange.bind(this, "URL")}
-                  // value ={this.state.url}
+                  onChange={(e) => this.handleChange(e, "URL")}
+                  // value={this.state.url}
                 />
                 <Input2
+                  value={this.props.role}
                   placeholder="Software Engineering Intern"
                   id="role"
                   onChange={(e) => this.handleChange(e, "ROLE")}
-                  value={this.state.role}
+                  // value={this.state.role}
                 />
                 <Input2
+                  value={this.props.company}
                   placeholder="Facebook"
                   id="company"
                   onChange={(e) => this.handleChange(e, "COMPANY")}
-                  value={this.state.company}
+                  // value={this.state.company}
                 />
                 <Input2
+                  value={this.props.deadline}
                   placeholder="Deadline: 12/01/20"
                   id="deadline"
                   onChange={(e) => this.handleChange(e, "DEADLINE")}
-                  value={this.state.deadline}
+                  // value={this.state.deadline}
+                  type="date"
                 />
                 <Input2
+                  value={this.props.location}
                   placeholder="Menlo Park, California"
                   id="location"
                   onChange={(e) => this.handleChange(e, "LOCATION")}
-                  value={this.state.location}
+                  // value={this.state.location}
                 />
                 <TextAreaDiv>
                   <Textarea
+                    value={this.props.description}
                     placeholder="As an intern, you'll become an expert on the Facebook Terminal and gain a deeper understanding of technology and finance. In addition to your projects, you'll participate in coding challenges, attend tech talks and network with other interns."
                     id="description"
                     onChange={(e) => this.handleChange(e, "DESCRIPTION")}
-                    value={this.state.description}
+                    // value={this.state.description}
                   />
                 </TextAreaDiv>
                 <Subtitle>What stage are you in applying?</Subtitle>
@@ -166,4 +181,16 @@ class Track2 extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    url: state.applicationReducer.url,
+    role: state.applicationReducer.role,
+    company: state.applicationReducer.company,
+    deadline: state.applicationReducer.deadline,
+    location: state.applicationReducer.location,
+    description: state.applicationReducer.description,
+  };
+}
+
 export default connect(mapStateToProps)(Track2);

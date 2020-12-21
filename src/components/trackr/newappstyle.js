@@ -45,6 +45,7 @@ export const BackSvg = styled.img`
     filter: opacity(30%);
   }
   filter: opacity(50%);
+  text-decoration: none;
 `;
 
 export const Title = styled.div`
@@ -61,7 +62,7 @@ export const Subtitle = styled.div`
   margin: 10px;
 `;
 
-export const Input = styled.input.attrs({})`
+export const Input = styled.input`
   background: #ffffff;
   box-shadow: 2px 4px 4px #9a9a9a;
   border-radius: 15px;
@@ -79,7 +80,7 @@ export const Input = styled.input.attrs({})`
     color: #6f6f6f;
   }
 `;
-export const Input2 = styled.input.attrs({})`
+export const Input2 = styled.input`
   background: #ffffff;
   box-shadow: 2px 4px 4px #9a9a9a;
   border-radius: 15px;
@@ -197,5 +198,19 @@ export const CompleteBtn = styled.a`
   &:active {
     transform: scale(0.97);
     transition: 0.1s;
+  }
+`;
+
+export const Subtitle2 = styled.a`
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 29px;
+  line-height: 39px;
+  text-align: center;
+  border: none;
+  color: #5c5c5c;
+  &:hover {
+    color: #2071c7;
   }
 `;

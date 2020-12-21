@@ -11,6 +11,7 @@ import {
   BackBtn,
   Heading,
   BackSvg,
+  Subtitle2,
 } from "./newappstyle";
 import { connect } from "react-redux";
 
@@ -21,7 +22,16 @@ const mapStateToProps = (state) => {
 class Track3 extends Component {
   constructor() {
     super();
-    this.state = { label: "You've selected option 1!" };
+    this.eraseCache = this.eraseCache.bind(this);
+  }
+
+  eraseCache() {
+    console.log("here");
+    this.props.dispatch({
+      type: "STORE_RESET",
+      payload: {},
+    });
+    // this.props.history.push("/trackr");
   }
 
   render() {
@@ -30,8 +40,8 @@ class Track3 extends Component {
         <Navigation />
         <BackgroundDiv>
           <ContentDiv>
-            <BackBtn href="/trackr">
-              <a href="/trackr" onclick="topFunction()">
+            <BackBtn>
+              <a href="/trackr/track2">
                 <BackSvg src={backarrow} alt="backarrow error"></BackSvg>
               </a>
             </BackBtn>
@@ -43,6 +53,12 @@ class Track3 extends Component {
                 your tracked applications.
               </Subtitle>
               <Subtitle>See what other people are saying here:</Subtitle>
+              <div>
+                <Subtitle2 onClick={this.eraseCache}>
+                  <BackSvg src={backarrow} alt="backarrow error"></BackSvg> Back
+                  to applications
+                </Subtitle2>
+              </div>
             </Heading>
           </ContentDiv>
         </BackgroundDiv>
@@ -50,4 +66,4 @@ class Track3 extends Component {
     );
   }
 }
-export default connect(mapStateToProps)(Track3);
+export default connect(null, null)(Track3);

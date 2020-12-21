@@ -50,7 +50,7 @@ class Trackr extends Component {
                 <NewAppBtnDiv>
                   <NewAppBtn href="/trackr/track1">New App</NewAppBtn>
                 </NewAppBtnDiv>
-                <Sort class="dropdown">
+                <Sort className="dropdown">
                   <Option value="" selected disabled hidden>
                     Sort by
                   </Option>
