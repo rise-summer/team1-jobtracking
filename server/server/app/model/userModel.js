@@ -1,14 +1,12 @@
 let sql = require('../db');
 const uuid = require('uuid');
-const firebase = require('firebase/app');
-require('firebase/auth');
 
-const bcrypt = require('bcrypt');
-const saltRounds = 5;
+// const firebase = require('firebase/app');
+// require('firebase/auth');
 
-const { firebaseConfig } = require('../config');
+// const { firebaseConfig } = require('../config');
 
-const fbapp = firebase.initializeApp(firebaseConfig);
+// const fbapp = firebase.initializeApp(firebaseConfig);
 
 // user object construction
 function User(user) {
@@ -16,19 +14,17 @@ function User(user) {
   this.id = uuid.v4();
   this.username = user.username;
   this.email = user.email;
-
-  const hash = bcrypt.hashSync(user.password, saltRounds);
-  this.password = hash;
+  this.password=user.password;
 }
 
 User.createUser = (newUser, result) => {
-  fbapp
-    .auth()
-    .createUserWithEmailAndPassword(newUser.email, newUser.password)
-    .catch((err) => {
-      result(err, null);
-      return;
-    });
+  // fbapp
+  //   .auth()
+  //   .createUserWithEmailAndPassword(newUser.email, newUser.password)
+  //   .catch((err) => {
+  //     result(err, null);
+  //     return;
+  //   });
   
   let stmt=`INSERT INTO users(username,email,password)
   VALUES(?,?,?)`;
