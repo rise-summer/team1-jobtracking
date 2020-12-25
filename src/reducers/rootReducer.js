@@ -19,9 +19,9 @@ const rootReducer = (state, action) => {
   if (action.type === "STORE_RESET") {
     storage.removeItem("persist:root");
     state = undefined;
-    console.log("here1")
+    console.log("here1");
   }
   return appReducer(state, action);
 };
 
-export default persistReducer(persistConfig, appReducer);
+export default persistReducer(persistConfig, rootReducer);

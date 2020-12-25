@@ -22,6 +22,7 @@ class Track1 extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleBack = this.handleBack.bind(this);
   }
 
   handleSubmit(event) {
@@ -33,6 +34,14 @@ class Track1 extends Component {
     this.setState({ url: event.target.value });
   }
 
+  handleBack() {
+    this.props.dispatch({
+      type: "STORE_RESET",
+      payload: {},
+    });
+    this.props.history.push("/trackr");
+  }
+
   render() {
     return (
       <Fragment>
@@ -40,7 +49,7 @@ class Track1 extends Component {
         <BackgroundDiv>
           <ContentDiv>
             <BackBtn>
-              <a href="/trackr">
+              <a onClick={this.handleBack}>
                 <BackSvg src={backarrow} alt="backarrow error"></BackSvg>
               </a>
             </BackBtn>
@@ -50,7 +59,7 @@ class Track1 extends Component {
               <form onSubmit={this.handleSubmit}>
                 <Input
                   placeholder="https://link_to_your_application_here.com"
-                  value={this.state.url}
+                  value={this.props.url}
                   onChange={this.handleChange}
                 />
                 {/* <a> */}
@@ -64,4 +73,11 @@ class Track1 extends Component {
     );
   }
 }
-export default connect(null, null)(Track1);
+
+function mapStateToProps(state) {
+  return {
+    url: state.applicationReducer.url,
+  };
+}
+
+export default connect(mapStateToProps)(Track1);

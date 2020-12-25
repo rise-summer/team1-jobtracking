@@ -31,6 +31,7 @@ class Track3 extends Component {
       type: "STORE_RESET",
       payload: {},
     });
+    this.props.history.push("/trackr");
     // this.props.history.push("/trackr");
   }
 
