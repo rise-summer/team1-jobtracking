@@ -4,7 +4,7 @@ export const BackgroundDiv = styled.div`
   font-family: "Open Sans", sans-serif;
   padding: 10vh;
   background: #ebebeb;
-  height: 100vh;
+  height: 100%;
 `;
 
 export const ContentDiv = styled.div`
@@ -12,7 +12,7 @@ export const ContentDiv = styled.div`
   border-radius: 15px;
   padding: 10px;
   width: 800px;
-  margin: 0px auto;
+  margin: 50px auto;
 `;
 export const Heading = styled.div`
   justify-content: center;
@@ -186,19 +186,6 @@ export const Label = styled.div`
   color: #5c5c5c;
   /* display: table; */
   margin: 0px auto;
-`;
-
-export const CompleteBtn = styled.a`
-  cursor: pointer;
-  text-decoration: none;
-  color: #ffffff;
-  &:hover {
-    background: #2071c7;
-  }
-  &:active {
-    transform: scale(0.97);
-    transition: 0.1s;
-  }
 `;
 
 export const Subtitle2 = styled.a`

@@ -80,19 +80,17 @@ class App extends React.Component {
             </Center>
             <Right>
               <ButtonBox>
-                <RBtn id="edit">
-                  edit
-                  <a>
+                <a href="/trackr/edit1">
+                  <RBtn id="edit">
+                    edit
                     <Svg src={edit}></Svg>
-                  </a>
-                </RBtn>
+                  </RBtn>
+                </a>
                 <a href={this.props.link} target="_blank">
                   {" "}
                   <RBtn id="link">
                     link
-                    <a>
-                      <Svg src={link}></Svg>
-                    </a>
+                    <Svg src={link}></Svg>
                   </RBtn>
                 </a>
               </ButtonBox>
