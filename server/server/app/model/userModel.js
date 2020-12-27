@@ -1,12 +1,6 @@
 let sql = require('../db');
 const uuid = require('uuid');
 
-// const firebase = require('firebase/app');
-// require('firebase/auth');
-
-// const { firebaseConfig } = require('../config');
-
-// const fbapp = firebase.initializeApp(firebaseConfig);
 
 // user object construction
 function User(user) {

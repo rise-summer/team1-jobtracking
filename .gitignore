@@ -25,3 +25,6 @@ yarn-error.log*
 
 #firebase admin
 *adminsdk*.json
+
+#firebase client
+firebaseSetup.js

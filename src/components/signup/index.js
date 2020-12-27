@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { signup } from "../apiFunctions";
+
 import {
   MainBody,
   LogoDiv,
@@ -18,6 +20,11 @@ class Login extends Component {
   submit = (e) => {
     e.preventDefault();
     console.log("Event: Form Submit");
+    signup().then(res=>{
+      console.log(res)
+    }).catch(err=>{
+      console.log(err)
+    })
   };
 
   render() {

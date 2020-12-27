@@ -6,9 +6,9 @@ module.exports = function (app) {
   app.route('/api/*').all(checkAuth)
   // user routes
   // app.route('/signup').post(userController.create_a_user);
-  app.route('/users').get(userController.list_all_users);
+  app.route('/api/users').get(userController.list_all_users);
   // app.route('/signin').post(userController.log_in_user);
-  // app.get('/api/yo',function(req,res){
-  //   res.send('yo')
-  // })
+  app.get('/yo',function(req,res){
+    res.send('yo')
+  })
 };
