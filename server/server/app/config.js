@@ -10,3 +10,5 @@ const connectionConfig = {
   database: dbname,
   port: dbport
 };
+
+module.exports = {connectionConfig};
