@@ -37,7 +37,10 @@ export const registerDB=(user)=>{
 }
 
 export const login=(email,password)=>{
-    auth.signInWithEmailAndPassword(email, password).catch(function(error) {
+    return auth.signInWithEmailAndPassword(email, password).then(res=>{
+        // console.log(res)
+        return res
+    }).catch(function(error) {
         var errorCode = error.code;
         var errorMessage = error.message;
         if (errorCode === 'auth/wrong-password') {
@@ -48,4 +51,10 @@ export const login=(email,password)=>{
         }
         console.log(error);
     });
+}
+
+export const logout=()=>{
+    return auth.signOut().then(res=>{
+        console.log(res)
+    })
 }
