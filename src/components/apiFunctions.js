@@ -52,3 +52,9 @@ export const login=(email,password)=>{
         console.log(error);
     });
 }
+
+export const logout=()=>{
+    return auth.signOut().then(res=>{
+        console.log(res)
+    })
+}
