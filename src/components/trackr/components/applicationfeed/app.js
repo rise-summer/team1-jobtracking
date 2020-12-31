@@ -41,7 +41,6 @@ class App extends React.Component {
     ) {
       this.setState({ clicked: !this.state.clicked });
     }
-    // console.log(e.target.id);
   }
 
   getStatus() {
@@ -113,7 +112,11 @@ class App extends React.Component {
                 </TopText>
               </Topline>
               <Description>{this.props.description}</Description>
-              <Notes id="textarea"></Notes>
+              <Notes
+                id="textarea"
+                placeholder="Notes: 
+              Personal application log notes go here. The user can talk about things privately without sharing here. "
+              />
             </Extra>
           ) : (
             <div></div>

@@ -25,8 +25,7 @@ class Edit1 extends Component {
     super();
     this.state = { stage: "Interested", clicked: false };
     this.extend = this.extend.bind(this);
-    // this.handleChange = this.handleChange.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
+    this.completeUpdate = this.completeUpdate.bind(this);
   }
 
   handleSlider(e) {
@@ -43,6 +42,10 @@ class Edit1 extends Component {
 
   extend() {
     this.setState({ clicked: !this.state.clicked });
+  }
+
+  completeUpdate() {
+    this.props.history.push("/trackr");
   }
 
   render() {
@@ -85,7 +88,10 @@ class Edit1 extends Component {
                 <EditBtn onClick={this.extend}>
                   Edit position information
                 </EditBtn>
-                <SubmitBtn style={{ fontSize: "17px" }}>
+                <SubmitBtn
+                  style={{ fontSize: "17px" }}
+                  onClick={this.completeUpdate}
+                >
                   Complete Update
                 </SubmitBtn>
               </BottomDiv>

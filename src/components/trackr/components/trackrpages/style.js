@@ -149,11 +149,46 @@ export const Textarea = styled.textarea`
 `;
 
 export const Slider = styled.input`
-  margin: 20px auto;
+  /* margin: 20px auto;
   cursor: pointer;
-  width: 500px;
-  -webkit-appearance: none;
-  &::-webkit-slider-runnable-track {
+  width: 500px; */
+  /* -webkit-appearance: none; */
+  &::-ms-track {
+    width: 300px;
+    height: 5px;
+
+    /*remove bg colour from the track, we'll use ms-fill-lower and ms-fill-upper instead */
+    background: transparent;
+
+    /*leave room for the larger thumb to overflow with a transparent border */
+    border-color: transparent;
+    border-width: 6px 0;
+
+    /*remove default tick marks*/
+    color: transparent;
+  }
+  &::-ms-fill-lower {
+    background: #175596;
+    border-radius: 10px;
+  }
+  &::-ms-fill-upper {
+    background: #ddd;
+    border-radius: 10px;
+  }
+  &::-ms-thumb {
+    border: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #175596;
+  }
+  &::-ms-fill-lower {
+    background: #175596;
+  }
+  &::-ms-fill-upper {
+    background: #ccc;
+  }
+  /* &::-webkit-slider-runnable-track {
     background: #cfcece;
     height: 5px;
   }
@@ -164,11 +199,11 @@ export const Slider = styled.input`
     background: #175596;
     margin: -18px 0px 0px 0px;
     border-radius: 50%;
-  }
-  &:focus {
+  } */
+  /* &:focus {
     -webkit-appearance: none;
     outline: none;
-  }
+  } */
 `;
 
 export const SliderDiv = styled.div`
