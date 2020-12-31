@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
-import Navigation from "../navigation";
-import backarrow from "../../images/backarrow.svg";
+import Navigation from "../../../navigation";
+import backarrow from "../../../../images/backarrow.svg";
 
 import {
   ContentDiv,
@@ -12,13 +12,12 @@ import {
   BackgroundDiv,
   BackBtn,
   BackSvg,
-} from "./newappstyle";
+} from "./style";
 import { connect } from "react-redux";
 
 class Track1 extends Component {
   constructor(props) {
     super(props);
-    this.state = { url: "" };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -26,12 +25,14 @@ class Track1 extends Component {
   }
 
   handleSubmit(event) {
-    this.props.dispatch({ type: "ADD_URL", payload: { url: this.state.url } });
     this.props.history.push("/trackr/track2");
   }
 
   handleChange(event) {
-    this.setState({ url: event.target.value });
+    this.props.dispatch({
+      type: "ADD_URL",
+      payload: { url: event.target.value },
+    });
   }
 
   handleBack() {
@@ -59,7 +60,7 @@ class Track1 extends Component {
               <form onSubmit={this.handleSubmit}>
                 <Input
                   placeholder="https://link_to_your_application_here.com"
-                  value={this.props.url}
+                  value={this.props.url || ""}
                   onChange={this.handleChange}
                 />
                 {/* <a> */}

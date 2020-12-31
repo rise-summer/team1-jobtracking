@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
-import Navigation from "../navigation";
-import backarrow from "../../images/backarrow.svg";
+import Navigation from "../../../navigation";
+import backarrow from "../../../../images/backarrow.svg";
 import {
   ContentDiv,
   Heading,
@@ -18,7 +18,7 @@ import {
   Label,
   SubmitBtn,
   CompleteBtn,
-} from "./newappstyle";
+} from "./style";
 import { connect } from "react-redux";
 
 class Track2 extends Component {
@@ -170,9 +170,7 @@ class Track2 extends Component {
                     defaultValue="0"
                   />
                 </SliderDiv>
-                <SubmitBtn>
-                  <CompleteBtn>Complete</CompleteBtn>
-                </SubmitBtn>
+                <SubmitBtn>Complete</SubmitBtn>
               </form>
             </Heading>
           </ContentDiv>
