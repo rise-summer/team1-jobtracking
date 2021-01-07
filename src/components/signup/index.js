@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { signupFirebase,registerDB } from "../apiFunctions";
+import {auth} from "../../firebaseSetup";
 
 import {
   MainBody,
@@ -46,15 +47,19 @@ class Login extends Component {
         password: this.state.password
     };
       signupFirebase(newUser).then(res=>{
-        registerDB(newUser).then(result=>{
-          console.log(result)
-
-          // if(!result.error){
-          //   redirect to home feed
-          // }
-        }).catch(err=>{
-          console.log(err)
+        auth.currentUser.getIdToken().then(token=>{
+          console.log(token)
+          registerDB(newUser,token).then(result=>{
+            console.log(result)
+  
+            // if(!result.error){
+            //   redirect to home feed
+            // }
+          }).catch(err=>{
+            console.log(err)
+          })
         })
+        
       }).catch(err=>{
         console.log(err)
       })
