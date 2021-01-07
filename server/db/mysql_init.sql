@@ -10,7 +10,6 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(80) NOT NULL,
   `email` varchar(80) NOT NULL,
-  `password` varchar(100) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE(`email`)
 );

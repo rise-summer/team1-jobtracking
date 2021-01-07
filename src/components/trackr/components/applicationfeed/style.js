@@ -100,12 +100,19 @@ export const Description = styled.div`
   color: #5a5a5a;
 `;
 export const Notes = styled.textarea`
+  font-family: sans-serif;
   border: 2px solid #8191ba;
   box-sizing: border-box;
   border-radius: 14px;
   resize: none;
   padding: 5px;
   width: 100%;
+  font-size: 16px;
+  line-height: 22px;
+
+  /* RISE colors high fidelity */
+
+  color: #5a5a5a;
 `;
 
 export const Svg = styled.img``;

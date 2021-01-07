@@ -24,7 +24,7 @@ import {
   ViewPostBtnDiv,
   ViewPostBtn,
 } from "./style";
-import ApplicationFeed from "./components/application/index"
+import ApplicationFeed from "./components/applicationfeed/applicationfeed"
 
 class Trackr extends Component {
   constructor() {

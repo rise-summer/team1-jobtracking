@@ -1,7 +1,7 @@
 // import { Slider } from "antd";
 import React, { Component, Fragment } from "react";
-import Navigation from "../navigation";
-import backarrow from "../../images/backarrow.svg";
+import Navigation from "../../../navigation";
+import backarrow from "../../../../images/backarrow.svg";
 
 import {
   ContentDiv,
@@ -12,7 +12,7 @@ import {
   Heading,
   BackSvg,
   Subtitle2,
-} from "./newappstyle";
+} from "./style";
 import { connect } from "react-redux";
 
 const mapStateToProps = (state) => {
