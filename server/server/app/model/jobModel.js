@@ -20,7 +20,7 @@ Job.createJob = (newJob, result) => {
     if (err) {
       result(err, null);
     } else {
-      result(null, newUser);
+      result(null, newJob);
     }
   });
 };
