@@ -8,7 +8,6 @@ function Job(job,uid) {
   this.company = job.company;
   this.app_process=job.app_process;
   this.userId=uid;
-  this.user_email=job.userEmail;
 }
 
 //create job
@@ -27,7 +26,7 @@ Job.createJob = (newJob, result) => {
 };
 
 //get job by id
-Job.getUserById = (userId) => {
+Job.getById = (userId) => {
   sql.query('SELECT u FROM users WHERE id = ? ', userId, (err, res) => {
     if (err) {
       console.log('error: ', err);
