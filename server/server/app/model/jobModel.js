@@ -14,7 +14,7 @@ function Job(job,uid) {
 Job.createJob = (newJob, result) => {
   
   let stmt=`INSERT INTO job(job_title,company,app_process,user_id)
-  VALUES(?,?,?,?,?)`;
+  VALUES(?,?,?,?)`;
   let info=[newJob.job_title,newJob.company,newJob.app_process,newJob.userId]
   sql.query(stmt, info, (err, res) => {
     if (err) {
