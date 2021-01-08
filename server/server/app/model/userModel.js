@@ -35,7 +35,7 @@ User.getUserById = (userId) => {
 };
 
 User.getUserByEmail=(userEmail,result)=>{
-  let stmt=`SELECT id FROM users WHERE email=` + userEmail ;
+  let stmt="SELECT * FROM users WHERE email='" + userEmail + "'" ;
   sql.query(stmt,(err,res)=>{
     if(err){
       result(err,null)
