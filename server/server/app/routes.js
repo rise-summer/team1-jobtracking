@@ -12,4 +12,5 @@ module.exports = function (app) {
   app.route('/jobs').get(jobController.get_jobs);
   app.route('/job/:jobId').get(jobController.get_job); // Access jobId via: req.params.jobId
   app.route('/job/delete/:jobId').delete(jobController.delete_job);
+  app.route('/job/update/:jobId').put(jobController.update_job);
 };
