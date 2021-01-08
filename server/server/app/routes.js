@@ -9,4 +9,5 @@ module.exports = function (app) {
   app.route('/api/register').post(userController.create_a_user);
   app.route('/api/users').get(userController.list_all_users);
   app.route('/create_job').post(jobController.create_job_app);
+  app.route('/get_jobs').get(jobController.get_job_apps_by_user);
 };
