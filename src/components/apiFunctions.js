@@ -24,11 +24,16 @@ export const signupFirebase=(user)=>{
     });
 }
 
-export const registerDB=(user)=>{
-    return axios.post('/create_user',
+export const registerDB=(user,token)=>{
+    return axios.post('/api/register',
     {
         username:user['username'],
         email:user['email']
+    },
+    {
+        headers: {
+            'Authorization': 'Bearer '+token
+        }
     }).then(res=>{
         return res.data
     }).catch(err=>{
