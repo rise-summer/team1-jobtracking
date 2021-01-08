@@ -4,7 +4,6 @@ const uuid = require('uuid');
 
 function Job(job,uid) {
   console.log('job application: ' + JSON.stringify(job));
-  this.job_id=job.job_id;
   this.job_title = job.job_title;
   this.company = job.company;
   this.app_process=job.app_process;
@@ -71,7 +70,14 @@ Job.update=(updatedJob,result)=>{
     let stmt=`UPDATE job
                 SET job_title = ?, company = ?, app_process = ?
                 WHERE job_id = ?`;
-    let info=[]
+    let info=[updatedJob.job_title,updatedJob.company,updatedJob.app_process,updatedJob.job_id]
+    sql.query(stmt,info,(err,res)=>{
+        if (err) {
+            result(err, null);
+        } else {
+            result(null, updatedJob);
+        }
+    })
 };
 
 module.exports = Job;
