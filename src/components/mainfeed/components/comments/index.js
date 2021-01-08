@@ -13,3 +13,6 @@ export default function Comments({ title, date, content, company, status }) {
     </div>
   );
 }
+
+
+// USED MIGHT DELETE???

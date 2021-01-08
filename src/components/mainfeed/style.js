@@ -17,6 +17,7 @@ export const BackgroundDiv = styled.div`
 
 export const Heading = styled.div`
   display: flex;
+  margin-top: 30px;
 `;
 
 export const Text = styled.div`

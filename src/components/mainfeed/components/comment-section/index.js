@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.css';
 
-import AddComment from './add-comment';
+import AddComment from './AddComment';
 import Comment from './comment';
 import moment from 'moment';
 
