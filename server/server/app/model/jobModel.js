@@ -4,6 +4,7 @@ const uuid = require('uuid');
 
 function Job(job,uid) {
   console.log('job application: ' + JSON.stringify(job));
+  this.job_id=job.job_id;
   this.job_title = job.job_title;
   this.company = job.company;
   this.app_process=job.app_process;
@@ -53,20 +54,24 @@ Job.getAllJobsForUser = (userId,result) => {
 };
 
 //remove job
-Job.remove = (userId) => {
-  sql.query('DELETE FROM users WHERE id = ?', [userId], (err, res) => {
+Job.remove = (jobId,result) => {
+  sql.query('DELETE FROM job WHERE job_id = ?', jobId, (err, res) => {
     if (err) {
-      console.log('error: ', err);
-      return sql.rollback(() => {
-        throw err;
-      });
+        result(err,null)
+    }
+    else{
+        // console.log(res)
+        result(null,res)
     }
   });
 };
 
 //update job
-Job.update=()=>{
-
+Job.update=(updatedJob,result)=>{
+    let stmt=`UPDATE job
+                SET job_title = ?, company = ?, app_process = ?
+                WHERE job_id = ?`;
+    let info=[]
 };
 
 module.exports = Job;
