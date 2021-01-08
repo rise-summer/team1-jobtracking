@@ -38,17 +38,15 @@ Job.getById = (userId) => {
 };
 
 //get all jobs for a user
-Job.getAllUsers = (result) => {
-  let stmt=`SELECT * FROM users`;
-  sql.query(stmt, (err, res) => {
+Job.getAllJobsForUser = (userId,result) => {
+  let stmt=`SELECT * FROM jobs WHERE user_id=?`;
+  sql.query(stmt, userId, (err, res) => {
     if (err) {
-      console.log('error: ', err);
-      return sql.rollback(() => {
-        throw err;
-      });
+        result(err,null)
     }
-    result(res);
-    return res;
+    else{
+        result(null,res)
+    }
   });
 };
 
