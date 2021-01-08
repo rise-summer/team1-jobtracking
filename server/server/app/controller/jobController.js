@@ -15,9 +15,51 @@ exports.create_job_app = async (req, res) => {
             }
             else{
                 res.status(409).send({ error: true, message: err.message})
+                return;
             }
         });
     });
     
-    
 };
+
+exports.get_jobs= async (req,res)=>{
+    User.getUserByEmail(req.body.userEmail,(err,result)=>{
+        userId=result[0].id;
+        Job.getAllJobsForUser(userId,(err,jobs)=>{
+            if (err == null) {
+                res.status(200).send({ error: false, data: jobs});
+                return;
+            }
+            else{
+                res.status(409).send({ error: true, message: err.message})
+                return;
+            }
+        })
+    })
+};
+
+exports.get_job=async(req,res)=>{
+    User.getUserByEmail(req.body.userEmail,(err,result)=>{
+        userId=result[0].id;
+        jobId=req.params.jobId
+        Job.getJobById(jobId,(err,job)=>{
+            if (err == null) {
+                // console.log(job[0].user_id)
+                if (job[0].user_id==userId){
+                    res.status(200).send({ error: false, data: job});
+                    return;
+                }
+                else{
+                    res.status(403).send('Unauthorized');
+                    return;
+                }
+                
+            }
+            else{
+                res.status(409).send({ error: true, message: err.message})
+                return;
+            }
+        })
+    })
+    
+}

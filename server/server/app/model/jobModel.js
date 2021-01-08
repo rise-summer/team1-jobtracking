@@ -26,25 +26,27 @@ Job.createJob = (newJob, result) => {
 };
 
 //get job by id
-Job.getById = (userId) => {
-  sql.query('SELECT u FROM users WHERE id = ? ', userId, (err, res) => {
+Job.getJobById = (jobId,result) => {
+  sql.query('SELECT * FROM job WHERE job_id = ? ', jobId, (err, res) => {
     if (err) {
-      console.log('error: ', err);
-      return sql.rollback(() => {
-        throw err;
-      });
+        result(err,null)
+    }
+    else{
+        // console.log(res)
+        result(null,res)
     }
   });
 };
 
 //get all jobs for a user
 Job.getAllJobsForUser = (userId,result) => {
-  let stmt=`SELECT * FROM jobs WHERE user_id=?`;
+  let stmt=`SELECT * FROM job WHERE user_id=?`;
   sql.query(stmt, userId, (err, res) => {
     if (err) {
         result(err,null)
     }
     else{
+        // console.log(res)
         result(null,res)
     }
   });
