@@ -1,6 +1,30 @@
+import React from "react";
 import styled from "styled-components";
+import CommentSection from "./CommentSection";
 
-export const Feed = styled.div`
+const Post = ({ id, description }) => {
+  return (
+    <Feed>
+      <Content>
+        <Title>Title</Title>
+        <Date>Date and time</Date>
+        <hr />
+        <Description>{description}</Description>
+        <RoleInfo>
+          <div>CompanyAndPosition</div>
+          {/*Remove Industry, tbd*/}
+          <div>Industry</div>
+          <div>Status</div>
+        </RoleInfo>
+      </Content>
+      <CommentSection id={id} />
+    </Feed>
+  );
+};
+
+export default Post;
+
+const Feed = styled.div`
   margin: 10px auto auto auto;
   font-family: "Open Sans", sans-serif;
   font-style: normal;
@@ -8,7 +32,7 @@ export const Feed = styled.div`
   align-items: center;
 `;
 
-export const Content = styled.div`
+const Content = styled.div`
   background: #ffffff;
   border-radius: 16px 16px 0px 0px;
   padding: 10px;
@@ -16,7 +40,7 @@ export const Content = styled.div`
   //min-width: 70vw;
   min-width: 400px;
 `;
-export const Title = styled.div`
+const Title = styled.div`
   font-weight: bold;
   font-size: 24px;
   line-height: 33px;
@@ -25,7 +49,7 @@ export const Title = styled.div`
   color: #000000;
 `;
 
-export const Date = styled.div`
+const Date = styled.div`
   font-size: 16px;
   line-height: 22px;
   letter-spacing: 0.5px;
@@ -33,7 +57,7 @@ export const Date = styled.div`
   color: #888888;
 `;
 
-export const Description = styled.div`
+const Description = styled.div`
   font-size: 16px;
   padding-bottom: 10px;
   line-height: 22px;
@@ -43,13 +67,13 @@ export const Description = styled.div`
   color: #000000;
 `;
 
-export const RoleInfo = styled.div`
+const RoleInfo = styled.div`
   display: flex;
   justify-content: space-evenly;
   color: #888888;
 `;
 
-export const Comment = styled.div`
+const Comment = styled.div`
   background: #e8e5e5;
   box-shadow: 0px 4px 2px rgba(189, 189, 189, 0.25);
   border-radius: 16px;

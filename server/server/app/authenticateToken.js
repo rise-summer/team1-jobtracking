@@ -20,7 +20,7 @@ const authenticate = async (req, res, next) => {
     const idToken = req.headers.authorization.split('Bearer ')[1];
     try {
       const decodedIdToken = await admin.auth().verifyIdToken(idToken);
-      req.userEmail = decodedIdToken.email;
+      req.body.userEmail = decodedIdToken.email;
       next();
       return;
     } catch(e) {
