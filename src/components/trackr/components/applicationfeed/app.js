@@ -53,6 +53,8 @@ class App extends React.Component {
         return "Interview";
       case "4":
         return "Offer";
+      default:
+        console.log("error")
     }
   }
 

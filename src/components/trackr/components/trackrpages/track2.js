@@ -17,7 +17,6 @@ import {
   SliderDiv,
   Label,
   SubmitBtn,
-  CompleteBtn,
 } from "./style";
 import { connect } from "react-redux";
 
