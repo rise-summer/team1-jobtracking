@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { auth } from "../../firebaseSetup";
 import { login } from "../apiFunctions";
+import {logout} from "../apiFunctions";
 import {
   MainBody,
   LogoDiv,
@@ -17,14 +18,11 @@ import {
 import { useState } from "react";
 
 import {useContext} from 'react'
-import {TestContext} from '../../TestContext'
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-
-  const [movies, setMovies] = useContext(TestContext)
 
   const submit = (e) => {
     e.preventDefault();
@@ -39,11 +37,15 @@ const Login = () => {
         console.log(res);
         console.log("redirect to home feed");
         // redirect to home feed
-        console.log(auth.currentUser);
-        console.log(auth.currentUser.displayName);
+        //console.log(auth.currentUser);
+        //console.log(auth.currentUser.displayName);
       })
     }
   };
+
+  const signout = () => {
+    logout();
+  }
 
   const handleChange = (e) => {
     const value =
@@ -88,6 +90,7 @@ const Login = () => {
               Don’t have an account? Sign up here.
             </SignUpButton>
           </form>
+          <button onClick={signout}>LOG OUT</button>
         </ContentDiv>
       </BackgroundDiv>
     </MainBody>

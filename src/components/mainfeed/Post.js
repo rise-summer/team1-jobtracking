@@ -1,17 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-import CommentSection from "./components/comment-section";
+import CommentSection from "./CommentSection";
 
-const Post = ({description}) => {
+const Post = ({ id, description }) => {
   return (
     <Feed>
       <Content>
         <Title>Title</Title>
         <Date>Date and time</Date>
         <hr />
-        <Description>
-          {description}
-        </Description>
+        <Description>{description}</Description>
         <RoleInfo>
           <div>CompanyAndPosition</div>
           {/*Remove Industry, tbd*/}
@@ -19,7 +17,7 @@ const Post = ({description}) => {
           <div>Status</div>
         </RoleInfo>
       </Content>
-      <CommentSection />
+      <CommentSection id={id} />
     </Feed>
   );
 };

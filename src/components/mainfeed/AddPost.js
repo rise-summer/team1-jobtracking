@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-const AddPost = ({ setPosts }) => {
+const AddPost = ({ numPosts, setNumPosts, setPosts }) => {
   const [description, setDescription] = useState("");
 
   const updateDescription = (e) => {
@@ -10,7 +10,12 @@ const AddPost = ({ setPosts }) => {
 
   const submitPost = (e) => {
     e.preventDefault();
-    setPosts((prevPosts) => [{ description }, ...prevPosts]);
+    setNumPosts((prevNumPosts) => prevNumPosts + 1);
+    setPosts((prevPosts) => [
+      { id: numPosts + 1, description, comments: [] },
+      ...prevPosts,
+    ]);
+    setDescription("");
   };
 
   return (
@@ -19,12 +24,13 @@ const AddPost = ({ setPosts }) => {
         <Title type="text" placeholder="Title of Post" />
         <hr />
         <Description
+          value={description}
           placeholder="Write a description here."
           onChange={updateDescription}
         ></Description>
-        <input type="text" placeholder="Position" />
-        <input type="text" placeholder="Industry" />
-        <input type="text" placeholder="Status" />
+        <Input type="text" placeholder="Position" />
+        <Input type="text" placeholder="Industry" />
+        <Input type="text" placeholder="Status" />
         <Submit>Post</Submit>
       </form>
     </Container>
@@ -43,7 +49,9 @@ const Container = styled.div`
 `;
 
 const Title = styled.input`
+  border: none;
   display: block;
+  font-size: 2vh;
   margin-left: auto;
   margin-right: auto;
   width: 100%;
@@ -58,6 +66,11 @@ const Description = styled.textarea`
   min-height: 7vh;
   resize: none;
   width: 100%;
+`;
+
+const Input = styled.input`
+  border: none;
+  font-size: 20px;
 `;
 
 // Modified NewPostButton from ./style.js
