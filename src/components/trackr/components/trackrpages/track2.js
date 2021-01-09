@@ -93,6 +93,8 @@ class Track2 extends Component {
           type: "ADD_STAGE",
           payload: { stage: event.target.value },
         });
+      default:
+        return undefined;
     }
   }
 

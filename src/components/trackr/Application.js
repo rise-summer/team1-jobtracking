@@ -19,9 +19,9 @@ const Application = (props) => {
     e.stopPropagation();
     if (
       !(
-        e.target.id == "edit" ||
-        e.target.id == "link" ||
-        e.target.id == "textarea"
+        e.target.id === "edit" ||
+        e.target.id === "link" ||
+        e.target.id === "textarea"
       )
     ) {
       setClicked((prevClicked) => !prevClicked);
@@ -38,6 +38,8 @@ const Application = (props) => {
         return "Interview";
       case "4":
         return "Offer";
+      default:
+        return undefined;
     }
   };
 
