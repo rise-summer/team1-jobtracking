@@ -34,6 +34,19 @@ User.getUserById = (userId) => {
   });
 };
 
+User.getUserByEmail=(userEmail,result)=>{
+  let stmt=`SELECT * FROM users WHERE email=?`;
+  sql.query(stmt,userEmail,(err,res)=>{
+    if(err){
+      result(err,null)
+    } 
+    else {
+      result(null,res)
+    }
+    
+  });
+}
+
 User.getAllUsers = (result) => {
   let stmt=`SELECT * FROM users`;
   sql.query(stmt, (err, res) => {
