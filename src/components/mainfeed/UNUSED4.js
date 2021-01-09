@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 // import { Comment, Tooltip, Avatar } from "antd";
 // import moment from "moment";
-import { Content } from "./style";
+import { Content } from "./UNUSED5";
 
 class Comment extends Component {
   render() {

@@ -5,10 +5,11 @@ import SignUp from "./components/signup";
 import MainFeed from "./components/mainfeed";
 import Trackr from "./components/trackr";
 import Track1 from "./components/trackr/components/trackrpages/track1";
-import Track2 from "./components/trackr/components/trackrpages/track2";
+import Track2 from "./components/trackr/track2";
 import Track3 from "./components/trackr/components/trackrpages/track3";
 import Edit1 from "./components/trackr/components/editpages/edit1";
 import Edit2 from "./components/trackr/components/editpages/edit2";
+
 
 class App extends React.Component {
   render() {
