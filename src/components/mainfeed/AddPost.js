@@ -75,6 +75,7 @@ const Title = styled.input`
 const Description = styled.textarea`
   border: none;
   display: block;
+  font-family: "Open Sans", sans-serif;
   font-size: 2vh;
   margin-left: auto;
   margin-right: auto;

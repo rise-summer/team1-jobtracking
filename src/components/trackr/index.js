@@ -52,7 +52,7 @@ const Trackr = (props) => {
   return (
     <Fragment>
       <MainBody>
-        <Navigation />
+      <Navigation />
         <BackgroundDiv>
           <ContentDiv>
             <Headding>

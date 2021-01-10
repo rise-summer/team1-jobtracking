@@ -58,6 +58,7 @@ const Date = styled.div`
 
 const Description = styled.div`
   font-size: 16px;
+  font-family: "Open Sans", sans-serif;
   padding-bottom: 10px;
   line-height: 22px;
   min-height: 80px;

@@ -9,6 +9,7 @@ export const NavBarDiv = styled.div`
   overflow: hidden;
   /* position: fixed;
   top: 100; */
+  height: 30px;
 `;
 //Left side of Nav Bar
 export const LeftNavBarDiv = styled.div`

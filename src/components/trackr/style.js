@@ -15,7 +15,8 @@ export const BackgroundDiv = styled.div`
   position: relative;
   justify-content: center;
   //padding: 20px 20vw 20px 20vw;
-  margin: 0px auto 0px auto;
+  margin: 0px auto auto auto;
+  min-height: 885px;
 `;
 
 export const ContentDiv = styled.div`

@@ -13,8 +13,8 @@ export const MainBody = styled.div`
   background: linear-gradient(
     to right,
     #dbdbdb 0%,
-    #dbdbdb 35%,
-    #617aba 35%,
+    #dbdbdb 25%,
+    #617aba 25%,
     #617aba 100%
   );
 `;
