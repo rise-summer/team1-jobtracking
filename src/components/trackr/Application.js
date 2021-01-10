@@ -51,12 +51,14 @@ const Application = (props) => {
           </Left>
           <Center>
             <BorderBox>
-              <Status>{getStatus()}</Status>
+              {/* <Status>{getStatus()}</Status> */}
+              <Status>Interview</Status> {/* for demo */}
               <Slider
                 type="range"
                 min="0"
                 max="3"
-                value={props.status}
+                // value={props.status}
+                value="2" //for demo
                 disabled
               />
             </BorderBox>
@@ -208,7 +210,7 @@ const Description = styled.div`
   font-weight: 300;
   font-size: 17px;
   line-height: 23px;
-
+  padding: 10px 0px 10px 0px;
   color: #5a5a5a;
 `;
 const Notes = styled.textarea`

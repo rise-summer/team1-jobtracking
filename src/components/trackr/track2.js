@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 import { useContext, useEffect, useState } from "react";
 import { ApplicationContext } from "../../ApplicationContext";
 
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 const Track2 = (props) => {
   const [applications, setApplications] = useContext(ApplicationContext);
@@ -57,18 +57,18 @@ const Track2 = (props) => {
 
     e.preventDefault();
     setApplications((prevApplications) => [{ position }, ...prevApplications]);
-    console.log(applications)
-    console.log("Logging applications...")
-    console.log(applications)
+    console.log(applications);
+    console.log("Logging applications...");
+    console.log(applications);
 
     //props.history.push("/trackr/track3");
-    props.history.push("/trackr");
+    props.history.push("/trackr/track3");
   };
 
   const updatePosition = (e) => {
     setPosition(e.target.value);
-    console.log(position)
-  }
+    console.log(position);
+  };
 
   const handleChange = (event, key) => {
     switch (key) {
@@ -134,21 +134,24 @@ const Track2 = (props) => {
                 // value={this.state.url}
               />
               <Input2
-                value={position}
+                // value={position}
+                value="Software Engineer, iOS Applications" //for demo
                 placeholder="Software Engineering Intern"
                 id="role"
                 onChange={updatePosition}
                 // value={this.state.role}
               />
               <Input2
-                value={props.company}
+                // value={props.company}
+                value="Google" //for demo
                 placeholder="Facebook"
                 id="company"
                 onChange={(e) => handleChange(e, "COMPANY")}
                 // value={this.state.company}
               />
               <Input2
-                value={props.deadline}
+                // value={props.deadline}
+                value="2021-01-31" //for demo
                 placeholder="Deadline: 12/01/20"
                 id="deadline"
                 onChange={(e) => handleChange(e, "DEADLINE")}
@@ -156,7 +159,8 @@ const Track2 = (props) => {
                 type="date"
               />
               <Input2
-                value={props.location}
+                // value={props.location}
+                value="New York, NY" //for demo
                 placeholder="Menlo Park, California"
                 id="location"
                 onChange={(e) => handleChange(e, "LOCATION")}
@@ -164,7 +168,11 @@ const Track2 = (props) => {
               />
               <TextAreaDiv>
                 <Textarea
-                  value={props.description}
+                  // value={props.description}
+                  value="- Design and implement new user-facing features in Google’s large, complex mobile applications.
+                  - Build the libraries and frameworks that support authentication, copresence, and cutting-edge network protocols.
+                  - Optimize mobile applications on the iOS platform.
+                  - Develop prototypes quickly." //for demo
                   placeholder="As an intern, you'll become an expert on the Facebook Terminal and gain a deeper understanding of technology and finance. In addition to your projects, you'll participate in coding challenges, attend tech talks and network with other interns."
                   id="description"
                   onChange={(e) => handleChange(e, "DESCRIPTION")}
@@ -186,7 +194,7 @@ const Track2 = (props) => {
               </SliderDiv>
               <SubmitBtn>Complete</SubmitBtn>
             </form>
-            <Link to="/trackr">Link</Link>
+            {/* <Link to="/trackr">Link</Link> */}
           </Heading>
         </ContentDiv>
       </BackgroundDiv>

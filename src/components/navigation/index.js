@@ -51,7 +51,7 @@ const Navigation = (props) => {
           <SearchBar></SearchBar>
         </LeftNavBarDiv>
         <RightNavBarDiv>
-          <NavLink>{authentication.displayName}</NavLink>
+          {/* <NavLink>{authentication.displayName}</NavLink> */}
           <NavLink to="/trackr">Tracker</NavLink>
           <React.Fragment>
             <NavLink to="/login" onClick={signout}>
