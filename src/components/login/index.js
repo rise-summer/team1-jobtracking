@@ -1,11 +1,12 @@
-import React, { Component } from "react";
+import React, { useContext, useState } from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 import { auth } from "../../firebaseSetup";
 import { login } from "../apiFunctions";
-import {logout} from "../apiFunctions";
+import { logout } from "../apiFunctions";
 import {
   MainBody,
   LogoDiv,
-  Logo,
   Item,
   Button,
   ContentDiv,
@@ -15,37 +16,35 @@ import {
   SignUpButton,
 } from "./style";
 
-import { useState } from "react";
+import { AuthenticationContext } from "../../AuthenticationContext";
 
-import {useContext} from 'react'
+const Login = (props) => {
+  const [authentication, setAuthentication] = useContext(AuthenticationContext);
 
-const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
 
   const submit = (e) => {
     e.preventDefault();
     console.log("Event: Form Submit");
     if (email === "" || password === "") {
       // this.setState({error:"Missing fields"})
-      // alert('Missing fields.')
       console.log("missing fields");
       return;
     } else {
       login(email, password).then((res) => {
         console.log(res);
         console.log("redirect to home feed");
+
+        setAuthentication(auth.currentUser);
+        props.history.push('/')
+
         // redirect to home feed
         //console.log(auth.currentUser);
         //console.log(auth.currentUser.displayName);
-      })
+      });
     }
   };
-
-  const signout = () => {
-    logout();
-  }
 
   const handleChange = (e) => {
     const value =
@@ -57,7 +56,6 @@ const Login = () => {
       setPassword(value);
     }
 
-    //this.setState({ [e.target.name]: value });
     console.log(e.target.value);
     //console.log(this.state);
   };
@@ -66,7 +64,7 @@ const Login = () => {
     <MainBody>
       <BackgroundDiv>
         <LogoDiv>
-          <Logo href="/">Hive</Logo>
+          <HomeLink to="/">Hive</HomeLink>
         </LogoDiv>
         <ContentDiv>
           <form onSubmit={submit}>
@@ -90,7 +88,6 @@ const Login = () => {
               Don’t have an account? Sign up here.
             </SignUpButton>
           </form>
-          <button onClick={signout}>LOG OUT</button>
         </ContentDiv>
       </BackgroundDiv>
     </MainBody>
@@ -98,3 +95,15 @@ const Login = () => {
 };
 
 export default Login;
+
+const HomeLink = styled(Link)`
+  font-family: Sans-Serif;
+  color: #fffd77;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 35px;
+  cursor: pointer;
+  &:hover {
+    color: #fffd66;
+  }
+`;

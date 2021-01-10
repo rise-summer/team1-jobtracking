@@ -1,11 +1,12 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 import { signupFirebase,registerDB } from "../apiFunctions";
 import {auth} from "../../firebaseSetup";
 
 import {
   MainBody,
   LogoDiv,
-  Logo,
   Item,
   Button,
   BackgroundDiv,
@@ -84,7 +85,7 @@ class Login extends Component {
       <MainBody>
         <BackgroundDiv>
           <LogoDiv>
-            <Logo href="/">Hive</Logo>
+            <HomeLink to="/">Hive</HomeLink>
           </LogoDiv>
           <ContentDiv>
             <form onSubmit={this.submit}>
@@ -129,3 +130,15 @@ class Login extends Component {
   }
 }
 export default Login;
+
+const HomeLink = styled(Link)`
+  font-family: Sans-Serif;
+  color: #fffd77;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 35px;
+  cursor: pointer;
+  &:hover {
+    color: #fffd66;
+  }
+`;
