@@ -17,13 +17,16 @@ import { PersistGate } from "redux-persist/integration/react";
 // export default store;
 
 import { ApplicationProvider } from "./ApplicationContext";
+import { AuthenticationProvider } from "./AuthenticationContext";
 
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate persistor={persistor}>
-      <ApplicationProvider>
-        <App />
-      </ApplicationProvider>
+      <AuthenticationProvider>
+        <ApplicationProvider>
+          <App />
+        </ApplicationProvider>
+      </AuthenticationProvider>
     </PersistGate>
   </Provider>,
   document.getElementById("root")

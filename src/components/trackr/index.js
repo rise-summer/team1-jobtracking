@@ -91,7 +91,7 @@ const Trackr = (props) => {
               <ExitBtn>x</ExitBtn>
             </BtnDiv>
             <JobTitle>UXStudent</JobTitle>
-            <Info>Lauren Yoon</Info>
+            <Info>Andrew Liang</Info>
             <Info>Majoring in Computer Science</Info>
             <Info>Attending Stony Brook University</Info>
             <HashTagDiv>

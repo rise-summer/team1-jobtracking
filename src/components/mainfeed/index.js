@@ -1,18 +1,31 @@
-import React, { Component, Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import Navigation from "../navigation";
 import { Heading, Text, NewPostButton, BackgroundDiv, MainBody } from "./style";
 import { useState } from "react";
 import AddPost from "./AddPost";
 import Post from "./Post";
 
+import { Redirect } from 'react-router-dom';
+
+import { AuthenticationContext } from "../../AuthenticationContext";
+
 const MainFeed = () => {
+  const [authentication, setAuthentication] = useContext(AuthenticationContext);
+
   const [numPosts, setNumPosts] = useState(1);
   const [posts, setPosts] = useState([
     {
       id: 1,
-      description: "This will be the best thing you read today!",
+      author: 'John',
+      title: 'Hive Summer 2021 Internship Positions Now Available!',
+      date: '01/03/21',
+      description: "They have positions for electrical engineering, business, and computer science majors. The deadline to apply is 1/17/21.",
     },
   ]);
+
+  if (!authentication.displayName) {
+    return (<Redirect to="/login" />);
+  }
 
   return (
     <Fragment>
@@ -22,10 +35,10 @@ const MainFeed = () => {
           <AddPost numPosts={numPosts} setNumPosts={setNumPosts} setPosts={setPosts} />
           <Heading>
             <Text> Most Recent Posts </Text>
-            <NewPostButton>Create New Post</NewPostButton>
+            {/* <NewPostButton>Create New Post</NewPostButton> */}
           </Heading>
           {posts.map((post) => (
-            <Post id={post.id} description={post.description} />
+            <Post id={post.id} author={post.author} title={post.title} date={post.date} description={post.description} />
           ))}
         </BackgroundDiv>
       </MainBody>

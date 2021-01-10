@@ -30,18 +30,6 @@ export const LogoDiv = styled.div`
   }
 `;
 
-export const Logo = styled.a`
-  font-family: Sans-Serif;
-  color: #fffd77;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 35px;
-  cursor: pointer;
-  &:hover {
-    color: #fffd66;
-  }
-`;
-
 export const ContentDiv = styled.div`
   width: 450px;
   height: 250px;

@@ -2,20 +2,19 @@ import React from "react";
 import styled from "styled-components";
 import CommentSection from "./CommentSection";
 
-const Post = ({ id, description }) => {
+const Post = ({ id, author, title, date, description }) => {
   return (
     <Feed>
       <Content>
-        <Title>Title</Title>
-        <Date>Date and time</Date>
+        <Title>{title}</Title>
+        <Date>{author} {date}</Date>
         <hr />
         <Description>{description}</Description>
-        <RoleInfo>
+        {/*<RoleInfo>
           <div>CompanyAndPosition</div>
-          {/*Remove Industry, tbd*/}
           <div>Industry</div>
           <div>Status</div>
-        </RoleInfo>
+        </RoleInfo>*/}
       </Content>
       <CommentSection id={id} />
     </Feed>
