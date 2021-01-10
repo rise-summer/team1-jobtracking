@@ -12,7 +12,7 @@ import {
   Option,
   Content,
   ProfileDiv,
-  JobTitle,
+  Name,
   EditBtn,
   ExitBtn,
   BtnDiv,
@@ -27,7 +27,7 @@ import {
 import ApplicationFeed from "./components/applicationfeed/applicationfeed";
 
 import { useContext, useEffect } from "react";
-import {ApplicationContext} from '../../ApplicationContext'
+import { ApplicationContext } from "../../ApplicationContext";
 
 import Application from "./Application";
 
@@ -58,7 +58,9 @@ const Trackr = (props) => {
             <Headding>
               <Title>Your Applications</Title>
               <NewAppBtnDiv>
-                <NewAppBtn onClick={() => props.history.push('/trackr/track1')}>New App</NewAppBtn>
+                <NewAppBtn onClick={() => props.history.push("/trackr/track1")}>
+                  New App
+                </NewAppBtn>
               </NewAppBtnDiv>
               <Sort className="dropdown">
                 <Option value="" selected disabled hidden>
@@ -72,14 +74,18 @@ const Trackr = (props) => {
 
             {applications.map((application) => (
               <Application
-                companyName="Facebook"
-                position={application.position}
+                companyName="Google"
+                // position={application.position}
+                position="Software Engineer, iOS Applications"
                 status="1"
-                link="https://www.linkedin.com/jobs/view/2203322085/?refId=8215620981604709514680&trackingId=OxhduUV3E9J1gHPQXKUkcw%3D%3D"
-                date="now"
-                deadline="now"
-                location="now"
-                description="blah blah blah"
+                link="https://www.linkedin.com/jobs/view/2340677474/?alternateChannel=search&refId=mnaFCejOCAhyk8YAKc018w%3D%3D&trackingId=o9fy%2FYGaG5uNse1Bvp83MQ%3D%3D"
+                date="2021-01-11"
+                deadline="2021-01-31"
+                location="New York, NY"
+                description="- Design and implement new user-facing features in Google’s large, complex mobile applications.
+                - Build the libraries and frameworks that support authentication, copresence, and cutting-edge network protocols.
+                - Optimize mobile applications on the iOS platform.
+                - Develop prototypes quickly."
               />
             ))}
 
@@ -90,14 +96,14 @@ const Trackr = (props) => {
               <EditBtn>Edit</EditBtn>
               <ExitBtn>x</ExitBtn>
             </BtnDiv>
-            <JobTitle>UXStudent</JobTitle>
-            <Info>Andrew Liang</Info>
+            <Name>Riley Zhou</Name>
+            <Info>Software Engineer Intern</Info>
             <Info>Majoring in Computer Science</Info>
             <Info>Attending Stony Brook University</Info>
             <HashTagDiv>
               <HashTag>#SWE</HashTag>
               <HashTag>#CSE</HashTag>
-              <HashTag>#FulLStack</HashTag>
+              <HashTag>#FullStack</HashTag>
             </HashTagDiv>
             <SearchDiv>
               <div>Recent Searches:</div>

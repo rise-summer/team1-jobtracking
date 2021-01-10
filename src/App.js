@@ -10,7 +10,6 @@ import Track3 from "./components/trackr/components/trackrpages/track3";
 import Edit1 from "./components/trackr/components/editpages/edit1";
 import Edit2 from "./components/trackr/components/editpages/edit2";
 
-
 class App extends React.Component {
   render() {
     return (
@@ -25,6 +24,9 @@ class App extends React.Component {
           <Route path="/trackr/track3" exact component={Track3}></Route>
           <Route path="/trackr/edit1" exact component={Edit1}></Route>
           <Route path="/trackr/edit2" exact component={Edit2}></Route>
+          {/* for Demo */}
+          {/* <Route path="/trackr" exact component={MainFeed}></Route>
+          <Route path="/" exact component={Trackr}></Route> */}
         </BrowserRouter>
       </div>
     );

@@ -37,7 +37,7 @@ const Login = (props) => {
         console.log("redirect to home feed");
 
         setAuthentication(auth.currentUser);
-        props.history.push('/')
+        props.history.push("/trackr");
 
         // redirect to home feed
         //console.log(auth.currentUser);
@@ -98,12 +98,12 @@ export default Login;
 
 const HomeLink = styled(Link)`
   font-family: Sans-Serif;
-  color: #fffd77;
+  color: #175596;
   text-decoration: none;
   font-weight: bold;
   font-size: 35px;
   cursor: pointer;
   &:hover {
-    color: #fffd66;
+    color: #175596;
   }
 `;

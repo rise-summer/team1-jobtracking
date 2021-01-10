@@ -226,12 +226,11 @@ export const Label = styled.div`
 export const Subtitle2 = styled.a`
   cursor: pointer;
   text-decoration: none;
-  font-weight: 800;
   font-size: 29px;
   line-height: 39px;
   text-align: center;
   border: none;
-  color: #5c5c5c;
+  color: #2071c7;
   &:hover {
     color: #2071c7;
   }

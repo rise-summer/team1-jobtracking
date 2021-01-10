@@ -96,6 +96,7 @@ export const Description = styled.div`
   font-weight: 300;
   font-size: 17px;
   line-height: 23px;
+  padding: 10px 0px 10px 0px;
 
   color: #5a5a5a;
 `;
