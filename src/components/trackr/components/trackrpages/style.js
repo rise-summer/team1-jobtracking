@@ -2,9 +2,9 @@ import styled from "styled-components";
 
 export const BackgroundDiv = styled.div`
   font-family: "Open Sans", sans-serif;
-  padding: 10vh;
+  padding: 10px;
   background: #ebebeb;
-  height: 100%;
+  height: 100vh;
 `;
 
 export const ContentDiv = styled.div`
@@ -12,8 +12,9 @@ export const ContentDiv = styled.div`
   border-radius: 15px;
   padding: 10px;
   width: 800px;
-  margin: 50px auto;
+  margin: 10px auto;
 `;
+
 export const Heading = styled.div`
   justify-content: center;
   text-align: center;
