@@ -8,7 +8,6 @@ function Post(post, uid) {
     this.tag = post.tag;
     this.created_at = post.created_at;
     this.user_id = uid;
-    this.post_id = uuid();
 }
 
 Post.createPost = (newPost, result) => {
@@ -20,14 +19,14 @@ Post.createPost = (newPost, result) => {
     });
 }
 
-Post.getNextGroupOfPosts = (offset) => {
+Post.getNextGroupOfPosts = (offset, result) => {
     sql.query('SELECT * FROM post ORDER BY created_at DESC LIMIT 10 OFFSET ?', [offset], (err, res) => {
         if (err) result(err, null);
         else result(null, res);
     })
 }
 
-Post.getPostById = (postId) => {
+Post.getPostById = (postId, result) => {
     sql.query('SELECT * FROM post WHERE post_id = ? ', postId, (err, res) => {
         if (err) result(err, null);
         else result(null, res);
