@@ -24,18 +24,28 @@ import {
   ViewPostBtnDiv,
   ViewPostBtn,
 } from "./style";
-import ApplicationFeed from "./components/applicationfeed/applicationfeed"
+import ApplicationFeed from "./components/applicationfeed/applicationfeed";
+import { connect } from "react-redux";
 
 class Trackr extends Component {
   constructor() {
     super();
-    this.state = { no_apps: true };
+    this.state = { no_apps: false };
+    this.handleNewApplication = this.handleNewApplication.bind(this);
   }
 
   getContent() {
     if (this.state.no_apps) {
       return <Content>Log a new application here</Content>;
     }
+  }
+
+  handleNewApplication() {
+    // this.props.dispatch({
+    //   type: "STORE_RESET",
+    //   payload: {},
+    // });
+    this.props.history.push("/trackr/track2");
   }
 
   render() {
@@ -48,7 +58,9 @@ class Trackr extends Component {
               <Headding>
                 <Title>Your Applications</Title>
                 <NewAppBtnDiv>
-                  <NewAppBtn href="/trackr/track1">New App</NewAppBtn>
+                  <NewAppBtn onClick={this.handleNewApplication}>
+                    New App
+                  </NewAppBtn>
                 </NewAppBtnDiv>
                 <Sort className="dropdown">
                   <Option value="" selected disabled hidden>
@@ -58,8 +70,7 @@ class Trackr extends Component {
                   <Option>Status</Option>
                 </Sort>
               </Headding>
-              {/* {this.getContent()} */}
-              <ApplicationFeed/>
+              {this.state.no_apps ? this.getContent() : <ApplicationFeed />}
             </ContentDiv>
             <ProfileDiv>
               <BtnDiv>
@@ -92,4 +103,4 @@ class Trackr extends Component {
   }
 }
 
-export default Trackr;
+export default connect(null, null)(Trackr);

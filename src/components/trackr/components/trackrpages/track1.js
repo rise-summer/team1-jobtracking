@@ -36,10 +36,10 @@ class Track1 extends Component {
   }
 
   handleBack() {
-    this.props.dispatch({
-      type: "STORE_RESET",
-      payload: {},
-    });
+    // this.props.dispatch({
+    //   type: "STORE_RESET",
+    //   payload: {},
+    // });
     this.props.history.push("/trackr");
   }
 

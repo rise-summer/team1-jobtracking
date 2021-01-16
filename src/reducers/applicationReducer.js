@@ -1,11 +1,15 @@
 const initialState = {
-  url: "",
-  role: "",
-  company: "",
-  deadline: "",
-  location: "",
-  description: "",
-  stage: "Interested",
+  applications: {
+    id: {
+      url: "",
+      role: "",
+      company: "",
+      deadline: "",
+      location: "",
+      description: "",
+      stage: "Interested",
+    },
+  },
 };
 
 const applicationReducer = (state = initialState, action) => {
@@ -26,6 +30,11 @@ const applicationReducer = (state = initialState, action) => {
       });
     case "ADD_STAGE":
       return Object.assign({}, state, { stage: action.payload.stage });
+    case "ADD_APPLICATION":
+      return {
+        ...state,
+        applications: {...state.applications, ...action.payload}
+      };
     default:
       return state;
   }
