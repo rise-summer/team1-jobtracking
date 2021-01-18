@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Fragment } from "react";
 import Navigation from "../navigation";
 import {
   MainBody,
@@ -10,9 +10,8 @@ import {
   Sort,
   ContentDiv,
   Option,
-  Content,
   ProfileDiv,
-  JobTitle,
+  Name,
   EditBtn,
   ExitBtn,
   BtnDiv,
@@ -25,29 +24,15 @@ import {
   ViewPostBtn,
 } from "./style";
 import ApplicationFeed from "./components/applicationfeed/applicationfeed";
+import { shallowEqual, useSelector } from "react-redux";
+import { Application } from "./Application";
 
-import { useContext, useEffect } from "react";
-import {ApplicationContext} from '../../ApplicationContext'
-
-import Application from "./Application";
-
-const Trackr = (props) => {
-  // constructor() {
-  //   super();
-  //   this.state = { no_apps: true };
-  // }
-
-  // getContent() {
-  //   if (this.state.no_apps) {
-  //     return <Content>Log a new application here</Content>;
-  //   }
-  // }
-
-  const [applications, setApplications] = useContext(ApplicationContext);
-
-  useEffect(() => {
-    console.log(applications);
-  }, [applications]);
+export default function Trackr(props) {
+  const applications = useSelector(
+    (state) => state.applicationReducer.applications,
+    shallowEqual
+  );
+  console.log(applications);
 
   return (
     <Fragment>
@@ -58,7 +43,9 @@ const Trackr = (props) => {
             <Headding>
               <Title>Your Applications</Title>
               <NewAppBtnDiv>
-                <NewAppBtn onClick={() => props.history.push('/trackr/track1')}>New App</NewAppBtn>
+                <NewAppBtn onClick={() => props.history.push("/trackr/track1")}>
+                  New App
+                </NewAppBtn>
               </NewAppBtnDiv>
               <Sort className="dropdown">
                 <Option value="" selected disabled hidden>
@@ -68,20 +55,19 @@ const Trackr = (props) => {
                 <Option>Status</Option>
               </Sort>
             </Headding>
-            {/* {this.getContent()} */}
 
             {applications.map((application) => (
               <Application
-                companyName="Facebook"
-                position={application.position}
-                status="1"
-                link="https://www.linkedin.com/jobs/view/2203322085/?refId=8215620981604709514680&trackingId=OxhduUV3E9J1gHPQXKUkcw%3D%3D"
-                date="now"
-                deadline="now"
-                location="now"
-                description="blah blah blah"
+                companyName={application.company.value}
+                position={application.role.value}
+                stage={application.stage}
+                link={application.link}
+                deadline={application.deadline.value}
+                description={application.description.value}
+                location={application.location.value}
               />
             ))}
+            {/* {applications.map(application => application.company.value)} */}
 
             <ApplicationFeed />
           </ContentDiv>
@@ -90,14 +76,14 @@ const Trackr = (props) => {
               <EditBtn>Edit</EditBtn>
               <ExitBtn>x</ExitBtn>
             </BtnDiv>
-            <JobTitle>UXStudent</JobTitle>
-            <Info>Lauren Yoon</Info>
+            <Name>Riley Zhou</Name>
+            <Info>Software Engineer Intern</Info>
             <Info>Majoring in Computer Science</Info>
             <Info>Attending Stony Brook University</Info>
             <HashTagDiv>
               <HashTag>#SWE</HashTag>
               <HashTag>#CSE</HashTag>
-              <HashTag>#FulLStack</HashTag>
+              <HashTag>#FullStack</HashTag>
             </HashTagDiv>
             <SearchDiv>
               <div>Recent Searches:</div>
@@ -113,6 +99,4 @@ const Trackr = (props) => {
       </MainBody>
     </Fragment>
   );
-};
-
-export default Trackr;
+}

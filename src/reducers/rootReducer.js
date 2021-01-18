@@ -19,7 +19,6 @@ const rootReducer = (state, action) => {
   if (action.type === "STORE_RESET") {
     storage.removeItem("persist:root");
     state = undefined;
-    console.log("here1");
   }
   return appReducer(state, action);
 };

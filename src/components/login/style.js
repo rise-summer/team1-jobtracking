@@ -12,10 +12,10 @@ export const MainBody = styled.div`
   //justify-content: center;
   background: linear-gradient(
     to right,
-    #6175a9 0%,
-    #6175a9 35%,
-    #ebebeb 35%,
-    #ebebeb 100%
+    #dbdbdb 0%,
+    #dbdbdb 35%,
+    #617aba 35%,
+    #617aba 100%
   );
 `;
 export const BackgroundDiv = styled.div``;
@@ -27,18 +27,6 @@ export const LogoDiv = styled.div`
   &:active {
     transform: scale(0.97);
     transition: 0.1s;
-  }
-`;
-
-export const Logo = styled.a`
-  font-family: Sans-Serif;
-  color: #fffd77;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 35px;
-  cursor: pointer;
-  &:hover {
-    color: #fffd66;
   }
 `;
 

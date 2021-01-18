@@ -5,15 +5,8 @@ import link from "../../images/link.svg";
 import { useState } from "react";
 import styled from "styled-components";
 
-const Application = (props) => {
+export function Application(props) {
   const [clicked, setClicked] = useState(false);
-
-  // constructor(props) {
-  //   super(props);
-  //   this.state = { clicked: false };
-  //   this.extend = this.extend.bind(this);
-  //   console.log(this.state);
-  // }
 
   const extend = (e) => {
     e.stopPropagation();
@@ -28,8 +21,8 @@ const Application = (props) => {
     }
   };
 
-  const getStatus = () => {
-    switch (props.status) {
+  function getStatus(){
+    switch (props.stage) {
       case "1":
         return "Interested";
       case "2":
@@ -53,12 +46,12 @@ const Application = (props) => {
           </Left>
           <Center>
             <BorderBox>
-              <Status>{getStatus()}</Status>
+              <Status>{getStatus()}</Status> 
               <Slider
                 type="range"
                 min="0"
                 max="3"
-                value={props.status}
+                value={props.stage}
                 disabled
               />
             </BorderBox>
@@ -110,9 +103,7 @@ const Application = (props) => {
       </Content>
     </div>
   );
-};
-
-export default Application;
+}
 
 const Content = styled.div`
   background: #ffffff;
@@ -210,7 +201,7 @@ const Description = styled.div`
   font-weight: 300;
   font-size: 17px;
   line-height: 23px;
-
+  padding: 10px 0px 10px 0px;
   color: #5a5a5a;
 `;
 const Notes = styled.textarea`

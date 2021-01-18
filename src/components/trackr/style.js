@@ -154,7 +154,7 @@ export const ExitBtn = styled.button`
     transition: 0.1s;
   }
 `;
-export const JobTitle = styled.div`
+export const Name = styled.div`
   font-size: 30px;
   font-weight: bold;
   margin: 20px auto auto auto;

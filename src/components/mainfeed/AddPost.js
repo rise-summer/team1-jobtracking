@@ -1,36 +1,51 @@
-import React, { useState } from "react";
+import moment from "moment";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 
-const AddPost = ({ numPosts, setNumPosts, setPosts }) => {
-  const [description, setDescription] = useState("");
+import { AuthenticationContext } from "../../AuthenticationContext";
 
-  const updateDescription = (e) => {
-    setDescription(e.target.value);
-  };
+const AddPost = ({ numPosts, setNumPosts, setPosts }) => {
+  const [authentication, setAuthentication] = useContext(AuthenticationContext);
+
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
 
   const submitPost = (e) => {
     e.preventDefault();
     setNumPosts((prevNumPosts) => prevNumPosts + 1);
     setPosts((prevPosts) => [
-      { id: numPosts + 1, description, comments: [] },
+      {
+        id: numPosts + 1,
+        author: authentication.displayName,
+        title,
+        date: moment().format("MM/DD/YY"),
+        description,
+        comments: [],
+      },
       ...prevPosts,
     ]);
+    setTitle("");
     setDescription("");
   };
 
   return (
     <Container>
       <form onSubmit={submitPost}>
-        <Title type="text" placeholder="Title of Post" />
+        <Title
+          value={title}
+          type="text"
+          placeholder="Title of Post"
+          onChange={(e) => setTitle(e.target.value)}
+        />
         <hr />
         <Description
           value={description}
           placeholder="Write a description here."
-          onChange={updateDescription}
+          onChange={(e) => setDescription(e.target.value)}
         ></Description>
-        <Input type="text" placeholder="Position" />
+        {/* <Input type="text" placeholder="Position" />
         <Input type="text" placeholder="Industry" />
-        <Input type="text" placeholder="Status" />
+        <Input type="text" placeholder="Status" /> */}
         <Submit>Post</Submit>
       </form>
     </Container>

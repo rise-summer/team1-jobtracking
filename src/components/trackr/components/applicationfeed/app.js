@@ -45,13 +45,13 @@ class App extends React.Component {
 
   getStatus() {
     switch (this.props.status) {
-      case "1":
+      case "0":
         return "Interested";
-      case "2":
+      case "1":
         return "Applied";
-      case "3":
+      case "2":
         return "Interview";
-      case "4":
+      case "3":
         return "Offer";
       default:
         console.log("error")
