@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Fragment } from "react";
 import Navigation from "../navigation";
 import {
   MainBody,
@@ -10,9 +10,8 @@ import {
   Sort,
   ContentDiv,
   Option,
-  Content,
   ProfileDiv,
-  JobTitle,
+  Name,
   EditBtn,
   ExitBtn,
   BtnDiv,
@@ -25,82 +24,79 @@ import {
   ViewPostBtn,
 } from "./style";
 import ApplicationFeed from "./components/applicationfeed/applicationfeed";
-import { connect } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
+import { Application } from "./Application";
 
-class Trackr extends Component {
-  constructor() {
-    super();
-    this.state = { no_apps: false };
-    this.handleNewApplication = this.handleNewApplication.bind(this);
-  }
+export default function Trackr(props) {
+  const applications = useSelector(
+    (state) => state.applicationReducer.applications,
+    shallowEqual
+  );
+  console.log(applications);
 
-  getContent() {
-    if (this.state.no_apps) {
-      return <Content>Log a new application here</Content>;
-    }
-  }
+  return (
+    <Fragment>
+      <MainBody>
+        <Navigation />
+        <BackgroundDiv>
+          <ContentDiv>
+            <Headding>
+              <Title>Your Applications</Title>
+              <NewAppBtnDiv>
+                <NewAppBtn onClick={() => props.history.push("/trackr/track1")}>
+                  New App
+                </NewAppBtn>
+              </NewAppBtnDiv>
+              <Sort className="dropdown">
+                <Option value="" selected disabled hidden>
+                  Sort by
+                </Option>
+                <Option>Deadline</Option>
+                <Option>Status</Option>
+              </Sort>
+            </Headding>
 
-  handleNewApplication() {
-    // this.props.dispatch({
-    //   type: "STORE_RESET",
-    //   payload: {},
-    // });
-    this.props.history.push("/trackr/track2");
-  }
+            {applications.map((application) => (
+              <Application
+                companyName={application.company.value}
+                position={application.role.value}
+                stage={application.stage}
+                link={application.link}
+                deadline={application.deadline.value}
+                description={application.description.value}
+                location={application.location.value}
+              />
+            ))}
+            {/* {applications.map(application => application.company.value)} */}
 
-  render() {
-    return (
-      <Fragment>
-        <MainBody>
-          <Navigation />
-          <BackgroundDiv>
-            <ContentDiv>
-              <Headding>
-                <Title>Your Applications</Title>
-                <NewAppBtnDiv>
-                  <NewAppBtn onClick={this.handleNewApplication}>
-                    New App
-                  </NewAppBtn>
-                </NewAppBtnDiv>
-                <Sort className="dropdown">
-                  <Option value="" selected disabled hidden>
-                    Sort by
-                  </Option>
-                  <Option>Deadline</Option>
-                  <Option>Status</Option>
-                </Sort>
-              </Headding>
-              {this.state.no_apps ? this.getContent() : <ApplicationFeed />}
-            </ContentDiv>
-            <ProfileDiv>
-              <BtnDiv>
-                <EditBtn>Edit</EditBtn>
-                <ExitBtn>x</ExitBtn>
-              </BtnDiv>
-              <JobTitle>UXStudent</JobTitle>
-              <Info>Lauren Yoon</Info>
-              <Info>Majoring in Computer Science</Info>
-              <Info>Attending Stony Brook University</Info>
-              <HashTagDiv>
-                <HashTag>#SWE</HashTag>
-                <HashTag>#CSE</HashTag>
-                <HashTag>#FulLStack</HashTag>
-              </HashTagDiv>
-              <SearchDiv>
-                <div>Recent Searches:</div>
-                <Searches>#Backend</Searches>
-                <Searches>#SoftwareDev</Searches>
-                <Searches>#Tech</Searches>
-              </SearchDiv>
-              <ViewPostBtnDiv>
-                <ViewPostBtn>View Your Posts</ViewPostBtn>
-              </ViewPostBtnDiv>
-            </ProfileDiv>
-          </BackgroundDiv>
-        </MainBody>
-      </Fragment>
-    );
-  }
+            <ApplicationFeed />
+          </ContentDiv>
+          <ProfileDiv>
+            <BtnDiv>
+              <EditBtn>Edit</EditBtn>
+              <ExitBtn>x</ExitBtn>
+            </BtnDiv>
+            <Name>Riley Zhou</Name>
+            <Info>Software Engineer Intern</Info>
+            <Info>Majoring in Computer Science</Info>
+            <Info>Attending Stony Brook University</Info>
+            <HashTagDiv>
+              <HashTag>#SWE</HashTag>
+              <HashTag>#CSE</HashTag>
+              <HashTag>#FullStack</HashTag>
+            </HashTagDiv>
+            <SearchDiv>
+              <div>Recent Searches:</div>
+              <Searches>#Backend</Searches>
+              <Searches>#SoftwareDev</Searches>
+              <Searches>#Tech</Searches>
+            </SearchDiv>
+            <ViewPostBtnDiv>
+              <ViewPostBtn>View Your Posts</ViewPostBtn>
+            </ViewPostBtnDiv>
+          </ProfileDiv>
+        </BackgroundDiv>
+      </MainBody>
+    </Fragment>
+  );
 }
-
-export default connect(null, null)(Trackr);
