@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import Navigation from "../navigation";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import {
   MainBody,
   BackgroundDiv,
@@ -23,16 +24,54 @@ import {
   ViewPostBtnDiv,
   ViewPostBtn,
 } from "./style";
-import ApplicationFeed from "./components/applicationfeed/applicationfeed";
-import { shallowEqual, useSelector } from "react-redux";
-import { Application } from "./Application";
+import Application from "./components/applicationfeed/Application";
+import { useState } from "react";
 
 export default function Trackr(props) {
+  const profile = useSelector((state) => state.profileReducer.profile);
+  console.log("profile", profile);
+  const name = useProfileInput(profile.name);
+  const job = useProfileInput(profile.job);
+  const major = useProfileInput(profile.major);
+  const education = useProfileInput(profile.education);
+  const dispatch = useDispatch();
+
   const applications = useSelector(
     (state) => state.applicationReducer.applications,
     shallowEqual
   );
   console.log(applications);
+
+  function useProfileInput(initialValue) {
+    const [value, setValue] = useState(initialValue);
+    function handleChange(e) {
+      setValue(e.target.value);
+    }
+    function handleDoubleClick(e) {
+      e.target.readOnly = false;
+    }
+
+    function handleBlur(e) {
+      e.target.readOnly = true;
+      console.log(name);
+      dispatch({
+        type: "UPDATE_PROFILE",
+        payload: {
+          name: name.value,
+          job: job.value,
+          major: major.value,
+          education: education.value,
+        },
+      });
+    }
+    return {
+      value,
+      onChange: handleChange,
+      onDoubleClick: handleDoubleClick,
+      onBlur: handleBlur,
+      readOnly: true,
+    };
+  }
 
   return (
     <Fragment>
@@ -55,9 +94,25 @@ export default function Trackr(props) {
                 <Option>Status</Option>
               </Sort>
             </Headding>
-
-            {applications.map((application) => (
+            {applications === undefined ? (
+              <div>Nothing to see here folks</div>
+            ) : (
+              applications.map((application) => (
+                <Application
+                  id={application.id}
+                  companyName={application.company}
+                  position={application.role}
+                  stage={application.stage}
+                  link={application.link}
+                  deadline={application.deadline}
+                  description={application.description}
+                  location={application.location}
+                />
+              ))
+            )}
+            {/* {applications.map((application) => (
               <Application
+                id={application.id}
                 companyName={application.company.value}
                 position={application.role.value}
                 stage={application.stage}
@@ -66,20 +121,20 @@ export default function Trackr(props) {
                 description={application.description.value}
                 location={application.location.value}
               />
-            ))}
-            {/* {applications.map(application => application.company.value)} */}
-
-            <ApplicationFeed />
+            ))} */}
           </ContentDiv>
           <ProfileDiv>
             <BtnDiv>
               <EditBtn>Edit</EditBtn>
               <ExitBtn>x</ExitBtn>
             </BtnDiv>
-            <Name>Riley Zhou</Name>
-            <Info>Software Engineer Intern</Info>
-            <Info>Majoring in Computer Science</Info>
-            <Info>Attending Stony Brook University</Info>
+            <Name {...name} placeholder="Lauren Yoon"></Name>
+            <Info {...job} placeholder="Software Engineer Intern" />
+            <Info {...major} placeholder="Majoring in Computer Science" />
+            <Info
+              {...education}
+              placeholder="Attending Stony Brook University"
+            />
             <HashTagDiv>
               <HashTag>#SWE</HashTag>
               <HashTag>#CSE</HashTag>

@@ -17,7 +17,7 @@ import {
   Slider,
   SliderDiv,
   Label,
-  SubmitBtn,
+  SubmitBtn, Textarea
 } from "./style";
 
 export default function Track2(props) {
@@ -39,12 +39,12 @@ export default function Track2(props) {
       type: "ADD_APPLICATION",
       payload: {
         id: date,
-        link: link,
-        role: role,
-        company: company,
-        deadline: deadline,
-        location: location,
-        description: description,
+        link: link.value,
+        role: role.value,
+        company: company.value,
+        deadline: deadline.value,
+        location: location.value,
+        description: description.value,
         stage: slider,
       },
     });
@@ -91,7 +91,7 @@ export default function Track2(props) {
               />
               <Input2 placeholder="Menlo Park, California" {...location} />
               <TextAreaDiv>
-                <TextAreaDiv
+                <Textarea
                   placeholder="As an intern, you'll become an expert on the Facebook Terminal and gain a deeper understanding of technology and finance. In addition to your projects, you'll participate in coding challenges, attend tech talks and network with other interns."
                   {...description}
                 />
@@ -109,7 +109,6 @@ export default function Track2(props) {
               </SliderDiv>
               <SubmitBtn>Complete</SubmitBtn>
             </form>
-            {/* <Link to="/trackr">Link</Link> */}
           </Heading>
         </ContentDiv>
       </BackgroundDiv>

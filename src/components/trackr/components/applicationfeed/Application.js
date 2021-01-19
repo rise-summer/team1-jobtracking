@@ -1,12 +1,13 @@
 import React, { Component, Fragment } from "react";
-import edit from "../../images/edit_icon.svg";
-import link from "../../images/link.svg";
-
+import edit from "../../../../images/edit_icon.svg";
+import link from "../../../../images/link.svg";
+import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import styled from "styled-components";
 
-export function Application(props) {
+export default function Application(props) {
   const [clicked, setClicked] = useState(false);
+  const history = useHistory();
 
   const extend = (e) => {
     e.stopPropagation();
@@ -21,20 +22,20 @@ export function Application(props) {
     }
   };
 
-  function getStatus(){
+  function getStatus() {
     switch (props.stage) {
-      case "1":
+      case "0":
         return "Interested";
-      case "2":
+      case "1":
         return "Applied";
-      case "3":
+      case "2":
         return "Interview";
-      case "4":
+      case "3":
         return "Offer";
       default:
         return undefined;
     }
-  };
+  }
 
   return (
     <div>
@@ -46,7 +47,7 @@ export function Application(props) {
           </Left>
           <Center>
             <BorderBox>
-              <Status>{getStatus()}</Status> 
+              <Status>{getStatus()}</Status>
               <Slider
                 type="range"
                 min="0"
@@ -58,12 +59,15 @@ export function Application(props) {
           </Center>
           <Right>
             <ButtonBox>
-              <a href="/trackr/edit1">
-                <RBtn id="edit">
+                <RBtn
+                  id="edit"
+                  onClick={() =>
+                    history.push({ pathname: "/trackr/edit1", state: JSON.stringify(props) })
+                  }
+                >
                   edit
                   <Svg src={edit}></Svg>
                 </RBtn>
-              </a>
               <a href={props.link} target="_blank">
                 {" "}
                 <RBtn id="link">
