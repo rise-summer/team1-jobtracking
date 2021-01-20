@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React from "react";
 import edit from "../../../../images/edit_icon.svg";
 import link from "../../../../images/link.svg";
 import { useHistory } from "react-router-dom";
@@ -59,17 +59,19 @@ export default function Application(props) {
           </Center>
           <Right>
             <ButtonBox>
-                <RBtn
-                  id="edit"
-                  onClick={() =>
-                    history.push({ pathname: "/trackr/edit1", state: JSON.stringify(props) })
-                  }
-                >
-                  edit
-                  <Svg src={edit}></Svg>
-                </RBtn>
-              <a href={props.link} target="_blank">
-                {" "}
+              <RBtn
+                id="edit"
+                onClick={() =>
+                  history.push({
+                    pathname: "/trackr/edit1",
+                    state: JSON.stringify(props),
+                  })
+                }
+              >
+                edit
+                <Svg src={edit}></Svg>
+              </RBtn>
+              <a href={props.link}>
                 <RBtn id="link">
                   link
                   <Svg src={link}></Svg>

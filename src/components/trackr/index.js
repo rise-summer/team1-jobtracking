@@ -26,6 +26,7 @@ import {
 } from "./style";
 import Application from "./components/applicationfeed/Application";
 import { useState } from "react";
+import EmptyApplication from "./components/applicationfeed/emptyapplication";
 
 export default function Trackr(props) {
   const profile = useSelector((state) => state.profileReducer.profile);
@@ -73,6 +74,17 @@ export default function Trackr(props) {
     };
   }
 
+  function sortApplications(e) {
+    switch (e.target.value) {
+      case "DEADLINE":
+        return dispatch({ type: "SORT_BY_DEADLINE" });
+      case "STATUS":
+        return dispatch({ type: "SORT_BY_STATUS" });
+      default:
+        return undefined;
+    }
+  }
+
   return (
     <Fragment>
       <MainBody>
@@ -86,16 +98,16 @@ export default function Trackr(props) {
                   New App
                 </NewAppBtn>
               </NewAppBtnDiv>
-              <Sort className="dropdown">
+              <Sort className="dropdown" onChange={sortApplications}>
                 <Option value="" selected disabled hidden>
                   Sort by
                 </Option>
-                <Option>Deadline</Option>
-                <Option>Status</Option>
+                <Option value="DEADLINE"> Deadline</Option>
+                <Option value="STATUS"> Status</Option>
               </Sort>
             </Headding>
-            {applications === undefined ? (
-              <div>Nothing to see here folks</div>
+            {applications.length == 0 ? (
+              <EmptyApplication></EmptyApplication>
             ) : (
               applications.map((application) => (
                 <Application
@@ -110,18 +122,6 @@ export default function Trackr(props) {
                 />
               ))
             )}
-            {/* {applications.map((application) => (
-              <Application
-                id={application.id}
-                companyName={application.company.value}
-                position={application.role.value}
-                stage={application.stage}
-                link={application.link}
-                deadline={application.deadline.value}
-                description={application.description.value}
-                location={application.location.value}
-              />
-            ))} */}
           </ContentDiv>
           <ProfileDiv>
             <BtnDiv>

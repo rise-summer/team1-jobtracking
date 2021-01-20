@@ -1,6 +1,5 @@
-import React, { Component, Fragment } from "react";
+import React, { Fragment } from "react";
 import Navigation from "../../../navigation";
-import backarrow from "../../../../images/backarrow.svg";
 import { useState } from "react";
 import {
   ContentDiv,
@@ -18,7 +17,7 @@ import {
 } from "../trackrpages/style";
 
 import { BottomDiv, EditBtn } from "./style";
-import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 export default function Edit1(props) {
