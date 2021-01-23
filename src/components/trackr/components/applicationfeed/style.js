@@ -69,6 +69,7 @@ export const RBtn = styled.button`
   margin: auto 2px;
   min-width: 5vw;
   height: 5vh;
+  cursor: pointer;
 `;
 
 export const ButtonBox = styled.div`

@@ -5,7 +5,7 @@ export const BottomDiv = styled.div`
 `;
 export const EditBtn = styled.button`
   background: #f5f5f5;
-
+  cursor: pointer;
   border-radius: 8px;
   font-weight: bold;
   font-size: 17px;

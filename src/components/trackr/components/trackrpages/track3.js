@@ -28,11 +28,11 @@ class Track3 extends Component {
   }
 
   eraseCache() {
-    console.log("here");
-    this.props.dispatch({
-      type: "STORE_RESET",
-      payload: {},
-    });
+    // console.log("here");
+    // this.props.dispatch({
+    //   type: "STORE_RESET",
+    //   payload: {},
+    // });
     this.props.history.push("/trackr");
     // this.props.history.push("/trackr");
   }

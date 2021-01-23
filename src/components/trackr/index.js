@@ -1,5 +1,6 @@
-import React, { Component, Fragment } from "react";
+import React, { Fragment } from "react";
 import Navigation from "../navigation";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import {
   MainBody,
   BackgroundDiv,
@@ -10,7 +11,6 @@ import {
   Sort,
   ContentDiv,
   Option,
-  Content,
   ProfileDiv,
   Name,
   EditBtn,
@@ -24,30 +24,66 @@ import {
   ViewPostBtnDiv,
   ViewPostBtn,
 } from "./style";
-import ApplicationFeed from "./components/applicationfeed/applicationfeed";
+import Application from "./components/applicationfeed/Application";
+import { useState } from "react";
+import EmptyApplication from "./components/applicationfeed/emptyapplication";
 
-import { useContext, useEffect } from "react";
-import { ApplicationContext } from "../../ApplicationContext";
+export default function Trackr(props) {
+  const profile = useSelector((state) => state.profileReducer.profile);
+  console.log("profile", profile);
+  const name = useProfileInput(profile.name);
+  const job = useProfileInput(profile.job);
+  const major = useProfileInput(profile.major);
+  const education = useProfileInput(profile.education);
+  const dispatch = useDispatch();
 
-import Application from "./Application";
+  const applications = useSelector(
+    (state) => state.applicationReducer.applications,
+    shallowEqual
+  );
+  console.log(applications);
 
-const Trackr = (props) => {
-  // constructor() {
-  //   super();
-  //   this.state = { no_apps: true };
-  // }
+  function useProfileInput(initialValue) {
+    const [value, setValue] = useState(initialValue);
+    function handleChange(e) {
+      setValue(e.target.value);
+    }
+    function handleDoubleClick(e) {
+      e.target.readOnly = false;
+    }
 
-  // getContent() {
-  //   if (this.state.no_apps) {
-  //     return <Content>Log a new application here</Content>;
-  //   }
-  // }
+    function handleBlur(e) {
+      e.target.readOnly = true;
+      console.log(name);
+      dispatch({
+        type: "UPDATE_PROFILE",
+        payload: {
+          name: name.value,
+          job: job.value,
+          major: major.value,
+          education: education.value,
+        },
+      });
+    }
+    return {
+      value,
+      onChange: handleChange,
+      onDoubleClick: handleDoubleClick,
+      onBlur: handleBlur,
+      readOnly: true,
+    };
+  }
 
-  const [applications, setApplications] = useContext(ApplicationContext);
-
-  useEffect(() => {
-    console.log(applications);
-  }, [applications]);
+  function sortApplications(e) {
+    switch (e.target.value) {
+      case "DEADLINE":
+        return dispatch({ type: "SORT_BY_DEADLINE" });
+      case "STATUS":
+        return dispatch({ type: "SORT_BY_STATUS" });
+      default:
+        return undefined;
+    }
+  }
 
   return (
     <Fragment>
@@ -62,44 +98,43 @@ const Trackr = (props) => {
                   New App
                 </NewAppBtn>
               </NewAppBtnDiv>
-              <Sort className="dropdown">
+              <Sort className="dropdown" onChange={sortApplications}>
                 <Option value="" selected disabled hidden>
                   Sort by
                 </Option>
-                <Option>Deadline</Option>
-                <Option>Status</Option>
+                <Option value="DEADLINE"> Deadline</Option>
+                <Option value="STATUS"> Status</Option>
               </Sort>
             </Headding>
-            {/* {this.getContent()} */}
-
-            {applications.map((application) => (
-              <Application
-                companyName="Google"
-                // position={application.position}
-                position="Software Engineer, iOS Applications"
-                status="1"
-                link="https://www.linkedin.com/jobs/view/2340677474/?alternateChannel=search&refId=mnaFCejOCAhyk8YAKc018w%3D%3D&trackingId=o9fy%2FYGaG5uNse1Bvp83MQ%3D%3D"
-                date="2021-01-11"
-                deadline="2021-01-31"
-                location="New York, NY"
-                description="- Design and implement new user-facing features in Google’s large, complex mobile applications.
-                - Build the libraries and frameworks that support authentication, copresence, and cutting-edge network protocols.
-                - Optimize mobile applications on the iOS platform.
-                - Develop prototypes quickly."
-              />
-            ))}
-
-            <ApplicationFeed />
+            {applications.length == 0 ? (
+              <EmptyApplication></EmptyApplication>
+            ) : (
+              applications.map((application) => (
+                <Application
+                  id={application.id}
+                  companyName={application.company}
+                  position={application.role}
+                  stage={application.stage}
+                  link={application.link}
+                  deadline={application.deadline}
+                  description={application.description}
+                  location={application.location}
+                />
+              ))
+            )}
           </ContentDiv>
           <ProfileDiv>
             <BtnDiv>
               <EditBtn>Edit</EditBtn>
               <ExitBtn>x</ExitBtn>
             </BtnDiv>
-            <Name>Riley Zhou</Name>
-            <Info>Software Engineer Intern</Info>
-            <Info>Majoring in Computer Science</Info>
-            <Info>Attending Stony Brook University</Info>
+            <Name {...name} placeholder="Lauren Yoon"></Name>
+            <Info {...job} placeholder="Software Engineer Intern" />
+            <Info {...major} placeholder="Majoring in Computer Science" />
+            <Info
+              {...education}
+              placeholder="Attending Stony Brook University"
+            />
             <HashTagDiv>
               <HashTag>#SWE</HashTag>
               <HashTag>#CSE</HashTag>
@@ -119,6 +154,4 @@ const Trackr = (props) => {
       </MainBody>
     </Fragment>
   );
-};
-
-export default Trackr;
+}
