@@ -9,24 +9,16 @@ import { connect } from "react-redux";
 import { useContext, useEffect, useState } from "react";
 import { ApplicationContext } from "../../ApplicationContext";
 
-import { Link } from "react-router-dom";
+import { auth } from "../../firebaseSetup";
+import axios from "axios";
 
 const Track2 = (props) => {
   const [applications, setApplications] = useContext(ApplicationContext);
 
-  useEffect(() => {
-    console.log(applications);
-  }, [applications]);
-
   const [position, setPosition] = useState("");
+  const [company, setCompany] = useState("");
   const [stage, setStage] = useState("Interested");
-
-  // constructor() {
-  //   super();
-  //   this.state = { stage: "Interested" };
-  //   // this.handleChange = this.handleChange.bind(this);
-  //   this.handleSubmit = this.handleSubmit.bind(this);
-  // }
+  const [stageNum, setStageNum] = useState("0");
 
   const handleSlider = (e) => {
     var rangeValues = {
@@ -37,11 +29,12 @@ const Track2 = (props) => {
     };
     console.log(e.target.value);
 
-    //this.setState({ stage: rangeValues[e.target.value] });
     setStage(rangeValues[e.target.value]);
+
+    setStageNum(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     // this.props.dispatch({
     //   type: "ADD_APPLICATION",
     //   payload: {
@@ -57,17 +50,38 @@ const Track2 = (props) => {
 
     e.preventDefault();
     setApplications((prevApplications) => [{ position }, ...prevApplications]);
-    console.log(applications);
-    console.log("Logging applications...");
-    console.log(applications);
 
-    //props.history.push("/trackr/track3");
+    try {
+      const token = await auth.currentUser.getIdToken();
+      const res = await axios.post(
+        "/api/job/create",
+        {
+          job_title: position,
+          company: company,
+          app_process: stageNum,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+
     props.history.push("/trackr/track3");
   };
 
   const updatePosition = (e) => {
     setPosition(e.target.value);
     console.log(position);
+  };
+
+  const updateCompany = (e) => {
+    setCompany(e.target.value);
+    console.log(company);
   };
 
   const handleChange = (event, key) => {
@@ -131,52 +145,38 @@ const Track2 = (props) => {
                 id="link"
                 placeholder="https://link_to_your_application_here.com"
                 onChange={(e) => handleChange(e, "URL")}
-                // value={this.state.url}
               />
               <Input2
-                // value={position}
-                value="Software Engineer, iOS Applications" //for demo
+                value={position}
                 placeholder="Software Engineering Intern"
                 id="role"
                 onChange={updatePosition}
-                // value={this.state.role}
               />
               <Input2
-                // value={props.company}
-                value="Google" //for demo
+                value={company}
                 placeholder="Facebook"
                 id="company"
-                onChange={(e) => handleChange(e, "COMPANY")}
-                // value={this.state.company}
+                onChange={updateCompany}
               />
               <Input2
-                // value={props.deadline}
-                value="2021-01-31" //for demo
+                value={props.deadline}
                 placeholder="Deadline: 12/01/20"
                 id="deadline"
                 onChange={(e) => handleChange(e, "DEADLINE")}
-                // value={this.state.deadline}
                 type="date"
               />
               <Input2
-                // value={props.location}
-                value="New York, NY" //for demo
+                value={props.location}
                 placeholder="Menlo Park, California"
                 id="location"
                 onChange={(e) => handleChange(e, "LOCATION")}
-                // value={this.state.location}
               />
               <TextAreaDiv>
                 <Textarea
-                  // value={props.description}
-                  value="- Design and implement new user-facing features in Google’s large, complex mobile applications.
-                  - Build the libraries and frameworks that support authentication, copresence, and cutting-edge network protocols.
-                  - Optimize mobile applications on the iOS platform.
-                  - Develop prototypes quickly." //for demo
+                  value={props.description}
                   placeholder="As an intern, you'll become an expert on the Facebook Terminal and gain a deeper understanding of technology and finance. In addition to your projects, you'll participate in coding challenges, attend tech talks and network with other interns."
                   id="description"
                   onChange={(e) => handleChange(e, "DESCRIPTION")}
-                  // value={this.state.description}
                 />
               </TextAreaDiv>
               <Subtitle>What stage are you in applying?</Subtitle>

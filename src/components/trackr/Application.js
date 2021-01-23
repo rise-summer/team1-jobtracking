@@ -30,20 +30,20 @@ const Application = (props) => {
 
   const getStatus = () => {
     switch (props.status) {
-      case "1":
+      case "0":
         return "Interested";
-      case "2":
+      case "1":
         return "Applied";
-      case "3":
+      case "2":
         return "Interview";
-      case "4":
+      case "3":
         return "Offer";
     }
   };
 
   return (
     <div>
-      <Content onClick={(e) => extend(e)} class="content">
+      <Content onClick={(e) => extend(e)} className="content">
         <Top>
           <Left>
             <CompanyName>{props.companyName}</CompanyName>
@@ -51,14 +51,12 @@ const Application = (props) => {
           </Left>
           <Center>
             <BorderBox>
-              {/* <Status>{getStatus()}</Status> */}
-              <Status>Interview</Status> {/* for demo */}
+              <Status>{getStatus()}</Status>
               <Slider
                 type="range"
                 min="0"
                 max="3"
-                // value={props.status}
-                value="2" //for demo
+                value={props.status}
                 disabled
               />
             </BorderBox>
