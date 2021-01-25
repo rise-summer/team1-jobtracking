@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `job` (
   `company` varchar(200) NOT NULL,
   `location` varchar(200),
   `app_status` varchar(200) NOT NULL,
-  `date_updated` DATE NOT NULL,
+  `date_updated` DATETIME NOT NULL,
   `deadline` DATE NOT NULL,
   `description` TEXT,
   `notes` TEXT,
