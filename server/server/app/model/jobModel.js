@@ -17,11 +17,12 @@ function Job(job,uid) {
 
 //create job
 Job.createJob = (newJob, result) => {
-  
+  let last_updated=new Date().toISOString().slice(0,19).replace('T',' ');
+  newJob.date_updated=last_updated;
   let stmt=`INSERT INTO job(link,position,company,location,app_status,date_updated,deadline,description,notes,user_id)
   VALUES(?,?,?,?,?,?,?,?,?,?)`;
   let info=[newJob.link,newJob.position,newJob.company,newJob.location,newJob.app_status,
-    new Date().toISOString().slice(0,19).replace('T',' '),newJob.deadline,newJob.description,newJob.notes,newJob.userId]
+    last_updated,newJob.deadline,newJob.description,newJob.notes,newJob.userId]
   sql.query(stmt, info, (err, res) => {
     if (err) {
       result(err, null);
@@ -73,11 +74,13 @@ Job.remove = (jobId,result) => {
 
 //update job
 Job.update=(updatedJob,result)=>{
+  let last_updated=new Date().toISOString().slice(0,19).replace('T',' ');
+  updatedJob.date_updated=last_updated;
   let stmt=`UPDATE job
             SET link=?,position=?,company = ?,location=?,app_status = ?,date_updated=?,deadline=?,description=?,notes=?
             WHERE job_id = ?`;
   let info=[updatedJob.link,updatedJob.position,updatedJob.company,updatedJob.location,updatedJob.app_status,
-    new Date().toISOString().slice(0,19).replace('T',' '),updatedJob.deadline,updatedJob.description,updatedJob.notes,updatedJob.job_id]
+    last_updated,updatedJob.deadline,updatedJob.description,updatedJob.notes,updatedJob.job_id]
     sql.query(stmt,info,(err,res)=>{
         if (err) {
             result(err, null);
