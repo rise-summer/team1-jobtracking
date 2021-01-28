@@ -9,8 +9,8 @@ const CommentSection = ({id}) => {
     {
       id: 1,
       name: "Lauren",
-      message: "What???",
-      date: "Sunday",
+      date: "01/04/21",
+      message: "Thanks! I will let Joe know.",
     },
   ]);
 
@@ -19,11 +19,6 @@ const CommentSection = ({id}) => {
       name: "Lauren",
       date: moment().format("dddd"),
       message: "hi",
-    },
-    {
-      name: "ben",
-      date: "tuesday",
-      message: "ayyyyyyyyyyyyyyy",
     },
   ];
 
@@ -37,7 +32,7 @@ const CommentSection = ({id}) => {
         />
       ))}
 
-      <AddComment id={id} setComments={setComments} name={"Myself"} />
+      <AddComment id={id} setComments={setComments} />
     </Container>
   );
 };

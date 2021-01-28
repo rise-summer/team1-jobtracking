@@ -2,6 +2,7 @@
 import React, { Component, Fragment } from "react";
 import Navigation from "../../../navigation";
 import backarrow from "../../../../images/backarrow.svg";
+import styled from "styled-components";
 
 import {
   ContentDiv,
@@ -11,6 +12,7 @@ import {
   BackBtn,
   Heading,
   BackSvg,
+  SubmitBtn,
   Subtitle2,
 } from "./style";
 import { connect } from "react-redux";
@@ -26,11 +28,11 @@ class Track3 extends Component {
   }
 
   eraseCache() {
-    console.log("here");
-    this.props.dispatch({
-      type: "STORE_RESET",
-      payload: {},
-    });
+    // console.log("here");
+    // this.props.dispatch({
+    //   type: "STORE_RESET",
+    //   payload: {},
+    // });
     this.props.history.push("/trackr");
     // this.props.history.push("/trackr");
   }
@@ -48,17 +50,27 @@ class Track3 extends Component {
             </BackBtn>
             <Heading>
               <Title>Great job applying!</Title>
+              {/* <Subtitle>
+                You have successfully added
+                <span style={{ color: "#2071c7" }}> {this.props.role} </span> to
+                your tracked applications.
+              </Subtitle> */}
+
               <Subtitle>
                 You have successfully added
-                <span style={{ color: "#65B6FE" }}> {this.props.role} </span> to
-                your tracked applications.
+                <span style={{ color: "#2071c7" }}>
+                  {" "}
+                  Google Software Engineer{" "}
+                </span>{" "}
+                to your tracked applications.
               </Subtitle>
+
               <Subtitle>See what other people are saying here:</Subtitle>
+              <Subtitle2>#GoogleSoftwareEngineer</Subtitle2>
+
               <div>
-                <Subtitle2 onClick={this.eraseCache}>
-                  <BackSvg src={backarrow} alt="backarrow error"></BackSvg> Back
-                  to applications
-                </Subtitle2>
+                {/* <Subtitle2 onClick={this.eraseCache}>Complete</Subtitle2> */}
+                <SubmitBtn onClick={this.eraseCache}>Complete</SubmitBtn>
               </div>
             </Heading>
           </ContentDiv>

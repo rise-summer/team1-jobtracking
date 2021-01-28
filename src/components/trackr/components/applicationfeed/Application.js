@@ -1,45 +1,41 @@
-import React, { Component, Fragment } from "react";
-import edit from "../../images/edit_icon.svg";
-import link from "../../images/link.svg";
-
+import React from "react";
+import edit from "../../../../images/edit_icon.svg";
+import link from "../../../../images/link.svg";
+import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import styled from "styled-components";
 
-const Application = (props) => {
+export default function Application(props) {
   const [clicked, setClicked] = useState(false);
-
-  // constructor(props) {
-  //   super(props);
-  //   this.state = { clicked: false };
-  //   this.extend = this.extend.bind(this);
-  //   console.log(this.state);
-  // }
+  const history = useHistory();
 
   const extend = (e) => {
     e.stopPropagation();
     if (
       !(
-        e.target.id == "edit" ||
-        e.target.id == "link" ||
-        e.target.id == "textarea"
+        e.target.id === "edit" ||
+        e.target.id === "link" ||
+        e.target.id === "textarea"
       )
     ) {
       setClicked((prevClicked) => !prevClicked);
     }
   };
 
-  const getStatus = () => {
-    switch (props.status) {
-      case "1":
+  function getStatus() {
+    switch (props.stage) {
+      case "0":
         return "Interested";
-      case "2":
+      case "1":
         return "Applied";
-      case "3":
+      case "2":
         return "Interview";
-      case "4":
+      case "3":
         return "Offer";
+      default:
+        return undefined;
     }
-  };
+  }
 
   return (
     <div>
@@ -56,21 +52,26 @@ const Application = (props) => {
                 type="range"
                 min="0"
                 max="3"
-                value={props.status}
+                value={props.stage}
                 disabled
               />
             </BorderBox>
           </Center>
           <Right>
             <ButtonBox>
-              <a href="/trackr/edit1">
-                <RBtn id="edit">
-                  edit
-                  <Svg src={edit}></Svg>
-                </RBtn>
-              </a>
-              <a href={props.link} target="_blank">
-                {" "}
+              <RBtn
+                id="edit"
+                onClick={() =>
+                  history.push({
+                    pathname: "/trackr/edit1",
+                    state: JSON.stringify(props),
+                  })
+                }
+              >
+                edit
+                <Svg src={edit}></Svg>
+              </RBtn>
+              <a href={props.link}>
                 <RBtn id="link">
                   link
                   <Svg src={link}></Svg>
@@ -108,9 +109,7 @@ const Application = (props) => {
       </Content>
     </div>
   );
-};
-
-export default Application;
+}
 
 const Content = styled.div`
   background: #ffffff;
@@ -208,7 +207,7 @@ const Description = styled.div`
   font-weight: 300;
   font-size: 17px;
   line-height: 23px;
-
+  padding: 10px 0px 10px 0px;
   color: #5a5a5a;
 `;
 const Notes = styled.textarea`
