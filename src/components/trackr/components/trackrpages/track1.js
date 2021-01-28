@@ -37,8 +37,7 @@ class Track1 extends Component {
 
   handleBack() {
     this.props.dispatch({
-      type: "STORE_RESET",
-      payload: {},
+      type: "STORE_RESET"
     });
     this.props.history.push("/trackr");
   }
@@ -60,7 +59,6 @@ class Track1 extends Component {
               <form onSubmit={this.handleSubmit}>
                 <Input
                   placeholder="https://link_to_your_application_here.com"
-                  value={this.props.url || ""}
                   onChange={this.handleChange}
                 />
                 {/* <a> */}

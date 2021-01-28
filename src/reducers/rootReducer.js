@@ -3,6 +3,7 @@ import applicationReducer from "./applicationReducer";
 import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import profileReducer from "./profileReducer";
 
 const persistConfig = {
   key: "root",
@@ -13,13 +14,13 @@ const persistConfig = {
 const appReducer = combineReducers({
   isLogged: loggedReducer,
   applicationReducer: applicationReducer,
+  profileReducer: profileReducer,
 });
 
 const rootReducer = (state, action) => {
   if (action.type === "STORE_RESET") {
     storage.removeItem("persist:root");
     state = undefined;
-    console.log("here1");
   }
   return appReducer(state, action);
 };

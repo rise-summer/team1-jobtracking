@@ -4,18 +4,25 @@ const uuid = require('uuid');
 
 function Job(job,uid) {
   console.log('job application: ' + JSON.stringify(job));
-  this.job_title = job.job_title;
+  this.link=job.link;
+  this.position = job.position;
   this.company = job.company;
-  this.app_process=job.app_process;
+  this.location=job.location;
+  this.app_status=job.app_status;
+  this.deadline=job.deadline;
+  this.description=job.description;
+  this.notes=job.notes;
   this.userId=uid;
 }
 
 //create job
 Job.createJob = (newJob, result) => {
-  
-  let stmt=`INSERT INTO job(job_title,company,app_process,user_id)
-  VALUES(?,?,?,?)`;
-  let info=[newJob.job_title,newJob.company,newJob.app_process,newJob.userId]
+  let last_updated=new Date().toISOString().slice(0,19).replace('T',' ');
+  newJob.date_updated=last_updated;
+  let stmt=`INSERT INTO job(link,position,company,location,app_status,date_updated,deadline,description,notes,user_id)
+  VALUES(?,?,?,?,?,?,?,?,?,?)`;
+  let info=[newJob.link,newJob.position,newJob.company,newJob.location,newJob.app_status,
+    last_updated,newJob.deadline,newJob.description,newJob.notes,newJob.userId]
   sql.query(stmt, info, (err, res) => {
     if (err) {
       result(err, null);
@@ -67,10 +74,13 @@ Job.remove = (jobId,result) => {
 
 //update job
 Job.update=(updatedJob,result)=>{
-    let stmt=`UPDATE job
-                SET job_title = ?, company = ?, app_process = ?
-                WHERE job_id = ?`;
-    let info=[updatedJob.job_title,updatedJob.company,updatedJob.app_process,updatedJob.job_id]
+  let last_updated=new Date().toISOString().slice(0,19).replace('T',' ');
+  updatedJob.date_updated=last_updated;
+  let stmt=`UPDATE job
+            SET link=?,position=?,company = ?,location=?,app_status = ?,date_updated=?,deadline=?,description=?,notes=?
+            WHERE job_id = ?`;
+  let info=[updatedJob.link,updatedJob.position,updatedJob.company,updatedJob.location,updatedJob.app_status,
+    last_updated,updatedJob.deadline,updatedJob.description,updatedJob.notes,updatedJob.job_id]
     sql.query(stmt,info,(err,res)=>{
         if (err) {
             result(err, null);

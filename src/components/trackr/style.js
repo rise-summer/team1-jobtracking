@@ -154,16 +154,22 @@ export const ExitBtn = styled.button`
     transition: 0.1s;
   }
 `;
-export const JobTitle = styled.div`
+export const Name = styled.textarea`
   font-size: 30px;
   font-weight: bold;
   margin: 20px auto auto auto;
   text-align: center;
+  resize: none;
+  border: none;
 `;
 
-export const Info = styled.div`
+export const Info = styled.textarea`
   margin-top: 20px;
   font-size: 20px;
+  resize: none;
+  border: none;
+  text-align: center;
+  overflow: hidden;
 `;
 
 export const HashTagDiv = styled.div`
