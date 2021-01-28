@@ -1,4 +1,4 @@
-let Post = require('../model/postModal');
+let Post = require('../model/postModel');
 let User = require('../model/');
 
 exports.create_new_post = async(req, res) => {
