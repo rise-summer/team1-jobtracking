@@ -1,3 +1,4 @@
+import axios from 'axios';
 import moment from "moment";
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
@@ -12,20 +13,31 @@ const AddPost = ({ numPosts, setNumPosts, setPosts }) => {
 
   const submitPost = (e) => {
     e.preventDefault();
-    setNumPosts((prevNumPosts) => prevNumPosts + 1);
-    setPosts((prevPosts) => [
-      {
-        id: numPosts + 1,
-        author: authentication.displayName,
+    axios.post(`post/create`, {
+      body: {
         title,
-        date: moment().format("MM/DD/YY"),
-        description,
-        comments: [],
-      },
-      ...prevPosts,
-    ]);
-    setTitle("");
-    setDescription("");
+        content: description,
+        created_at: new Date(),
+      }
+    }).then(
+      res => {
+        console.log(res);
+        setNumPosts((prevNumPosts) => prevNumPosts + 1);
+        setPosts((prevPosts) => [
+          {
+            id: numPosts + 1,
+            author: authentication.displayName,
+            title,
+            date: moment().format("MM/DD/YY"),
+            description,
+            comments: [],
+          },
+          ...prevPosts,
+        ]);
+        setTitle("");
+        setDescription("");
+      }
+    );
   };
 
   return (
