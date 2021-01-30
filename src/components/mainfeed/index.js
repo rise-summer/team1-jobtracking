@@ -12,6 +12,7 @@ import { AuthenticationContext } from "../../AuthenticationContext";
 const MainFeed = () => {
   const [authentication, setAuthentication] = useContext(AuthenticationContext);
 
+  const [showPost, setShowPost] = useState(false);
   const [numPosts, setNumPosts] = useState(1);
   const [posts, setPosts] = useState([
     {
@@ -23,19 +24,28 @@ const MainFeed = () => {
     },
   ]);
 
-  if (!authentication.displayName) {
-    return (<Redirect to="/login" />);
+  const toggleShowPost = () => {
+    if (showPost) {
+      setShowPost(false)
+    }
+    else {
+      setShowPost(true)
+    }
   }
+
+  // if (!authentication.displayName) {
+  //   return (<Redirect to="/login" />);
+  // }
 
   return (
     <Fragment>
       <MainBody>
         <Navigation />
         <BackgroundDiv>
-          <AddPost numPosts={numPosts} setNumPosts={setNumPosts} setPosts={setPosts} />
+          {showPost ? <AddPost numPosts={numPosts} setNumPosts={setNumPosts} setPosts={setPosts} toggleShowPost={toggleShowPost} /> : ''}
           <Heading>
             <Text> Most Recent Posts </Text>
-            {/* <NewPostButton>Create New Post</NewPostButton> */}
+            {showPost ? '' : <NewPostButton onClick={toggleShowPost}>Create New Post</NewPostButton>}
           </Heading>
           {posts.map((post) => (
             <Post id={post.id} author={post.author} title={post.title} date={post.date} description={post.description} />
