@@ -114,7 +114,7 @@ export default function Application(props) {
 const Content = styled.div`
   background: #ffffff;
   border-radius: 5px;
-  padding: 10px 40px;
+  padding: 5px 40px;
   margin-top: 10px;
   margin-bottom: 10px;
   &:hover {
@@ -136,7 +136,7 @@ const PositionName = styled.div`
 const Slider = styled.input``;
 
 const Left = styled.div`
-  width: 50%;
+  width: 80%;
 `;
 const Center = styled.div`
   padding: 10px;
@@ -144,8 +144,10 @@ const Center = styled.div`
 `;
 
 const Right = styled.div`
-  padding: 10px;
-  width: 10vw;
+  //padding: 10px;
+  width: 100px;
+  display: flex;
+  //flex-direction: column;
 `;
 
 const BorderBox = styled.div`
@@ -161,36 +163,38 @@ const Status = styled.div`
   font-size: 16px;
   line-height: 22px;
   /* identical to box height */
-
   color: #5c5c5c;
+`;
+
+const ButtonBox = styled.div`
+  margin: auto;
+  display: block;
 `;
 
 const RBtn = styled.button`
   border: 2px solid #6175a9;
   box-sizing: border-box;
   border-radius: 5px;
-  padding: 5px;
-  font-weight: 600;
-  font-size: 17px;
-  line-height: 22px;
+  padding-top: 3px;
+  //padding: 3px;
+  //font-weight: 600;
+  font-size: 11px;
   /* identical to box height, or 129% */
-
   color: #979797;
   background: white;
-  margin: auto 2px;
-  min-width: 5vw;
-  height: 5vh;
-`;
-
-const ButtonBox = styled.div`
-  margin: auto;
+  margin: 5px 2px;
+  width: 60px;
+  height: 25px;
+  letter-spacing: 1px;
   display: flex;
+  text-decoration: none;
 `;
 
 const Extra = styled.div``;
 
 const Top = styled.div`
   display: flex;
+  /* height: 100px; */
 `;
 
 const Topline = styled.div`
@@ -198,6 +202,7 @@ const Topline = styled.div`
   justify-content: center;
   margin-top: 3vh;
 `;
+
 const TopText = styled.div`
   color: #5a5a5a;
   margin: 0px 3vw;
@@ -210,6 +215,7 @@ const Description = styled.div`
   padding: 10px 0px 10px 0px;
   color: #5a5a5a;
 `;
+
 const Notes = styled.textarea`
   font-family: sans-serif;
   border: 2px solid #8191ba;
@@ -220,10 +226,11 @@ const Notes = styled.textarea`
   width: 100%;
   font-size: 16px;
   line-height: 22px;
-
   /* RISE colors high fidelity */
-
   color: #5a5a5a;
 `;
 
-const Svg = styled.img``;
+const Svg = styled.img`
+  width: 80%;
+  height: 80%;
+`;

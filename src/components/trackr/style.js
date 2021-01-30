@@ -27,8 +27,6 @@ export const ContentDiv = styled.div`
 
 export const Headding = styled.div`
   background: #175596;
-  border-radius: 5px 5px 0px 0px;
-  height: 88px;
   overflow: hidden;
 `;
 
@@ -43,8 +41,8 @@ export const Title = styled.div`
   font-style: normal;
   font-weight: bold;
   font-size: 25px;
-  text-align: center;
   letter-spacing: 3pt;
+  text-align: center;
   color: #ffffff;
   /* display: block; */
   margin: auto 10px;
@@ -90,6 +88,7 @@ export const Sort = styled.select`
   width: 115px;
   font-size: 25px;
   height: 40px;
+  font-weight: none;
   cursor: pointer;
   &:hover {
     background: #c0c0c0;
@@ -128,6 +127,7 @@ export const ProfileDiv = styled.div`
   height: fit-content;
   margin: 20px 10vw 20px 10px;
   padding: 15px 15px 15px 15px;
+  text-align: center;
 `;
 
 export const BtnDiv = styled.div`
@@ -162,20 +162,24 @@ export const ExitBtn = styled.button`
   }
 `;
 export const Name = styled.textarea`
-  font-size: 30px;
+  font-size: 25px;
   font-weight: bold;
+  font-family: Sans-Serif;
   margin: 20px auto auto auto;
   text-align: center;
   resize: none;
   border: none;
+  width: 90%;
+  color: black;
 `;
 
 export const Info = styled.textarea`
+  font-family: Sans-Serif;
   margin-top: 20px;
   font-size: 20px;
   resize: none;
   border: none;
-  text-align: center;
+  text-align: left;
   overflow: hidden;
 `;
 
