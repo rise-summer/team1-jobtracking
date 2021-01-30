@@ -4,8 +4,8 @@ export const MainBody = styled.div`
   min-width: 700px;
   font-family: Sans-Serif;
   width: 100vw;
-  height: 100%;
-  margin: 0 20px 20px 0;
+  height: 100vh;
+  //margin: 0 20px 20px 0;
   justify-content: center;
 `;
 
@@ -15,7 +15,8 @@ export const BackgroundDiv = styled.div`
   position: relative;
   justify-content: center;
   //padding: 20px 20vw 20px 20vw;
-  margin: 0px auto 0px auto;
+  height: calc(100vh - 40px - 38px);
+  overflow-y: hidden;
 `;
 
 export const ContentDiv = styled.div`
@@ -26,21 +27,28 @@ export const ContentDiv = styled.div`
 
 export const Headding = styled.div`
   background: #175596;
-  border: none;
   border-radius: 5px 5px 0px 0px;
   height: 88px;
+  overflow: hidden;
+`;
+
+export const HeadingContent = styled.div`
   display: flex;
+  min-width: 645px;
+  border-radius: 5px 5px 0px 0px;
+  height: 88px;
 `;
 
 export const Title = styled.div`
   font-style: normal;
   font-weight: bold;
-  font-size: 30px;
+  font-size: 25px;
   text-align: center;
+  letter-spacing: 3pt;
   color: #ffffff;
   /* display: block; */
   margin: auto 10px;
-  min-width: 260px;
+  min-width: 340px;
 `;
 
 export const NewAppBtnDiv = styled.button`
@@ -51,7 +59,7 @@ export const NewAppBtnDiv = styled.button`
   text-align: center;
   margin: auto 10px;
   height: 40px;
-  width: 120px;
+  width: 100px;
   min-width: 120px;
   text-decoration: none;
   cursor: pointer;
@@ -67,7 +75,7 @@ export const NewAppBtnDiv = styled.button`
 export const NewAppBtn = styled.a`
   text-decoration: none;
   color: #000000;
-  font-weight: bold;
+  font-weight: none;
   font-size: 25px;
 `;
 
@@ -79,10 +87,9 @@ export const Sort = styled.select`
   text-align: center;
   margin: auto 10px;
   padding-left: 5px;
-  width: 140px;
+  width: 115px;
   font-size: 25px;
   height: 40px;
-  font-weight: bold;
   cursor: pointer;
   &:hover {
     background: #c0c0c0;

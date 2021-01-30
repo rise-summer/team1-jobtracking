@@ -3,7 +3,6 @@ import { Card } from "antd";
 
 export const MainBody = styled.div`
   min-width: 500px;
-  height: 100vh;
   margin: 0 auto;
   //overflow: scroll;  //Add this when creating format for different size screens
 `;
@@ -12,6 +11,7 @@ export const BackgroundDiv = styled.div`
   background: #ebebeb;
   font-family: Sans-Serif;
   padding: 20px 20vw 20px 20vw;
+  height: calc(100vh - 40px - 38px);
   //min-width: 400px;
 `;
 

@@ -23,6 +23,7 @@ import {
   Searches,
   ViewPostBtnDiv,
   ViewPostBtn,
+  HeadingContent,
 } from "./style";
 import Application from "./components/applicationfeed/Application";
 import { useState } from "react";
@@ -92,19 +93,23 @@ export default function Trackr(props) {
         <BackgroundDiv>
           <ContentDiv>
             <Headding>
-              <Title>Your Applications</Title>
-              <NewAppBtnDiv>
-                <NewAppBtn onClick={() => props.history.push("/trackr/track1")}>
-                  New App
-                </NewAppBtn>
-              </NewAppBtnDiv>
-              <Sort className="dropdown" onChange={sortApplications}>
-                <Option value="" selected disabled hidden>
-                  Sort by
-                </Option>
-                <Option value="DEADLINE"> Deadline</Option>
-                <Option value="STATUS"> Status</Option>
-              </Sort>
+              <HeadingContent>
+                <Title>Your Applications</Title>
+                <NewAppBtnDiv>
+                  <NewAppBtn
+                    onClick={() => props.history.push("/trackr/track1")}
+                  >
+                    New App
+                  </NewAppBtn>
+                </NewAppBtnDiv>
+                <Sort className="dropdown" onChange={sortApplications}>
+                  <Option value="" selected disabled hidden>
+                    Sort by
+                  </Option>
+                  <Option value="DEADLINE"> Deadline</Option>
+                  <Option value="STATUS"> Status</Option>
+                </Sort>
+              </HeadingContent>
             </Headding>
             {applications.length == 0 ? (
               <EmptyApplication></EmptyApplication>
