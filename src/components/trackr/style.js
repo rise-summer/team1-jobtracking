@@ -28,13 +28,14 @@ export const ContentDiv = styled.div`
 export const Headding = styled.div`
   background: #175596;
   overflow: hidden;
+  border-radius: 5px;
 `;
 
 export const HeadingContent = styled.div`
   display: flex;
-  min-width: 645px;
+  //min-width: 645px;
   border-radius: 5px 5px 0px 0px;
-  height: 88px;
+  height: 70px;
 `;
 
 export const Title = styled.div`
@@ -42,11 +43,11 @@ export const Title = styled.div`
   font-weight: bold;
   font-size: 25px;
   letter-spacing: 3pt;
-  text-align: center;
+  text-align: left;
   color: #ffffff;
   /* display: block; */
-  margin: auto 10px;
-  min-width: 340px;
+  margin: auto auto auto 15px;
+  /* min-width: 270px; */
 `;
 
 export const NewAppBtnDiv = styled.button`
@@ -56,9 +57,8 @@ export const NewAppBtnDiv = styled.button`
   outline: none;
   text-align: center;
   margin: auto 10px;
-  height: 40px;
-  width: 100px;
-  min-width: 120px;
+  height: 35px;
+  width: 90px;
   text-decoration: none;
   cursor: pointer;
   &:hover {
@@ -74,7 +74,7 @@ export const NewAppBtn = styled.a`
   text-decoration: none;
   color: #000000;
   font-weight: none;
-  font-size: 25px;
+  font-size: 18px;
 `;
 
 export const Sort = styled.select`
@@ -85,9 +85,9 @@ export const Sort = styled.select`
   text-align: center;
   margin: auto 10px;
   padding-left: 5px;
-  width: 115px;
-  font-size: 25px;
-  height: 40px;
+  width: 90px;
+  font-size: 18px;
+  height: 35px;
   font-weight: none;
   cursor: pointer;
   &:hover {
@@ -173,14 +173,25 @@ export const Name = styled.textarea`
   color: black;
 `;
 
+export const InfoPrompt = styled.div`
+  font-size: 18px;
+  color: black;
+  text-align: left;
+  width: 150px;
+`;
+
+export const InfoDiv = styled.div`
+  display: flex;
+`;
+
 export const Info = styled.textarea`
   font-family: Sans-Serif;
-  margin-top: 20px;
-  font-size: 20px;
+  font-size: 18px;
   resize: none;
   border: none;
   text-align: left;
-  overflow: hidden;
+  width: 100%;
+  outline: none;
 `;
 
 export const HashTagDiv = styled.div`
@@ -191,7 +202,7 @@ export const HashTag = styled.button`
   background: #5869d7;
   color: #f5f5f5;
   width: fit-content;
-  font-size: 20px;
+  font-size: 15px;
   padding: 10px 10px 10px 10px;
   margin: 5px 5px 5px 5px;
   border-radius: 5px;
@@ -200,8 +211,17 @@ export const HashTag = styled.button`
   border: none;
 `;
 
-export const SearchDiv = styled.div`
+export const SearchTitle = styled.div`
   margin-top: 15px;
+
+  text-align: left;
+  padding-left: 0px;
+  font-weight: bold;
+`;
+
+export const SearchDiv = styled.div`
+  display: flex;
+  flex-wrap: wrap;
 `;
 
 export const Searches = styled.button`
@@ -211,7 +231,7 @@ export const Searches = styled.button`
   color: #b6b6b9;
   width: fit-content;
   font-size: 20px;
-  margin: 10px 10px 10px 10px;
+  margin: 5px 5px 5px 5px;
   border-radius: 5px;
 `;
 
@@ -221,7 +241,7 @@ export const ViewPostBtn = styled.button`
   color: none;
   background: none;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 18px;
   cursor: pointer;
   &:hover {
     color: 2071c7;

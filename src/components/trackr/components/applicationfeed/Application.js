@@ -133,8 +133,6 @@ const PositionName = styled.div`
   line-height: 22px;
 `;
 
-const Slider = styled.input``;
-
 const Left = styled.div`
   width: 80%;
 `;
@@ -153,17 +151,23 @@ const Right = styled.div`
 const BorderBox = styled.div`
   border: 2px solid #6175a9;
   box-sizing: border-box;
-  border-radius: 15px;
+  border-radius: 10px;
   margin: auto 0px;
+  height: 53px;
+`;
+
+const Slider = styled.input`
+  height: 5px;
 `;
 
 const Status = styled.div`
-  text-align: center;
-  font-weight: 800;
-  font-size: 16px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 13px;
   line-height: 22px;
   /* identical to box height */
   color: #5c5c5c;
+  margin: 2px auto auto 10px;
 `;
 
 const ButtonBox = styled.div`
@@ -198,14 +202,15 @@ const Top = styled.div`
 `;
 
 const Topline = styled.div`
-  display: flex;
-  justify-content: center;
   margin-top: 3vh;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const TopText = styled.div`
   color: #5a5a5a;
   margin: 0px 3vw;
+  font-size: 13px;
 `;
 
 const Description = styled.div`
@@ -222,12 +227,15 @@ const Notes = styled.textarea`
   box-sizing: border-box;
   border-radius: 14px;
   resize: none;
-  padding: 5px;
+  padding: 10px;
   width: 100%;
-  font-size: 16px;
-  line-height: 22px;
+  min-height: 80px;
+  font-size: 12px;
+  line-height: 15px;
   /* RISE colors high fidelity */
   color: #5a5a5a;
+  border-radius: 10px;
+  outline: none;
 `;
 
 const Svg = styled.img`

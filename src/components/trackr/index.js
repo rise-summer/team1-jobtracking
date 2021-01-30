@@ -24,6 +24,9 @@ import {
   ViewPostBtnDiv,
   ViewPostBtn,
   HeadingContent,
+  SearchTitle,
+  InfoPrompt,
+  InfoDiv,
 } from "./style";
 import Application from "./components/applicationfeed/Application";
 import { useState } from "react";
@@ -134,19 +137,28 @@ export default function Trackr(props) {
               <ExitBtn>x</ExitBtn>
             </BtnDiv>
             <Name {...name} placeholder="Lauren Yoon"></Name>
-            <Info {...job} placeholder="Software Engineer Intern" />
-            <Info {...major} placeholder="Majoring in Computer Science" />
-            <Info
-              {...education}
-              placeholder="Attending Stony Brook University"
-            />
+            <InfoDiv>
+              <InfoPrompt>Currently a</InfoPrompt>
+              <Info {...job} placeholder="Software Engineer Intern" />
+            </InfoDiv>
+            <InfoDiv>
+              <InfoPrompt>Majoring in</InfoPrompt>
+              <Info {...major} placeholder="Computer Science" />
+            </InfoDiv>
+            <InfoDiv>
+              <InfoPrompt>Attending</InfoPrompt>
+              <Info
+                {...education}
+                placeholder="Attending Stony Brook University"
+              />
+            </InfoDiv>
             <HashTagDiv>
               <HashTag>#SWE</HashTag>
               <HashTag>#CSE</HashTag>
               <HashTag>#FullStack</HashTag>
             </HashTagDiv>
+            <SearchTitle>Recent Searches:</SearchTitle>
             <SearchDiv>
-              <div>Recent Searches:</div>
               <Searches>#Backend</Searches>
               <Searches>#SoftwareDev</Searches>
               <Searches>#Tech</Searches>
