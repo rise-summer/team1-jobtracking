@@ -25,8 +25,10 @@ import {
   ViewPostBtn,
 } from "./style";
 import Application from "./components/applicationfeed/Application";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import EmptyApplication from "./components/applicationfeed/emptyapplication";
+import { auth } from "../../firebaseSetup";
+import axios from "axios";
 
 export default function Trackr(props) {
   const profile = useSelector((state) => state.profileReducer.profile);
@@ -37,10 +39,7 @@ export default function Trackr(props) {
   const education = useProfileInput(profile.education);
   const dispatch = useDispatch();
 
-  const applications = useSelector(
-    (state) => state.applicationReducer.applications,
-    shallowEqual
-  );
+  const [applications, setApplications] = useState([])
   console.log(applications);
 
   function useProfileInput(initialValue) {
@@ -85,6 +84,45 @@ export default function Trackr(props) {
     }
   }
 
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const token = await auth.currentUser.getIdToken();
+        const res = await axios.get("/api/jobs", {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        });
+        console.log(res.data.data);
+        setApplications(res.data.data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    fetchData();
+  }, []);
+
+  const deleteApp = async () => {
+    try {
+      const token = await auth.currentUser.getIdToken();
+      applications.map(async (application) => {
+        const res = await axios.delete(
+          `/api/job/delete/${application.job_id}`,
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
+        console.log(res);
+      });
+
+      // setApplications(res.data.data)
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <Fragment>
       <MainBody>
@@ -105,16 +143,17 @@ export default function Trackr(props) {
                 <Option value="DEADLINE"> Deadline</Option>
                 <Option value="STATUS"> Status</Option>
               </Sort>
+              <button onClick={deleteApp}>DELETE APP</button>
             </Headding>
-            {applications.length == 0 ? (
+            {applications.length === 0 ? (
               <EmptyApplication></EmptyApplication>
             ) : (
               applications.map((application) => (
                 <Application
                   id={application.id}
                   companyName={application.company}
-                  position={application.role}
-                  stage={application.stage}
+                  position={application.job_title}
+                  stage={application.app_process}
                   link={application.link}
                   deadline={application.deadline}
                   description={application.description}

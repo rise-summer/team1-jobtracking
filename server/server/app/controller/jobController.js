@@ -2,6 +2,7 @@ let Job = require('../model/jobModel');
 let User = require('../model/userModel');
 
 exports.create_job_app = async (req, res) => {
+    console.log("enter new function")
     // console.log(req.body.userEmail)
     User.getUserByEmail(req.body.userEmail,(err,result)=>{
         // console.log('result from getuser:'+err+' '+result)

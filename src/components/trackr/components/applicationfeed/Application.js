@@ -39,7 +39,7 @@ export default function Application(props) {
 
   return (
     <div>
-      <Content onClick={(e) => extend(e)} class="content">
+      <Content onClick={(e) => extend(e)}>
         <Top>
           <Left>
             <CompanyName>{props.companyName}</CompanyName>

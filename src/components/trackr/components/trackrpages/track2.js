@@ -19,6 +19,8 @@ import {
   Label,
   SubmitBtn, Textarea
 } from "./style";
+import { auth } from "../../../../firebaseSetup";
+import axios from "axios";
 
 export default function Track2(props) {
   const link = useFormInput("");
@@ -32,7 +34,7 @@ export default function Track2(props) {
   const dispatch = useDispatch();
   const date = new Date().getTime();
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     console.log(stage)
     dispatch({
@@ -48,6 +50,26 @@ export default function Track2(props) {
         stage: slider,
       },
     });
+    try {
+      const token = await auth.currentUser.getIdToken();
+      console.log(token)
+      const res = await axios.post(
+        "/api/job/create",
+        {
+          job_title: role.value,
+          company: company.value,
+          app_process: slider,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
     props.history.push("/trackr/track3");
   }
 
