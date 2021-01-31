@@ -23,6 +23,10 @@ import {
   Searches,
   ViewPostBtnDiv,
   ViewPostBtn,
+  HeadingContent,
+  SearchTitle,
+  InfoPrompt,
+  InfoDiv,
 } from "./style";
 import Application from "./components/applicationfeed/Application";
 import { useState } from "react";
@@ -92,19 +96,23 @@ export default function Trackr(props) {
         <BackgroundDiv>
           <ContentDiv>
             <Headding>
-              <Title>Your Applications</Title>
-              <NewAppBtnDiv>
-                <NewAppBtn onClick={() => props.history.push("/trackr/track1")}>
-                  New App
-                </NewAppBtn>
-              </NewAppBtnDiv>
-              <Sort className="dropdown" onChange={sortApplications}>
-                <Option value="" selected disabled hidden>
-                  Sort by
-                </Option>
-                <Option value="DEADLINE"> Deadline</Option>
-                <Option value="STATUS"> Status</Option>
-              </Sort>
+              <HeadingContent>
+                <Title>Your Applications</Title>
+                <NewAppBtnDiv>
+                  <NewAppBtn
+                    onClick={() => props.history.push("/trackr/track1")}
+                  >
+                    New App
+                  </NewAppBtn>
+                </NewAppBtnDiv>
+                <Sort className="dropdown" onChange={sortApplications}>
+                  <Option value="" selected disabled hidden>
+                    Sort by
+                  </Option>
+                  <Option value="DEADLINE"> Deadline</Option>
+                  <Option value="STATUS"> Status</Option>
+                </Sort>
+              </HeadingContent>
             </Headding>
             {applications.length == 0 ? (
               <EmptyApplication></EmptyApplication>
@@ -129,19 +137,28 @@ export default function Trackr(props) {
               <ExitBtn>x</ExitBtn>
             </BtnDiv>
             <Name {...name} placeholder="Lauren Yoon"></Name>
-            <Info {...job} placeholder="Software Engineer Intern" />
-            <Info {...major} placeholder="Majoring in Computer Science" />
-            <Info
-              {...education}
-              placeholder="Attending Stony Brook University"
-            />
+            <InfoDiv>
+              <InfoPrompt>Currently a</InfoPrompt>
+              <Info {...job} placeholder="Software Engineer Intern" />
+            </InfoDiv>
+            <InfoDiv>
+              <InfoPrompt>Majoring in</InfoPrompt>
+              <Info {...major} placeholder="Computer Science" />
+            </InfoDiv>
+            <InfoDiv>
+              <InfoPrompt>Attending</InfoPrompt>
+              <Info
+                {...education}
+                placeholder="Attending Stony Brook University"
+              />
+            </InfoDiv>
             <HashTagDiv>
               <HashTag>#SWE</HashTag>
               <HashTag>#CSE</HashTag>
               <HashTag>#FullStack</HashTag>
             </HashTagDiv>
+            <SearchTitle>Recent Searches:</SearchTitle>
             <SearchDiv>
-              <div>Recent Searches:</div>
               <Searches>#Backend</Searches>
               <Searches>#SoftwareDev</Searches>
               <Searches>#Tech</Searches>

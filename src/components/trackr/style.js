@@ -4,8 +4,8 @@ export const MainBody = styled.div`
   min-width: 700px;
   font-family: Sans-Serif;
   width: 100vw;
-  height: 100%;
-  margin: 0 20px 20px 0;
+  height: 100vh;
+  //margin: 0 20px 20px 0;
   justify-content: center;
 `;
 
@@ -15,7 +15,8 @@ export const BackgroundDiv = styled.div`
   position: relative;
   justify-content: center;
   //padding: 20px 20vw 20px 20vw;
-  margin: 0px auto 0px auto;
+  height: calc(100vh - 40px - 38px);
+  overflow-y: hidden;
 `;
 
 export const ContentDiv = styled.div`
@@ -26,21 +27,27 @@ export const ContentDiv = styled.div`
 
 export const Headding = styled.div`
   background: #175596;
-  border: none;
-  border-radius: 5px 5px 0px 0px;
-  height: 88px;
+  overflow: hidden;
+  border-radius: 5px;
+`;
+
+export const HeadingContent = styled.div`
   display: flex;
+  //min-width: 645px;
+  border-radius: 5px 5px 0px 0px;
+  height: 70px;
 `;
 
 export const Title = styled.div`
   font-style: normal;
   font-weight: bold;
-  font-size: 30px;
-  text-align: center;
+  font-size: 25px;
+  letter-spacing: 3pt;
+  text-align: left;
   color: #ffffff;
   /* display: block; */
-  margin: auto 10px;
-  min-width: 260px;
+  margin: auto auto auto 15px;
+  /* min-width: 270px; */
 `;
 
 export const NewAppBtnDiv = styled.button`
@@ -50,9 +57,8 @@ export const NewAppBtnDiv = styled.button`
   outline: none;
   text-align: center;
   margin: auto 10px;
-  height: 40px;
-  width: 120px;
-  min-width: 120px;
+  height: 35px;
+  width: 90px;
   text-decoration: none;
   cursor: pointer;
   &:hover {
@@ -67,8 +73,8 @@ export const NewAppBtnDiv = styled.button`
 export const NewAppBtn = styled.a`
   text-decoration: none;
   color: #000000;
-  font-weight: bold;
-  font-size: 25px;
+  font-weight: none;
+  font-size: 18px;
 `;
 
 export const Sort = styled.select`
@@ -79,10 +85,10 @@ export const Sort = styled.select`
   text-align: center;
   margin: auto 10px;
   padding-left: 5px;
-  width: 140px;
-  font-size: 25px;
-  height: 40px;
-  font-weight: bold;
+  width: 90px;
+  font-size: 18px;
+  height: 35px;
+  font-weight: none;
   cursor: pointer;
   &:hover {
     background: #c0c0c0;
@@ -121,6 +127,7 @@ export const ProfileDiv = styled.div`
   height: fit-content;
   margin: 20px 10vw 20px 10px;
   padding: 15px 15px 15px 15px;
+  text-align: center;
 `;
 
 export const BtnDiv = styled.div`
@@ -155,21 +162,37 @@ export const ExitBtn = styled.button`
   }
 `;
 export const Name = styled.textarea`
-  font-size: 30px;
+  font-size: 25px;
   font-weight: bold;
+  font-family: Sans-Serif;
   margin: 20px auto auto auto;
   text-align: center;
   resize: none;
   border: none;
+  width: 90%;
+  color: black;
+`;
+
+export const InfoPrompt = styled.div`
+  font-size: 16px;
+  color: black;
+  text-align: left;
+  width: 150px;
+`;
+
+export const InfoDiv = styled.div`
+  display: flex;
 `;
 
 export const Info = styled.textarea`
-  margin-top: 20px;
-  font-size: 20px;
+  font-family: Sans-Serif;
+  font-size: 16px;
   resize: none;
   border: none;
-  text-align: center;
-  overflow: hidden;
+  text-align: left;
+  width: 100%;
+  outline: none;
+  padding: 0px;
 `;
 
 export const HashTagDiv = styled.div`
@@ -180,7 +203,7 @@ export const HashTag = styled.button`
   background: #5869d7;
   color: #f5f5f5;
   width: fit-content;
-  font-size: 20px;
+  font-size: 15px;
   padding: 10px 10px 10px 10px;
   margin: 5px 5px 5px 5px;
   border-radius: 5px;
@@ -189,8 +212,17 @@ export const HashTag = styled.button`
   border: none;
 `;
 
-export const SearchDiv = styled.div`
+export const SearchTitle = styled.div`
   margin-top: 15px;
+
+  text-align: left;
+  padding-left: 0px;
+  font-weight: bold;
+`;
+
+export const SearchDiv = styled.div`
+  display: flex;
+  flex-wrap: wrap;
 `;
 
 export const Searches = styled.button`
@@ -200,7 +232,7 @@ export const Searches = styled.button`
   color: #b6b6b9;
   width: fit-content;
   font-size: 20px;
-  margin: 10px 10px 10px 10px;
+  margin: 5px 5px 5px 5px;
   border-radius: 5px;
 `;
 
@@ -210,7 +242,7 @@ export const ViewPostBtn = styled.button`
   color: none;
   background: none;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 18px;
   cursor: pointer;
   &:hover {
     color: 2071c7;

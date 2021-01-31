@@ -40,7 +40,7 @@ const AddPost = ({ numPosts, setNumPosts, setPosts }) => {
         <hr />
         <Description
           value={description}
-          placeholder="Write a description here."
+          placeholder="Write a description here"
           onChange={(e) => setDescription(e.target.value)}
         ></Description>
         {/* <Input type="text" placeholder="Position" />
@@ -56,7 +56,7 @@ export default AddPost;
 
 const Container = styled.div`
   background-color: white;
-  border-radius: 1em;
+  border-radius: 10px;
   padding: 1em;
   *:focus {
     outline: none;
@@ -81,6 +81,7 @@ const Description = styled.textarea`
   min-height: 7vh;
   resize: none;
   width: 100%;
+  font-family: sans-serif;
 `;
 
 const Input = styled.input`
@@ -91,11 +92,11 @@ const Input = styled.input`
 // Modified NewPostButton from ./style.js
 const Submit = styled.button`
   background: #175596;
-  border-radius: 100px;
+  border-radius: 5px;
   min-height: 30px;
-  min-width: 70px;
-  margin-left: auto;
-  font-family: "", "Open Sans", sans-serif;
+  width: 60px;
+  text-align: center;
+  /* margin-left: auto; */
   font-style: normal;
   font-weight: bold;
   font-size: 15px;
