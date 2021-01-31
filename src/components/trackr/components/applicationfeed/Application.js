@@ -71,12 +71,12 @@ export default function Application(props) {
                 edit
                 <Svg src={edit}></Svg>
               </RBtn>
-              <a href={props.link}>
+              <LinkBtn href={props.link}>
                 <RBtn id="link">
                   link
                   <Svg src={link}></Svg>
                 </RBtn>
-              </a>
+              </LinkBtn>
             </ButtonBox>
           </Right>
         </Top>
@@ -114,7 +114,7 @@ export default function Application(props) {
 const Content = styled.div`
   background: #ffffff;
   border-radius: 5px;
-  padding: 10px 40px;
+  padding: 5px 40px;
   margin-top: 10px;
   margin-bottom: 10px;
   &:hover {
@@ -133,10 +133,8 @@ const PositionName = styled.div`
   line-height: 22px;
 `;
 
-const Slider = styled.input``;
-
 const Left = styled.div`
-  width: 50%;
+  width: 80%;
 `;
 const Center = styled.div`
   padding: 10px;
@@ -144,63 +142,82 @@ const Center = styled.div`
 `;
 
 const Right = styled.div`
-  padding: 10px;
-  width: 10vw;
+  //padding: 10px;
+  width: 100px;
+  display: flex;
+  //flex-direction: column;
 `;
 
 const BorderBox = styled.div`
   border: 2px solid #6175a9;
   box-sizing: border-box;
-  border-radius: 15px;
+  border-radius: 10px;
   margin: auto 0px;
+  height: 53px;
+`;
+
+const Slider = styled.input`
+  height: 5px;
 `;
 
 const Status = styled.div`
-  text-align: center;
-  font-weight: 800;
-  font-size: 16px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 13px;
   line-height: 22px;
   /* identical to box height */
-
   color: #5c5c5c;
-`;
-
-const RBtn = styled.button`
-  border: 2px solid #6175a9;
-  box-sizing: border-box;
-  border-radius: 5px;
-  padding: 5px;
-  font-weight: 600;
-  font-size: 17px;
-  line-height: 22px;
-  /* identical to box height, or 129% */
-
-  color: #979797;
-  background: white;
-  margin: auto 2px;
-  min-width: 5vw;
-  height: 5vh;
+  margin: 2px auto auto 10px;
 `;
 
 const ButtonBox = styled.div`
   margin: auto;
+  display: block;
+`;
+
+const RBtn = styled.button`
+  border: none;
+  box-sizing: border-box;
+  border-radius: 5px;
+  padding: 5px;
+  //font-weight: 600;
+  font-size: 11px;
+  /* justify-content: center; */
+  /* text-align: center; */
+  align-content: center;
+  background: #ededed;
+  margin: 5px 2px;
+  width: 60px;
+  height: 23px;
+  letter-spacing: 1px;
   display: flex;
+  text-decoration: none;
+  :hover {
+    background: #c0c0c0;
+  }
+`;
+
+const LinkBtn = styled.a`
+  text-decoration: none;
 `;
 
 const Extra = styled.div``;
 
 const Top = styled.div`
   display: flex;
+  /* height: 100px; */
 `;
 
 const Topline = styled.div`
-  display: flex;
-  justify-content: center;
   margin-top: 3vh;
+  display: flex;
+  justify-content: space-between;
 `;
+
 const TopText = styled.div`
   color: #5a5a5a;
   margin: 0px 3vw;
+  font-size: 13px;
 `;
 
 const Description = styled.div`
@@ -210,20 +227,25 @@ const Description = styled.div`
   padding: 10px 0px 10px 0px;
   color: #5a5a5a;
 `;
+
 const Notes = styled.textarea`
   font-family: sans-serif;
   border: 2px solid #8191ba;
   box-sizing: border-box;
   border-radius: 14px;
   resize: none;
-  padding: 5px;
+  padding: 10px;
   width: 100%;
-  font-size: 16px;
-  line-height: 22px;
-
+  min-height: 80px;
+  font-size: 12px;
+  line-height: 15px;
   /* RISE colors high fidelity */
-
   color: #5a5a5a;
+  border-radius: 10px;
+  outline: none;
 `;
 
-const Svg = styled.img``;
+const Svg = styled.img`
+  width: 80%;
+  height: 80%;
+`;

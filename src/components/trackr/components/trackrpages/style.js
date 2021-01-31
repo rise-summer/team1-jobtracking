@@ -4,7 +4,7 @@ export const BackgroundDiv = styled.div`
   font-family: "Open Sans", sans-serif;
   padding: 10vh;
   background: #ebebeb;
-  height: 100%;
+  height: calc(100vh - 40px - 38px);
 `;
 
 export const ContentDiv = styled.div`
