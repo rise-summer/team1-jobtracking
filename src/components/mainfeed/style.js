@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Card } from "antd";
 
 export const MainBody = styled.div`
   min-width: 500px;

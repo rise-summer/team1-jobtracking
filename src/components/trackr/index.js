@@ -44,7 +44,7 @@ export default function Trackr(props) {
   const dispatch = useDispatch();
 
   const [applications, setApplications] = useState([])
-  console.log(applications);
+  
 
   function useProfileInput(initialValue) {
     const [value, setValue] = useState(initialValue);
@@ -202,7 +202,7 @@ export default function Trackr(props) {
               <Searches>#Tech</Searches>
             </SearchDiv>
             <ViewPostBtnDiv>
-              <ViewPostBtn>View Your Posts</ViewPostBtn>
+              <ViewPostBtn onClick={() => props.history.push("/yourposts")}>View Your Posts</ViewPostBtn>
             </ViewPostBtnDiv>
           </ProfileDiv>
         </BackgroundDiv>

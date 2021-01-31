@@ -1,31 +1,30 @@
 import React, { Fragment, useContext } from "react";
 import Navigation from "../../navigation";
-import { Heading, Text, NewPostButton, BackgroundDiv, MainBody } from "../style";
+import {
+  Heading,
+  Text,
+  NewPostButton,
+  BackgroundDiv,
+  MainBody,
+} from "../style";
+import { Title, BackBtn, BackSvg } from "./style";
 import { useState } from "react";
 import AddPost from "../AddPost";
 import Post from "../Post";
+import Back from "../../../images/backarrow.svg";
 
 import { Redirect } from "react-router-dom";
 
 import { AuthenticationContext } from "../../../AuthenticationContext";
 
-export default function YourPosts(){
+export default function YourPosts(props) {
   const [authentication, setAuthentication] = useContext(AuthenticationContext);
-
+  const [isNewPostBtnClicked, setisNewPostBtnClicked] = useState(false);
   const [numPosts, setNumPosts] = useState(1);
-  const [posts, setPosts] = useState([
-    {
-      id: 1,
-      author: "John",
-      title: "Hive Summer 2021 Internship Positions Now Available!",
-      date: "01/03/21",
-      description:
-        "They have positions for electrical engineering, business, and computer science majors. The deadline to apply is 1/17/21.",
-    },
-  ]);
+  const [posts, setPosts] = useState([]);
 
   if (!authentication.displayName) {
-    return (<Redirect to="/login" />);
+    return <Redirect to="/login" />;
   }
 
   return (
@@ -33,14 +32,28 @@ export default function YourPosts(){
       <MainBody>
         <Navigation />
         <BackgroundDiv>
-          <AddPost
-            numPosts={numPosts}
-            setNumPosts={setNumPosts}
-            setPosts={setPosts}
-          />
           <Heading>
-            <Text> Most Recent Posts </Text>
-            {/* <NewPostButton>Create New Post</NewPostButton> */}
+            <BackBtn onClick={() => props.history.push("/trackr")}>
+              {" "}
+              <BackSvg src={Back} alt="backarrow error" /> back to applications
+            </BackBtn>
+          </Heading>
+          {isNewPostBtnClicked ? (
+            <AddPost
+              numPosts={numPosts}
+              setNumPosts={setNumPosts}
+              setPosts={setPosts}
+            />
+          ) : (
+            <div></div>
+          )}
+          <Heading>
+            <Title> Your Posts </Title>
+            <NewPostButton
+              onClick={() => setisNewPostBtnClicked(!isNewPostBtnClicked)}
+            >
+              create new post
+            </NewPostButton>
           </Heading>
           {posts.map((post) => (
             <Post
@@ -55,4 +68,4 @@ export default function YourPosts(){
       </MainBody>
     </Fragment>
   );
-};
+}

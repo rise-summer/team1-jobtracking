@@ -17,7 +17,8 @@ import {
   Slider,
   SliderDiv,
   Label,
-  SubmitBtn, Textarea
+  SubmitBtn,
+  Textarea,
 } from "./style";
 import { auth } from "../../../../firebaseSetup";
 import axios from "axios";
@@ -36,7 +37,7 @@ export default function Track2(props) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log(stage)
+    console.log(stage);
     dispatch({
       type: "ADD_APPLICATION",
       payload: {
@@ -52,7 +53,7 @@ export default function Track2(props) {
     });
     try {
       const token = await auth.currentUser.getIdToken();
-      console.log(token)
+      console.log(token);
       const res = await axios.post(
         "/api/job/create",
         {
@@ -68,7 +69,9 @@ export default function Track2(props) {
       );
       console.log(res);
     } catch (err) {
-      console.log(err);
+      console.log("Error response:");
+      console.log(err.request)
+      console.log(err.response); 
     }
     props.history.push("/trackr/track3");
   }
