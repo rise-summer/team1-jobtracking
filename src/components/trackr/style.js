@@ -174,7 +174,7 @@ export const Name = styled.textarea`
 `;
 
 export const InfoPrompt = styled.div`
-  font-size: 18px;
+  font-size: 16px;
   color: black;
   text-align: left;
   width: 150px;
@@ -186,12 +186,13 @@ export const InfoDiv = styled.div`
 
 export const Info = styled.textarea`
   font-family: Sans-Serif;
-  font-size: 18px;
+  font-size: 16px;
   resize: none;
   border: none;
   text-align: left;
   width: 100%;
   outline: none;
+  padding: 0px;
 `;
 
 export const HashTagDiv = styled.div`

@@ -71,12 +71,12 @@ export default function Application(props) {
                 edit
                 <Svg src={edit}></Svg>
               </RBtn>
-              <a href={props.link}>
+              <LinkBtn href={props.link}>
                 <RBtn id="link">
                   link
                   <Svg src={link}></Svg>
                 </RBtn>
-              </a>
+              </LinkBtn>
             </ButtonBox>
           </Right>
         </Top>
@@ -176,21 +176,28 @@ const ButtonBox = styled.div`
 `;
 
 const RBtn = styled.button`
-  border: 2px solid #6175a9;
+  border: none;
   box-sizing: border-box;
   border-radius: 5px;
-  padding-top: 3px;
-  //padding: 3px;
+  padding: 5px;
   //font-weight: 600;
   font-size: 11px;
-  /* identical to box height, or 129% */
-  color: #979797;
-  background: white;
+  /* justify-content: center; */
+  /* text-align: center; */
+  align-content: center;
+  background: #ededed;
   margin: 5px 2px;
   width: 60px;
-  height: 25px;
+  height: 23px;
   letter-spacing: 1px;
   display: flex;
+  text-decoration: none;
+  :hover {
+    background: #c0c0c0;
+  }
+`;
+
+const LinkBtn = styled.a`
   text-decoration: none;
 `;
 

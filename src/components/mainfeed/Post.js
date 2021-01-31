@@ -7,7 +7,9 @@ const Post = ({ id, author, title, date, description }) => {
     <Feed>
       <Content>
         <Title>{title}</Title>
-        <Date>{author} {date}</Date>
+        <Date>
+          {author} {date}
+        </Date>
         <hr />
         <Description>{description}</Description>
         {/*<RoleInfo>
@@ -33,7 +35,7 @@ const Feed = styled.div`
 
 const Content = styled.div`
   background: #ffffff;
-  border-radius: 16px 16px 0px 0px;
+  border-radius: 10px 10px 0px 0px;
   padding: 10px;
   overflow: hidden;
   //min-width: 70vw;
@@ -41,7 +43,7 @@ const Content = styled.div`
 `;
 const Title = styled.div`
   font-weight: bold;
-  font-size: 24px;
+  font-size: 18px;
   line-height: 33px;
   /* identical to box height */
   letter-spacing: 0.5px;
@@ -54,6 +56,7 @@ const Date = styled.div`
   letter-spacing: 0.5px;
   /* RISE for greyed out text */
   color: #888888;
+  font-size: 14px;
 `;
 
 const Description = styled.div`
@@ -64,16 +67,18 @@ const Description = styled.div`
   min-width: 400px;
   letter-spacing: 0.5px;
   color: #000000;
+  font-size: 14px;
 `;
 
 const RoleInfo = styled.div`
   display: flex;
   justify-content: space-evenly;
   color: #888888;
+  font-size: 14px;
 `;
 
 const Comment = styled.div`
   background: #e8e5e5;
   box-shadow: 0px 4px 2px rgba(189, 189, 189, 0.25);
-  border-radius: 16px;
+  border-radius: 10px;
 `;

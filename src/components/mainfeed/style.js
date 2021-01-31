@@ -33,7 +33,7 @@ export const Text = styled.div`
 
 export const NewPostButton = styled.button`
   background: #175596;
-  border-radius: 100px;
+  border-radius: 10px;
   min-width: 135px;
   margin-left: auto;
   font-family: "", "Open Sans", sans-serif;
