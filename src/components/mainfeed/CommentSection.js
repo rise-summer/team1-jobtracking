@@ -45,4 +45,5 @@ const Container = styled.div`
   background-color: lightgray;
   padding: 5px;
   border-radius: 0px 0px 10px 10px;
+  
 `;
