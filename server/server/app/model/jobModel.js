@@ -17,6 +17,7 @@ function Job(job,uid) {
 
 //create job
 Job.createJob = (newJob, result) => {
+  console.log("testetstet");
   let last_updated=new Date().toISOString().slice(0,19).replace('T',' ');
   newJob.date_updated=last_updated;
   let stmt=`INSERT INTO job(link,position,company,location,app_status,date_updated,deadline,description,notes,user_id)

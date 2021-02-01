@@ -1,6 +1,7 @@
 module.exports = function (app) {
   var userController = require('./controller/userController');
   var jobController=require('./controller/jobController');
+  var postController = require('./controller/postController');
   var checkAuth=require('./authenticateToken')
 
   //middleware for authentication
@@ -13,4 +14,7 @@ module.exports = function (app) {
   app.route('/api/job/:jobId').get(jobController.get_job); // Access jobId via: req.params.jobId
   app.route('/api/job/delete/:jobId').delete(jobController.delete_job);
   app.route('/api/job/update/:jobId').put(jobController.update_job);
+  app.route('/api/post/create').post(postController.create_new_post);
+  app.route('/api/post/getUserPosts/:userId').get(postController.get_posts_of_user);
+  app.route('/api/post/fetchPosts').get(postController.get_posts);
 };

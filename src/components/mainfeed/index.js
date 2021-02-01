@@ -14,22 +14,27 @@ const MainFeed = () => {
   const [authentication, setAuthentication] = useContext(AuthenticationContext);
 
   const [numPosts, setNumPosts] = useState(1);
-  // const [posts, setPosts] = useState([
-  //   {
-  //     id: 1,
-  //     author: 'John',
-  //     title: 'Hive Summer 2021 Internship Positions Now Available!',
-  //     date: '01/03/21',
-  //     description: "They have positions for electrical engineering, business, and computer science majors. The deadline to apply is 1/17/21.",
-  //   },
-  // ]);
-  let posts = [];
-  useEffect(() => {
-    axios.get(`/post/getPosts`).then(res => posts = [...res.posts]);
-  });
+  const [posts, setPosts] = useState([
+    {
+      id: 1,
+      author: 'John',
+      title: 'Hive Summer 2021 Internship Positions Now Available!',
+      date: '01/03/21',
+      description: "They have positions for electrical engineering, business, and computer science majors. The deadline to apply is 1/17/21.",
+    },
+  ]);
+  // let posts = [];
+  // useEffect(async () => {
+  //   const result = await axios.get(`/post/getPosts`);
+  //   setPosts([...result.posts]);
+  // });
 
   if (!authentication.displayName) {
     return (<Redirect to="/login" />);
+  }
+
+  const addPost = async() => {
+
   }
 
   return (
