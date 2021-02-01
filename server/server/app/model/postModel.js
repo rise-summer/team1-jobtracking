@@ -6,7 +6,7 @@ function Post(post, uid) {
     this.title = post.title;
     this.content = post.content;
     this.tag = post.tag;
-    this.created_at = post.created_at;
+    this.created_at = new Date();
     this.user_id = uid;
 }
 

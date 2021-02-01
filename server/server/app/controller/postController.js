@@ -1,5 +1,5 @@
 let Post = require('../model/postModel');
-let User = require('../model/');
+let User = require('../model/userModel');
 
 exports.create_new_post = async(req, res) => {
     User.getUserByEmail(req.body.userEmail, (err, result) => {
@@ -12,7 +12,7 @@ exports.create_new_post = async(req, res) => {
         }
 
         const user_id = result[0].id;
-
+        console.log(user_id);
         const newPost = new Post(req.body, user_id);
         Post.createPost(newPost, (error,_) => {
             if (error) {
