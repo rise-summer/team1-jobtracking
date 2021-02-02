@@ -97,6 +97,7 @@ export default function Trackr(props) {
             Authorization: "Bearer " + token,
           },
         });
+        console.log("Routes work again!")
         console.log(res.data.data);
         setApplications(res.data.data);
       } catch (err) {
