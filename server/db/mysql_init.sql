@@ -16,9 +16,15 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 CREATE TABLE IF NOT EXISTS `job` (
   `job_id` int(11) NOT NULL AUTO_INCREMENT,
-  `job_title` varchar(200) NOT NULL,
+  `link` varchar(2083) NOT NULL,
+  `position` varchar(200) NOT NULL,
   `company` varchar(200) NOT NULL,
-  `app_process` varchar(200) NOT NULL,
+  `location` varchar(200),
+  `app_status` varchar(200) NOT NULL,
+  `date_updated` DATETIME NOT NULL,
+  `deadline` DATE NOT NULL,
+  `description` TEXT,
+  `notes` TEXT,
   `user_id` int(11),
   PRIMARY KEY (`job_id`),
   CONSTRAINT fk_job_user_id FOREIGN KEY (`user_id`) REFERENCES users(`id`)
@@ -35,5 +41,4 @@ CREATE TABLE IF NOT EXISTS `post` (
   CONSTRAINT fk_post_user_id FOREIGN KEY (`user_id`) REFERENCES users(`id`)
 );
 
-SELECT u.username, j.job_title FROM users u Left Join job j on u.id = j.user_id;
-
+SELECT u.username, j.position FROM users u Left Join job j on u.id = j.user_id;

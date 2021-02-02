@@ -15,7 +15,7 @@ exports.create_job_app = async (req, res) => {
         // console.log(newJob)
         Job.createJob(newJob, (error, job) => {
             if (error == null) {
-                res.status(200).send({ error: false, message: 'Job successfully created.'});
+                res.status(200).send({ error: false, message: 'Job successfully created.',data:job});
                 return;
             }
             else{
@@ -132,7 +132,7 @@ exports.update_job=async(req,res)=>{
                     updatedJob.job_id=jobId
                     Job.update(updatedJob,(error,results)=>{
                         if(error==null){
-                            res.status(200).send({ error: false, data: updatedJob});
+                            res.status(200).send({ error: false, data: results});
                             return;
                         }
                         else{
