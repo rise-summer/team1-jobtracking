@@ -19,6 +19,7 @@ exports.create_job_app = async (req, res) => {
                 return;
             }
             else{
+                console.log("Fails in this block")
                 res.status(409).send({ error: true, message: error.message})
                 return;
             }

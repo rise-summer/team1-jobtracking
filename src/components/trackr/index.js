@@ -111,16 +111,14 @@ const Trackr = (props) => {
             {applications.map((application) => (
               <Application
                 companyName={application.company}
-                position={application.job_title}
-                status={application.app_process}
-                link="https://www.linkedin.com/jobs/view/2340677474/?alternateChannel=search&refId=mnaFCejOCAhyk8YAKc018w%3D%3D&trackingId=o9fy%2FYGaG5uNse1Bvp83MQ%3D%3D"
-                date="2021-01-11"
-                deadline="2021-01-31"
-                location="New York, NY"
-                description="- Design and implement new user-facing features in Google’s large, complex mobile applications.
-                - Build the libraries and frameworks that support authentication, copresence, and cutting-edge network protocols.
-                - Optimize mobile applications on the iOS platform.
-                - Develop prototypes quickly."
+                position={application.position}
+                status={application.app_status}
+                link={application.link}
+                date={application.date_updated}
+                deadline={application.deadline}
+                location={application.location}
+                description={application.description}
+                notes={application.notes}
               />
             ))}
           </ContentDiv>

@@ -19,6 +19,10 @@ const Track2 = (props) => {
   const [company, setCompany] = useState("");
   const [stage, setStage] = useState("Interested");
   const [stageNum, setStageNum] = useState("0");
+  const [link, setLink] = useState("");
+  const [deadline, setDeadline] = useState("");
+  const [location, setLocation] = useState("");
+  const [description, setDescription] = useState("");
 
   const handleSlider = (e) => {
     var rangeValues = {
@@ -49,16 +53,21 @@ const Track2 = (props) => {
     // });
 
     e.preventDefault();
-    setApplications((prevApplications) => [{ position }, ...prevApplications]);
+    //setApplications((prevApplications) => [{ position }, ...prevApplications]);
 
     try {
       const token = await auth.currentUser.getIdToken();
       const res = await axios.post(
         "/api/job/create",
         {
-          job_title: position,
+          position: position,
           company: company,
-          app_process: stageNum,
+          app_status: stageNum,
+          link: link,
+          deadline: deadline,
+          location: location,
+          description: description,
+          notes: ""
         },
         {
           headers: {
@@ -82,6 +91,26 @@ const Track2 = (props) => {
   const updateCompany = (e) => {
     setCompany(e.target.value);
     console.log(company);
+  };
+
+  const updateLink = (e) => {
+    setLink(e.target.value);
+    console.log(link);
+  };
+
+  const updateDeadline = (e) => {
+    setDeadline(e.target.value);
+    console.log(deadline);
+  };
+
+  const updateLocation = (e) => {
+    setLocation(e.target.value);
+    console.log(location);
+  };
+
+  const updateDescription = (e) => {
+    setDescription(e.target.value);
+    console.log(description);
   };
 
   const handleChange = (event, key) => {
@@ -141,10 +170,11 @@ const Track2 = (props) => {
             <Subtitle>Click to edit any of the parameters</Subtitle>
             <form onSubmit={handleSubmit}>
               <Input
-                value={props.url}
+                value={link}
                 id="link"
                 placeholder="https://link_to_your_application_here.com"
-                onChange={(e) => handleChange(e, "URL")}
+                //onChange={(e) => handleChange(e, "URL")}
+                onChange={updateLink}
               />
               <Input2
                 value={position}
@@ -159,24 +189,27 @@ const Track2 = (props) => {
                 onChange={updateCompany}
               />
               <Input2
-                value={props.deadline}
+                value={deadline}
                 placeholder="Deadline: 12/01/20"
                 id="deadline"
-                onChange={(e) => handleChange(e, "DEADLINE")}
+                //onChange={(e) => handleChange(e, "DEADLINE")}
+                onChange={updateDeadline}
                 type="date"
               />
               <Input2
-                value={props.location}
+                value={location}
                 placeholder="Menlo Park, California"
                 id="location"
-                onChange={(e) => handleChange(e, "LOCATION")}
+                //onChange={(e) => handleChange(e, "LOCATION")}
+                onChange={updateLocation}
               />
               <TextAreaDiv>
                 <Textarea
-                  value={props.description}
+                  value={description}
                   placeholder="As an intern, you'll become an expert on the Facebook Terminal and gain a deeper understanding of technology and finance. In addition to your projects, you'll participate in coding challenges, attend tech talks and network with other interns."
                   id="description"
-                  onChange={(e) => handleChange(e, "DESCRIPTION")}
+                  //onChange={(e) => handleChange(e, "DESCRIPTION")}
+                  onChange={updateDescription}
                 />
               </TextAreaDiv>
               <Subtitle>What stage are you in applying?</Subtitle>

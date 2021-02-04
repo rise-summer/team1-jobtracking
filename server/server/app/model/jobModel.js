@@ -23,6 +23,7 @@ Job.createJob = (newJob, result) => {
   VALUES(?,?,?,?,?,?,?,?,?,?)`;
   let info=[newJob.link,newJob.position,newJob.company,newJob.location,newJob.app_status,
     last_updated,newJob.deadline,newJob.description,newJob.notes,newJob.userId]
+  console.log(newJob)
   sql.query(stmt, info, (err, res) => {
     if (err) {
       result(err, null);
