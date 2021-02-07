@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import Navigation from "../../../navigation";
 import backarrow from "../../../../images/backarrow.svg";
-
+import { useState } from "react";
 import {
   ContentDiv,
   Title,
@@ -14,69 +14,73 @@ import {
   BackSvg,
 } from "./style";
 import { connect } from "react-redux";
+import axios from "axios";
+import { auth } from "../../../../firebaseSetup";
 
-class Track1 extends Component {
-  constructor(props) {
-    super(props);
+export default function Track1() {
+  const [link, setLink] = useState("");
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleBack = this.handleBack.bind(this);
+  async function handleSubmit(event) {
+    try {
+      const token = await auth.currentUser.getIdToken();
+      const res = await axios.post(
+        "/api/scrape",
+        {
+          link: link,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      console.log(res);
+    } catch (err) {
+      console.log("Error response:");
+      console.log(err.request);
+      console.log(err.response);
+    }
+    // const data = await scraper(event.target.value);
+    // console.log(data);
+    // this.props.history.push("/trackr/track2");
   }
 
-  handleSubmit(event) {
-    this.props.history.push("/trackr/track2");
+  function handleChange(event) {
+    setLink(event.target.value);
   }
 
-  handleChange(event) {
+  function handleBack() {
     this.props.dispatch({
-      type: "ADD_URL",
-      payload: { url: event.target.value },
-    });
-  }
-
-  handleBack() {
-    this.props.dispatch({
-      type: "STORE_RESET"
+      type: "STORE_RESET",
     });
     this.props.history.push("/trackr");
   }
 
-  render() {
-    return (
-      <Fragment>
-        <Navigation />
-        <BackgroundDiv>
-          <ContentDiv>
-            <BackBtn>
-              <a onClick={this.handleBack}>
-                <BackSvg src={backarrow} alt="backarrow error"></BackSvg>
-              </a>
-            </BackBtn>
-            <Heading>
-              <Title>Add a new application </Title>
-              <Subtitle>We’re excited to see where this takes you!</Subtitle>
-              <form onSubmit={this.handleSubmit}>
-                <Input
-                  placeholder="https://link_to_your_application_here.com"
-                  onChange={this.handleChange}
-                />
-                {/* <a> */}
-                <SubmitBtn type="submit">Submit</SubmitBtn>
-                {/* </a> */}
-              </form>
-            </Heading>
-          </ContentDiv>
-        </BackgroundDiv>
-      </Fragment>
-    );
-  }
+  return (
+    <Fragment>
+      <Navigation />
+      <BackgroundDiv>
+        <ContentDiv>
+          <BackBtn>
+            <a onClick={handleBack}>
+              <BackSvg src={backarrow} alt="backarrow error"></BackSvg>
+            </a>
+          </BackBtn>
+          <Heading>
+            <Title>Add a new application </Title>
+            <Subtitle>We’re excited to see where this takes you!</Subtitle>
+            <form onSubmit={handleSubmit}>
+              <Input
+                placeholder="https://link_to_your_application_here.com"
+                onChange={handleChange}
+              />
+              {/* <a> */}
+              <SubmitBtn type="submit">Submit</SubmitBtn>
+              {/* </a> */}
+            </form>
+          </Heading>
+        </ContentDiv>
+      </BackgroundDiv>
+    </Fragment>
+  );
 }
-
-function mapStateToProps(state) {
-  return {
-    url: state.applicationReducer.url,
-  };
-}
-
-export default connect(mapStateToProps)(Track1);
