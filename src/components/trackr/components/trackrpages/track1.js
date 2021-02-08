@@ -21,20 +21,24 @@ export default function Track1() {
   const [link, setLink] = useState("");
 
   async function handleSubmit(event) {
+    event.preventDefault();
+
     try {
       const token = await auth.currentUser.getIdToken();
-      const res = await axios.post(
-        "/api/scrape",
-        {
-          link: link,
-        },
-        {
-          headers: {
-            Authorization: "Bearer " + token,
+      await axios
+        .post(
+          "/api/scrape",
+          {
+            link: link,
           },
-        }
-      );
-      console.log(res);
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          }
+        )
+        .then((res) => console.log(JSON.parse(res.data.data)));
+      // console.log(res);
     } catch (err) {
       console.log("Error response:");
       console.log(err.request);

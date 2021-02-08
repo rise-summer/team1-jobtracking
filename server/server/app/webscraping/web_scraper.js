@@ -122,23 +122,36 @@ async function google(link) {
 }
 
 exports.scrape = async (req, res) => {
-  console.log(req.body);
-  // try {
-  //   switch (true) {
-  //     case link.includes("indeed"):
-  //       return indeed(link);
-  //     case link.includes("glassdoor"):
-  //       return glassdoor(link);
-  //     case link.includes("monster"):
-  //       return monster(link);
-  //     case link.includes("google"):
-  //       return google(link);
-  //     default:
-  //       return undefined;
-  //   }
-  // } catch (error) {
-  //   return undefined;
-  // }
+  console.log(req.body.link);
+  const link = req.body.link;
+  var data = undefined;
+  try {
+    switch (true) {
+      case link.includes("indeed"):
+        data = await indeed(link);
+        break;
+      case link.includes("glassdoor"):
+        data = await glassdoor(link);
+        break;
+      case link.includes("monster"):
+        data = await monster(link);
+        break;
+      case link.includes("google"):
+        data = await google(link);
+        break;
+      default:
+        data = "undefined";
+    }
+    console.log(data);
+    res.status(200).send({
+      error: false,
+      data: JSON.stringify(data),
+      message: "Scrape successful",
+    });
+    return;
+  } catch (error) {
+    return undefined;
+  }
 };
 
 // //indeed
