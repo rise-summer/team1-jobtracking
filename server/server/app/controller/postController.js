@@ -2,6 +2,7 @@ let Post = require('../model/postModel');
 let User = require('../model/userModel');
 
 exports.create_new_post = async(req, res) => {
+    console.log(req.body);
     User.getUserByEmail(req.body.userEmail, (err, result) => {
         if (err) {
             res.status(409).send({
@@ -10,22 +11,25 @@ exports.create_new_post = async(req, res) => {
             });
             return;
         }
-
+        console.log(result);
         const user_id = result[0].id;
         console.log(user_id);
         const newPost = new Post(req.body, user_id);
         Post.createPost(newPost, (error,_) => {
             if (error) {
                 res.status(409).send({
-                    error: false,
+                    error: true,
                     message: error.message
                 })
             } else {
                 res.status(200).send({
                     error: false,
-                    message: 'Post successfully created.'
+                    message: 'Post successfully created.',
+                    body: newPost
                 });
             } 
+            res.header('Access-Control-Allow-Origin','*');
+            res.header('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept")
         });
     });
 };
@@ -35,13 +39,14 @@ exports.get_posts = async(req, res) => {
     Post.getNextGroupOfPosts(offset, (error, posts) => {
         if (error) {
             res.status(409).send({
-                error: false,
+                error: true,
                 message: error.message
             })
         } else {
             res.status(200).send({
                 error: false,
-                message: posts
+                message: posts,
+                body: posts
             });
         }
     });
@@ -59,7 +64,7 @@ exports.get_post = async(req, res) => {
         Post.getPostById(post_id, (error, post) => {
             if (error) {
                 res.status(409).send({
-                    error: false,
+                    error: true,
                     message: error.message
                 })
             } else {
@@ -87,7 +92,7 @@ exports.get_posts_of_user = async(req, res) => {
         Post.getAllPostForUser(user_id, (error, posts) => {
             if (error) {
                 res.status(409).send({
-                    error: false,
+                    error: true,
                     message: error.message
                 })
             } else {
