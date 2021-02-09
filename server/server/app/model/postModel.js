@@ -11,7 +11,7 @@ function Post(post, uid) {
 }
 
 Post.createPost = (newPost, result) => {
-    let stmt = `INSERT INTO post(title, content, tag, created_at, user_id) VALUES(?, ?, ?, ?)`;
+    let stmt = `INSERT INTO post(title, content, tag, created_at, user_id) VALUES(?, ?, ?, ?, ?)`;
     let info = [newPost.title, newPost.content, newPost.tag, newPost.created_at, newPost.user_id];
     sql.query(stmt, info, (err, res) => {
         if (err) result(err, null);

@@ -4,20 +4,28 @@ import React, { useContext, useState } from "react";
 import styled from "styled-components";
 
 import { AuthenticationContext } from "../../AuthenticationContext";
+import { auth } from "../../firebaseSetup";
 
 const AddPost = ({ numPosts, setNumPosts, setPosts }) => {
   const [authentication, setAuthentication] = useContext(AuthenticationContext);
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const currentUser = auth.currentUser;
 
   const submitPost = (e) => {
+    console.log(currentUser.email);
     e.preventDefault();
-    axios.post(`post/create`, {
+    axios.post(`http://localhost:5000/post/create`, {
+      crossDomain: true,
+      headers: {
+        "Access-Control-Allow-Origin": "*"
+      },
       body: {
         title,
         content: description,
         created_at: new Date(),
+        userEmail: currentUser.email
       }
     }).then(
       res => {
