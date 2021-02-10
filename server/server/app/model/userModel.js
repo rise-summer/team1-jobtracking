@@ -37,6 +37,8 @@ User.getUserById = (userId) => {
 User.getUserByEmail=(userEmail,result)=>{
   let stmt=`SELECT * FROM users WHERE email=?`;
   sql.query(stmt,userEmail,(err,res)=>{
+    // console.log("====");
+    console.log(userEmail);
     if(err){
       result(err,null)
     } 

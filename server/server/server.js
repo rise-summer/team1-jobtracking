@@ -8,6 +8,7 @@ const express = require('express'),
 const mysql = require('mysql');
 // connection configurations
 const mc = mysql.createConnection(connectionConfig);
+const cors = require('cors');
 
 // connect to database
 mc.connect((err) => {
@@ -22,6 +23,7 @@ console.log('API server started on: ' + port);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors());
 
 const routes = require('./app/routes'); //importing route
 routes(app); //register the route

@@ -3,7 +3,7 @@ let User = require('../model/userModel');
 
 exports.create_new_post = async(req, res) => {
     console.log(req.body);
-    User.getUserByEmail(req.body.userEmail, (err, result) => {
+    User.getUserByEmail(req.body.body.userEmail, (err, result) => {
         if (err) {
             res.status(409).send({
                 error: true,
@@ -14,8 +14,9 @@ exports.create_new_post = async(req, res) => {
         console.log(result);
         const user_id = result[0].id;
         console.log(user_id);
-        const newPost = new Post(req.body, user_id);
+        const newPost = new Post(req.body.body, user_id);
         Post.createPost(newPost, (error,_) => {
+            console.log(newPost);
             if (error) {
                 res.status(409).send({
                     error: true,
@@ -28,8 +29,6 @@ exports.create_new_post = async(req, res) => {
                     body: newPost
                 });
             } 
-            res.header('Access-Control-Allow-Origin','*');
-            res.header('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept")
         });
     });
 };
