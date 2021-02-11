@@ -16,7 +16,7 @@ const AddPost = ({ numPosts, setNumPosts, setPosts }) => {
   const submitPost = (e) => {
     console.log(currentUser.email);
     e.preventDefault();
-    axios.post(`http://localhost:5000/post/create`, {
+    axios.post(`http://localhost:5000/api/post/create`, {
       crossDomain: true,
       headers: {
         "Access-Control-Allow-Origin": "*"
@@ -29,7 +29,6 @@ const AddPost = ({ numPosts, setNumPosts, setPosts }) => {
       }
     }).then(
       res => {
-        console.log(res);
         setNumPosts((prevNumPosts) => prevNumPosts + 1);
         setPosts((prevPosts) => [
           {
@@ -37,7 +36,7 @@ const AddPost = ({ numPosts, setNumPosts, setPosts }) => {
             author: authentication.displayName,
             title,
             date: moment().format("MM/DD/YY"),
-            description,
+            content: description,
             comments: [],
           },
           ...prevPosts,
