@@ -40,19 +40,19 @@ export default function Track2(props) {
   async function handleSubmit(e) {
     e.preventDefault();
     console.log(stage);
-    dispatch({
-      type: "ADD_APPLICATION",
-      payload: {
-        id: date,
-        link: link.value,
-        role: role.value,
-        company: company.value,
-        deadline: deadline.value,
-        location: location.value,
-        description: description.value,
-        stage: slider,
-      },
-    });
+    // dispatch({
+    //   type: "ADD_APPLICATION",
+    //   payload: {
+    //     id: date,
+    //     link: link.value,
+    //     role: role.value,
+    //     company: company.value,
+    //     deadline: deadline.value,
+    //     location: location.value,
+    //     description: description.value,
+    //     stage: slider,
+    //   },
+    // });
     try {
       const token = await auth.currentUser.getIdToken();
       console.log(token);
