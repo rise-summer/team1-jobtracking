@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import { AuthenticationContext } from "../../AuthenticationContext";
 
-const AddPost = ({ numPosts, setNumPosts, setPosts }) => {
+const AddPost = ({ numPosts, setNumPosts, setPosts, toggleShowPost }) => {
   const [authentication, setAuthentication] = useContext(AuthenticationContext);
 
   const [title, setTitle] = useState("");
@@ -37,6 +37,7 @@ const AddPost = ({ numPosts, setNumPosts, setPosts }) => {
           placeholder="Title of Post"
           onChange={(e) => setTitle(e.target.value)}
         />
+        <CloseButton type="button" onClick={toggleShowPost}>X</CloseButton>
         <hr />
         <Description
           value={description}
@@ -65,11 +66,15 @@ const Container = styled.div`
 
 const Title = styled.input`
   border: none;
-  display: block;
+  display: inline-block;
   font-size: 2vh;
   margin-left: auto;
   margin-right: auto;
-  width: 100%;
+  width: 97%;
+`;
+
+const CloseButton = styled.button`
+  display: inline-block;
 `;
 
 const Description = styled.textarea`
