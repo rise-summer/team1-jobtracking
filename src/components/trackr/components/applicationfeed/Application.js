@@ -101,7 +101,7 @@ export default function Application(props) {
               id="textarea"
               placeholder="Notes: 
               Personal application log notes go here. The user can talk about things privately without sharing here. "
-            />
+            >{props.notes}</Notes>
           </Extra>
         ) : (
           <div></div>

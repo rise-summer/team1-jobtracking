@@ -59,9 +59,14 @@ export default function Track2(props) {
       const res = await axios.post(
         "/api/job/create",
         {
-          job_title: role.value,
+          position: role.value,
           company: company.value,
-          app_process: slider,
+          app_status: slider,
+          link: link.value,
+          deadline: deadline.value,
+          location: location.value,
+          description: description.value,
+          notes: ""
         },
         {
           headers: {

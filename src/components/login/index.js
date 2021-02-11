@@ -55,9 +55,6 @@ const Login = (props) => {
     } else {
       setPassword(value);
     }
-
-    console.log(e.target.value);
-    //console.log(this.state);
   };
 
   return (

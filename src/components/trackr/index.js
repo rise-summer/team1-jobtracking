@@ -159,13 +159,15 @@ export default function Trackr(props) {
               applications.map((application) => (
                 <Application
                   id={application.id}
-                  companyName={application.company}
+                  companyName={application.position}
                   position={application.job_title}
-                  stage={application.app_process}
+                  stage={application.app_status}
                   link={application.link}
+                  date={application.date_updated}
                   deadline={application.deadline}
                   description={application.description}
                   location={application.location}
+                  notes={application.notes}
                 />
               ))
             )}
