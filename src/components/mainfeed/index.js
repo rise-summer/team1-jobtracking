@@ -4,6 +4,7 @@ import { Heading, Text, NewPostButton, BackgroundDiv, MainBody } from "./style";
 import { useState, useEffect } from "react";
 import AddPost from "./AddPost";
 import Post from "./Post";
+import { auth } from "../../firebaseSetup";
 import axios from 'axios';
 
 import { Redirect } from 'react-router-dom';
@@ -17,7 +18,11 @@ const MainFeed = () => {
   const [posts, setPosts] = useState([]);
   useEffect(() => { 
     async function fetchPosts() {
-      const result = await axios.get(`http://localhost:5000/api/post/fetchPosts`);
+      const token = await auth.currentUser.getIdToken();
+      const result = await axios.get(`http://localhost:5000/api/post/fetchPosts`, {
+          headers: {
+            Authorization: "Bearer " + token,
+          });
       console.log(result.request);
       setPosts(result.data.body);
     }
