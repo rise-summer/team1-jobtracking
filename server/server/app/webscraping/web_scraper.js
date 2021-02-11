@@ -4,6 +4,7 @@
 let axios = require("axios");
 let cheerio = require("cheerio");
 let puppeteer = require("puppeteer");
+let htmlToText = require('html-to-text');
 
 async function indeed(link) {
   const response = await axios.get(link);
@@ -24,6 +25,7 @@ async function indeed(link) {
   //     description += $this.text() + "\n";
   //   });
   const description = $("#jobDescriptionText").html();
+  const desc = htmlToText(description)
   const data = { title, company, location, description };
   console.log(data);
   return data;

@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import Navigation from "../../../navigation";
 import backarrow from "../../../../images/backarrow.svg";
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import {
   ContentDiv,
   Title,
@@ -19,26 +20,32 @@ import { auth } from "../../../../firebaseSetup";
 
 export default function Track1() {
   const [link, setLink] = useState("");
+  const history = useHistory();
 
   async function handleSubmit(event) {
     event.preventDefault();
 
     try {
       const token = await auth.currentUser.getIdToken();
-      await axios
-        .post(
-          "/api/scrape",
-          {
-            link: link,
+      let res = await axios.post(
+        "/api/scrape",
+        {
+          link: link,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
           },
-          {
-            headers: {
-              Authorization: "Bearer " + token,
-            },
-          }
-        )
-        .then((res) => console.log(JSON.parse(res.data.data)));
-      // console.log(res);
+        }
+      );
+      const parsed_res = JSON.parse(res.data.data)
+      parsed_res.link = link;
+
+      console.log(parsed_res);
+      history.push({
+        pathname: "/trackr/track2",
+        state: JSON.stringify(parsed_res),
+      });
     } catch (err) {
       console.log("Error response:");
       console.log(err.request);

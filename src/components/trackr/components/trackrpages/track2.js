@@ -24,12 +24,14 @@ import { auth } from "../../../../firebaseSetup";
 import axios from "axios";
 
 export default function Track2(props) {
-  const link = useFormInput("");
-  const role = useFormInput("");
-  const company = useFormInput("");
+  const application = JSON.parse(props.location.state);
+  console.log(application);
+  const link = useFormInput(application.link);
+  const role = useFormInput(application.title);
+  const company = useFormInput(application.company);
   const deadline = useFormInput("");
-  const location = useFormInput("");
-  const description = useFormInput("");
+  const location = useFormInput(application.location);
+  const description = useFormInput(application.description);
   const [slider, setSlider] = useState("0");
   const [stage, setStage] = useState("Interested");
   const dispatch = useDispatch();
@@ -70,8 +72,8 @@ export default function Track2(props) {
       console.log(res);
     } catch (err) {
       console.log("Error response:");
-      console.log(err.request)
-      console.log(err.response); 
+      console.log(err.request);
+      console.log(err.response);
     }
     props.history.push("/trackr/track3");
   }
