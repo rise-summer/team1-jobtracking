@@ -5,12 +5,10 @@ exports.create_job_app = async (req, res) => {
     console.log(req.body);
     console.log(req.body.userEmail)
     User.getUserByEmail(req.body.userEmail,(err,result)=>{
-        // console.log('result from getuser:'+err+' '+result)
         if(err){
             res.status(409).send({ error: true, message: err.message})
             return;
         }
-        console.log(result);
         const userId=result[0].id;
         // console.log(result[0])
         const newJob = new Job(req.body,userId);
@@ -59,7 +57,6 @@ exports.get_job=async(req,res)=>{
         const jobId=req.params.jobId
         Job.getJobById(jobId,(error,job)=>{
             if (error == null) {
-                // console.log(job[0].user_id)
                 if (job[0].user_id===userId){
                     res.status(200).send({ error: false, data: job});
                     return;
@@ -89,7 +86,6 @@ exports.delete_job=async(req,res)=>{
         const jobId=req.params.jobId;
         Job.getJobById(jobId,(errno,job)=>{
             if (errno == null) {
-                // console.log(job[0].user_id)
                 if (job[0].user_id===userId){
                     //allowed
                     Job.remove(jobId,(error,results)=>{
@@ -127,7 +123,6 @@ exports.update_job=async(req,res)=>{
         const jobId=req.params.jobId;
         Job.getJobById(jobId,(errno,job)=>{
             if (errno == null) {
-                // console.log(job[0].user_id)
                 if (job[0].user_id===userId){
                     //allowed
                     const updatedJob=new Job(req.body,userId);
