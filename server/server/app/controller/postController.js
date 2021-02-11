@@ -2,7 +2,7 @@ let Post = require('../model/postModel');
 let User = require('../model/userModel');
 
 exports.create_new_post = async(req, res) => {
-    console.log(req.body);
+    console.log(req);
     User.getUserByEmail(req.body.body.userEmail, (err, result) => {
         if (err) {
             res.status(409).send({
@@ -11,12 +11,9 @@ exports.create_new_post = async(req, res) => {
             });
             return;
         }
-        console.log(result);
         const user_id = result[0].id;
-        console.log(user_id);
         const newPost = new Post(req.body.body, user_id);
         Post.createPost(newPost, (error,_) => {
-            console.log(newPost);
             if (error) {
                 res.status(409).send({
                     error: true,
@@ -34,7 +31,8 @@ exports.create_new_post = async(req, res) => {
 };
 
 exports.get_posts = async(req, res) => {
-    const offset = req.body.offset;
+    // TODO: get certain amount of posts each time
+    const offset = 0;
     Post.getNextGroupOfPosts(offset, (error, posts) => {
         if (error) {
             res.status(409).send({
@@ -52,7 +50,7 @@ exports.get_posts = async(req, res) => {
 }
 
 exports.get_post = async(req, res) => {
-    User.getUserByEmail(req.body.userEmail,(err,result)=>{
+    User.getUserByEmail(req.body.body.userEmail,(err,result)=>{
         if(err){
             res.status(409).send({ error: true, message: err.message})
             return;
