@@ -71,7 +71,7 @@ export default function Application(props) {
                 edit
                 <Svg src={edit}></Svg>
               </RBtn>
-              <LinkBtn href={props.link}>
+              <LinkBtn href={props.link} target="blank">
                 <RBtn id="link">
                   link
                   <Svg src={link}></Svg>
