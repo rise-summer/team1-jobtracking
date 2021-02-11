@@ -1,40 +1,30 @@
-// import axios from "axios";
-// import cheerio from "cheerio";
-// import puppeteer from "puppeteer";
 let axios = require("axios");
 let cheerio = require("cheerio");
 let puppeteer = require("puppeteer");
-let htmlToText = require('html-to-text');
+var { htmlToText } = require("html-to-text");
 
 async function indeed(link) {
   const response = await axios.get(link);
   const $ = await cheerio.load(response.data);
   const title = $("h1").text();
   const company = $("div.icl-u-lg-mr--sm").text();
-  const location = $("div.icl-u-lg-mr--sm")
+  const place = $("div.icl-u-lg-mr--sm")
     .parent()
     .parent()
     .children()
     .eq(1)
-    .html();
-  // var description = "";
-  // $("#jobDescriptionText")
-  //   .children()
-  //   .each(function () {
-  //     var $this = $(this);
-  //     description += $this.text() + "\n";
-  //   });
+    .text();
   const description = $("#jobDescriptionText").html();
-  const desc = htmlToText(description)
-  const data = { title, company, location, description };
-  console.log(data);
+  const desc = htmlToText(description);
+  const data = { title, company, place, desc };
+  // console.log(typeof desc);
   return data;
 }
 
 async function glassdoor(link) {
   const response = await axios.get(link);
   const $ = await cheerio.load(response.data);
-  const company = $("div.css-16nw49e").text();
+  const company = $("div.css-16nw49e").clone().children().remove().end().text();
   const title = $("div.css-17x2pwl").text();
   const location = $("div.css-1v5elnn").text();
   // var description = "";
@@ -47,7 +37,8 @@ async function glassdoor(link) {
   //     description += $this.text() + "\n";
   //   });
   const description = $("div.desc").html();
-  const data = { title, company, location, description };
+  const desc = htmlToText(description);
+  const data = { title, company, location, desc };
   console.log(data);
   return data;
 }
@@ -68,10 +59,9 @@ async function monster(link) {
       const title = document.querySelector("h1.job_title").innerHTML;
       const company = document.querySelector("div.job_company_name").innerHTML;
       const place = document.querySelector("div.location").innerHTML;
-      const description = document.querySelector("div[name='sanitizedHtml']")
-        .innerHTML;
-      // formatted_desc = htmlToText(description);
-      return { title, company, place, description };
+      const description = document.querySelector("div[name='sanitizedHtml']");
+      const desc = htmlToText(description);
+      return { title, company, place, desc };
     });
     console.log(data);
     await browser.close();
@@ -104,18 +94,19 @@ async function google(link) {
     const page = await browser.newPage();
 
     await page.goto(link, { waitUntil: "networkidle0" });
-    await page.screenshot({ path: "screenshot.png" });
     const html = await page.evaluate(
       () => document.querySelector("*").outerHTML
     );
-    const data = await page.evaluate(() => {
+    let data = await page.evaluate(() => {
       const title = document.querySelector("h2.KLsYvd").innerHTML;
       const company = document.querySelector("div.nJlQNd").innerHTML;
       const place = document.querySelectorAll("div.sMzDkb")[1].innerHTML;
-      const description = document.querySelector("span.HBvzbc").innerHTML;
-      return { title, company, place, description };
+      const desc = document.querySelector("span.HBvzbc").innerHTML;
+      // const desc = htmlToText(description);
+      return { title, company, place, desc };
     });
-    console.log(data);
+    // data.desc = htmlToText(data.desc);
+    // console.log(data.desc);
     await browser.close();
     return data;
   } catch (error) {

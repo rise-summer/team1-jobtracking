@@ -41,7 +41,7 @@ export default function Track1() {
       const parsed_res = JSON.parse(res.data.data)
       parsed_res.link = link;
 
-      console.log(parsed_res);
+      console.log(res);
       history.push({
         pathname: "/trackr/track2",
         state: JSON.stringify(parsed_res),

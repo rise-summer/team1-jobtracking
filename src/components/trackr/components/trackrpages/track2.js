@@ -30,8 +30,8 @@ export default function Track2(props) {
   const role = useFormInput(application.title);
   const company = useFormInput(application.company);
   const deadline = useFormInput("");
-  const location = useFormInput(application.location);
-  const description = useFormInput(application.description);
+  const location = useFormInput(application.place);
+  const description = useFormInput(application.desc);
   const [slider, setSlider] = useState("0");
   const [stage, setStage] = useState("Interested");
   const dispatch = useDispatch();
