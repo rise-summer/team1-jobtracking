@@ -16,9 +16,11 @@ const AddPost = ({ numPosts, setNumPosts, setPosts }) => {
   const submitPost = (e) => {
     console.log(currentUser.email);
     e.preventDefault();
+    const token = await currentUser.getIdToken();
     axios.post(`http://localhost:5000/api/post/create`, {
       crossDomain: true,
       headers: {
+        "Authorization": "Bearer " + token,
         "Access-Control-Allow-Origin": "*"
       },
       body: {
