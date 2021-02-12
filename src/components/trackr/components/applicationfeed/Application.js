@@ -4,6 +4,7 @@ import link from "../../../../images/link.svg";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import styled from "styled-components";
+import { Link } from 'react-router-dom';
 
 export default function Application(props) {
   const [clicked, setClicked] = useState(false);
@@ -59,11 +60,10 @@ export default function Application(props) {
           </Center>
           <Right>
             <ButtonBox>
-              <RBtn
-                id="edit"
+              <RBtn id="edit"
                 onClick={() =>
                   history.push({
-                    pathname: "/trackr/edit1",
+                    pathname: `/trackr/edit1/${props.id}`,
                     state: JSON.stringify(props),
                   })
                 }
@@ -71,6 +71,7 @@ export default function Application(props) {
                 edit
                 <Svg src={edit}></Svg>
               </RBtn>
+
               <LinkBtn href={props.link} target="blank">
                 <RBtn id="link">
                   link
@@ -173,6 +174,28 @@ const Status = styled.div`
 const ButtonBox = styled.div`
   margin: auto;
   display: block;
+`;
+
+const EditLink = styled(Link)`
+  border: none;
+  box-sizing: border-box;
+  border-radius: 5px;
+  padding: 5px;
+  //font-weight: 600;
+  font-size: 11px;
+  /* justify-content: center; */
+  /* text-align: center; */
+  align-content: center;
+  background: #ededed;
+  margin: 5px 2px;
+  width: 60px;
+  height: 23px;
+  letter-spacing: 1px;
+  display: flex;
+  text-decoration: none;
+  :hover {
+    background: #c0c0c0;
+  }
 `;
 
 const RBtn = styled.button`

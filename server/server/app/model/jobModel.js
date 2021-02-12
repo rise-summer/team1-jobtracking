@@ -3,7 +3,7 @@ const uuid = require('uuid');
 
 
 function Job(job,uid) {
-  console.log('job application: ' + JSON.stringify(job));
+  //console.log('job application: ' + JSON.stringify(job));
   this.link=job.link;
   this.position = job.position;
   this.company = job.company;

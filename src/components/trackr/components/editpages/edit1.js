@@ -19,6 +19,8 @@ import {
 import { BottomDiv, EditBtn } from "./style";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { auth } from "../../../../firebaseSetup";
+import axios from "axios";
 
 export default function Edit1(props) {
   const rangeValues = {
@@ -50,22 +52,47 @@ export default function Edit1(props) {
     setClicked(!clicked);
   }
 
-  function completeUpdate() {
-    dispatch({
-      type: "UPDATE_APPLICATION",
-      payload: {
-        id: application.id,
-        link: link.value,
-        role: role.value,
-        company: company.value,
-        deadline: deadline.value,
-        location: location.value,
-        description: description.value,
-        stage: slider,
-      },
-    });
+  const completeUpdate = async () => {
+    // dispatch({
+    //   type: "UPDATE_APPLICATION",
+    //   payload: {
+    //     id: application.id,
+    //     link: link.value,
+    //     role: role.value,
+    //     company: company.value,
+    //     deadline: deadline.value,
+    //     location: location.value,
+    //     description: description.value,
+    //     stage: slider,
+    //   },
+    // });
+
+    try {
+      const token = await auth.currentUser.getIdToken();
+      const res = await axios.put(
+        `/api/job/update/${application.id}`,
+        {
+          position: role.value,
+          company: company.value,
+          app_status: slider,
+          link: link.value,
+          deadline: deadline.value,
+          location: location.value,
+          description: description.value,
+          notes: "",
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+    } catch (err) {
+      console.log(err);
+    }
+
     history.push("/trackr");
-  }
+  };
 
   return (
     <Fragment>

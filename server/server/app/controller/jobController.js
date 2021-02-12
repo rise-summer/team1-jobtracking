@@ -117,6 +117,7 @@ exports.delete_job = async (req, res) => {
 exports.update_job = async (req, res) => {
   User.getUserByEmail(req.body.userEmail, (err, result) => {
     if (err) {
+      console.log("Level 1")
       res.status(409).send({ error: true, message: err.message });
       return;
     }
@@ -129,11 +130,15 @@ exports.update_job = async (req, res) => {
           //allowed
           const updatedJob = new Job(req.body, userId);
           updatedJob.job_id = jobId;
+
+          console.log(req.body)
+          
           Job.update(updatedJob, (error, results) => {
             if (error == null) {
               res.status(200).send({ error: false, data: results });
               return;
             } else {
+              console.log(error)
               res.status(409).send({ error: true, message: error.message });
               return;
             }
@@ -144,6 +149,7 @@ exports.update_job = async (req, res) => {
           return;
         }
       } else {
+        console.log("Level 3")
         res.status(409).send({ error: true, message: errno.message });
         return;
       }
