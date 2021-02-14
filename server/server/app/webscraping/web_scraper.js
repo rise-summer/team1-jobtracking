@@ -47,22 +47,38 @@ async function glassdoor(link) {
 async function monster(link) {
   // require("html-to-text")
   try {
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
+    const args = [
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+      "--disable-infobars",
+      "--window-position=0,0",
+      "--ignore-certifcate-errors",
+      "--ignore-certifcate-errors-spki-list",
+      '--user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3312.0 Safari/537.36"',
+    ];
 
+    const options = {
+      args,
+      headless: true,
+      ignoreHTTPSErrors: true,
+      userDataDir: "./tmp",
+    };
+
+    const browser = await puppeteer.launch(options);
+    const page = await browser.newPage();
     await page.goto(link, { waitUntil: "networkidle0" });
-    await page.screenshot({ path: "screenshot.png" });
     const html = await page.evaluate(
       () => document.querySelector("*").outerHTML
     );
     const data = await page.evaluate(() => {
-      const title = document.querySelector("h1.job_title").innerHTML;
-      const company = document.querySelector("div.job_company_name").innerHTML;
-      const place = document.querySelector("div.location").innerHTML;
-      const description = document.querySelector("div[name='sanitizedHtml']");
-      const desc = htmlToText(description);
+      const title = document.querySelector("h1.title").innerHTML;
+      const company = document.querySelector("div.name").innerHTML;
+      const place = document.querySelector("h2.subtitle").innerHTML;
+      const desc = document.querySelector("div#JobDescription").outerHTML;
+
       return { title, company, place, desc };
     });
+    data.desc = htmlToText(data.desc);
     console.log(data);
     await browser.close();
     return data;
@@ -133,7 +149,7 @@ exports.scrape = async (req, res) => {
         data = await google(link);
         break;
       default:
-        data = "undefined";
+        data = {};
     }
     console.log(data);
     res.status(200).send({

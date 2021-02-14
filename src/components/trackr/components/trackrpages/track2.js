@@ -3,6 +3,7 @@ import Navigation from "../../../navigation";
 import backarrow from "../../../../images/backarrow.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import {
   BackgroundDiv,
   ContentDiv,
@@ -34,25 +35,11 @@ export default function Track2(props) {
   const description = useFormInput(application.desc);
   const [slider, setSlider] = useState("0");
   const [stage, setStage] = useState("Interested");
-  const dispatch = useDispatch();
-  const date = new Date().getTime();
+  const history = useHistory();
 
   async function handleSubmit(e) {
     e.preventDefault();
     console.log(stage);
-    // dispatch({
-    //   type: "ADD_APPLICATION",
-    //   payload: {
-    //     id: date,
-    //     link: link.value,
-    //     role: role.value,
-    //     company: company.value,
-    //     deadline: deadline.value,
-    //     location: location.value,
-    //     description: description.value,
-    //     stage: slider,
-    //   },
-    // });
     try {
       const token = await auth.currentUser.getIdToken();
       console.log(token);
@@ -66,7 +53,7 @@ export default function Track2(props) {
           deadline: deadline.value,
           location: location.value,
           description: description.value,
-          notes: ""
+          notes: "",
         },
         {
           headers: {
@@ -80,7 +67,10 @@ export default function Track2(props) {
       console.log(err.request);
       console.log(err.response);
     }
-    props.history.push("/trackr/track3");
+    history.push({
+      pathname: "/trackr/track3",
+      state: JSON.stringify({ company: company.value, position: role.value }),
+    });
   }
 
   function handleSlider(e) {

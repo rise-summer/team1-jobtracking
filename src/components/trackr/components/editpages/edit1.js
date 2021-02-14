@@ -53,20 +53,6 @@ export default function Edit1(props) {
   }
 
   const completeUpdate = async () => {
-    // dispatch({
-    //   type: "UPDATE_APPLICATION",
-    //   payload: {
-    //     id: application.id,
-    //     link: link.value,
-    //     role: role.value,
-    //     company: company.value,
-    //     deadline: deadline.value,
-    //     location: location.value,
-    //     description: description.value,
-    //     stage: slider,
-    //   },
-    // });
-
     try {
       const token = await auth.currentUser.getIdToken();
       const res = await axios.put(

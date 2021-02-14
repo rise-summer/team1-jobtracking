@@ -1,8 +1,9 @@
-import React, { Component, Fragment } from "react";
+import React, { Fragment } from "react";
 import Navigation from "../../../navigation";
 import backarrow from "../../../../images/backarrow.svg";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import Loader from "react-loader-spinner";
 import {
   ContentDiv,
   Title,
@@ -14,17 +15,17 @@ import {
   BackBtn,
   BackSvg,
 } from "./style";
-import { connect } from "react-redux";
 import axios from "axios";
 import { auth } from "../../../../firebaseSetup";
 
 export default function Track1() {
   const [link, setLink] = useState("");
+  const [loading, setLoading] = useState(undefined);
   const history = useHistory();
 
   async function handleSubmit(event) {
     event.preventDefault();
-
+    setLoading(true);
     try {
       const token = await auth.currentUser.getIdToken();
       let res = await axios.post(
@@ -38,7 +39,7 @@ export default function Track1() {
           },
         }
       );
-      const parsed_res = JSON.parse(res.data.data)
+      const parsed_res = JSON.parse(res.data.data);
       parsed_res.link = link;
 
       console.log(res);
@@ -51,29 +52,20 @@ export default function Track1() {
       console.log(err.request);
       console.log(err.response);
     }
-    // const data = await scraper(event.target.value);
-    // console.log(data);
-    // this.props.history.push("/trackr/track2");
   }
 
   function handleChange(event) {
     setLink(event.target.value);
   }
 
-  function handleBack() {
-    this.props.dispatch({
-      type: "STORE_RESET",
-    });
-    this.props.history.push("/trackr");
-  }
-
+  
   return (
     <Fragment>
       <Navigation />
       <BackgroundDiv>
         <ContentDiv>
           <BackBtn>
-            <a onClick={handleBack}>
+            <a onClick={() => {history.push("/trackr")}}>
               <BackSvg src={backarrow} alt="backarrow error"></BackSvg>
             </a>
           </BackBtn>
@@ -85,9 +77,8 @@ export default function Track1() {
                 placeholder="https://link_to_your_application_here.com"
                 onChange={handleChange}
               />
-              {/* <a> */}
-              <SubmitBtn type="submit">Submit</SubmitBtn>
-              {/* </a> */}
+              {loading ? <Loader type="ThreeDots" color="#175596"/> :
+              <SubmitBtn type="submit">Submit</SubmitBtn>}
             </form>
           </Heading>
         </ContentDiv>

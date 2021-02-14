@@ -37,7 +37,6 @@ const AddPost = ({ numPosts, setNumPosts, setPosts, toggleShowPost }) => {
           placeholder="Title of Post"
           onChange={(e) => setTitle(e.target.value)}
         />
-        <CloseButton type="button" onClick={toggleShowPost}>X</CloseButton>
         <hr />
         <Description
           value={description}
