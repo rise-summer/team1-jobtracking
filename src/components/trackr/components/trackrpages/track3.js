@@ -29,12 +29,6 @@ export default function Track3(props) {
         <ContentDiv>
           <Heading>
             <Title>Great job applying!</Title>
-            {/* <Subtitle>
-                You have successfully added
-                <span style={{ color: "#2071c7" }}> {this.props.role} </span> to
-                your tracked applications.
-              </Subtitle> */}
-
             <Subtitle>
               You have successfully added
               <span style={{ color: "#2071c7" }}>{"\t" + position}</span>
@@ -45,7 +39,6 @@ export default function Track3(props) {
             <Subtitle2>#{position}</Subtitle2>
 
             <div>
-              {/* <Subtitle2 onClick={this.eraseCache}>Complete</Subtitle2> */}
               <SubmitBtn onClick={() => history.push("/trackr")}>
                 Complete
               </SubmitBtn>
