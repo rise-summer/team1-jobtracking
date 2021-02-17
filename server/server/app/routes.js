@@ -9,7 +9,7 @@ module.exports = function (app) {
   // user routes
   app.route('api/register').post(userController.create_a_user);
   // app.route('/api/users').get(userController.list_all_users);
-  app.route('/job/create').post(jobController.create_job_app);
+  app.route('/api/job/create').post(jobController.create_job_app);
   app.route('/api/jobs').get(jobController.get_jobs);
   app.route('/api/job/:jobId').get(jobController.get_job); // Access jobId via: req.params.jobId
   app.route('/api/job/delete/:jobId').delete(jobController.delete_job);
