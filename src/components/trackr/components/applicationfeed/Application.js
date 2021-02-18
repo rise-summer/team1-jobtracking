@@ -4,7 +4,8 @@ import link from "../../../../images/link.svg";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import styled from "styled-components";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import moment from "moment";
 
 export default function Application(props) {
   const [clicked, setClicked] = useState(false);
@@ -60,7 +61,8 @@ export default function Application(props) {
           </Center>
           <Right>
             <ButtonBox>
-              <RBtn id="edit"
+              <RBtn
+                id="edit"
                 onClick={() =>
                   history.push({
                     pathname: `/trackr/edit1/${props.id}`,
@@ -86,11 +88,11 @@ export default function Application(props) {
             <Topline>
               <TopText>
                 <span style={{ fontWeight: "bold" }}>Date Updated:</span>{" "}
-                {props.date}
+                {moment(props.date).format("MM/DD/YY")}
               </TopText>
               <TopText>
                 <span style={{ fontWeight: "bold" }}>Deadline:</span>{" "}
-                {props.deadline}{" "}
+                {moment(props.deadline).format("MM/DD/YY")}
               </TopText>
               <TopText>
                 <span style={{ fontWeight: "bold" }}>Location:</span>{" "}
@@ -102,7 +104,9 @@ export default function Application(props) {
               id="textarea"
               placeholder="Notes: 
               Personal application log notes go here. The user can talk about things privately without sharing here. "
-            >{props.notes}</Notes>
+            >
+              {props.notes}
+            </Notes>
           </Extra>
         ) : (
           <div></div>

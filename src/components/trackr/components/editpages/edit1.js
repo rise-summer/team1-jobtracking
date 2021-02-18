@@ -21,6 +21,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { auth } from "../../../../firebaseSetup";
 import axios from "axios";
+import moment from 'moment'
 
 export default function Edit1(props) {
   const rangeValues = {
@@ -53,18 +54,19 @@ export default function Edit1(props) {
   }
 
   const completeUpdate = async () => {
+    console.log(moment(deadline.value).format('YYYY-MM-DD'))
     try {
       const token = await auth.currentUser.getIdToken();
       const res = await axios.put(
         `/api/job/update/${application.id}`,
         {
-          position: role.value,
-          company: company.value,
-          app_status: slider,
-          link: link.value,
-          deadline: deadline.value,
-          location: location.value,
-          description: description.value,
+          position: role.value ? role.value : "",
+          company: company.value ? company.value : "",
+          app_status: slider ? slider : "",
+          link: link.value ? link.value : "",
+          deadline: moment(deadline.value).format('YYYY-MM-DD'),
+          location: location.value ? location.value : "",
+          description: description.value ? description.value : "",
           notes: "",
         },
         {

@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import Navigation from "../navigation";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import {
@@ -34,7 +34,13 @@ import EmptyApplication from "./components/applicationfeed/emptyapplication";
 import { auth } from "../../firebaseSetup";
 import axios from "axios";
 
+import { Redirect } from "react-router-dom";
+
+import { AuthenticationContext } from "../../AuthenticationContext";
+
 export default function Trackr(props) {
+  const [authentication, setAuthentication] = useContext(AuthenticationContext);
+
   const profile = useSelector((state) => state.profileReducer.profile);
   console.log("profile", profile);
   const name = useProfileInput(profile.name);
@@ -43,8 +49,7 @@ export default function Trackr(props) {
   const education = useProfileInput(profile.education);
   const dispatch = useDispatch();
 
-  const [applications, setApplications] = useState([])
-  
+  const [applications, setApplications] = useState([]);
 
   function useProfileInput(initialValue) {
     const [value, setValue] = useState(initialValue);
@@ -127,6 +132,10 @@ export default function Trackr(props) {
     }
   };
 
+  if (!authentication.displayName) {
+    return <Redirect to="/login" />;
+  }
+
   return (
     <Fragment>
       <MainBody>
@@ -155,7 +164,7 @@ export default function Trackr(props) {
             {applications.length === 0 ? (
               <EmptyApplication></EmptyApplication>
             ) : (
-              applications.map((application) => (
+              applications.reverse().map((application) => (
                 <Application
                   id={application.job_id}
                   companyName={application.company}
@@ -204,7 +213,9 @@ export default function Trackr(props) {
               <Searches>#Tech</Searches>
             </SearchDiv>
             <ViewPostBtnDiv>
-              <ViewPostBtn onClick={() => props.history.push("/yourposts")}>View Your Posts</ViewPostBtn>
+              <ViewPostBtn onClick={() => props.history.push("/yourposts")}>
+                View Your Posts
+              </ViewPostBtn>
             </ViewPostBtnDiv>
           </ProfileDiv>
         </BackgroundDiv>
