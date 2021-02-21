@@ -55,19 +55,25 @@ exports.get_post = async(req, res) => {
             res.status(409).send({ error: true, message: err.message})
             return;
         }
-        user_id=result[0].id;
-        post_id=req.params.post_id;
+        const user_id=result[0].id;
+        const post_id=req.params.post_id;
 
         Post.getPostById(post_id, (error, post) => {
-            if (error) {
+            if (error == null) {
+                if (result[0].user_id == user_id) {
+                    res.status(200).send({
+                        error: false,
+                        message: post
+                    });
+                    return;
+                } else {
+                    res.status(403).send('Unauthorized');
+                    return;
+                }
+            } else {
                 res.status(409).send({
                     error: true,
                     message: error.message
-                })
-            } else {
-                res.status(200).send({
-                    error: false,
-                    message: post
                 });
             }
         });
@@ -85,7 +91,7 @@ exports.get_posts_of_user = async(req, res) => {
             return;
         }
 
-        user_id = result[0].id;
+        const user_id = result[0].id;
         Post.getAllPostForUser(user_id, (error, posts) => {
             if (error) {
                 res.status(409).send({
@@ -111,20 +117,31 @@ exports.delete_post = async(req, res) => {
             });
             return;
         }
-        user_id=result[0].id;
-        post_id=req.params.post_id;
+        const user_id=result[0].id;
+        const post_id=req.params.post_id;
 
-        Post.removePost(post_id, (error, post) => {
-            if (error) {
-                res.status(409).send({
-                    error: false,
-                    message: error.message
-                });
-            } else {
-                res.status(200).send({
-                    error: false,
-                    message: post
-                });
+        Post.getPostById(post_id, (err, post) => {
+            if (err == null) {
+                if (result[0].user === user_id) {
+                    Post.removePost(post_id, (error, post) => {
+                        if (error == null) {
+                            res.status(200).send({ 
+                                error: false,
+                                data: post
+                            });
+                            return;
+                        } else {
+                            res.status(409).send({
+                                error: true,
+                                message: error.message
+                            });
+                            return;
+                        }
+                    });
+                } else {
+                    res.status(403).send('Unauthorized');
+                    return;
+                }
             }
         });
     });
