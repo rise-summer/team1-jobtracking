@@ -22,7 +22,7 @@ const MainFeed = () => {
       const result = await axios.get(`http://localhost:5000/api/post/fetchPosts`, {
           headers: {
             Authorization: "Bearer " + token,
-          });
+          }});
       console.log(result.request);
       setPosts(result.data.body);
     }
