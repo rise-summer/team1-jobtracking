@@ -18,12 +18,12 @@ const MainFeed = () => {
   const [posts, setPosts] = useState([]);
   useEffect(() => { 
     async function fetchPosts() {
-      const token = await auth.currentUser.getIdToken();
-      const result = await axios.get(`http://localhost:5000/api/post/fetchPosts`, {
-          headers: {
-            Authorization: "Bearer " + token,
-          }});
-      console.log(result.request);
+      const token = auth.currentUser ? await auth.currentUser.getIdToken() : '';
+      const result = await axios.get(`http://localhost:5000/api/post/fetchPosts`,{
+        headers: {
+          Authorization: `Bearer ${token}`,
+          offset: 0
+        }});
       setPosts(result.data.body);
     }
     fetchPosts();

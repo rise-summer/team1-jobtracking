@@ -2,8 +2,6 @@ let Job = require('../model/jobModel');
 let User = require('../model/userModel');
 
 exports.create_job_app = async (req, res) => {
-    console.log(req.body);
-    console.log(req.body.userEmail)
     User.getUserByEmail(req.body.userEmail,(err,result)=>{
         if(err){
             res.status(409).send({ error: true, message: err.message})

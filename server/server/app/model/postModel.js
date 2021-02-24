@@ -2,7 +2,6 @@ let sql = require('../db');
 const uuid = require('uuid');
 
 function Post(post, uid) {
-    console.log('post: ' + JSON.stringify(post));
     this.title = post.title;
     this.content = post.content;
     this.tag = post.tag;

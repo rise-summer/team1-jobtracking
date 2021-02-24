@@ -2,7 +2,6 @@ let Post = require('../model/postModel');
 let User = require('../model/userModel');
 
 exports.create_new_post = async(req, res) => {
-    console.log(req);
     User.getUserByEmail(req.body.body.userEmail, (err, result) => {
         if (err) {
             res.status(409).send({
@@ -31,8 +30,7 @@ exports.create_new_post = async(req, res) => {
 };
 
 exports.get_posts = async(req, res) => {
-    // TODO: get certain amount of posts each time
-    const offset = req.offset;
+    const offset = req.headers.offset;
     Post.getNextGroupOfPosts(offset, (error, posts) => {
         if (error) {
             res.status(409).send({
