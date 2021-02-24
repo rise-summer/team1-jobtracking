@@ -32,7 +32,7 @@ exports.create_new_post = async(req, res) => {
 
 exports.get_posts = async(req, res) => {
     // TODO: get certain amount of posts each time
-    const offset = 0;
+    const offset = req.offset;
     Post.getNextGroupOfPosts(offset, (error, posts) => {
         if (error) {
             res.status(409).send({
@@ -60,7 +60,7 @@ exports.get_post = async(req, res) => {
 
         Post.getPostById(post_id, (error, post) => {
             if (error == null) {
-                if (result[0].user_id == user_id) {
+                if (post[0].user_id == user_id) {
                     res.status(200).send({
                         error: false,
                         message: post
