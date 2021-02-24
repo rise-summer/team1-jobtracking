@@ -13,40 +13,39 @@ const AddPost = ({ numPosts, setNumPosts, setPosts }) => {
   const [description, setDescription] = useState("");
   const currentUser = auth.currentUser;
 
-  const submitPost = (e) => {
-    console.log(currentUser.email);
+  const submitPost = async (e) => {
     e.preventDefault();
-    const token = await currentUser.getIdToken();
-    axios.post(`http://localhost:5000/api/post/create`, {
-      crossDomain: true,
-      headers: {
-        "Authorization": "Bearer " + token,
-        "Access-Control-Allow-Origin": "*"
-      },
-      body: {
-        title,
-        content: description,
-        created_at: new Date(),
-        userEmail: currentUser.email
-      }
-    }).then(
-      res => {
-        setNumPosts((prevNumPosts) => prevNumPosts + 1);
-        setPosts((prevPosts) => [
-          {
-            id: numPosts + 1,
-            author: authentication.displayName,
-            title,
-            date: moment().format("MM/DD/YY"),
-            content: description,
-            comments: [],
-          },
-          ...prevPosts,
-        ]);
-        setTitle("");
-        setDescription("");
-      }
-    );
+    currentUser.getIdToken().then(token => {
+      axios.post(`http://localhost:5000/api/post/create`, {
+        body: {
+          title,
+          content: description,
+          created_at: new Date(),
+          userEmail: currentUser.email
+        }
+      },{
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }).then(
+        res => {
+          setNumPosts((prevNumPosts) => prevNumPosts + 1);
+          setPosts((prevPosts) => [
+            {
+              id: numPosts + 1,
+              author: authentication.displayName,
+              title,
+              date: moment().format("MM/DD/YY"),
+              content: description,
+              comments: [],
+            },
+            ...prevPosts,
+          ]);
+          setTitle("");
+          setDescription("");
+        }
+      );
+    });
   };
 
   return (
