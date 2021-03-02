@@ -7,6 +7,7 @@ export const MainBody = styled.div`
   height: 100vh;
   //margin: 0 20px 20px 0;
   justify-content: center;
+  
 `;
 
 export const BackgroundDiv = styled.div`
@@ -23,6 +24,7 @@ export const ContentDiv = styled.div`
   padding: 20px 0px 20px 10vw;
   width: 60vw;
   min-width: 570px;
+  overflow: scroll;
 `;
 
 export const Headding = styled.div`

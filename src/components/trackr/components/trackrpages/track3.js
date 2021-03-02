@@ -1,16 +1,13 @@
 // import { Slider } from "antd";
 import React, { Fragment } from "react";
 import Navigation from "../../../navigation";
-import backarrow from "../../../../images/backarrow.svg";
 import { useHistory } from "react-router-dom";
 import {
   ContentDiv,
   Title,
   BackgroundDiv,
   Subtitle,
-  BackBtn,
   Heading,
-  BackSvg,
   SubmitBtn,
   Subtitle2,
 } from "./style";
@@ -19,7 +16,6 @@ export default function Track3(props) {
   const application = JSON.parse(props.location.state);
   console.log(application)
   const position = application.position;
-  const company = application.company;
   const history = useHistory();
 
   return (

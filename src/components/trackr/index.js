@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import Navigation from "../navigation";
-import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   MainBody,
   BackgroundDiv,
@@ -106,26 +106,6 @@ export default function Trackr(props) {
     fetchData();
   }, []);
 
-  const deleteApp = async () => {
-    try {
-      const token = await auth.currentUser.getIdToken();
-      applications.map(async (application) => {
-        const res = await axios.delete(
-          `/api/job/delete/${application.job_id}`,
-          {
-            headers: {
-              Authorization: "Bearer " + token,
-            },
-          }
-        );
-        console.log(res);
-      });
-
-      // setApplications(res.data.data)
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   return (
     <Fragment>

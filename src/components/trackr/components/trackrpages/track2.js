@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import Navigation from "../../../navigation";
 import backarrow from "../../../../images/backarrow.svg";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import {

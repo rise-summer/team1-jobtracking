@@ -26,7 +26,7 @@ async function glassdoor(link) {
   const $ = await cheerio.load(response.data);
   const company = $("div.css-16nw49e").clone().children().remove().end().text();
   const title = $("div.css-17x2pwl").text();
-  const location = $("div.css-1v5elnn").text();
+  const location = $("div.css-56kyx5").text();
   // var description = "";
   // $("div.desc")
   //   .children()
@@ -108,21 +108,26 @@ async function google(link) {
 
     const browser = await puppeteer.launch(options);
     const page = await browser.newPage();
-
+    const link_id = link.split("=")[14].split("%")[0] + "==";
+    // const parms = { id: link_id };
+    console.log(link.split("="));
     await page.goto(link, { waitUntil: "networkidle0" });
     const html = await page.evaluate(
       () => document.querySelector("*").outerHTML
     );
-    let data = await page.evaluate(() => {
-      const title = document.querySelector("h2.KLsYvd").innerHTML;
-      const company = document.querySelector("div.nJlQNd").innerHTML;
-      const place = document.querySelectorAll("div.sMzDkb")[1].innerHTML;
-      const desc = document.querySelector("span.HBvzbc").innerHTML;
-      // const desc = htmlToText(description);
+    let data = await page.evaluate((link_id) => {
+      const parent = document.querySelector(
+        "[data-encoded-doc-id=" + "'" + link_id + "'" + "]"
+      );
+      const title = parent.querySelector("h2.KLsYvd").innerHTML;
+      const company = parent.querySelector("div.sMzDkb").innerHTML;
+      const place = parent.querySelectorAll("div.sMzDkb")[1].innerHTML;
+      let desc = parent.querySelector("span.HBvzbc").innerHTML;
+      desc = desc.replace(/(<.*>)/g, '');
+
       return { title, company, place, desc };
-    });
-    // data.desc = htmlToText(data.desc);
-    // console.log(data.desc);
+    }, link_id);
+    console.log("hel");
     await browser.close();
     return data;
   } catch (error) {

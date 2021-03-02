@@ -40,7 +40,6 @@ export default function Edit1(props) {
   const [slider, setSlider] = useState(parseInt(application.stage));
   const [stage, setStage] = useState(rangeValues[application.stage]);
   const [clicked, setClicked] = useState(false);
-  const dispatch = useDispatch();
   const history = useHistory();
 
   function handleSlider(e) {
@@ -55,7 +54,7 @@ export default function Edit1(props) {
   const completeUpdate = async () => {
     try {
       const token = await auth.currentUser.getIdToken();
-      const res = await axios.put(
+      await axios.put(
         `/api/job/update/${application.id}`,
         {
           position: role.value,

@@ -176,28 +176,6 @@ const ButtonBox = styled.div`
   display: block;
 `;
 
-const EditLink = styled(Link)`
-  border: none;
-  box-sizing: border-box;
-  border-radius: 5px;
-  padding: 5px;
-  //font-weight: 600;
-  font-size: 11px;
-  /* justify-content: center; */
-  /* text-align: center; */
-  align-content: center;
-  background: #ededed;
-  margin: 5px 2px;
-  width: 60px;
-  height: 23px;
-  letter-spacing: 1px;
-  display: flex;
-  text-decoration: none;
-  :hover {
-    background: #c0c0c0;
-  }
-`;
-
 const RBtn = styled.button`
   border: none;
   box-sizing: border-box;

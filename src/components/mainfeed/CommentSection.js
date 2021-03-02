@@ -13,15 +13,7 @@ const CommentSection = ({ id }) => {
       message: "Thanks! I will let Joe know.",
     },
   ]);
-
-  const test = [
-    {
-      name: "Lauren",
-      date: moment().format("dddd"),
-      message: "hi",
-    },
-  ];
-
+  
   return (
     <Container>
       {comments

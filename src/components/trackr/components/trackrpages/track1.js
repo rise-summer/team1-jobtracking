@@ -65,9 +65,9 @@ export default function Track1() {
       <BackgroundDiv>
         <ContentDiv>
           <BackBtn>
-            <a onClick={() => {history.push("/trackr")}}>
+            <div onClick={() => {history.push("/trackr")}}>
               <BackSvg src={backarrow} alt="backarrow error"></BackSvg>
-            </a>
+            </div>
           </BackBtn>
           <Heading>
             <Title>Add a new application </Title>
