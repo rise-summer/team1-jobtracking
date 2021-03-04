@@ -1,31 +1,51 @@
+import axios from 'axios';
 import moment from "moment";
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
 
 import { AuthenticationContext } from "../../AuthenticationContext";
+import { auth } from "../../firebaseSetup";
 
 const AddPost = ({ numPosts, setNumPosts, setPosts, toggleShowPost }) => {
   const [authentication, setAuthentication] = useContext(AuthenticationContext);
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const currentUser = auth.currentUser;
 
-  const submitPost = (e) => {
+  const submitPost = async (e) => {
     e.preventDefault();
-    setNumPosts((prevNumPosts) => prevNumPosts + 1);
-    setPosts((prevPosts) => [
-      {
-        id: numPosts + 1,
-        author: authentication.displayName,
-        title,
-        date: moment().format("MM/DD/YY"),
-        description,
-        comments: [],
-      },
-      ...prevPosts,
-    ]);
-    setTitle("");
-    setDescription("");
+    currentUser.getIdToken().then(token => {
+      axios.post(`http://localhost:5000/api/post/create`, {
+        body: {
+          title,
+          content: description,
+          created_at: new Date(),
+          userEmail: currentUser.email
+        }
+      },{
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }).then(
+        res => {
+          setNumPosts((prevNumPosts) => prevNumPosts + 1);
+          setPosts((prevPosts) => [
+            {
+              id: numPosts + 1,
+              author: authentication.displayName,
+              title,
+              date: moment().format("MM/DD/YY"),
+              content: description,
+              comments: [],
+            },
+            ...prevPosts,
+          ]);
+          setTitle("");
+          setDescription("");
+        }
+      );
+    });
   };
 
   return (

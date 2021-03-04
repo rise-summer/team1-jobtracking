@@ -1,9 +1,11 @@
 import React, { Fragment, useContext } from "react";
 import Navigation from "../navigation";
 import { Heading, Text, NewPostButton, BackgroundDiv, MainBody } from "./style";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AddPost from "./AddPost";
 import Post from "./Post";
+import { auth } from "../../firebaseSetup";
+import axios from 'axios';
 
 import { Redirect } from "react-router-dom";
 
@@ -14,16 +16,19 @@ const MainFeed = () => {
 
   const [showPost, setShowPost] = useState(false);
   const [numPosts, setNumPosts] = useState(1);
-  const [posts, setPosts] = useState([
-    {
-      id: 1,
-      author: "John",
-      title: "Hive Summer 2021 Internship Positions Now Available!",
-      date: "01/03/21",
-      description:
-        "They have positions for electrical engineering, business, and computer science majors. The deadline to apply is 1/17/21.",
-    },
-  ]);
+  const [posts, setPosts] = useState([]);
+  useEffect(() => { 
+    async function fetchPosts() {
+      const token = auth.currentUser ? await auth.currentUser.getIdToken() : '';
+      const result = await axios.get(`http://localhost:5000/api/post/fetchPosts`,{
+        headers: {
+          Authorization: `Bearer ${token}`,
+          offset: 0
+        }});
+      setPosts(result.data.body);
+    }
+    fetchPosts();
+  }, []);
 
   const toggleShowPost = () => {
     if (showPost) {
@@ -49,13 +54,7 @@ const MainFeed = () => {
             {showPost ? '' : <NewPostButton onClick={toggleShowPost}>Create New Post</NewPostButton>}
           </Heading>
           {posts.map((post) => (
-            <Post
-              id={post.id}
-              author={post.author}
-              title={post.title}
-              date={post.date}
-              description={post.description}
-            />
+            <Post id={post.id} author={post.author} title={post.title} date={post.date} description={post.content} />
           ))}
         </BackgroundDiv>
       </MainBody>
