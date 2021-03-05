@@ -1,5 +1,5 @@
-let Job = require("../model/jobModel");
-let User = require("../model/userModel");
+let Job = require('../model/jobModel');
+let User = require('../model/userModel');
 
 exports.create_job_app = async (req, res) => {
     User.getUserByEmail(req.body.userEmail,(err,result)=>{
@@ -22,68 +22,38 @@ exports.create_job_app = async (req, res) => {
             }
         });
     });
-  });
+    
 };
 
-exports.get_jobs = async (req, res) => {
-  User.getUserByEmail(req.body.userEmail, (err, result) => {
-    if (err) {
-      res.status(409).send({ error: true, message: err.message });
-      return;
-    }
-    const userId = result[0].id;
-    Job.getAllJobsForUser(userId, (error, jobs) => {
-      if (error == null) {
-        res.status(200).send({ error: false, data: jobs });
-        return;
-      } else {
-        res.status(409).send({ error: true, message: error.message });
-        return;
-      }
-    });
-  });
-};
-
-exports.get_job = async (req, res) => {
-  User.getUserByEmail(req.body.userEmail, (err, result) => {
-    if (err) {
-      res.status(409).send({ error: true, message: err.message });
-      return;
-    }
-    const userId = result[0].id;
-    const jobId = req.params.jobId;
-    Job.getJobById(jobId, (error, job) => {
-      if (error == null) {
-        // console.log(job[0].user_id)
-        if (job[0].user_id === userId) {
-          res.status(200).send({ error: false, data: job });
-          return;
-        } else {
-          res.status(403).send("Unauthorized");
-          return;
+exports.get_jobs= async (req,res)=>{
+    User.getUserByEmail(req.body.userEmail,(err,result)=>{
+        if(err){
+            res.status(409).send({ error: true, message: err.message})
+            return;
         }
-      } else {
-        res.status(409).send({ error: true, message: error.message });
-        return;
-      }
-    });
-  });
+        const userId=result[0].id;
+        Job.getAllJobsForUser(userId,(error,jobs)=>{
+            if (error == null) {
+                res.status(200).send({ error: false, data: jobs});
+                return;
+            }
+            else{
+                res.status(409).send({ error: true, message: error.message})
+                return;
+            }
+        })
+    })
 };
 
-exports.delete_job = async (req, res) => {
-  User.getUserByEmail(req.body.userEmail, (err, result) => {
-    if (err) {
-      res.status(409).send({ error: true, message: err.message });
-      return;
-    }
-    const userId = result[0].id;
-    const jobId = req.params.jobId;
-    Job.getJobById(jobId, (errno, job) => {
-      if (errno == null) {
-        // console.log(job[0].user_id)
-        if (job[0].user_id === userId) {
-          //allowed
-          Job.remove(jobId, (error, results) => {
+exports.get_job=async(req,res)=>{
+    User.getUserByEmail(req.body.userEmail,(err,result)=>{
+        if(err){
+            res.status(409).send({ error: true, message: err.message})
+            return;
+        }
+        const userId=result[0].id;
+        const jobId=req.params.jobId
+        Job.getJobById(jobId,(error,job)=>{
             if (error == null) {
                 if (job[0].user_id===userId){
                     res.status(200).send({ error: false, data: job});
@@ -99,11 +69,16 @@ exports.delete_job = async (req, res) => {
                 res.status(409).send({ error: true, message: error.message})
                 return;
             }
-          });
-        } else {
-          //not allowed
-          res.status(403).send("Unauthorized");
-          return;
+        })
+    })
+    
+}
+
+exports.delete_job=async(req,res)=>{
+    User.getUserByEmail(req.body.userEmail,(err,result)=>{
+        if(err){
+            res.status(409).send({ error: true, message: err.message})
+            return;
         }
         const userId=result[0].id;
         const jobId=req.params.jobId;
