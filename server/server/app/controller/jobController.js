@@ -1,28 +1,25 @@
-let Job = require('../model/jobModel');
-let User = require('../model/userModel');
+const Job = require('../model/jobModel');
+const User = require('../model/userModel');
 
 exports.create_job_app = async (req, res) => {
-    User.getUserByEmail(req.body.userEmail,(err,result)=>{
-        if(err){
-            res.status(409).send({ error: true, message: err.message})
-            return;
-        }
-        const userId=result[0].id;
-        // console.log(result[0])
-        const newJob = new Job(req.body,userId);
-        // console.log(newJob)
-        Job.createJob(newJob, (error, job) => {
-            if (error == null) {
-                res.status(200).send({ error: false, message: 'Job successfully created.',data:job});
-                return;
-            }
-            else{
-                res.status(409).send({ error: true, message: error.message})
-                return;
-            }
-        });
+  User.getUserByEmail(req.body.userEmail, (err, result) => {
+    if (err) {  
+      res.status(409).send({ error: true, message: err.message})
+      return;
+    }
+    const userId=result[0].id;
+    // console.log(result[0])
+    const newJob = new Job(req.body,userId);
+    // console.log(newJob)
+    Job.createJob(newJob, (error, job) => {
+      if (error == null) {
+        res.status(200).send({ error: false, message: 'Job successfully created.',data:job});
+        return;
+      }
+      res.status(409).send({ error: true, message: error.message})
+      return;
     });
-    
+  });
 };
 
 exports.get_jobs= async (req,res)=>{
@@ -47,7 +44,7 @@ exports.get_jobs= async (req,res)=>{
 
 exports.get_job=async(req,res)=>{
     User.getUserByEmail(req.body.userEmail,(err,result)=>{
-        if(err){
+        if (err){
             res.status(409).send({ error: true, message: err.message})
             return;
         }

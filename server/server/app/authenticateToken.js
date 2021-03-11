@@ -6,7 +6,7 @@ var serviceAccount = require("../hive-83b4f-firebase-adminsdk-qk99b-97fe705121.j
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://hive-83b4f.firebaseio.com"
+  databaseURL: 'https://hive-83b4f.firebaseio.com',
 });
 
 //middleware that checks request header for firebase auth token
@@ -29,4 +29,4 @@ const authenticate = async (req, res, next) => {
     }
   };
 
-  module.exports=authenticate
+  module.exports=authenticate;

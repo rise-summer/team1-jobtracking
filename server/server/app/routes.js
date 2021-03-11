@@ -4,8 +4,8 @@ module.exports = function (app) {
   var postController = require('./controller/postController');
   var checkAuth=require('./authenticateToken')
 
-  //middleware for authentication
-  app.route('/api/*').all(checkAuth)
+  // middleware for authentication
+  app.route('/api/*').all(checkAuth);
   // user routes
   app.route('api/register').post(userController.create_a_user);
   // app.route('/api/users').get(userController.list_all_users);
