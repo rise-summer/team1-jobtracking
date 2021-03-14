@@ -135,7 +135,7 @@ export const Textarea = styled.textarea`
   border-radius: 15px;
   width: 650px;
   height: 150px;
-  font-size: 19px;
+  font-size: 12px;
   resize: none;
   min-height: 5em;
   overflow: auto;

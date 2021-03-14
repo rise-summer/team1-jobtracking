@@ -7,7 +7,12 @@ async function indeed(link) {
   const response = await axios.get(link);
   const $ = await cheerio.load(response.data);
   const title = $("h1").text();
-  const company = $("div.icl-u-lg-mr--sm").text();
+  let company = "";
+  if ($("div.icl-u-lg-mr--sm").children().length > 0) {
+    company = $("div.icl-u-lg-mr--sm").children().eq(0).text();
+  } else {
+    company = $("div.icl-u-lg-mr--sm").text();
+  }
   const place = $("div.icl-u-lg-mr--sm")
     .parent()
     .parent()
@@ -15,7 +20,8 @@ async function indeed(link) {
     .eq(1)
     .text();
   const description = $("#jobDescriptionText").html();
-  const desc = htmlToText(description);
+  let desc = htmlToText(description);
+  desc = desc.replace(/\n+/g, "\n\n");
   const data = { title, company, place, desc };
   // console.log(typeof desc);
   return data;
@@ -26,19 +32,11 @@ async function glassdoor(link) {
   const $ = await cheerio.load(response.data);
   const company = $("div.css-16nw49e").clone().children().remove().end().text();
   const title = $("div.css-17x2pwl").text();
-  const location = $("div.css-56kyx5").text();
-  // var description = "";
-  // $("div.desc")
-  //   .children()
-  //   .first()
-  //   .children()
-  //   .each(function () {
-  //     var $this = $(this);
-  //     description += $this.text() + "\n";
-  //   });
+  const place = $("div.css-1v5elnn").html();
   const description = $("div.desc").html();
   const desc = htmlToText(description);
-  const data = { title, company, location, desc };
+  console.log("location", place);
+  const data = { title, company, place, desc };
   console.log(data);
   return data;
 }
@@ -70,11 +68,13 @@ async function monster(link) {
     const html = await page.evaluate(
       () => document.querySelector("*").outerHTML
     );
+    console.log(html);
     const data = await page.evaluate(() => {
-      const title = document.querySelector("h1.title").innerHTML;
-      const company = document.querySelector("div.name").innerHTML;
-      const place = document.querySelector("h2.subtitle").innerHTML;
-      const desc = document.querySelector("div#JobDescription").outerHTML;
+      const title = document.querySelector("h1.job_title").innerHTML;
+      const company = document.querySelector("div.job_company_name").innerHTML;
+      const place = document.querySelector("div.location").innerHTML;
+      const desc = document.querySelector("div[name='sanitizedHtml']")
+        .outerHTML;
 
       return { title, company, place, desc };
     });
@@ -108,9 +108,11 @@ async function google(link) {
 
     const browser = await puppeteer.launch(options);
     const page = await browser.newPage();
-    const link_id = link.split("=")[14].split("%")[0] + "==";
+    const split = link.split("=");
+    console.log(split);
+    const link_id = split[split.length-2].split("%")[0] + "==";
     // const parms = { id: link_id };
-    console.log(link.split("="));
+    
     await page.goto(link, { waitUntil: "networkidle0" });
     const html = await page.evaluate(
       () => document.querySelector("*").outerHTML
@@ -123,7 +125,7 @@ async function google(link) {
       const company = parent.querySelector("div.sMzDkb").innerHTML;
       const place = parent.querySelectorAll("div.sMzDkb")[1].innerHTML;
       let desc = parent.querySelector("span.HBvzbc").innerHTML;
-      desc = desc.replace(/(<.*>)/g, '');
+      desc = desc.replace(/(<.*>)/g, "");
 
       return { title, company, place, desc };
     }, link_id);
