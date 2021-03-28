@@ -61,7 +61,7 @@ const Login = (props) => {
     <MainBody>
       <BackgroundDiv>
         <LogoDiv>
-          <HomeLink to="/">Hive</HomeLink>
+          <HomeLink to="/">Pipeline</HomeLink>
         </LogoDiv>
         <ContentDiv>
           <form onSubmit={submit}>

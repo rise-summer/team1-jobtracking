@@ -3,6 +3,66 @@ let cheerio = require("cheerio");
 let puppeteer = require("puppeteer");
 var { htmlToText } = require("html-to-text");
 
+async function simplyhired(link) {
+  try {
+    const args = [
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+      "--disable-infobars",
+      "--window-position=0,0",
+      "--ignore-certifcate-errors",
+      "--ignore-certifcate-errors-spki-list",
+      '--user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3312.0 Safari/537.36"',
+    ];
+
+    const options = {
+      args,
+      headless: true,
+      ignoreHTTPSErrors: true
+    };
+
+    const browser = await puppeteer.launch(options);
+    const page = await browser.newPage();
+    await page.goto(link, { waitUntil: "networkidle0" });
+    const html = await page.evaluate(
+      () => document.querySelector("*").outerHTML
+    );
+    console.log(html);
+    const split = link.split("=");
+    const key = split[split.length - 1];
+    const data = await page.evaluate(() => {
+      const title = document.querySelector("div.viewjob-jobTitle").innerHTML;
+      var company = document.querySelectorAll("div.viewjob-labelWithIcon")[0].cloneNode(true)
+      company.querySelectorAll("span").forEach(e => e.remove())
+      company = company.innerText
+      const place = document.querySelectorAll("div.viewjob-labelWithIcon")[1].innerText;
+      const desc = document.querySelector("div.viewjob-jobDescription")
+        .outerHTML;
+
+      return { title, company, place, desc };
+    });
+    data.desc = htmlToText(data.desc);
+    console.log(data);
+    await browser.close();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function ziprecruiter(link) {
+  const response = await axios.get(link);
+  const $ = await cheerio.load(response.data);
+  const title = $("h1").text();
+  const place = $("span.sub_item").eq(1).text();
+  const description = $("div.job_description").html();
+  const desc = htmlToText(description);
+  const company = "";
+  console.log(desc);
+  const data = { title, company, place, desc };
+  return data;
+}
+
 async function indeed(link) {
   const response = await axios.get(link);
   const $ = await cheerio.load(response.data);
@@ -110,9 +170,9 @@ async function google(link) {
     const page = await browser.newPage();
     const split = link.split("=");
     console.log(split);
-    const link_id = split[split.length-2].split("%")[0] + "==";
+    const link_id = split[split.length - 2].split("%")[0] + "==";
     // const parms = { id: link_id };
-    
+
     await page.goto(link, { waitUntil: "networkidle0" });
     const html = await page.evaluate(
       () => document.querySelector("*").outerHTML
@@ -155,6 +215,12 @@ exports.scrape = async (req, res) => {
       case link.includes("google"):
         data = await google(link);
         break;
+      case link.includes("ziprecruiter"):
+        data = await ziprecruiter(link);
+        break;
+      case link.includes("simplyhired"):
+        data = await simplyhired(link);
+        break;
       default:
         data = {};
     }
@@ -169,23 +235,3 @@ exports.scrape = async (req, res) => {
     return undefined;
   }
 };
-
-// //indeed
-// await scraper(
-//   "https://www.indeed.com/viewjob?cmp=Torch-Technology&t=Software+Engineer&jk=630b5d9e466a40e7&sjdu=QwrRXKrqZ3CNX5W-O9jEvRFd8FQI4DEv5V74lSpSnHYdryHake8eXm15gakPcq7mB_Lpuz1rFZFbWL7WfWmsuw&tk=1etf4gke4t5go802&adid=212222344&ad=-6NYlbfkN0B-hoXP66gOHEcN_9ojcpQNQGm1W4MjyqzRFCb8elUr95IM3vspBHmC6Icma3FhklSt1GvnvDUbuT2sRP2OPAaUaz9jKRaVFATRmQGsSwSBEiGqSPNE-V510Nrwsh8JHZiILNIKH685b1Mgj81Yz4FOszjGtq8vPgTxbkspO76tkrmTD2IvvlOzyICgJh7JN5TUcWw-HvyXgMuKo9pLm5vc79xXyMjrss_bV0BjeGENeyb8muGIb4fGckrAFWnfm-d2k0nCYdMBQSTno1knzslmJGo-yBZUC5exOWO6PtFSpC672n9TdNntOCWyPLgIEy2s4YyptttdeXLzkEt584kj&pub=4a1b367933fd867b19b072952f68dceb&vjs=3"
-// );
-// //glassdoor
-// await scraper(
-//   "https://www.glassdoor.com/job-listing/software-engineer-tyler-technologies-JV_IC1131702_KO0,17_KE18,36.htm?jl=3773797430&pos=102&ao=1044074&s=149&guid=000001775e3fe4899a69aaaff9e0a0ea&src=GD_JOB_AD&t=SRFJ&vt=w&cs=1_7cba3bd2&cb=1612193983313&jobListingId=3773797430&ctt=1612194270605"
-// );
-// monster;
-// await scraper(
-//   "https://job-openings.monster.com/java-software-engineer-westlake-tx-us-fidelity-talentsource/b94a66e5-0926-429c-b300-8d3c344c4275"
-// );
-// //google
-// await scraper(
-//   "https://www.google.com/search?q=google+jobs+software+engineer&oq=google+jobs+so&aqs=chrome.1.69i57j0i20i263j0l5.6749j0j1&sourceid=chrome&ie=UTF-8&ibp=htl;jobs&sa=X&ved=2ahUKEwi3_Y-Ei8nuAhWRMVkFHcI8C2sQutcGKAB6BAgFEAQ&sxsrf=ALeKk01iBO-EmFgoLLU6dArdsfZ0_zQElQ:1612196245417#htivrt=jobs&htidocid=VWAy68E986TmS0BWAAAAAA%3D%3D&fpstate=tldetail"
-// );
-// await scraper(
-//   "https://www.google.com/search?q=google+jobs+software+engineer&oq=google+jobs+so&aqs=chrome.1.69i57j0i20i263j0l5.6749j0j1&sourceid=chrome&ie=UTF-8&ibp=htl;jobs&sa=X&ved=2ahUKEwi3_Y-Ei8nuAhWRMVkFHcI8C2sQutcGKAB6BAgFEAQ&sxsrf=ALeKk01iBO-EmFgoLLU6dArdsfZ0_zQElQ:1612196245417#htivrt=jobs&htidocid=iW_kIY_AjOullS9gAAAAAA%3D%3D&fpstate=tldetail"
-// );

@@ -47,7 +47,7 @@ const Navigation = (props) => {
     <Fragment>
       <NavBarDiv>
         <LeftNavBarDiv>
-          <HomeLink to="/">Hive</HomeLink>
+          <HomeLink to="/">Pipeline</HomeLink>
           <SearchBar></SearchBar>
         </LeftNavBarDiv>
         <RightNavBarDiv>
