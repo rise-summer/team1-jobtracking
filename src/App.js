@@ -9,7 +9,7 @@ import Track2 from "./components/trackr/components/trackrpages/track2";
 import Track3 from "./components/trackr/components/trackrpages/track3";
 import Edit1 from "./components/trackr/components/editpages/edit1";
 import YourPosts from "./components/mainfeed/yourposts"
-// import Edit2 from "./components/trackr/components/editpages/edit2";
+import LandingPage from "./components/landingpage"
 
 class App extends React.Component {
   render() {
@@ -25,6 +25,7 @@ class App extends React.Component {
           <Route path="/trackr/track3" exact component={Track3}></Route>
           <Route path="/trackr/edit1/:id" exact component={Edit1}></Route>
           <Route path='/yourposts' exact component={YourPosts}></Route>
+          <Route path='/landingpage' exact component={LandingPage}></Route>
         </BrowserRouter>
       </div>
     );

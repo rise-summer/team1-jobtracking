@@ -18,7 +18,7 @@ async function simplyhired(link) {
     const options = {
       args,
       headless: true,
-      ignoreHTTPSErrors: true
+      ignoreHTTPSErrors: true,
     };
 
     const browser = await puppeteer.launch(options);
@@ -32,10 +32,13 @@ async function simplyhired(link) {
     const key = split[split.length - 1];
     const data = await page.evaluate(() => {
       const title = document.querySelector("div.viewjob-jobTitle").innerHTML;
-      var company = document.querySelectorAll("div.viewjob-labelWithIcon")[0].cloneNode(true)
-      company.querySelectorAll("span").forEach(e => e.remove())
-      company = company.innerText
-      const place = document.querySelectorAll("div.viewjob-labelWithIcon")[1].innerText;
+      var company = document
+        .querySelectorAll("div.viewjob-labelWithIcon")[0]
+        .cloneNode(true);
+      company.querySelectorAll("span").forEach((e) => e.remove());
+      company = company.innerText;
+      const place = document.querySelectorAll("div.viewjob-labelWithIcon")[1]
+        .innerText;
       const desc = document.querySelector("div.viewjob-jobDescription")
         .outerHTML;
 

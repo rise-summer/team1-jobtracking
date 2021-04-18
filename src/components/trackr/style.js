@@ -24,7 +24,7 @@ export const ContentDiv = styled.div`
   padding: 20px 0px 20px 10vw;
   width: 60vw;
   min-width: 570px;
-  overflow: scroll;
+  overflow: auto;
 `;
 
 export const Headding = styled.div`

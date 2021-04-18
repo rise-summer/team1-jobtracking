@@ -2,7 +2,6 @@ import React, { Fragment, useContext } from "react";
 import Navigation from "../../navigation";
 import {
   Heading,
-  Text,
   BackgroundDiv,
   MainBody,
 } from "../style";
@@ -34,7 +33,7 @@ export default function YourPosts(props) {
           <Heading>
             <BackBtn onClick={() => props.history.push("/trackr")}>
               {" "}
-              <BackSvg src={Back} alt="backarrow error" /> Back to applications
+              <BackSvg src={Back} alt="backarrow error" />
             </BackBtn>
           </Heading>
           {isNewPostBtnClicked ? (
