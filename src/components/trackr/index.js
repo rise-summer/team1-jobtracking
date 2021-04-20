@@ -42,7 +42,7 @@ export default function Trackr(props) {
   const [authentication, setAuthentication] = useContext(AuthenticationContext);
 
   const profile = useSelector((state) => state.profileReducer.profile);
-  console.log("profile", profile);
+  //console.log("profile", profile);
   const name = useProfileInput(profile.name);
   const job = useProfileInput(profile.job);
   const major = useProfileInput(profile.major);
@@ -50,6 +50,15 @@ export default function Trackr(props) {
   const dispatch = useDispatch();
 
   const [applications, setApplications] = useState([]);
+
+  const deleteApplication = (jobId) => {
+    let index = applications.findIndex((application) => {
+      return application.job_id === jobId;
+    });
+    applications.splice(index, 1);
+    setApplications([...applications.reverse()]);
+    console.log(applications);
+  };
 
   function useProfileInput(initialValue) {
     const [value, setValue] = useState(initialValue);
@@ -85,9 +94,24 @@ export default function Trackr(props) {
   function sortApplications(e) {
     switch (e.target.value) {
       case "DEADLINE":
-        return dispatch({ type: "SORT_BY_DEADLINE" });
+        console.log("sort by deadline");
+        applications.sort((a, b) => {
+          let aDate = new Date(a.deadline);
+          let bDate = new Date(b.deadline);
+          console.log(`aDate ${aDate.getTime()} bDate ${bDate.getTime()}`)
+          return aDate.getTime() - bDate.getTime();
+        });
+        setApplications([...applications]);
+        break;
+      //return dispatch({ type: "SORT_BY_DEADLINE" });
       case "STATUS":
-        return dispatch({ type: "SORT_BY_STATUS" });
+        console.log("sort by status");
+        applications.sort((a, b) => {
+          return a.app_status - b.app_status;
+        });
+        setApplications([...applications]);
+        break;
+      //return dispatch({ type: "SORT_BY_STATUS" });
       default:
         return undefined;
     }
@@ -110,7 +134,6 @@ export default function Trackr(props) {
     }
     fetchData();
   }, []);
-
 
   if (!authentication.displayName) {
     return <Redirect to="/login" />;
@@ -144,20 +167,23 @@ export default function Trackr(props) {
             {applications.length === 0 ? (
               <EmptyApplication></EmptyApplication>
             ) : (
-              applications.reverse().map((application) => (
-                <Application
-                  id={application.job_id}
-                  companyName={application.company}
-                  position={application.position}
-                  stage={application.app_status}
-                  link={application.link}
-                  date={application.date_updated}
-                  deadline={application.deadline}
-                  description={application.description}
-                  location={application.location}
-                  notes={application.notes}
-                />
-              ))
+              applications
+                .reverse()
+                .map((application) => (
+                  <Application
+                    deleteApplication={deleteApplication}
+                    id={application.job_id}
+                    companyName={application.company}
+                    position={application.position}
+                    stage={application.app_status}
+                    link={application.link}
+                    date={application.date_updated}
+                    deadline={application.deadline}
+                    description={application.description}
+                    location={application.location}
+                    notes={application.notes}
+                  />
+                ))
             )}
           </ContentDiv>
           <ProfileDiv>
