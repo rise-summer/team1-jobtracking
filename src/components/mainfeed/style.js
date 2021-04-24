@@ -11,6 +11,7 @@ export const BackgroundDiv = styled.div`
   background: #ebebeb;
   font-family: Sans-Serif;
   padding: 20px 20vw 20px 20vw;
+  height: 80vh;
   //min-width: 400px;
 `;
 
