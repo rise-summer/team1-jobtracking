@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+
+import moment from "moment";
+import styled from "styled-components";
+
 import edit from "../../../../images/edit_icon.svg";
 import link from "../../../../images/link.svg";
-import { useHistory } from "react-router-dom";
-import { useState } from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import moment from "moment";
+
+import axios from "axios";
+import { auth } from "../../../../firebaseSetup";
 
 export default function Application(props) {
   const [clicked, setClicked] = useState(false);
@@ -38,6 +41,24 @@ export default function Application(props) {
         return undefined;
     }
   }
+
+  const deleteJob = async (event, jobId, deleteApplication) => {
+    try {
+      deleteApplication(jobId);
+      event.preventDefault();
+
+      const token = await auth.currentUser.getIdToken();
+      const res = await axios.delete(`/api/job/delete/${jobId}`, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
+
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div>
@@ -81,6 +102,13 @@ export default function Application(props) {
                 </RBtn>
               </LinkBtn>
             </ButtonBox>
+            <button
+              onClick={(event) =>
+                deleteJob(event, props.id, props.deleteApplication)
+              }
+            >
+              Delete
+            </button>
           </Right>
         </Top>
         {clicked ? (
