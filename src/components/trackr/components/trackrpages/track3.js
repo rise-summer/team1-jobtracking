@@ -9,39 +9,41 @@ import {
   Subtitle,
   Heading,
   SubmitBtn,
-  Subtitle2,
+  Subtitle2, Outer
 } from "./style";
 
 export default function Track3(props) {
   const application = JSON.parse(props.location.state);
-  console.log(application)
+  console.log(application);
   const position = application.position;
   const history = useHistory();
 
   return (
     <Fragment>
-      <Navigation />
-      <BackgroundDiv>
-        <ContentDiv>
-          <Heading>
-            <Title>Great job applying!</Title>
-            <Subtitle>
-              You have successfully added
-              <span style={{ color: "#2071c7" }}>{"\t" + position}</span>
-              to your tracked applications.
-            </Subtitle>
+      <Outer>
+        <Navigation />
+        <BackgroundDiv>
+          <ContentDiv>
+            <Heading>
+              <Title>Great job applying!</Title>
+              <Subtitle>
+                You have successfully added
+                <span style={{ color: "#2071c7" }}>{"\t" + position}</span>
+                to your tracked applications.
+              </Subtitle>
 
-            <Subtitle>See what other people are saying here:</Subtitle>
-            <Subtitle2>#{position}</Subtitle2>
+              <Subtitle>See what other people are saying here:</Subtitle>
+              <Subtitle2>#{position}</Subtitle2>
 
-            <div>
-              <SubmitBtn onClick={() => history.push("/trackr")}>
-                Complete
-              </SubmitBtn>
-            </div>
-          </Heading>
-        </ContentDiv>
-      </BackgroundDiv>
+              <div>
+                <SubmitBtn onClick={() => history.push("/trackr")}>
+                  Complete
+                </SubmitBtn>
+              </div>
+            </Heading>
+          </ContentDiv>
+        </BackgroundDiv>
+      </Outer>
     </Fragment>
   );
 }

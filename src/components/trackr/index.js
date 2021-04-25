@@ -34,6 +34,7 @@ import EmptyApplication from "./components/applicationfeed/emptyapplication";
 import { auth } from "../../firebaseSetup";
 import axios from "axios";
 
+
 import { Redirect } from "react-router-dom";
 
 import { AuthenticationContext } from "../../AuthenticationContext";
@@ -99,11 +100,10 @@ export default function Trackr(props) {
           let aDate = new Date(a.deadline);
           let bDate = new Date(b.deadline);
           console.log(`aDate ${aDate.getTime()} bDate ${bDate.getTime()}`)
-          return aDate.getTime() - bDate.getTime();
+          return bDate.getTime() - aDate.getTime() ;
         });
         setApplications([...applications]);
         break;
-      //return dispatch({ type: "SORT_BY_DEADLINE" });
       case "STATUS":
         console.log("sort by status");
         applications.sort((a, b) => {

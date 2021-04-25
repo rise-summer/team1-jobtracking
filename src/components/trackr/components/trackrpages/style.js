@@ -1,11 +1,16 @@
 import styled from "styled-components";
 
+export const Outer = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+`;
+
 export const BackgroundDiv = styled.div`
-  font-family: "Open Sans", sans-serif;
-  padding: 10vh;
   background: #ebebeb;
-  height: 80vh;
-  overflow-y: hidden;
+  flex:1;
+  display:flex;
+  flex-direction:column;
 `;
 
 export const ContentDiv = styled.div`
@@ -13,7 +18,7 @@ export const ContentDiv = styled.div`
   border-radius: 15px;
   padding: 10px;
   width: 800px;
-  margin: 50px auto;
+  margin: auto;
 `;
 export const Heading = styled.div`
   justify-content: center;
@@ -50,8 +55,8 @@ export const BackSvg = styled.img`
 `;
 
 export const Title = styled.div`
-  font-weight: 600;
-  font-size: 40px;
+  font-weight: 500;
+  font-size: 30px;
   text-align: center;
   margin: 0px;
 `;
@@ -68,7 +73,7 @@ export const Input = styled.input`
   box-shadow: 2px 4px 4px #9a9a9a;
   border-radius: 15px;
   width: 650px;
-  height: 50px;
+  height: 40px;
   border: none;
   font-size: 20px;
   border: none;
@@ -86,7 +91,7 @@ export const Input2 = styled.input`
   box-shadow: 2px 4px 4px #9a9a9a;
   border-radius: 15px;
   width: 300px;
-  height: 50px;
+  height: 40px;
   border: none;
   font-size: 20px;
   border: none;
@@ -135,7 +140,7 @@ export const Textarea = styled.textarea`
   box-shadow: 2px 4px 4px #9a9a9a;
   border-radius: 15px;
   width: 650px;
-  height: 150px;
+  height: 100px;
   font-size: 12px;
   resize: none;
   min-height: 5em;
@@ -218,7 +223,7 @@ export const SliderDiv = styled.div`
 
 export const Label = styled.div`
   font-weight: bold;
-  font-size: 30px;
+  font-size: 20px;
   color: #5c5c5c;
   /* display: table; */
   margin: 0px auto;

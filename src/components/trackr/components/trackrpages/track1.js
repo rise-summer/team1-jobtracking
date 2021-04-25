@@ -14,9 +14,12 @@ import {
   BackgroundDiv,
   BackBtn,
   BackSvg,
+  Outer,
 } from "./style";
 import axios from "axios";
 import { auth } from "../../../../firebaseSetup";
+
+import styled from "styled-components";
 
 export default function Track1() {
   const [link, setLink] = useState("");
@@ -58,31 +61,40 @@ export default function Track1() {
     setLink(event.target.value);
   }
 
-  
   return (
     <Fragment>
-      <Navigation />
-      <BackgroundDiv>
-        <ContentDiv>
-          <BackBtn>
-            <div onClick={() => {history.push("/trackr")}}>
-              <BackSvg src={backarrow} alt="backarrow error"></BackSvg>
-            </div>
-          </BackBtn>
-          <Heading>
-            <Title>Add a new application </Title>
-            <Subtitle>We’re excited to see where this takes you!</Subtitle>
-            <form onSubmit={handleSubmit}>
-              <Input
-                placeholder="https://link_to_your_application_here.com"
-                onChange={handleChange}
-              />
-              {loading ? <Loader type="ThreeDots" color="#175596"/> :
-              <SubmitBtn type="submit">Submit</SubmitBtn>}
-            </form>
-          </Heading>
-        </ContentDiv>
-      </BackgroundDiv>
+      <Outer>
+        <Navigation />
+        <BackgroundDiv>
+          <ContentDiv>
+            <BackBtn>
+              <div
+                onClick={() => {
+                  history.push("/trackr");
+                }}
+              >
+                <BackSvg src={backarrow} alt="backarrow error"></BackSvg>
+              </div>
+            </BackBtn>
+            <Heading>
+              <Title>Add a new application </Title>
+              <Subtitle>We’re excited to see where this takes you!</Subtitle>
+              <form onSubmit={handleSubmit}>
+                <Input
+                  placeholder="https://link_to_your_application_here.com"
+                  onChange={handleChange}
+                />
+                {loading ? (
+                  <Loader type="ThreeDots" color="#175596" />
+                ) : (
+                  <SubmitBtn type="submit">Submit</SubmitBtn>
+                )}
+              </form>
+            </Heading>
+          </ContentDiv>
+        </BackgroundDiv>
+      </Outer>
     </Fragment>
   );
 }
+

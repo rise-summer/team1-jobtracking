@@ -3,25 +3,24 @@ import styled from "styled-components";
 export const MainBody = styled.div`
   min-width: 500px;
   margin: 0 auto;
-  height: 100%;
-  //overflow: scroll;  //Add this when creating format for different size screens
+  min-height: 100vh;
 `;
 
 export const BackgroundDiv = styled.div`
   background: #ebebeb;
-  font-family: Sans-Serif;
-  padding: 20px 20vw 20px 20vw;
-  height: 80vh;
-  //min-width: 400px;
+  padding: 20px 20vw;
+  min-height: calc(100vh - 118px);
+ 
 `;
 
 export const Heading = styled.div`
   display: flex;
   margin-top: 30px;
+  justify-content: center;
 `;
 
 export const Text = styled.div`
-  font-family: "Open Sans", sans-serif;
+  justify-content: right;
   min-width: 210px;
   padding-right: 30px;
   font-style: normal;
@@ -32,11 +31,10 @@ export const Text = styled.div`
 `;
 
 export const NewPostButton = styled.button`
+  margin-left: 35vw;
   background: #175596;
   border-radius: 10px;
   min-width: 135px;
-  margin-left: auto;
-  font-family: "", "Open Sans", sans-serif;
   font-style: normal;
   font-weight: bold;
   font-size: 15px;

@@ -37,11 +37,11 @@ export const BackSvg = styled.img`
 `;
 
 export const NewPostButton = styled.button`
+  float: right;
   background: #175596;
   border-radius: 10px;
   height: 35px;
   min-width: 130px;
-  margin: auto auto auto auto;
   font-style: normal;
   font-size: 15px;
   color: #ffffff;

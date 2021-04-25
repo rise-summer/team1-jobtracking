@@ -6,6 +6,9 @@ import styled from "styled-components";
 
 import edit from "../../../../images/edit_icon.svg";
 import link from "../../../../images/link.svg";
+import trash from "../../../../images/trash.svg";
+import down from "../../../../images/downarrow.svg";
+import up from "../../../../images/uparrow.svg";
 
 import axios from "axios";
 import { auth } from "../../../../firebaseSetup";
@@ -16,15 +19,7 @@ export default function Application(props) {
 
   const extend = (e) => {
     e.stopPropagation();
-    if (
-      !(
-        e.target.id === "edit" ||
-        e.target.id === "link" ||
-        e.target.id === "textarea"
-      )
-    ) {
-      setClicked((prevClicked) => !prevClicked);
-    }
+    setClicked((prevClicked) => !prevClicked);
   };
 
   function getStatus() {
@@ -62,7 +57,7 @@ export default function Application(props) {
 
   return (
     <div>
-      <Content onClick={(e) => extend(e)}>
+      <Content>
         <Top>
           <Left>
             <CompanyName>{props.companyName}</CompanyName>
@@ -91,24 +86,21 @@ export default function Application(props) {
                   })
                 }
               >
-                edit
                 <Svg src={edit}></Svg>
               </RBtn>
-
-              <LinkBtn href={props.link} target="blank">
+              <a href={props.link} target="blank">
                 <RBtn id="link">
-                  link
                   <Svg src={link}></Svg>
                 </RBtn>
-              </LinkBtn>
+              </a>
+              <RBtn
+                onClick={(event) =>
+                  deleteJob(event, props.id, props.deleteApplication)
+                }
+              >
+                <Svg src={trash}></Svg>
+              </RBtn>
             </ButtonBox>
-            <button
-              onClick={(event) =>
-                deleteJob(event, props.id, props.deleteApplication)
-              }
-            >
-              Delete
-            </button>
           </Right>
         </Top>
         {clicked ? (
@@ -135,9 +127,14 @@ export default function Application(props) {
             >
               {props.notes}
             </Notes>
+            <Arwdiv onClick={(e) => extend(e)}>
+              <img src={up} />
+            </Arwdiv>
           </Extra>
         ) : (
-          <div></div>
+          <Arwdiv onClick={(e) => extend(e)}>
+            <img src={down} />
+          </Arwdiv>
         )}
       </Content>
     </div>
@@ -281,4 +278,12 @@ const Notes = styled.textarea`
 const Svg = styled.img`
   width: 80%;
   height: 80%;
+`;
+
+const Arwdiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 `;

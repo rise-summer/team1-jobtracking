@@ -20,6 +20,7 @@ import {
   Label,
   SubmitBtn,
   Textarea,
+  Outer,
 } from "./style";
 import { auth } from "../../../../firebaseSetup";
 import axios from "axios";
@@ -87,53 +88,55 @@ export default function Track2(props) {
   }
   return (
     <Fragment>
-      <Navigation />
-      <BackgroundDiv>
-        <ContentDiv>
-          <BackBtn>
-            <a href="/trackr/track1">
-              <BackSvg src={backarrow} alt="backarrow error"></BackSvg>
-            </a>
-          </BackBtn>
-          <Heading>
-            <Title>Great!</Title>
-            <Subtitle>Click to edit any of the parameters</Subtitle>
-            <form onSubmit={handleSubmit}>
-              <Input
-                placeholder="https://link_to_your_application_here.com"
-                defaultValue={useSelector((state) => state.link)}
-                {...link}
-              />
-              <Input2 placeholder="Software Engineering Intern" {...role} />
-              <Input2 placeholder="Facebook" {...company} />
-              <Input2
-                placeholder="Deadline: 12/01/20"
-                type="date"
-                {...deadline}
-              />
-              <Input2 placeholder="Menlo Park, California" {...location} />
-              <TextAreaDiv>
-                <Textarea
-                  placeholder="As an intern, you'll become an expert on the Facebook Terminal and gain a deeper understanding of technology and finance. In addition to your projects, you'll participate in coding challenges, attend tech talks and network with other interns."
-                  {...description}
+      <div>
+        <Navigation />
+        <BackgroundDiv>
+          <ContentDiv>
+            <BackBtn>
+              <a href="/trackr/track1">
+                <BackSvg src={backarrow} alt="backarrow error"></BackSvg>
+              </a>
+            </BackBtn>
+            <Heading>
+              <Title>Great!</Title>
+              <Subtitle>Click to edit any of the parameters</Subtitle>
+              <form onSubmit={handleSubmit}>
+                <Input
+                  placeholder="https://link_to_your_application_here.com"
+                  defaultValue={useSelector((state) => state.link)}
+                  {...link}
                 />
-              </TextAreaDiv>
-              <Subtitle>What stage are you in applying?</Subtitle>
-              <SliderDiv>
-                <Label>{stage}</Label>
-                <Slider
-                  type="range"
-                  min="0"
-                  max="3"
-                  value={slider}
-                  onChange={handleSlider}
+                <Input2 placeholder="Software Engineering Intern" {...role} />
+                <Input2 placeholder="Facebook" {...company} />
+                <Input2
+                  placeholder="Deadline: 12/01/20"
+                  type="date"
+                  {...deadline}
                 />
-              </SliderDiv>
-              <SubmitBtn>Complete</SubmitBtn>
-            </form>
-          </Heading>
-        </ContentDiv>
-      </BackgroundDiv>
+                <Input2 placeholder="Menlo Park, California" {...location} />
+                <TextAreaDiv>
+                  <Textarea
+                    placeholder="As an intern, you'll become an expert on the Facebook Terminal and gain a deeper understanding of technology and finance. In addition to your projects, you'll participate in coding challenges, attend tech talks and network with other interns."
+                    {...description}
+                  />
+                </TextAreaDiv>
+                <Subtitle>What stage are you in applying?</Subtitle>
+                <SliderDiv>
+                  <Label>{stage}</Label>
+                  <Slider
+                    type="range"
+                    min="0"
+                    max="3"
+                    value={slider}
+                    onChange={handleSlider}
+                  />
+                </SliderDiv>
+                <SubmitBtn>Complete</SubmitBtn>
+              </form>
+            </Heading>
+          </ContentDiv>
+        </BackgroundDiv>
+      </div>
     </Fragment>
   );
 }

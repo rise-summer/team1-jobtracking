@@ -1,11 +1,7 @@
 import React, { Fragment, useContext } from "react";
 import Navigation from "../../navigation";
-import {
-  Heading,
-  BackgroundDiv,
-  MainBody,
-} from "../style";
-import { Title, BackBtn, BackSvg, NewPostButton } from "./style";
+import { Heading, BackgroundDiv, MainBody, NewPostButton } from "../style";
+import { Title, BackSvg } from "./style";
 import { useState } from "react";
 import AddPost from "../AddPost";
 import Post from "../Post";
@@ -30,12 +26,9 @@ export default function YourPosts(props) {
       <MainBody>
         <Navigation />
         <BackgroundDiv>
-          <Heading>
-            <BackBtn onClick={() => props.history.push("/trackr")}>
-              {" "}
-              <BackSvg src={Back} alt="backarrow error" />
-            </BackBtn>
-          </Heading>
+          <a onClick={() => props.history.push("/trackr")}>
+            <BackSvg src={Back} alt="backarrow error" />
+          </a>
           {isNewPostBtnClicked ? (
             <AddPost
               numPosts={numPosts}
