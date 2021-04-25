@@ -1,6 +1,6 @@
 # Server
 
-Running on port 3000
+Running on port 5000
 
 ## Set up
 
