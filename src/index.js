@@ -1,21 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./styles/styles.scss";
-import App from "./App";
-import * as serviceWorker from "./serviceWorker";
-import { Provider } from "react-redux";
-import { store, persistor } from "./store";
-import { PersistGate } from "redux-persist/integration/react";
-import { AuthenticationProvider } from "./AuthenticationContext";
+import App from "../src/App";
+import * as serviceWorker from "../src/serviceWorker";
+import { AuthenticationProvider } from "../src/AuthenticationContext";
 
 ReactDOM.render(
-  <Provider store={store}>
-    <PersistGate persistor={persistor}>
-      <AuthenticationProvider>
-          <App />
-      </AuthenticationProvider>
-    </PersistGate>
-  </Provider>,
+  <AuthenticationProvider>
+    <App />
+  </AuthenticationProvider>,
   document.getElementById("root")
 );
 

@@ -11,7 +11,7 @@ import down from "../../../../images/downarrow.svg";
 import up from "../../../../images/uparrow.svg";
 
 import axios from "axios";
-import { auth } from "../../../../firebaseSetup";
+import { auth } from "../../../firebaseSetup";
 
 export default function Application(props) {
   const [clicked, setClicked] = useState(false);

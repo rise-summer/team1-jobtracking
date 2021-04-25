@@ -1,10 +1,9 @@
 let User = require('../model/userModel');
 
 exports.list_all_users = (req, res) => {
-  User.getAllUsers(results=>{
+  User.getAllUsers(results => {
     res.json(results);
   });
-  
   return;
 };
 
@@ -20,9 +19,7 @@ exports.create_a_user = async (req, res) => {
       res.status(200).send({ error: false, message: 'User successfully created.'});
       return;
     }
-    else{
-      res.status(409).send({ error: true, message: 'Error while trying to create user.'})
-    }
+    res.status(409).send({ error: true, message: 'Error while trying to create user.'})
 
     // const errCode = err.code;
     // const errMessage = err.message;
