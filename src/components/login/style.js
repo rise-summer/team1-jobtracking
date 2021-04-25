@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const MainBody = styled.div`
   font-size: 24px;
@@ -18,7 +19,6 @@ export const MainBody = styled.div`
     #617aba 100%
   );
 `;
-export const BackgroundDiv = styled.div``;
 
 export const LogoDiv = styled.div`
   margin-left: 30px;
@@ -137,4 +137,16 @@ export const SignUpButton = styled.a`
   }
 `;
 
-export const Form = styled.form``;
+
+export const HomeLink = styled(Link)`
+  font-family: Sans-Serif;
+  color: #175596;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 35px;
+  cursor: pointer;
+  &:hover {
+    color: #175596;
+  }
+`;
+

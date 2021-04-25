@@ -1,16 +1,13 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
 import { auth } from "../../firebaseSetup";
 import { login } from "../apiFunctions";
-import { logout } from "../apiFunctions";
 import {
   MainBody,
   LogoDiv,
   Item,
   Button,
   ContentDiv,
-  BackgroundDiv,
+  HomeLink,
   Email,
   Pwd,
   SignUpButton,
@@ -59,7 +56,7 @@ const Login = (props) => {
 
   return (
     <MainBody>
-      <BackgroundDiv>
+      <div>
         <LogoDiv>
           <HomeLink to="/">Pipeline</HomeLink>
         </LogoDiv>
@@ -86,21 +83,9 @@ const Login = (props) => {
             </SignUpButton>
           </form>
         </ContentDiv>
-      </BackgroundDiv>
+      </div>
     </MainBody>
   );
 };
 
 export default Login;
-
-const HomeLink = styled(Link)`
-  font-family: Sans-Serif;
-  color: #175596;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 35px;
-  cursor: pointer;
-  &:hover {
-    color: #175596;
-  }
-`;
