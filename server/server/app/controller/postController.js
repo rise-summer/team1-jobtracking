@@ -30,7 +30,7 @@ exports.create_new_post = async(req, res) => {
 };
 
 exports.get_posts = async(req, res) => {
-    const offset = req.headers.offset;
+    const offset = parseInt(req.headers.offset);
     Post.getNextGroupOfPosts(offset, (error, posts) => {
         if (error) {
             res.status(409).send({

@@ -1,25 +1,33 @@
-let User = require('../model/userModel');
+let User = require("../model/userModel");
 
 exports.list_all_users = (req, res) => {
-  User.getAllUsers(results => {
+  User.getAllUsers((results) => {
     res.json(results);
   });
+
   return;
 };
 
 exports.create_a_user = async (req, res) => {
   const newUser = new User(req.body);
   if (!newUser.username || !newUser.email) {
-    res.status(400).send({ error: true, message: 'Please provide username/email.' });
+    res
+      .status(400)
+      .send({ error: true, message: "Please provide username/email." });
     return;
   }
 
   User.createUser(newUser, (err, user) => {
     if (err == null) {
-      res.status(200).send({ error: false, message: 'User successfully created.'});
+      res
+        .status(200)
+        .send({ error: false, message: "User successfully created." });
       return;
+    } else {
+      res
+        .status(409)
+        .send({ error: true, message: "Error while trying to create user." });
     }
-    res.status(409).send({ error: true, message: 'Error while trying to create user.'})
 
     // const errCode = err.code;
     // const errMessage = err.message;
