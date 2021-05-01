@@ -48,14 +48,14 @@ const Navigation = (props) => {
       <NavBarDiv>
         <LeftNavBarDiv>
           <HomeLink to="/">Pipeline</HomeLink>
-          <SearchBar></SearchBar>
+          {/* <SearchBar /> */}
         </LeftNavBarDiv>
         <RightNavBarDiv>
           {/* <NavLink>{authentication.displayName}</NavLink> */}
           <NavLink to="/trackr">Tracker</NavLink>
           <React.Fragment>
             <NavLink to="/login" onClick={signout}>
-              Log Out
+              {!authentication.displayName ? "Log In" : "LogOut"}
             </NavLink>
           </React.Fragment>
         </RightNavBarDiv>
