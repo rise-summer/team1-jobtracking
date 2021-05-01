@@ -34,7 +34,6 @@ import EmptyApplication from "./components/applicationfeed/emptyapplication";
 import { auth } from "../../firebaseSetup";
 import axios from "axios";
 
-
 import { Redirect } from "react-router-dom";
 
 import { AuthenticationContext } from "../../AuthenticationContext";
@@ -99,8 +98,8 @@ export default function Trackr(props) {
         applications.sort((a, b) => {
           let aDate = new Date(a.deadline);
           let bDate = new Date(b.deadline);
-          console.log(`aDate ${aDate.getTime()} bDate ${bDate.getTime()}`)
-          return bDate.getTime() - aDate.getTime() ;
+          console.log(`aDate ${aDate.getTime()} bDate ${bDate.getTime()}`);
+          return bDate.getTime() - aDate.getTime();
         });
         setApplications([...applications]);
         break;
@@ -136,7 +135,8 @@ export default function Trackr(props) {
   }, []);
 
   if (!authentication.displayName) {
-    return <Redirect to="/login" />;
+    alert("Pleae sign in");
+    return <Redirect to="/landingpage" />;
   }
 
   return (
@@ -186,7 +186,7 @@ export default function Trackr(props) {
                 ))
             )}
           </ContentDiv>
-          <ProfileDiv>
+          {/* <ProfileDiv>
             <BtnDiv>
               <EditBtn>Edit</EditBtn>
               <ExitBtn>x</ExitBtn>
@@ -223,7 +223,7 @@ export default function Trackr(props) {
                 View Your Posts
               </ViewPostBtn>
             </ViewPostBtnDiv>
-          </ProfileDiv>
+          </ProfileDiv> */}
         </BackgroundDiv>
       </MainBody>
     </Fragment>
