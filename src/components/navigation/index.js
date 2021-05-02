@@ -1,4 +1,5 @@
 import React, { Fragment, useContext } from "react";
+import { useSelector } from "react-redux";
 import {
   NavBarDiv,
   LeftNavBarDiv,
@@ -15,12 +16,9 @@ import { AuthenticationContext } from "../../AuthenticationContext";
 
 import { logout } from "../apiFunctions";
 
-const mapStateToProps = (state) => {
-  return { isLoggedIn: state.isLogged };
-};
-
-const Navigation = (props) => {
+export default function Navigation(props) {
   const [authentication, setAuthentication] = useContext(AuthenticationContext);
+  const log_in = useSelector((state) => state.isLogged.logged_in);
 
   const signout = () => {
     setAuthentication({});
@@ -55,16 +53,14 @@ const Navigation = (props) => {
           <NavLink to="/trackr">Tracker</NavLink>
           <React.Fragment>
             <NavLink to="/login" onClick={signout}>
-              {!authentication.displayName ? "Log In" : "LogOut"}
+              {!log_in ? "Log In" : "Log Out"}
             </NavLink>
           </React.Fragment>
         </RightNavBarDiv>
       </NavBarDiv>
     </Fragment>
   );
-};
-
-export default connect(mapStateToProps)(Navigation);
+}
 
 const HomeLink = styled(Link)`
   font-style: normal;
