@@ -1,11 +1,12 @@
 import moment from "moment";
 import React, { useContext } from "react";
 import styled from "styled-components";
-
+import { useSelector } from "react-redux";
 import { AuthenticationContext } from "../../AuthenticationContext";
 
 const AddComment = ({ id, setComments }) => {
-  const [authentication, setAuthentication] = useContext(AuthenticationContext);
+  const authentication = useSelector((state) => state.isLogged.authentication);
+  console.log(authentication);
 
   const submitComment = (e) => {
     if (e.keyCode == 13) {

@@ -48,7 +48,7 @@ export const Button = styled.a`
 
 export const Btmtxt = styled.div`
   float: left;
-  width: 32.97vw;
+  width: 32.95vw;
   text-align: center;
   font-style: normal;
   font-weight: bold;
