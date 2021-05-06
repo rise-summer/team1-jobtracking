@@ -10,7 +10,6 @@ function User(user) {
 }
 
 User.createUser = (newUser, result) => {
-  console.log("create user");
   let stmt=`INSERT INTO users(username,email)
   VALUES(?,?)`;
   let info=[newUser.username,newUser.email]
