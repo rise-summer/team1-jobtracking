@@ -121,7 +121,7 @@ export default function Trackr(props) {
     async function fetchData() {
       try {
         const token = await auth.currentUser.getIdToken();
-        const res = await axios.get("/api/jobs", {
+        const res = await axios.get("http://localhost:5000/api/jobs", {
           headers: {
             Authorization: "Bearer " + token,
           },

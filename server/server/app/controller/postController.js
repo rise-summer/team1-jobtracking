@@ -38,7 +38,8 @@ exports.get_posts = async(req, res) => {
                 message: error.message
             })
         } else {
-            res.status(200).send({
+            res.status(200);
+            res.send({
                 error: false,
                 message: posts,
                 body: posts

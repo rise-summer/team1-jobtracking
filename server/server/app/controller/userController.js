@@ -8,7 +8,7 @@ exports.list_all_users = (req, res) => {
   return;
 };
 
-exports.create_a_user = async (req, res) => {
+exports.create_a_user = (req, res) => {
   const newUser = new User(req.body);
   if (!newUser.username || !newUser.email) {
     res
@@ -16,7 +16,6 @@ exports.create_a_user = async (req, res) => {
       .send({ error: true, message: "Please provide username/email." });
     return;
   }
-
   User.createUser(newUser, (err, user) => {
     if (err == null) {
       res
