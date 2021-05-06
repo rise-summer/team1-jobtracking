@@ -20,7 +20,7 @@ const MainFeed = () => {
   useEffect(() => { 
     async function fetchPosts() {
       const token = auth.currentUser ? await auth.currentUser.getIdToken() : '';
-      const result = await axios.get(`http://localhost:5000/api/post/fetchPosts`,{
+      const result = await axios.get(`http://13.59.54.177:5000/api/post/fetchPosts`,{
         headers: {
           Authorization: `Bearer ${token}`,
           offset: 0

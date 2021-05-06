@@ -29,7 +29,7 @@ export const signupFirebase = (user) => {
 export const registerDB = (user, token) => {
   return axios
     .post(
-      "http://localhost:5000/api/register",
+      "http://13.59.54.177:5000/api/register",
       {
         username: user["username"],
         email: user["email"],

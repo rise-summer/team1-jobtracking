@@ -16,7 +16,7 @@ const AddPost = ({ numPosts, setNumPosts, setPosts, toggleShowPost }) => {
   const submitPost = async (e) => {
     e.preventDefault();
     currentUser.getIdToken().then(token => {
-      axios.post(`http://localhost:5000/api/post/create`, {
+      axios.post(`http://13.59.54.177:5000/api/post/create`, {
         body: {
           title,
           content: description,
