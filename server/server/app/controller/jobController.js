@@ -32,6 +32,7 @@ exports.get_jobs = async (req, res) => {
       res.status(409).send({ error: true, message: err.message });
       return;
     }
+    console.log(result);
     const userId = result[0].id;
     Job.getAllJobsForUser(userId, (error, jobs) => {
       if (error == null) {
