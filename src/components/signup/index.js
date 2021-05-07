@@ -63,6 +63,8 @@ export default function SignUp(props) {
         .catch((err) => {
           console.log(err);
         });
+        alert("Success!")
+        props.history.push("/login")
     } else {
       // this.setState({ error: 'Passwords do not match.' });
       alert("Passwords do not match.");
