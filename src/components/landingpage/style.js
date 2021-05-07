@@ -2,10 +2,12 @@ import styled from "styled-components";
 
 export const MainBody = styled.div`
   margin: 0;
+  min-height: 100vh;
 `;
 
 export const BackgroundDiv = styled.div`
   background: #f5f5f5;
+  min-height: 90vh;
 `;
 
 export const Text = styled.div`
@@ -62,4 +64,12 @@ export const Btmtxt = styled.div`
 
 export const IFrame = styled.iframe`
   margin: auto;
+`;
+
+export const Textbox = styled.div`
+  max-width: 50vw;
+`;
+
+export const Btmbox = styled.div`
+padding-top: 6vh;
 `;

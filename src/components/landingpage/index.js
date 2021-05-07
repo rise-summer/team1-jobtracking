@@ -8,6 +8,8 @@ import {
   Button,
   Btmtxt,
   IFrame,
+  Textbox,
+  Btmbox,
 } from "./style";
 
 const LandingPage = (props) => {
@@ -17,15 +19,15 @@ const LandingPage = (props) => {
         <Navigation />
         <BackgroundDiv>
           <Flexbox>
-            <div>
+            <Textbox>
               <Text>Streamlining the job search, one student at a time</Text>
               <Flexbox>
                 <Button onClick={() => props.history.push("/signup")}>
                   sign up
                 </Button>
               </Flexbox>
-            </div>
-            <svg
+            </Textbox>
+            {/* <svg
               width="900"
               viewBox="0 0 596 600"
               fill="none"
@@ -38,11 +40,9 @@ const LandingPage = (props) => {
                   stroke-width="25"
                 />
               </g>
-            </svg>
-          </Flexbox>
-          <Flexbox>
+            </svg> */}
             <IFrame
-              width="560"
+              width="600"
               height="315"
               src="https://www.youtube.com/embed/dLJDy8hYwzY"
               title="YouTube video player"
@@ -51,11 +51,12 @@ const LandingPage = (props) => {
               allowfullscreen
             ></IFrame>
           </Flexbox>
-          <div>
+          <Flexbox></Flexbox>
+          <Btmbox>
             <Btmtxt>tracking</Btmtxt>
             <Btmtxt>community</Btmtxt>
             <Btmtxt>insights</Btmtxt>
-          </div>
+          </Btmbox>
         </BackgroundDiv>
       </MainBody>
     </Fragment>

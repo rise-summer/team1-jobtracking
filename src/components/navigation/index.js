@@ -1,5 +1,5 @@
 import React, { Fragment, useContext } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   NavBarDiv,
   LeftNavBarDiv,
@@ -19,10 +19,12 @@ import { logout } from "../apiFunctions";
 export default function Navigation(props) {
   const [authentication, setAuthentication] = useContext(AuthenticationContext);
   const log_in = useSelector((state) => state.isLogged.logged_in);
+  const dispatch = useDispatch();
 
   const signout = () => {
     setAuthentication({});
     logout();
+    dispatch({ type: "SIGN_OUT" });
   };
 
   // let NavBar;
