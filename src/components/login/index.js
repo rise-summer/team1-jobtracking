@@ -13,10 +13,16 @@ import {
   SignUpButton,
 } from "./style";
 
+import { useSelector, useDispatch } from "react-redux";
+
 import { AuthenticationContext } from "../../AuthenticationContext";
 
-const Login = (props) => {
+export default function Login(props) {
+  const log_in = useSelector((state) => state.isLogged);
+  console.log(log_in);
+  const dispatch = useDispatch();
   const [authentication, setAuthentication] = useContext(AuthenticationContext);
+  console.log(authentication)
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -34,6 +40,12 @@ const Login = (props) => {
         console.log("redirect to home feed");
 
         setAuthentication(auth.currentUser);
+        console.log(auth.currentUser.getIdToken());
+        console.log(auth.currentUser)
+        dispatch({
+          type: "SIGN_IN",
+          payload: { token: auth.currentUser.getIdToken(), authentication: auth.currentUser },
+        });
         props.history.push("/trackr");
 
         // redirect to home feed
@@ -86,6 +98,4 @@ const Login = (props) => {
       </div>
     </MainBody>
   );
-};
-
-export default Login;
+}

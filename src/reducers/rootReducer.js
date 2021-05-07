@@ -13,8 +13,8 @@ const persistConfig = {
 
 const appReducer = combineReducers({
   isLogged: loggedReducer,
-  applicationReducer: applicationReducer,
-  profileReducer: profileReducer,
+  // applicationReducer: applicationReducer,
+  // profileReducer: profileReducer,
 });
 
 const rootReducer = (state, action) => {

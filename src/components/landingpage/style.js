@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
-export const MainBody = styled.div``;
+export const MainBody = styled.div`
+  margin: 0;
+`;
 
 export const BackgroundDiv = styled.div`
   background: #f5f5f5;
@@ -46,13 +48,18 @@ export const Button = styled.a`
 
 export const Btmtxt = styled.div`
   float: left;
-  width: 33.3vw;
+  width: 32.95vw;
   text-align: center;
   font-style: normal;
   font-weight: bold;
-  font-size: 64px;
+  font-size: 60px;
   line-height: 87px;
   background: #f5f5f5;
   color: #000000;
   padding-top: 3vh;
+  margin: 0;
+`;
+
+export const IFrame = styled.iframe`
+  margin: auto;
 `;

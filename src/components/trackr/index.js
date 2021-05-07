@@ -1,6 +1,6 @@
 import React, { Fragment, useContext } from "react";
 import Navigation from "../navigation";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector} from "react-redux";
 import {
   MainBody,
   BackgroundDiv,
@@ -11,29 +11,27 @@ import {
   Sort,
   ContentDiv,
   Option,
-  ProfileDiv,
-  Name,
-  EditBtn,
-  ExitBtn,
-  BtnDiv,
-  Info,
-  HashTagDiv,
-  HashTag,
-  SearchDiv,
-  Searches,
-  ViewPostBtnDiv,
-  ViewPostBtn,
   HeadingContent,
-  SearchTitle,
-  InfoPrompt,
-  InfoDiv,
+  // ProfileDiv,
+  // Name,
+  // EditBtn,
+  // ExitBtn,
+  // BtnDiv,
+  // Info,
+  // HashTagDiv,
+  // HashTag,
+  // SearchDiv,
+  // Searches,
+  // ViewPostBtnDiv,
+  // ViewPostBtn,
+  // SearchTitle,
+  // InfoPrompt,
+  // InfoDiv,
 } from "./style";
 import Application from "./components/applicationfeed/Application";
 import { useState, useEffect } from "react";
 import EmptyApplication from "./components/applicationfeed/emptyapplication";
-import { auth } from "../../firebaseSetup";
 import axios from "axios";
-
 
 import { Redirect } from "react-router-dom";
 
@@ -41,14 +39,17 @@ import { AuthenticationContext } from "../../AuthenticationContext";
 
 export default function Trackr(props) {
   const [authentication, setAuthentication] = useContext(AuthenticationContext);
-
-  const profile = useSelector((state) => state.profileReducer.profile);
-  //console.log("profile", profile);
-  const name = useProfileInput(profile.name);
-  const job = useProfileInput(profile.job);
-  const major = useProfileInput(profile.major);
-  const education = useProfileInput(profile.education);
-  const dispatch = useDispatch();
+  const log_in = useSelector((state) => state.isLogged.logged_in);
+  console.log(log_in);
+  const token = useSelector((state) => state.isLogged.token)
+  console.log(token)
+  // const profile = useSelector((state) => state.profileReducer.profile);
+  // //console.log("profile", profile);
+  // const name = useProfileInput(profile.name);
+  // const job = useProfileInput(profile.job);
+  // const major = useProfileInput(profile.major);
+  // const education = useProfileInput(profile.education);
+  // const dispatch = useDispatch();
 
   const [applications, setApplications] = useState([]);
 
@@ -61,36 +62,36 @@ export default function Trackr(props) {
     console.log(applications);
   };
 
-  function useProfileInput(initialValue) {
-    const [value, setValue] = useState(initialValue);
-    function handleChange(e) {
-      setValue(e.target.value);
-    }
-    function handleDoubleClick(e) {
-      e.target.readOnly = false;
-    }
+  // function useProfileInput(initialValue) {
+  //   const [value, setValue] = useState(initialValue);
+  //   function handleChange(e) {
+  //     setValue(e.target.value);
+  //   }
+  //   function handleDoubleClick(e) {
+  //     e.target.readOnly = false;
+  //   }
 
-    function handleBlur(e) {
-      e.target.readOnly = true;
-      console.log(name);
-      dispatch({
-        type: "UPDATE_PROFILE",
-        payload: {
-          name: name.value,
-          job: job.value,
-          major: major.value,
-          education: education.value,
-        },
-      });
-    }
-    return {
-      value,
-      onChange: handleChange,
-      onDoubleClick: handleDoubleClick,
-      onBlur: handleBlur,
-      readOnly: true,
-    };
-  }
+  //   function handleBlur(e) {
+  //     e.target.readOnly = true;
+  //     console.log(name);
+  //     dispatch({
+  //       type: "UPDATE_PROFILE",
+  //       payload: {
+  //         name: name.value,
+  //         job: job.value,
+  //         major: major.value,
+  //         education: education.value,
+  //       },
+  //     });
+  //   }
+  //   return {
+  //     value,
+  //     onChange: handleChange,
+  //     onDoubleClick: handleDoubleClick,
+  //     onBlur: handleBlur,
+  //     readOnly: true,
+  //   };
+  // }
 
   function sortApplications(e) {
     switch (e.target.value) {
@@ -99,8 +100,8 @@ export default function Trackr(props) {
         applications.sort((a, b) => {
           let aDate = new Date(a.deadline);
           let bDate = new Date(b.deadline);
-          console.log(`aDate ${aDate.getTime()} bDate ${bDate.getTime()}`)
-          return bDate.getTime() - aDate.getTime() ;
+          console.log(`aDate ${aDate.getTime()} bDate ${bDate.getTime()}`);
+          return bDate.getTime() - aDate.getTime();
         });
         setApplications([...applications]);
         break;
@@ -120,10 +121,10 @@ export default function Trackr(props) {
   useEffect(() => {
     async function fetchData() {
       try {
-        const token = await auth.currentUser.getIdToken();
+        console.log(token.h);
         const res = await axios.get("http://13.59.54.177:5000/api/jobs", {
           headers: {
-            Authorization: "Bearer " + token,
+            Authorization: "Bearer " + token.h,
           },
         });
         console.log(res.data.data);
@@ -133,10 +134,11 @@ export default function Trackr(props) {
       }
     }
     fetchData();
-  }, []);
+  }, [token]);
 
-  if (!authentication.displayName) {
-    return <Redirect to="/login" />;
+  if (!log_in) {
+    alert("Pleae sign in");
+    return <Redirect to="/landingpage" />;
   }
 
   return (
@@ -186,7 +188,7 @@ export default function Trackr(props) {
                 ))
             )}
           </ContentDiv>
-          <ProfileDiv>
+          {/* <ProfileDiv>
             <BtnDiv>
               <EditBtn>Edit</EditBtn>
               <ExitBtn>x</ExitBtn>
@@ -223,7 +225,7 @@ export default function Trackr(props) {
                 View Your Posts
               </ViewPostBtn>
             </ViewPostBtnDiv>
-          </ProfileDiv>
+          </ProfileDiv> */}
         </BackgroundDiv>
       </MainBody>
     </Fragment>
