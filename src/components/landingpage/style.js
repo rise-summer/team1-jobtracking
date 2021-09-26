@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const MainBody = styled.div`
   margin: 0;
+  padding : 0;
   min-height: 100vh;
 `;
 
@@ -50,7 +51,7 @@ export const Button = styled.a`
 
 export const Btmtxt = styled.div`
   float: left;
-  width: 32.95vw;
+  width: 33.33%;
   text-align: center;
   font-style: normal;
   font-weight: bold;
