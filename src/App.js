@@ -16,7 +16,8 @@ class App extends React.Component {
     return (
       <div>
         <BrowserRouter>
-          <Route path="/" exact component={MainFeed}></Route>
+          <Route path="/" exact component={LandingPage}></Route>
+          <Route path="/mainfeed" exact component={MainFeed}></Route>
           <Route path="/login" exact component={Login}></Route>
           <Route path="/signup" exact component={SignUp}></Route>
           <Route path="/trackr" exact component={Trackr}></Route>
