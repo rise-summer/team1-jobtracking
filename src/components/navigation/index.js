@@ -3,11 +3,12 @@ import { useSelector } from "react-redux";
 import {
   NavBarDiv,
   LeftNavBarDiv,
-  SearchBar,
+  // SearchBar,
   RightNavBarDiv,
 } from "./style.js";
+import { useHistory } from "react-router-dom";
 
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -19,10 +20,20 @@ import { logout } from "../apiFunctions";
 export default function Navigation(props) {
   const [authentication, setAuthentication] = useContext(AuthenticationContext);
   const log_in = useSelector((state) => state.isLogged.logged_in);
+  console.log(JSON.stringify(authentication));
+  console.log(authentication['uid']);
+  let history = useHistory();
 
   const signout = () => {
-    setAuthentication({});
-    logout();
+    if (authentication['uid'] == null) {
+      console.log(props)
+      history.push('/login')
+    }
+    else {
+      setAuthentication({});
+      logout();
+      history.push('/')
+    }
   };
 
   // let NavBar;
@@ -45,15 +56,15 @@ export default function Navigation(props) {
     <Fragment>
       <NavBarDiv>
         <LeftNavBarDiv>
-          <HomeLink to="/">Pipeline</HomeLink>
+          <HomeLink to="/mainfeed">Pipeline</HomeLink>
           {/* <SearchBar /> */}
         </LeftNavBarDiv>
         <RightNavBarDiv>
           {/* <NavLink>{authentication.displayName}</NavLink> */}
           <NavLink to="/trackr">Tracker</NavLink>
           <React.Fragment>
-            <NavLink to="/login" onClick={signout}>
-              {!log_in ? "Log In" : "Log Out"}
+            <NavLink onClick={signout}>
+              {authentication['uid'] == null ? "Log In" : "Log Out"}
             </NavLink>
           </React.Fragment>
         </RightNavBarDiv>
@@ -84,7 +95,8 @@ const HomeLink = styled(Link)`
 const NavLink = styled(Link)`
   font-style: normal;
   font-weight: bold;
-  font-size: 18px;
+  font-weight: 800;
+  font-size: 25px;
   text-decoration: none;
   min-width: 70px;
   margin: 6px 0vw 0px 2vw;

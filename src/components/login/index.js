@@ -18,8 +18,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { AuthenticationContext } from "../../AuthenticationContext";
 
 export default function Login(props) {
-  const log_in = useSelector((state) => state.isLogged);
-  console.log(log_in);
+  // const log_in = useSelector((state) => state.isLogged);
+  // console.log(log_in);
   const dispatch = useDispatch();
   const [authentication, setAuthentication] = useContext(AuthenticationContext);
   console.log(authentication)
@@ -46,7 +46,7 @@ export default function Login(props) {
           type: "SIGN_IN",
           payload: { token: auth.currentUser.getIdToken(), authentication: auth.currentUser },
         });
-        props.history.push("/trackr");
+        props.history.push("/mainfeed");
 
         // redirect to home feed
         //console.log(auth.currentUser);
