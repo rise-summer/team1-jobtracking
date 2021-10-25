@@ -1,23 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { useState } from "react";
+import firebase from "./firebase";
+import "firebase/compat/firestore";
 
 function App() {
+  const [email, setEmail] = useState("");
+  console.log(firebase.firestore());
+
+  var updateInput = (e) => {
+    setEmail(e.target.value);
+  };
+
+  var addEmail = (e) => {
+    e.preventDefault();
+    const db = firebase.firestore();
+    // console.log(db);
+    // db.settings({
+    //   timestampsInSnapshots: true,
+    // });
+    const emailRef = db.collection("emails").add({
+      email: email,
+    });
+    setEmail("");
+    // window.location.reload(false);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        <form onSubmit={addEmail}>
+          <div style={{ margin: "10vh auto", width: "75%" }}>
+            <input
+              placeholder="Your email"
+              onChange={updateInput}
+              value={email}
+            />
+            <button>submit email</button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
