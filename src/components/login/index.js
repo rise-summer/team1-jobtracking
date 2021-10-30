@@ -20,7 +20,7 @@ import { AuthenticationContext } from "../../AuthenticationContext";
 export default function Login(props) {
   // const log_in = useSelector((state) => state.isLogged);
   // console.log(log_in);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const [authentication, setAuthentication] = useContext(AuthenticationContext);
   console.log(authentication)
 
@@ -42,10 +42,10 @@ export default function Login(props) {
         setAuthentication(auth.currentUser);
         console.log(auth.currentUser.getIdToken());
         console.log(auth.currentUser)
-        dispatch({
-          type: "SIGN_IN",
-          payload: { token: auth.currentUser.getIdToken(), authentication: auth.currentUser },
-        });
+        // dispatch({
+        //   type: "SIGN_IN",
+        //   payload: { token: auth.currentUser.getIdToken(), authentication: auth.currentUser },
+        // });
         props.history.push("/mainfeed");
 
         // redirect to home feed

@@ -5,8 +5,8 @@ export const MainBody = styled.div`
   font-size: 24px;
   font-family: Sans-Serif;
   font-style: normal;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   min-width: 500px;
   position: absolute;
   padding: 40px auto 40px auto;

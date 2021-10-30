@@ -1,5 +1,4 @@
 import React, { Fragment, useContext } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import {
   NavBarDiv,
   LeftNavBarDiv,
@@ -8,9 +7,7 @@ import {
 } from "./style.js";
 import { useHistory } from "react-router-dom";
 
-// import { connect } from "react-redux";
-
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { AuthenticationContext } from "../../AuthenticationContext";
@@ -19,7 +16,6 @@ import { logout } from "../apiFunctions";
 
 export default function Navigation(props) {
   const [authentication, setAuthentication] = useContext(AuthenticationContext);
-  const log_in = useSelector((state) => state.isLogged.logged_in);
   console.log(JSON.stringify(authentication));
   console.log(authentication['uid']);
   let history = useHistory();
@@ -73,7 +69,7 @@ export default function Navigation(props) {
   );
 }
 
-const HomeLink = styled(Link)`
+const HomeLink = styled.a`
   font-style: normal;
   font-weight: 800;
   font-size: 25px;
@@ -92,7 +88,7 @@ const HomeLink = styled(Link)`
   }
 `;
 
-const NavLink = styled(Link)`
+const NavLink = styled.a`
   font-style: normal;
   font-weight: bold;
   font-weight: 800;

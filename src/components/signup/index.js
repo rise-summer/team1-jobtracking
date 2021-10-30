@@ -69,6 +69,7 @@ export default function SignUp(props) {
       // this.setState({ error: 'Passwords do not match.' });
       alert("Passwords do not match.");
     }
+    
   };
 
   return (
