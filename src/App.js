@@ -27,16 +27,24 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="outer">
+      <div className="header">Pipeline</div>
+      <div className="headding">A one-stop-shop for the job search</div>
+      <div className="sub-headding">
+        The job search can be draining, but Pipeline makes it faster with our
+        centralized application tracking and company specific insights.
+      </div>
+
       <div>
         <form onSubmit={addEmail}>
-          <div style={{ margin: "10vh auto", width: "75%" }}>
+          <div className="input-div">
             <input
               placeholder="Your email"
               onChange={updateInput}
               value={email}
+              className="input"
             />
-            <button>submit email</button>
+            <button className="submit-btn">Sign Up</button>
           </div>
         </form>
       </div>
