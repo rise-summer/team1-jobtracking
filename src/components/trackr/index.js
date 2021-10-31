@@ -39,10 +39,10 @@ import { AuthenticationContext } from "../../AuthenticationContext";
 
 export default function Trackr(props) {
   const [authentication, setAuthentication] = useContext(AuthenticationContext);
-  const log_in = useSelector((state) => state.isLogged.logged_in);
-  console.log(log_in);
-  const token = useSelector((state) => state.isLogged.token)
-  console.log(token)
+  // const log_in = useSelector((state) => state.isLogged.logged_in);
+  // console.log(log_in);
+  // const token = useSelector((state) => state.isLogged.token)
+  // console.log(token)
   // const profile = useSelector((state) => state.profileReducer.profile);
   // //console.log("profile", profile);
   // const name = useProfileInput(profile.name);
@@ -118,28 +118,28 @@ export default function Trackr(props) {
     }
   }
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        console.log(token.h)
-        const res = await axios.get("/api/jobs", {
-          headers: {
-            Authorization: "Bearer " + token.h,
-          },
-        });
-        console.log(res.data.data);
-        setApplications(res.data.data);
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    fetchData();
-  }, [token]);
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     try {
+  //       console.log(token.h)
+  //       const res = await axios.get("/api/jobs", {
+  //         headers: {
+  //           Authorization: "Bearer " + token.h,
+  //         },
+  //       });
+  //       console.log(res.data.data);
+  //       setApplications(res.data.data);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   }
+  //   fetchData();
+  // }, [token]);
 
-  if (!log_in) {
-    alert("Pleae sign in");
-    return <Redirect to="/landingpage" />;
-  }
+  // if (!log_in) {
+  //   alert("Pleae sign in");
+  //   return <Redirect to="/landingpage" />;
+  // }
 
   return (
     <Fragment>

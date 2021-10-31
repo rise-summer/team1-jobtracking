@@ -21,6 +21,8 @@ import { auth } from "../../../../firebaseSetup";
 
 import styled from "styled-components";
 
+// const scrape = require("../../../../../server/server/apis/web_scraper")
+
 export default function Track1() {
   const [link, setLink] = useState("");
   const [loading, setLoading] = useState(undefined);
@@ -30,26 +32,20 @@ export default function Track1() {
     event.preventDefault();
     setLoading(true);
     try {
-      const token = await auth.currentUser.getIdToken();
-      let res = await axios.post(
-        "/api/scrape",
-        {
-          link: link,
-        },
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        }
-      );
-      const parsed_res = JSON.parse(res.data.data);
-      parsed_res.link = link;
-
-      console.log(res);
-      history.push({
-        pathname: "/trackr/track2",
-        state: JSON.stringify(parsed_res),
-      });
+      fetch("/users", {
+        method: "POST",
+        body: {"link":link},
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((res) => res.text())
+        .then((res) => console.log(res));
+      // let res = await scrape(link);
+      // const parsed_res = JSON.parse(res.data.data);
+      // parsed_res.link = link;
+      // history.push({
+      //   pathname: "/trackr/track2",
+      //   state: link,
+      // });
     } catch (err) {
       console.log("Error response:");
       console.log(err.request);
@@ -97,4 +93,3 @@ export default function Track1() {
     </Fragment>
   );
 }
-

@@ -5,16 +5,16 @@ import {
   // SearchBar,
   RightNavBarDiv,
 } from "./style.js";
-import { useHistory } from "react-router-dom";
+import { useHistory, withRouter } from "react-router-dom";
 
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { AuthenticationContext } from "../../AuthenticationContext";
 
 import { logout } from "../apiFunctions";
 
-export default function Navigation(props) {
+function Navigation(props) {
   const [authentication, setAuthentication] = useContext(AuthenticationContext);
   console.log(JSON.stringify(authentication));
   console.log(authentication['uid']);
@@ -69,7 +69,9 @@ export default function Navigation(props) {
   );
 }
 
-const HomeLink = styled.a`
+export default withRouter(Navigation)
+
+const HomeLink = styled(Link)`
   font-style: normal;
   font-weight: 800;
   font-size: 25px;
@@ -88,7 +90,7 @@ const HomeLink = styled.a`
   }
 `;
 
-const NavLink = styled.a`
+const NavLink = styled(Link)`
   font-style: normal;
   font-weight: bold;
   font-weight: 800;

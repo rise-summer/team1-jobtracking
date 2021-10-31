@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { signupFirebase, registerDB } from "../apiFunctions";
 import { auth } from "../../firebaseSetup";
 import { useState, useEffect } from "react";
+import firebase from "../../firebaseSetup";
+import "firebase/firestore"
 
 import {
   MainBody,
@@ -28,6 +30,7 @@ export default function SignUp(props) {
   const submit = (e) => {
     e.preventDefault();
     console.log("Event: Form Submit");
+    var uid = ""
     if (username === "" || email === "" || password === "" || cnfmpwd === "") {
       // Not sure which one to use for error management
       // this.setState({error:"Missing fields"})
@@ -48,6 +51,8 @@ export default function SignUp(props) {
             registerDB(newUser, token)
               .then((result) => {
                 console.log(result);
+                console.log(newUser);
+                console.log(auth.currentUser.uid);
 
                 // if(!result.error){
                 //   redirect to home feed
@@ -69,7 +74,8 @@ export default function SignUp(props) {
       // this.setState({ error: 'Passwords do not match.' });
       alert("Passwords do not match.");
     }
-    
+    const db = firebase.firestore();
+    const userRef = db.collection("users").add({email: email, uid: auth.currentUser.uid, username:username});
   };
 
   return (

@@ -103,7 +103,7 @@ export default function Track2(props) {
               <form onSubmit={handleSubmit}>
                 <Input
                   placeholder="https://link_to_your_application_here.com"
-                  defaultValue={useSelector((state) => state.link)}
+                  // defaultValue={useSelector((state) => state.link)}
                   {...link}
                 />
                 <Input2 placeholder="Software Engineering Intern" {...role} />
