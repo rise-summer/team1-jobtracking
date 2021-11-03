@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from "react";
+import React, { Fragment, useContext, Router } from "react";
 import {
   NavBarDiv,
   LeftNavBarDiv,
@@ -14,21 +14,19 @@ import { AuthenticationContext } from "../../AuthenticationContext";
 
 import { logout } from "../apiFunctions";
 
-function Navigation(props) {
+ function Navigation() {
   const [authentication, setAuthentication] = useContext(AuthenticationContext);
   console.log(JSON.stringify(authentication));
-  console.log(authentication['uid']);
+  console.log(authentication["uid"]);
   let history = useHistory();
 
   const signout = () => {
-    if (authentication['uid'] == null) {
-      console.log(props)
-      history.push('/login')
-    }
-    else {
+    if (authentication["uid"] == null) {
+      history.push("/login");
+    } else {
       setAuthentication({});
       logout();
-      history.push('/')
+      history.push("/");
     }
   };
 
@@ -50,28 +48,30 @@ function Navigation(props) {
 
   return (
     <Fragment>
-      <NavBarDiv>
-        <LeftNavBarDiv>
-          <HomeLink to="/mainfeed">Pipeline</HomeLink>
-          {/* <SearchBar /> */}
-        </LeftNavBarDiv>
-        <RightNavBarDiv>
-          {/* <NavLink>{authentication.displayName}</NavLink> */}
-          <NavLink to="/trackr">Tracker</NavLink>
-          <React.Fragment>
-            <NavLink onClick={signout}>
-              {authentication['uid'] == null ? "Log In" : "Log Out"}
-            </NavLink>
-          </React.Fragment>
-        </RightNavBarDiv>
-      </NavBarDiv>
+      {/* <Router> */}
+        <NavBarDiv>
+          <LeftNavBarDiv>
+            <HomeLink>Pipeline</HomeLink>
+            {/* <SearchBar /> */}
+          </LeftNavBarDiv>
+          <RightNavBarDiv>
+            {/* <NavLink>{authentication.displayName}</NavLink> */}
+            <NavLink>Tracker</NavLink>
+            <React.Fragment>
+              <NavLink onClick={signout}>
+                {authentication["uid"] == null ? "Log In" : "Log Out"}
+              </NavLink>
+            </React.Fragment>
+          </RightNavBarDiv>
+        </NavBarDiv>
+      {/* </Router> */}
     </Fragment>
   );
 }
 
 export default withRouter(Navigation)
 
-const HomeLink = styled(Link)`
+const HomeLink = styled.button`
   font-style: normal;
   font-weight: 800;
   font-size: 25px;
@@ -90,7 +90,7 @@ const HomeLink = styled(Link)`
   }
 `;
 
-const NavLink = styled(Link)`
+const NavLink = styled.button`
   font-style: normal;
   font-weight: bold;
   font-weight: 800;

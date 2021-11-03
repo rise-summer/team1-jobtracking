@@ -2,13 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import CommentSection from "./CommentSection";
 
-const Post = ({ id, author, title, date, description }) => {
+const Post = ({ id, author, title, time, description }) => {
   return (
     <Feed>
       <Content>
         <Title>{title}</Title>
         <Date>
-          {author} {date}
+          {author} {time.toDate().toDateString()}
         </Date>
         <hr />
         <Description>{description}</Description>

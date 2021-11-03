@@ -1,12 +1,13 @@
 import moment from "moment";
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { AuthenticationContext } from "../../AuthenticationContext";
+import  {auth } from "../../firebaseSetup"
 
 const AddComment = ({ id, setComments }) => {
-  const authentication = useSelector((state) => state.isLogged.authentication);
-  console.log(authentication);
+  // const authentication = useSelector((state) => state.isLogged.authentication);
+  // console.log(authentication);
 
   const submitComment = (e) => {
     if (e.keyCode == 13) {
@@ -17,7 +18,7 @@ const AddComment = ({ id, setComments }) => {
         ...prevComments,
         {
           id,
-          name: authentication.displayName,
+          name: auth.currentUser.displayName,
           message,
           date: moment().format("MM/DD/YY"),
         },
@@ -28,7 +29,7 @@ const AddComment = ({ id, setComments }) => {
   return (
     <Container>
       <Side>
-        <b>{authentication.displayName}</b>
+        <b>{auth.currentUser.displayName}</b>
       </Side>
       <Input
         className="message"

@@ -1,50 +1,29 @@
-import axios from 'axios';
+import axios from "axios";
 import moment from "moment";
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
 
 import { AuthenticationContext } from "../../AuthenticationContext";
-import { auth } from "../../firebaseSetup";
+import { auth, firestore } from "../../firebaseSetup";
+import firebase from "../../firebaseSetup";
+import "firebase/firestore";
 
-const AddPost = ({ numPosts, setNumPosts, setPosts, toggleShowPost }) => {
-  const [authentication, setAuthentication] = useContext(AuthenticationContext);
+const AddPost = ({ numPosts, setNumPosts, toggleShowPost }) => {
+  // const [authentication, setAuthentication] = useContext(AuthenticationContext);
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const currentUser = auth.currentUser;
+  const postRef = firestore.collection(`posts`);
 
   const submitPost = async (e) => {
     e.preventDefault();
-    currentUser.getIdToken().then(token => {
-      axios.post(`http://localhost:5000/api/post/create`, {
-        body: {
-          title,
-          content: description,
-          created_at: new Date(),
-          userEmail: currentUser.email
-        }
-      },{
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }).then(
-        res => {
-          setNumPosts((prevNumPosts) => prevNumPosts + 1);
-          setPosts((prevPosts) => [
-            {
-              id: numPosts + 1,
-              author: authentication.displayName,
-              title,
-              date: moment().format("MM/DD/YY"),
-              content: description,
-              comments: [],
-            },
-            ...prevPosts,
-          ]);
-          setTitle("");
-          setDescription("");
-        }
-      );
+    console.log(firebase.firestore.Timestamp.now())
+    postRef.add({
+      uid: currentUser.uid,
+      title: title,
+      description: description,
+      time: firebase.firestore.Timestamp.now() ,
     });
   };
 
