@@ -3,6 +3,7 @@ import styled from "styled-components";
 import CommentSection from "./CommentSection";
 
 const Post = ({ id, author, title, time, description }) => {
+  console.log(id)
   return (
     <Feed>
       <Content>

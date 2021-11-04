@@ -14,6 +14,7 @@ const MainFeed = () => {
   const [numPosts, setNumPosts] = useState(1);
   const postRef = firestore.collection(`posts`);
   const [posts] = useCollectionData(postRef, {idField: "id"});
+  console.log(posts)
 
   const toggleShowPost = () => {
     if (showPost) {
@@ -47,7 +48,7 @@ const MainFeed = () => {
               </NewPostButton>
             )}
           </Heading>
-          {console.log(posts)}
+          {posts && console.log(posts.map((post) => post))}
           {posts && posts.map((post) => <Post key={post.id} {...post}/>)}
         </BackgroundDiv>
       </MainBody>

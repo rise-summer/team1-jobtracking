@@ -1,16 +1,18 @@
 import React from "react";
 import styled from "styled-components";
+import  {auth} from "../../firebaseSetup"
 
-const Comment = (props) => {
+const Comment = ({id, date, message}) => {
+  console.log(id)
   return (
     <Container>
       <Side>
         <div>
-          <b>{props.name}</b>
+          <b>{auth.currentUser.displayName}</b>
         </div>
-        <div>{props.date}</div>
+        <div>{date.toDate().toDateString()}</div>
       </Side>
-      <Message>{props.message}</Message>
+      <Message>{message}</Message>
     </Container>
   );
 };

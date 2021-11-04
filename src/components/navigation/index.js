@@ -7,14 +7,14 @@ import {
 } from "./style.js";
 import { useHistory, withRouter } from "react-router-dom";
 
-import { Link } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 import styled from "styled-components";
 
 import { AuthenticationContext } from "../../AuthenticationContext";
 
 import { logout } from "../apiFunctions";
 
- function Navigation() {
+export default function Navigation() {
   const [authentication, setAuthentication] = useContext(AuthenticationContext);
   console.log(JSON.stringify(authentication));
   console.log(authentication["uid"]);
@@ -30,49 +30,40 @@ import { logout } from "../apiFunctions";
     }
   };
 
-  // let NavBar;
-  // if (props.isLoggedIn) {
-  //   NavBar = (
-  //     <React.Fragment>
-  //       <NavLink to="/login">log out</NavLink>
-  //     </React.Fragment>
-  //   );
-  // } else {
-  //   NavBar = (
-  //     <React.Fragment>
-  //       <NavLink to="/signup">Sign Up</NavLink>
-  //       <NavLink to="/login">Log In</NavLink>
-  //     </React.Fragment>
-  //   );
-  // }
+  const routeMainfeed = (e) => {
+    history.push(e.target.id);
+  };
 
   return (
     <Fragment>
       {/* <Router> */}
-        <NavBarDiv>
-          <LeftNavBarDiv>
-            <HomeLink>Pipeline</HomeLink>
-            {/* <SearchBar /> */}
-          </LeftNavBarDiv>
-          <RightNavBarDiv>
-            {/* <NavLink>{authentication.displayName}</NavLink> */}
-            <NavLink>Tracker</NavLink>
-            <React.Fragment>
-              <NavLink onClick={signout}>
-                {authentication["uid"] == null ? "Log In" : "Log Out"}
-              </NavLink>
-            </React.Fragment>
-          </RightNavBarDiv>
-        </NavBarDiv>
+      <NavBarDiv>
+        <LeftNavBarDiv>
+          <HomeLink id="/" onClick={routeMainfeed}>
+            Pipeline
+          </HomeLink>
+          {/* <SearchBar /> */}
+        </LeftNavBarDiv>
+        <RightNavBarDiv>
+          {/* <NavLink>{authentication.displayName}</NavLink> */}
+          <NavLink id="/trackr" onClick={routeMainfeed}>
+            Tracker
+          </NavLink>
+          <React.Fragment>
+            <NavLink onClick={signout}>
+              {authentication["uid"] == null ? "Log In" : "Log Out"}
+            </NavLink>
+          </React.Fragment>
+        </RightNavBarDiv>
+      </NavBarDiv>
       {/* </Router> */}
     </Fragment>
   );
 }
 
-export default withRouter(Navigation)
+// export default withRouter(Navigation);
 
-const HomeLink = styled.button`
-  font-style: normal;
+const HomeLink = styled.a`
   font-weight: 800;
   font-size: 25px;
   padding: 0px 20px 0px 0px;
@@ -80,9 +71,9 @@ const HomeLink = styled.button`
   letter-spacing: 0.3px;
   color: #175596;
   text-decoration: none;
-  cursor: pointer;
   &:hover {
     color: #2071c7;
+    cursor: pointer;
   }
   &:active {
     transform: scale(0.97);
@@ -90,8 +81,7 @@ const HomeLink = styled.button`
   }
 `;
 
-const NavLink = styled.button`
-  font-style: normal;
+const NavLink = styled.a`
   font-weight: bold;
   font-weight: 800;
   font-size: 25px;
@@ -99,9 +89,9 @@ const NavLink = styled.button`
   min-width: 70px;
   margin: 6px 0vw 0px 2vw;
   color: #175596;
-  cursor: pointer;
   &:hover {
     color: #2071c7;
+    cursor: pointer;
   }
   &:active {
     transform: scale(0.97);
