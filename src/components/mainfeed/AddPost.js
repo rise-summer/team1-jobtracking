@@ -18,12 +18,13 @@ const AddPost = ({ numPosts, setNumPosts, toggleShowPost }) => {
 
   const submitPost = async (e) => {
     e.preventDefault();
-    console.log(firebase.firestore.Timestamp.now())
+    console.log(firebase.firestore.Timestamp.now());
     postRef.add({
       uid: currentUser.uid,
       title: title,
       description: description,
-      time: firebase.firestore.Timestamp.now() ,
+      time: firebase.firestore.Timestamp.now(),
+      displayName: auth.currentUser.displayName,
     });
   };
 

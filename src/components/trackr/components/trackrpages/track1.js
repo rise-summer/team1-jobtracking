@@ -17,7 +17,6 @@ import {
   Outer,
 } from "./style";
 import axios from "axios";
-import { auth } from "../../../../firebaseSetup";
 
 import styled from "styled-components";
 

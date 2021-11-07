@@ -3,14 +3,14 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 // import { useSelector } from "react-redux";
 import { AuthenticationContext } from "../../AuthenticationContext";
-import  {auth, firestore} from "../../firebaseSetup"
+import { auth, firestore } from "../../firebaseSetup";
 import firebase from "../../firebaseSetup";
 
 const AddComment = ({ id, setComments }) => {
   // const authentication = useSelector((state) => state.isLogged.authentication);
   // console.log(authentication);
-  console.log(id)
-  const commentRef = firestore.collection(`posts/${id}/comments`)  
+  console.log(id);
+  const commentRef = firestore.collection(`posts/${id}/comments`);
 
   const submitComment = (e) => {
     if (e.keyCode == 13) {
@@ -18,8 +18,10 @@ const AddComment = ({ id, setComments }) => {
       const message = e.target.value;
       e.target.value = "";
       commentRef.add({
+        postid: id,
         message: message,
-        date: firebase.firestore.Timestamp.now()
+        date: firebase.firestore.Timestamp.now(),
+        displayName: auth.currentUser.displayName
       });
     }
   };

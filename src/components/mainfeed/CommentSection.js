@@ -34,7 +34,7 @@ const CommentSection = ({ id }) => {
 export default CommentSection;
 
 const Container = styled.div`
-  background-color: lightgray;
+  background: #FFFFFF;
   padding: 5px;
   border-radius: 0px 0px 10px 10px;
 `;

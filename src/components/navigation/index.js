@@ -31,6 +31,8 @@ export default function Navigation() {
   };
 
   const routeMainfeed = (e) => {
+
+
     history.push(e.target.id);
   };
 
@@ -39,7 +41,7 @@ export default function Navigation() {
       {/* <Router> */}
       <NavBarDiv>
         <LeftNavBarDiv>
-          <HomeLink id="/" onClick={routeMainfeed}>
+          <HomeLink id="/mainfeed" onClick={routeMainfeed}>
             Pipeline
           </HomeLink>
           {/* <SearchBar /> */}
