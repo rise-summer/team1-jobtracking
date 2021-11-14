@@ -20,36 +20,22 @@ import axios from "axios";
 
 import styled from "styled-components";
 
-// const scrape = require("../../../../../server/server/apis/web_scraper")
-
 export default function Track1() {
-  const [link, setLink] = useState("");
+  const [link, setLink] = useState(undefined);
   const [loading, setLoading] = useState(undefined);
   const history = useHistory();
 
   async function handleSubmit(event) {
     event.preventDefault();
     setLoading(true);
-    try {
-      fetch("/users", {
-        method: "POST",
-        body: {"link":link},
-        headers: { "Content-Type": "application/json" },
-      })
-        .then((res) => res.text())
-        .then((res) => console.log(res));
-      // let res = await scrape(link);
-      // const parsed_res = JSON.parse(res.data.data);
-      // parsed_res.link = link;
-      // history.push({
-      //   pathname: "/trackr/track2",
-      //   state: link,
-      // });
-    } catch (err) {
-      console.log("Error response:");
-      console.log(err.request);
-      console.log(err.response);
-    }
+    //var s = new scraper(link);
+    //let res = s.getData(link);
+    //console.log(res);
+    // parsed_res.link = link;
+    history.push({
+      pathname: "/trackr/track2",
+      state: link,
+    });
   }
 
   function handleChange(event) {

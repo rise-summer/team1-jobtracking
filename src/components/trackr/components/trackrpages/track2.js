@@ -22,7 +22,7 @@ import {
   Textarea,
   Outer,
 } from "./style";
-import { auth } from "../../../../firebaseSetup";
+import { auth, firestore } from "../../../../firebaseSetup";
 import axios from "axios";
 
 export default function Track2(props) {
@@ -37,37 +37,24 @@ export default function Track2(props) {
   const [slider, setSlider] = useState("0");
   const [stage, setStage] = useState("Interested");
   const history = useHistory();
+  const postRef = firestore.collection(`jobs`);
 
   async function handleSubmit(e) {
     e.preventDefault();
     console.log(stage);
-    try {
-      const token = await auth.currentUser.getIdToken();
-      console.log(token);
-      const res = await axios.post(
-        "/api/job/create",
-        {
-          position: role.value ? role.value : "",
-          company: company.value ? company.value : "",
-          app_status: slider ? slider : "",
-          link: link.value ? link.value : "",
-          deadline: deadline.value ? deadline.value : "2000-01-01",
-          location: location.value ? location.value : "",
-          description: description.value ? description.value : "",
-          notes: "",
-        },
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        }
-      );
-      console.log(res);
-    } catch (err) {
-      console.log("Error response:");
-      console.log(err.request);
-      console.log(err.response);
-    }
+      
+    postRef.add({
+      uid: auth.currentUser.uid,
+      position: role.value ? role.value : "",
+      company: company.value ? company.value : "",
+      app_status: slider ? slider : "",
+      link: link.value ? link.value : "",
+      deadline: deadline.value ? deadline.value : "2000-01-01",
+      location: location.value ? location.value : "",
+      description: description.value ? description.value : "",
+      notes: "",
+    });
+
     history.push({
       pathname: "/trackr/track3",
       state: JSON.stringify({ company: company.value, position: role.value }),
