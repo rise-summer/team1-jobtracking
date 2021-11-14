@@ -36,18 +36,21 @@ import axios from "axios";
 import { Redirect } from "react-router-dom";
 
 import { AuthenticationContext } from "../../AuthenticationContext";
+import { auth, firestore } from "../../firebaseSetup";
+import { useCollectionData } from "react-firebase-hooks/firestore";
 
 export default function Trackr(props) {
   const [authentication, setAuthentication] = useContext(AuthenticationContext);
-
-  const [applications, setApplications] = useState([]);
+  const applicationRef = firestore.collection(`jobs`);
+  const [applications] = useCollectionData(applicationRef);
+  // const [applications, setApplications] = useState([]);
 
   const deleteApplication = (jobId) => {
     let index = applications.findIndex((application) => {
       return application.job_id === jobId;
     });
     applications.splice(index, 1);
-    setApplications([...applications.reverse()]);
+    //setApplications([...applications.reverse()]);
     console.log(applications);
   };
 
@@ -61,14 +64,14 @@ export default function Trackr(props) {
           console.log(`aDate ${aDate.getTime()} bDate ${bDate.getTime()}`);
           return bDate.getTime() - aDate.getTime();
         });
-        setApplications([...applications]);
+       // setApplications([...applications]);
         break;
       case "STATUS":
         console.log("sort by status");
         applications.sort((a, b) => {
           return a.app_status - b.app_status;
         });
-        setApplications([...applications]);
+       // setApplications([...applications]);
         break;
       //return dispatch({ type: "SORT_BY_STATUS" });
       default:
@@ -101,27 +104,11 @@ export default function Trackr(props) {
                 </Sort>
               </HeadingContent>
             </Headding>
-            {applications.length === 0 ? (
+            {applications && applications.length === 0 ? (
               <EmptyApplication></EmptyApplication>
-            ) : (
-              applications
-                .reverse()
-                .map((application) => (
-                  <Application
-                    deleteApplication={deleteApplication}
-                    id={application.job_id}
-                    companyName={application.company}
-                    position={application.position}
-                    stage={application.app_status}
-                    link={application.link}
-                    date={application.date_updated}
-                    deadline={application.deadline}
-                    description={application.description}
-                    location={application.location}
-                    notes={application.notes}
-                  />
-                ))
-            )}
+            ) : ( 
+             applications && applications.map((application) => <Application key={application.id} {...application}/>))
+            }
           </ContentDiv>
         </BackgroundDiv>
       </MainBody>

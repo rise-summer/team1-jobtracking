@@ -37,13 +37,13 @@ export default function Track2(props) {
   const [slider, setSlider] = useState("0");
   const [stage, setStage] = useState("Interested");
   const history = useHistory();
-  const postRef = firestore.collection(`jobs`);
+  const jobsRef = firestore.collection(`jobs`);
 
   async function handleSubmit(e) {
     e.preventDefault();
     console.log(stage);
       
-    postRef.add({
+    jobsRef.add({
       uid: auth.currentUser.uid,
       position: role.value ? role.value : "",
       company: company.value ? company.value : "",
