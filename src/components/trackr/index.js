@@ -37,30 +37,24 @@ import { Redirect } from "react-router-dom";
 
 import { AuthenticationContext } from "../../AuthenticationContext";
 
+import { useCollectionData } from "react-firebase-hooks/firestore";
+import { firestore, auth } from "../../firebaseSetup";
+
 export default function Trackr(props) {
   const [authentication, setAuthentication] = useContext(AuthenticationContext);
-  // const log_in = useSelector((state) => state.isLogged.logged_in);
-  // console.log(log_in);
-  // const token = useSelector((state) => state.isLogged.token)
-  // console.log(token)
-  // const profile = useSelector((state) => state.profileReducer.profile);
-  // //console.log("profile", profile);
-  // const name = useProfileInput(profile.name);
-  // const job = useProfileInput(profile.job);
-  // const major = useProfileInput(profile.major);
-  // const education = useProfileInput(profile.education);
-  // const dispatch = useDispatch();
-
+  const jobsRef = firestore.collection(`jobs`);
+  const [jobs] = useCollectionData(jobsRef, {idField: "id"});
+  console.log(jobs)
   const [applications, setApplications] = useState([]);
 
-  const deleteApplication = (jobId) => {
-    let index = applications.findIndex((application) => {
-      return application.job_id === jobId;
-    });
-    applications.splice(index, 1);
-    setApplications([...applications.reverse()]);
-    console.log(applications);
-  };
+  // const deleteApplication = (jobId) => {
+  //   let index = applications.findIndex((application) => {
+  //     return application.job_id === jobId;
+  //   });
+  //   applications.splice(index, 1);
+  //   setApplications([...applications.reverse()]);
+  //   console.log(applications);
+  // };
 
   // function useProfileInput(initialValue) {
   //   const [value, setValue] = useState(initialValue);
@@ -93,30 +87,30 @@ export default function Trackr(props) {
   //   };
   // }
 
-  function sortApplications(e) {
-    switch (e.target.value) {
-      case "DEADLINE":
-        console.log("sort by deadline");
-        applications.sort((a, b) => {
-          let aDate = new Date(a.deadline);
-          let bDate = new Date(b.deadline);
-          console.log(`aDate ${aDate.getTime()} bDate ${bDate.getTime()}`);
-          return bDate.getTime() - aDate.getTime();
-        });
-        setApplications([...applications]);
-        break;
-      case "STATUS":
-        console.log("sort by status");
-        applications.sort((a, b) => {
-          return a.app_status - b.app_status;
-        });
-        setApplications([...applications]);
-        break;
-      //return dispatch({ type: "SORT_BY_STATUS" });
-      default:
-        return undefined;
-    }
-  }
+  // function sortApplications(e) {
+  //   switch (e.target.value) {
+  //     case "DEADLINE":
+  //       console.log("sort by deadline");
+  //       applications.sort((a, b) => {
+  //         let aDate = new Date(a.deadline);
+  //         let bDate = new Date(b.deadline);
+  //         console.log(`aDate ${aDate.getTime()} bDate ${bDate.getTime()}`);
+  //         return bDate.getTime() - aDate.getTime();
+  //       });
+  //       setApplications([...applications]);
+  //       break;
+  //     case "STATUS":
+  //       console.log("sort by status");
+  //       applications.sort((a, b) => {
+  //         return a.app_status - b.app_status;
+  //       });
+  //       setApplications([...applications]);
+  //       break;
+  //     //return dispatch({ type: "SORT_BY_STATUS" });
+  //     default:
+  //       return undefined;
+  //   }
+  // }
 
   // useEffect(() => {
   //   async function fetchData() {
@@ -157,7 +151,7 @@ export default function Trackr(props) {
                     New App
                   </NewAppBtn>
                 </NewAppBtnDiv>
-                <Sort className="dropdown" onChange={sortApplications}>
+                <Sort className="dropdown" onChange={undefined}>
                   <Option value="" selected disabled hidden>
                     Sort by
                   </Option>
@@ -166,26 +160,10 @@ export default function Trackr(props) {
                 </Sort>
               </HeadingContent>
             </Headding>
-            {applications.length === 0 ? (
+            {jobs && jobs.length === 0 ? (
               <EmptyApplication></EmptyApplication>
             ) : (
-              applications
-                .reverse()
-                .map((application) => (
-                  <Application
-                    deleteApplication={deleteApplication}
-                    id={application.job_id}
-                    companyName={application.company}
-                    position={application.position}
-                    stage={application.app_status}
-                    link={application.link}
-                    date={application.date_updated}
-                    deadline={application.deadline}
-                    description={application.description}
-                    location={application.location}
-                    notes={application.notes}
-                  />
-                ))
+              jobs && jobs.map((job) => <Application key={job.id} {...job}/>)
             )}
           </ContentDiv>
           {/* <ProfileDiv>

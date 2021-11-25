@@ -16,13 +16,13 @@ const MainFeed = () => {
   const [posts] = useCollectionData(postRef, {idField: "id"});
   console.log(posts)
 
-  const toggleShowPost = () => {
-    if (showPost) {
-      setShowPost(false);
-    } else {
-      setShowPost(true);
-    }
-  };
+  // const toggleShowPost = () => {
+  //   if (showPost) {
+  //     setShowPost(false);
+  //   } else {
+  //     setShowPost(true);
+  //   }
+  // };
 
   return (
     <Fragment>
@@ -33,7 +33,7 @@ const MainFeed = () => {
             <AddPost
               numPosts={numPosts}
               setNumPosts={setNumPosts}
-              toggleShowPost={toggleShowPost}
+              toggleShowPost={setShowPost}
             />
           ) : (
             ""
@@ -43,7 +43,7 @@ const MainFeed = () => {
             {showPost ? (
               ""
             ) : (
-              <NewPostButton onClick={toggleShowPost}>
+              <NewPostButton onClick={() => setShowPost(!showPost)}>
                 Create New Post
               </NewPostButton>
             )}

@@ -8,7 +8,7 @@ import { auth, firestore } from "../../firebaseSetup";
 import firebase from "../../firebaseSetup";
 import "firebase/firestore";
 
-const AddPost = ({ numPosts, setNumPosts, toggleShowPost }) => {
+const AddPost = ({ toggleShowPost }) => {
   // const [authentication, setAuthentication] = useContext(AuthenticationContext);
 
   const [title, setTitle] = useState("");
@@ -26,6 +26,7 @@ const AddPost = ({ numPosts, setNumPosts, toggleShowPost }) => {
       time: firebase.firestore.Timestamp.now(),
       displayName: auth.currentUser.displayName,
     });
+    toggleShowPost(false)
   };
 
   return (
