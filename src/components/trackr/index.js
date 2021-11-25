@@ -39,9 +39,6 @@ import { AuthenticationContext } from "../../AuthenticationContext";
 import { auth, firestore } from "../../firebaseSetup";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
-import { useCollectionData } from "react-firebase-hooks/firestore";
-import { firestore, auth } from "../../firebaseSetup";
-
 export default function Trackr(props) {
   const [authentication, setAuthentication] = useContext(AuthenticationContext);
   const applicationRef = firestore.collection(`jobs`);
