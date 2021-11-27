@@ -24,7 +24,7 @@ class App extends React.Component {
           <Route path="/trackr/track1" exact component={Track1}></Route>
           <Route path="/trackr/track2" exact component={Track2}></Route>
           <Route path="/trackr/track3" exact component={Track3}></Route>
-          <Route path="/trackr/edit1/:id" exact component={Edit1}></Route>
+          <Route path="/trackr/edit1" exact component={Edit1}></Route>
           <Route path='/yourposts' exact component={YourPosts}></Route>
           <Route path='/landingpage' exact component={LandingPage}></Route>
         </BrowserRouter>

@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import Navigation from "../../../navigation";
 import backarrow from "../../../../images/backarrow.svg";
-import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import {
@@ -20,24 +19,23 @@ import {
   Label,
   SubmitBtn,
   Textarea,
-  Outer,
 } from "./style";
-import { auth, firestore } from "../../../../firebaseSetup";
-import axios from "axios";
+import firebase, { auth, firestore } from "../../../../firebaseSetup";
 
 export default function Track2(props) {
-  const application = JSON.parse(props.location.state);
-  console.log(application);
-  const link = useFormInput(application.link);
-  const role = useFormInput(application.title);
-  const company = useFormInput(application.company);
+  console.log(props)
+  const state = props.location.state;
+  console.log(state);
+  const link = useFormInput(state);
+  const role = useFormInput("");
+  const company = useFormInput("");
   const deadline = useFormInput("");
-  const location = useFormInput(application.place);
-  const description = useFormInput(application.desc);
-  const [slider, setSlider] = useState("0");
+  const location = useFormInput("");
+  const description = useFormInput("");
+  const [slider, setSlider] = useState(0);
   const [stage, setStage] = useState("Interested");
   const history = useHistory();
-  const jobsRef = firestore.collection(`jobs`);
+  const jobsRef = firestore.collection(`jobs/${auth.currentUser.uid}/jobs`);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -47,12 +45,13 @@ export default function Track2(props) {
       uid: auth.currentUser.uid,
       position: role.value ? role.value : "",
       company: company.value ? company.value : "",
-      app_status: slider ? slider : "",
+      app_status: slider ? slider : 0,
       link: link.value ? link.value : "",
-      deadline: deadline.value ? deadline.value : "2000-01-01",
+      deadline: deadline.value ? firebase.firestore.Timestamp.fromDate(new Date(deadline.value)) : firebase.firestore.Timestamp.fromDate(0),
       location: location.value ? location.value : "",
       description: description.value ? description.value : "",
       notes: "",
+      date_updated: firebase.firestore.Timestamp.now()
     });
 
     history.push({

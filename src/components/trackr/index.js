@@ -1,6 +1,5 @@
 import React, { Fragment, useContext } from "react";
 import Navigation from "../navigation";
-import { useSelector} from "react-redux";
 import {
   MainBody,
   BackgroundDiv,
@@ -29,30 +28,17 @@ import {
   // InfoDiv,
 } from "./style";
 import Application from "./components/applicationfeed/Application";
-import { useState, useEffect } from "react";
 import EmptyApplication from "./components/applicationfeed/emptyapplication";
-import axios from "axios";
-
-import { Redirect } from "react-router-dom";
-
 import { AuthenticationContext } from "../../AuthenticationContext";
 import { auth, firestore } from "../../firebaseSetup";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
 export default function Trackr(props) {
   const [authentication, setAuthentication] = useContext(AuthenticationContext);
-  const applicationRef = firestore.collection(`jobs`);
-  const [applications] = useCollectionData(applicationRef);
+  const applicationRef = firestore.collection(`jobs/${auth.currentUser.uid}/jobs`);
+  const [applications] = useCollectionData(applicationRef, {idField: "id"});
   // const [applications, setApplications] = useState([]);
 
-  const deleteApplication = (jobId) => {
-    let index = applications.findIndex((application) => {
-      return application.job_id === jobId;
-    });
-    applications.splice(index, 1);
-    //setApplications([...applications.reverse()]);
-    console.log(applications);
-  };
 
   function sortApplications(e) {
     switch (e.target.value) {

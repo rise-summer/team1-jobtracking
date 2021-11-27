@@ -1,19 +1,36 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-
-import moment from "moment";
 import styled from "styled-components";
-
 import edit from "../../../../images/edit_icon.svg";
 import link from "../../../../images/link.svg";
 import trash from "../../../../images/trash.svg";
 import down from "../../../../images/downarrow.svg";
 import up from "../../../../images/uparrow.svg";
-
 import axios from "axios";
 import { auth } from "../../../../firebaseSetup";
 
-export default function Application(props) {
+
+
+export default function Application({
+  app_status,
+  company,
+  position,
+  id,
+  deadline,
+  location,
+  description,
+  notes,
+  date_updated
+}) {
+  // console.log(props)
+  console.log(app_status,
+    company,
+    position,
+    id,
+    deadline,
+    location,
+    description,
+    notes, date_updated)
   const [clicked, setClicked] = useState(false);
   const history = useHistory();
 
@@ -23,7 +40,7 @@ export default function Application(props) {
   };
 
   function getStatus() {
-    switch (props.stage) {
+    switch (app_status) {
       case "0":
         return "Interested";
       case "1":
@@ -37,7 +54,7 @@ export default function Application(props) {
     }
   }
 
-  const deleteJob = async (event, jobId, deleteApplication) => {
+  const deleteApplication = async (event, jobId, deleteApplication) => {
     try {
       deleteApplication(jobId);
       event.preventDefault();
@@ -60,8 +77,8 @@ export default function Application(props) {
       <Content>
         <Top>
           <Left>
-            <CompanyName>{props.companyName}</CompanyName>
-            <PositionName>{props.position}</PositionName>
+            <CompanyName>{company}</CompanyName>
+            <PositionName>{position}</PositionName>
           </Left>
           <Center>
             <BorderBox>
@@ -70,7 +87,7 @@ export default function Application(props) {
                 type="range"
                 min="0"
                 max="3"
-                value={props.stage}
+                value={app_status}
                 disabled
               />
             </BorderBox>
@@ -81,23 +98,19 @@ export default function Application(props) {
                 id="edit"
                 onClick={() =>
                   history.push({
-                    pathname: `/trackr/edit1/${props.id}`,
-                    state: JSON.stringify(props),
+                    pathname: `/trackr/edit1`,
+                    state: id,
                   })
                 }
               >
                 <Svg src={edit}></Svg>
               </RBtn>
-              <a href={props.link} target="blank">
+              <a href={link} target="blank">
                 <RBtn id="link">
                   <Svg src={link}></Svg>
                 </RBtn>
               </a>
-              <RBtn
-                onClick={(event) =>
-                  deleteJob(event, props.id, props.deleteApplication)
-                }
-              >
+              <RBtn onClick={deleteApplication}>
                 <Svg src={trash}></Svg>
               </RBtn>
             </ButtonBox>
@@ -108,24 +121,23 @@ export default function Application(props) {
             <Topline>
               <TopText>
                 <span style={{ fontWeight: "bold" }}>Date Updated:</span>{" "}
-                {moment(props.date).format("MM/DD/YY")}
+                {date_updated.toDate().toLocaleString()}
               </TopText>
               <TopText>
                 <span style={{ fontWeight: "bold" }}>Deadline:</span>{" "}
-                {moment(props.deadline).format("MM/DD/YY")}
+                {deadline.toDate().toLocaleString()}
               </TopText>
               <TopText>
-                <span style={{ fontWeight: "bold" }}>Location:</span>{" "}
-                {props.location}
+                <span style={{ fontWeight: "bold" }}>Location:</span> {location}
               </TopText>
             </Topline>
-            <Description>{props.description}</Description>
+            <Description>{description}</Description>
             <Notes
               id="textarea"
               placeholder="Notes: 
               Personal application log notes go here. The user can talk about things privately without sharing here. "
             >
-              {props.notes}
+              {notes}
             </Notes>
             <Arwdiv onClick={(e) => extend(e)}>
               <img src={up} />
