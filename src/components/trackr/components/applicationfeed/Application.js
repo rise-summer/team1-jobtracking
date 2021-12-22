@@ -7,7 +7,7 @@ import trash from "../../../../images/trash.svg";
 import down from "../../../../images/downarrow.svg";
 import up from "../../../../images/uparrow.svg";
 import axios from "axios";
-import { auth } from "../../../../firebaseSetup";
+import { firestore, auth } from "../../../../firebaseSetup";
 
 
 
@@ -54,19 +54,11 @@ export default function Application({
     }
   }
 
-  const deleteApplication = async (event, jobId, deleteApplication) => {
+  const deleteApplication = async (event, id) => {
     try {
-      deleteApplication(jobId);
+      const delete_res = firestore.collection(`jobs/${auth.currentUser.uid}/jobs`).doc(id).delete();
       event.preventDefault();
-
-      const token = await auth.currentUser.getIdToken();
-      const res = await axios.delete(`/api/job/delete/${jobId}`, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      });
-
-      console.log(res);
+      console.log(delete_res);
     } catch (err) {
       console.log(err);
     }
@@ -110,7 +102,7 @@ export default function Application({
                   <Svg src={link}></Svg>
                 </RBtn>
               </a>
-              <RBtn onClick={deleteApplication}>
+              <RBtn onClick={(event) => deleteApplication(event, id)}>
                 <Svg src={trash}></Svg>
               </RBtn>
             </ButtonBox>
