@@ -1,7 +1,7 @@
-import React, { Fragment } from "react";
+// import React, { Fragment } from "react";
 import Navigation from "../../../navigation";
 import backarrow from "../../../../images/backarrow.svg";
-import { useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import Loader from "react-loader-spinner";
 import {
@@ -17,29 +17,35 @@ import {
   Outer,
 } from "./style";
 import axios from "axios";
-
+import { getFunctions, httpsCallable } from "firebase/functions";
+import firebase from "../../../../firebaseSetup";
 import styled from "styled-components";
 
 export default function Track1() {
   const [link, setLink] = useState(undefined);
+  const [res, setRes] = useState({});
   const [loading, setLoading] = useState(undefined);
   const history = useHistory();
+  var sanitizedMessage = "";
+  const scrape = firebase.functions().httpsCallable("scrape");
 
   async function handleSubmit(event) {
+    var data = {}
     event.preventDefault();
     setLoading(true);
-    //var s = new scraper(link);
-    //let res = s.getData(link);
-    //console.log(res);
-    // parsed_res.link = link;
-    history.push({
-      pathname: "/trackr/track2",
-      state: link,
+    await scrape({
+      link: link,
+    }).then((result) => {
+      console.log(result.data.data);
+      data = {...result.data.data}
+      data.link = link;
+      console.log(data)
+      setLoading(false);
+      history.push({
+        pathname: "/trackr/track2",
+        state: data,
+      });
     });
-  }
-
-  function handleChange(event) {
-    setLink(event.target.value);
   }
 
   return (
@@ -63,7 +69,7 @@ export default function Track1() {
               <form onSubmit={handleSubmit}>
                 <Input
                   placeholder="https://link_to_your_application_here.com"
-                  onChange={handleChange}
+                  onChange={e => setLink(e.target.value)}
                 />
                 {loading ? (
                   <Loader type="ThreeDots" color="#175596" />
