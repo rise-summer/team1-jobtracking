@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from "react";
+import React, { Fragment, useContext, useState } from "react";
 import Navigation from "../navigation";
 import {
   MainBody,
@@ -36,12 +36,12 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 export default function Trackr(props) {
   const [authentication, setAuthentication] = useContext(AuthenticationContext);
   const applicationRef = firestore.collection(`jobs/${auth.currentUser.uid}/jobs`);
-  const [applications] = useCollectionData(applicationRef, {idField: "id"});
-  // const [applications, setApplications] = useState([]);
+  const [applicationsInitialValue] = useCollectionData(applicationRef, {idField: "id"});
+  const [applications, setApplications] = useState(applicationsInitialValue);
 
 
-  function sortApplications(e) {
-    switch (e.target.value) {
+  function sortApplications(sortButton) {
+    switch (sortButton.target.value) {
       case "DEADLINE":
         console.log("sort by deadline");
         applications.sort((a, b) => {
@@ -50,14 +50,14 @@ export default function Trackr(props) {
           console.log(`aDate ${aDate.getTime()} bDate ${bDate.getTime()}`);
           return bDate.getTime() - aDate.getTime();
         });
-       // setApplications([...applications]);
+        setApplications(applications);
         break;
       case "STATUS":
         console.log("sort by status");
         applications.sort((a, b) => {
           return a.app_status - b.app_status;
         });
-       // setApplications([...applications]);
+        setApplications(applications);
         break;
       //return dispatch({ type: "SORT_BY_STATUS" });
       default:
@@ -81,7 +81,7 @@ export default function Trackr(props) {
                     New App
                   </NewAppBtn>
                 </NewAppBtnDiv>
-                <Sort className="dropdown" onChange={undefined}>
+                <Sort className="dropdown" onChange={e => sortApplications(e)}>
                   <Option value="" selected disabled hidden>
                     Sort by
                   </Option>
