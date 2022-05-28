@@ -41,5 +41,16 @@ CREATE TABLE IF NOT EXISTS `post` (
   CONSTRAINT fk_post_user_id FOREIGN KEY (`user_id`) REFERENCES users(`id`)
 );
 
+CREATE TABLE IF NOT EXISTS `coment`(
+  `post_id` int(11) NOT NULL,
+  `comment_id` int(11) NOT NULL,
+  `content` longtest NOT NULL,
+  `user_id` int(11),
+  PRIMARY KEY (`comment_id`),
+  CONSTRAINT fk_comment_
+)
+
+
+
 SELECT u.username, j.position FROM users u Left Join job j on u.id = j.user_id;
 
