@@ -35,9 +35,9 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 
 export default function Trackr(props) {
   const [authentication, setAuthentication] = useContext(AuthenticationContext);
-  const applicationRef = firestore.collection(
-    `jobs/${auth.currentUser.uid}/jobs`
-  );
+  const applicationRef = firestore
+    .collection(`jobs/${auth.currentUser.uid}/jobs`)
+    .orderBy("date_updated", "desc");
   const [applicationsInitialValue] = useCollectionData(applicationRef, {
     idField: "id",
   });
