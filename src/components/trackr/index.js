@@ -52,8 +52,8 @@ export default function Trackr(props) {
       case "DEADLINE":
         console.log("sort by deadline from furthest to closest");
         updatedApplications.sort((a, b) => {
-          let aDate = a.deadline.seconds;
-          let bDate = b.deadline.seconds;
+          let aDate = a.deadline.toDate();
+          let bDate = b.deadline.toDate();
           return bDate - aDate;
         });
         setApplications(updatedApplications);
