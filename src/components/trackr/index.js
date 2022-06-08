@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useState } from "react";
+import React, { Fragment, useContext, useState, useEffect } from "react";
 import Navigation from "../navigation";
 import {
   MainBody,
@@ -35,29 +35,35 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 
 export default function Trackr(props) {
   const [authentication, setAuthentication] = useContext(AuthenticationContext);
-  const applicationRef = firestore.collection(`jobs/${auth.currentUser.uid}/jobs`);
-  const [applicationsInitialValue] = useCollectionData(applicationRef, {idField: "id"});
-  const [applications, setApplications] = useState(applicationsInitialValue);
-
+  const applicationRef = firestore.collection(
+    `jobs/${auth.currentUser.uid}/jobs`
+  );
+  const [applicationsInitialValue] = useCollectionData(applicationRef, {
+    idField: "id",
+  });
+  const [applications, setApplications] = useState();
+  useEffect(() => {
+    setApplications(applicationsInitialValue);
+  }, [applicationsInitialValue]);
 
   function sortApplications(sortButton) {
+    let updatedApplications = [...applications];
     switch (sortButton.target.value) {
       case "DEADLINE":
-        console.log("sort by deadline");
-        applications.sort((a, b) => {
-          let aDate = new Date(a.deadline);
-          let bDate = new Date(b.deadline);
-          console.log(`aDate ${aDate.getTime()} bDate ${bDate.getTime()}`);
-          return bDate.getTime() - aDate.getTime();
+        console.log("sort by deadline from furthest to closest");
+        updatedApplications.sort((a, b) => {
+          let aDate = a.deadline.seconds;
+          let bDate = b.deadline.seconds;
+          return bDate - aDate;
         });
-        setApplications(applications);
+        setApplications(updatedApplications);
         break;
       case "STATUS":
-        console.log("sort by status");
-        applications.sort((a, b) => {
+        console.log("sort by status (interested => offer)");
+        updatedApplications.sort((a, b) => {
           return a.app_status - b.app_status;
         });
-        setApplications(applications);
+        setApplications(updatedApplications);
         break;
       //return dispatch({ type: "SORT_BY_STATUS" });
       default:
@@ -81,7 +87,10 @@ export default function Trackr(props) {
                     New App
                   </NewAppBtn>
                 </NewAppBtnDiv>
-                <Sort className="dropdown" onChange={e => sortApplications(e)}>
+                <Sort
+                  className="dropdown"
+                  onChange={(e) => sortApplications(e)}
+                >
                   <Option value="" selected disabled hidden>
                     Sort by
                   </Option>
@@ -92,9 +101,12 @@ export default function Trackr(props) {
             </Headding>
             {applications && applications.length === 0 ? (
               <EmptyApplication></EmptyApplication>
-            ) : ( 
-             applications && applications.map((application) => <Application key={application.id} {...application}/>))
-            }
+            ) : (
+              applications &&
+              applications.map((application) => (
+                <Application key={application.id} {...application} />
+              ))
+            )}
           </ContentDiv>
         </BackgroundDiv>
       </MainBody>
