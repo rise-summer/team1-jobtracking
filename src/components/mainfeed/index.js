@@ -1,7 +1,7 @@
 import React, { Fragment, useContext } from "react";
 import Navigation from "../navigation";
 import { Heading, Text, NewPostButton, BackgroundDiv, MainBody } from "./style";
-import { useState} from "react";
+import { useState } from "react";
 import AddPost from "./AddPost";
 import Post from "./Post";
 import firebase from "../../firebaseSetup";
@@ -12,9 +12,9 @@ import { firestore, auth } from "../../firebaseSetup";
 const MainFeed = () => {
   const [showPost, setShowPost] = useState(false);
   const [numPosts, setNumPosts] = useState(1);
-  const postRef = firestore.collection(`posts`);
-  const [posts] = useCollectionData(postRef, {idField: "id"});
-  console.log(posts)
+  const postRef = firestore.collection(`posts`).orderBy("time", "desc");
+  const [posts] = useCollectionData(postRef, { idField: "id" });
+  console.log(posts);
 
   // const toggleShowPost = () => {
   //   if (showPost) {
@@ -49,7 +49,7 @@ const MainFeed = () => {
             )}
           </Heading>
           {posts && console.log(posts.map((post) => post))}
-          {posts && posts.map((post) => <Post key={post.id} {...post}/>)}
+          {posts && posts.map((post) => <Post key={post.id} {...post} />)}
         </BackgroundDiv>
       </MainBody>
     </Fragment>
