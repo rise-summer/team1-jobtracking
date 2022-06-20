@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
+import { AuthenticationContext } from "../../AuthenticationContext";
 import styled from "styled-components";
 import CommentSection from "./CommentSection";
 import dots from "../../images/three_vertical_dots.svg";
@@ -6,15 +7,19 @@ import editfig from "../../images/edit_icon.svg";
 import trashfig from "../../images/trash.svg";
 import { firestore } from "../../firebaseSetup";
 
-const Post = ({ id, author, title, time, description }) => {
+const Post = ({ id, author, displayName, title, time, description }) => {
   const [drop, setDrop] = useState(false);
   const [edit, setEdit] = useState(false);
   const ref = useRef();
   const postRef = firestore.collection(`posts`);
   const [editedTitle, setEditedTitle] = useState(title);
   const [editedDescription, setEditedDescription] = useState(description);
+  const { authentication, setAuthentication } = useContext(
+    AuthenticationContext
+  );
 
   console.log(id);
+  console.log(author, displayName, title, time, description);
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
       // If the menu is open and the clicked target is not within the menu,
@@ -53,7 +58,7 @@ const Post = ({ id, author, title, time, description }) => {
           {title}
         </EditTitle>
         <Date>
-          {author} {time.toDate().toLocaleString()}
+          {displayName} {time.toDate().toLocaleString()}
         </Date>
         <EditArea
           onChange={(e) => setEditedDescription(e.target.value)}
@@ -75,29 +80,31 @@ const Post = ({ id, author, title, time, description }) => {
     <Feed>
       <Content>
         <Title>{title}</Title>
-        <Options ref={ref}>
-          <Dots
-            src={dots}
-            alt="options"
-            onClick={() => setDrop(!drop)}
-            onBlur={() => setDrop(false)}
-          ></Dots>
-          {drop ? (
-            <DropDownContent>
-              <Link onClick={() => setEdit(true)}>
-                <img src={editfig} alt="edit"></img>
-              </Link>
-              <Link onClick={() => postRef.doc(id).delete()}>
-                {" "}
-                <img src={trashfig} alt="trash"></img>
-              </Link>
-            </DropDownContent>
-          ) : (
-            ""
-          )}
-        </Options>
+        {authentication["email"] === author && (
+          <Options ref={ref}>
+            <Dots
+              src={dots}
+              alt="options"
+              onClick={() => setDrop(!drop)}
+              onBlur={() => setDrop(false)}
+            ></Dots>
+            {drop ? (
+              <DropDownContent>
+                <Link onClick={() => setEdit(true)}>
+                  <img src={editfig} alt="edit"></img>
+                </Link>
+                <Link onClick={() => postRef.doc(id).delete()}>
+                  {" "}
+                  <img src={trashfig} alt="trash"></img>
+                </Link>
+              </DropDownContent>
+            ) : (
+              ""
+            )}
+          </Options>
+        )}
         <Date>
-          {author} {time.toDate().toLocaleString()}
+          {displayName} {time.toDate().toLocaleString()}
         </Date>
         <Description>{description}</Description>
         {/*<RoleInfo>

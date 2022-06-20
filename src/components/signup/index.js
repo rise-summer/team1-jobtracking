@@ -5,7 +5,7 @@ import { signupFirebase, registerDB } from "../apiFunctions";
 import { auth } from "../../firebaseSetup";
 import { useState, useEffect } from "react";
 import firebase from "../../firebaseSetup";
-import "firebase/firestore"
+import "firebase/firestore";
 
 import {
   MainBody,
@@ -19,6 +19,7 @@ import {
   SignUpButton,
   UserName,
   ConfirmPwd,
+  ContainerDiv,
 } from "./style.js";
 
 export default function SignUp(props) {
@@ -26,56 +27,57 @@ export default function SignUp(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cnfmpwd, setCnfmpwd] = useState("");
+  const [error, setError] = useState({
+    header: "",
+    username: "",
+    email: "",
+    password: "",
+    cnfmpwd: "",
+  });
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
     console.log("Event: Form Submit");
-    var uid = ""
     if (username === "" || email === "" || password === "" || cnfmpwd === "") {
-      // Not sure which one to use for error management
-      // this.setState({error:"Missing fields"})
-      // alert('Missing fields.')
-      console.log("missing fields");
-      return;
+      setError({
+        header: "",
+        username: `${!username ? "Please enter a username" : ""}`,
+        email: `${!email ? "Please enter an email address" : ""}`,
+        password: `${!password ? "Please enter a password" : ""}`,
+        cnfmpwd: `${!cnfmpwd ? "Please enter a password" : ""}`,
+      });
     } else if (password === cnfmpwd) {
-      // this.setState({ error: null });
       const newUser = {
         username: username,
         email: email,
         password: password,
       };
-      signupFirebase(newUser)
-        .then((res) => {
-          auth.currentUser.getIdToken().then((token) => {
-            console.log(token);
-            registerDB(newUser, token)
-              .then((result) => {
-                console.log(result);
-                console.log(newUser);
-                console.log(auth.currentUser.uid);
-
-                // if(!result.error){
-                //   redirect to home feed
-                // }
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-            alert("Success!");
-            props.history.push("/login");
-          });
-        })
-        .catch((err) => {
-          console.log(err);
+      try {
+        await signupFirebase(newUser);
+      } catch (err) {
+        setError({
+          header: err.message,
+          username: "",
+          email: "",
+          password: "",
+          cnfmpwd: "",
         });
-        alert("Success!")
-        props.history.push("/login")
+        return;
+      }
+      const db = firebase.firestore();
+      const userRef = db
+        .collection("users")
+        .add({ email: email, uid: auth.currentUser.uid, username: username });
+      props.history.push("/login");
     } else {
       // this.setState({ error: 'Passwords do not match.' });
-      alert("Passwords do not match.");
+      setError({
+        header: "",
+        username: "",
+        password: "",
+        cnfmpwd: "Passwords do not match",
+      });
     }
-    const db = firebase.firestore();
-    const userRef = db.collection("users").add({email: email, uid: auth.currentUser.uid, username:username});
   };
 
   return (
@@ -84,43 +86,50 @@ export default function SignUp(props) {
         <LogoDiv>
           <HomeLink to="/">Pipeline</HomeLink>
         </LogoDiv>
-        <ContentDiv>
-          <form onSubmit={submit}>
-            <Item className="title">Welcome</Item>
-            <UserName
-              className="username"
-              type="text"
-              name="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            ></UserName>
-            <Email
-              className="email"
-              type="text"
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            ></Email>
-            <Pwd
-              className="pwd"
-              type="password"
-              name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            ></Pwd>
-            <ConfirmPwd
-              className="cnfmpwd"
-              type="password"
-              name="cnfmpwd"
-              value={cnfmpwd}
-              onChange={(e) => setCnfmpwd(e.target.value)}
-            ></ConfirmPwd>
-            <Button type="submit">Sign Up</Button>
-            <SignUpButton href="/LogIn">
-              Have an account? Log in here.{" "}
-            </SignUpButton>
-          </form>
-        </ContentDiv>
+        <ContainerDiv>
+          <ContentDiv>
+            {error.header && <HeaderError>{error.header}</HeaderError>}
+            <form onSubmit={submit}>
+              <Item className="title">Welcome</Item>
+              <UserName
+                className="username"
+                type="text"
+                name="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              ></UserName>
+              {error.username && <InlineError>{error.username}</InlineError>}
+              <Email
+                className="email"
+                type="text"
+                name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              ></Email>
+              {error.email && <InlineError>{error.email}</InlineError>}
+              <Pwd
+                className="pwd"
+                type="password"
+                name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              ></Pwd>
+              {error.password && <InlineError>{error.password}</InlineError>}
+              <ConfirmPwd
+                className="cnfmpwd"
+                type="password"
+                name="cnfmpwd"
+                value={cnfmpwd}
+                onChange={(e) => setCnfmpwd(e.target.value)}
+              ></ConfirmPwd>
+              {error.cnfmpwd && <InlineError>{error.cnfmpwd}</InlineError>}
+              <Button type="submit">Sign Up</Button>
+              <SignUpButton href="/LogIn">
+                Have an account? Log in here.{" "}
+              </SignUpButton>
+            </form>
+          </ContentDiv>
+        </ContainerDiv>
       </BackgroundDiv>
     </MainBody>
   );
@@ -136,4 +145,22 @@ const HomeLink = styled(Link)`
   &:hover {
     color: #175596;
   }
+`;
+
+const HeaderError = styled.div`
+  color: red;
+  background-color: pink;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: fit-content;
+  border-radius: 5px;
+  margin-bottom: 5px;
+`;
+const InlineError = styled.div`
+  font-size: 20px;
+  padding-top: 5px;
+  color: red;
 `;

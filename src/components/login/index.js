@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { auth } from "../../firebaseSetup";
 import { login } from "../apiFunctions";
 import {
@@ -6,52 +6,61 @@ import {
   LogoDiv,
   Item,
   Button,
+  ContainerDiv,
   ContentDiv,
   HomeLink,
   Email,
   Pwd,
   SignUpButton,
+  InlineError,
+  HeaderError,
 } from "./style";
 
-import { useSelector, useDispatch } from "react-redux";
-
 import { AuthenticationContext } from "../../AuthenticationContext";
+import { useLocation } from "react-router-dom";
 
 export default function Login(props) {
   // const log_in = useSelector((state) => state.isLogged);
   // console.log(log_in);
   // const dispatch = useDispatch();
-  const [authentication, setAuthentication] = useContext(AuthenticationContext);
-  console.log(authentication)
+  const { authentication, setAuthentication, setIsLoggedIn } = useContext(
+    AuthenticationContext
+  );
+  console.log(authentication);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const submit = (e) => {
+  const [error, setError] = useState({ header: "", email: "", password: "" });
+  const location = useLocation();
+  const { state } = location;
+  useEffect(() => {
+    console.log(state);
+    if (state && state.from) {
+      setError({ header: "Please log-in", email: "", password: "" });
+    }
+  }, []);
+  const submit = async (e) => {
     e.preventDefault();
     console.log("Event: Form Submit");
     if (email === "" || password === "") {
-      // this.setState({error:"Missing fields"})
-      console.log("missing fields");
+      setError({
+        header: "",
+        email: `${email ? "" : "Please enter an email"}`,
+        password: `${password ? "" : "Please enter a password"}`,
+      });
       return;
     } else {
-      login(email, password).then((res) => {
-        console.log(res);
-        console.log("redirect to home feed");
-
-        setAuthentication(auth.currentUser);
-        console.log(auth.currentUser.getIdToken());
-        console.log(auth.currentUser)
-        // dispatch({
-        //   type: "SIGN_IN",
-        //   payload: { token: auth.currentUser.getIdToken(), authentication: auth.currentUser },
-        // });
-        props.history.push("/mainfeed");
-
-        // redirect to home feed
-        //console.log(auth.currentUser);
-        //console.log(auth.currentUser.displayName);
-      });
+      login(email, password)
+        .then(() => {
+          setAuthentication(auth.currentUser);
+          localStorage.setItem("loggedIn", JSON.stringify(true));
+          setIsLoggedIn(true);
+          props.history.push(state && state.from ? state.from : "/mainfeed");
+        })
+        .catch((err) =>
+          setError({ header: err.message, email: "", password: "" })
+        );
+      //
     }
   };
 
@@ -72,29 +81,34 @@ export default function Login(props) {
         <LogoDiv>
           <HomeLink to="/">Pipeline</HomeLink>
         </LogoDiv>
-        <ContentDiv>
-          <form onSubmit={submit}>
-            <Item className="title">Welcome Back</Item>
-            <Email
-              className="email"
-              type="text"
-              name="email"
-              value={email}
-              onChange={handleChange}
-            ></Email>
-            <Pwd
-              className="pwd"
-              type="password"
-              name="password"
-              value={password}
-              onChange={handleChange}
-            ></Pwd>
-            <Button type="submit">Log In</Button>
-            <SignUpButton href="/SignUp">
-              Don’t have an account? Sign up here.
-            </SignUpButton>
-          </form>
-        </ContentDiv>
+        <ContainerDiv>
+          <ContentDiv>
+            <form onSubmit={submit}>
+              {error.header && <HeaderError>{error.header}</HeaderError>}
+              <Item className="title">Welcome Back</Item>
+              <Email
+                className="email"
+                type="text"
+                name="email"
+                value={email}
+                onChange={handleChange}
+              ></Email>
+              {error.email && <InlineError>{error.email}</InlineError>}
+              <Pwd
+                className="pwd"
+                type="password"
+                name="password"
+                value={password}
+                onChange={handleChange}
+              ></Pwd>
+              {error.password && <InlineError>{error.password}</InlineError>}
+              <Button type="submit">Log In</Button>
+              <SignUpButton href="/SignUp">
+                Don’t have an account? Sign up here.
+              </SignUpButton>
+            </form>
+          </ContentDiv>
+        </ContainerDiv>
       </div>
     </MainBody>
   );

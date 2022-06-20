@@ -20,6 +20,14 @@ export const MainBody = styled.div`
 `;
 export const BackgroundDiv = styled.div``;
 
+export const ContainerDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 60px);
+  width: 100%;
+`;
 export const LogoDiv = styled.div`
   margin-left: 30px;
   margin-top: 20px;
@@ -31,15 +39,15 @@ export const LogoDiv = styled.div`
 
 export const ContentDiv = styled.div`
   width: 450px;
-  height: 320px;
-  margin: 20vh auto auto auto;
+  height: fit-content;
+  /*margin: 20vh auto auto auto;*/
   position: relative;
   /* left: 10%;
   top: 20%; */
   z-index: 2;
   background: #f5f5f5;
   border-radius: 30px;
-  padding: 40px 60px 40px 60px;
+  padding: 40px 60px 20px 60px;
   //justify-content: center;
 `;
 

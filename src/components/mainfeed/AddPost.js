@@ -21,12 +21,14 @@ const AddPost = ({ toggleShowPost }) => {
     console.log(firebase.firestore.Timestamp.now());
     postRef.add({
       uid: currentUser.uid,
+      author: currentUser.email,
+      displayName: currentUser.displayName,
       title: title,
       description: description,
       time: firebase.firestore.Timestamp.now(),
       displayName: auth.currentUser.displayName,
     });
-    toggleShowPost(false)
+    toggleShowPost(false);
   };
 
   return (

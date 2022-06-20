@@ -30,22 +30,27 @@ export default function Track1() {
   const scrape = firebase.functions().httpsCallable("scrape");
 
   async function handleSubmit(event) {
-    var data = {}
+    var data = {};
     event.preventDefault();
     setLoading(true);
     await scrape({
       link: link,
-    }).then((result) => {
-      console.log(result.data.data);
-      data = {...result.data.data}
-      data.link = link;
-      console.log(data)
-      setLoading(false);
-      history.push({
-        pathname: "/trackr/track2",
-        state: data,
+    })
+      .then((result) => {
+        console.log(result.data.data);
+        data = { ...result.data.data };
+        data.link = link;
+        console.log(data);
+        setLoading(false);
+        history.push({
+          pathname: "/trackr/track2",
+          state: data,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        history.push({ pathname: "/trackr/track2", state: { error: true } });
       });
-    });
   }
 
   return (
@@ -69,7 +74,7 @@ export default function Track1() {
               <form onSubmit={handleSubmit}>
                 <Input
                   placeholder="https://link_to_your_application_here.com"
-                  onChange={e => setLink(e.target.value)}
+                  onChange={(e) => setLink(e.target.value)}
                 />
                 {loading ? (
                   <Loader type="ThreeDots" color="#175596" />

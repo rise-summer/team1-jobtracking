@@ -12,7 +12,9 @@ import { Redirect } from "react-router-dom";
 import { AuthenticationContext } from "../../../AuthenticationContext";
 
 export default function YourPosts(props) {
-  const [authentication, setAuthentication] = useContext(AuthenticationContext);
+  const { authentication, setAuthentication } = useContext(
+    AuthenticationContext
+  );
   const [isNewPostBtnClicked, setisNewPostBtnClicked] = useState(false);
   const [numPosts, setNumPosts] = useState(1);
   const [posts, setPosts] = useState([]);

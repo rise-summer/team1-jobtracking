@@ -1,4 +1,10 @@
-import React, { Fragment, useContext, Router } from "react";
+import React, {
+  Fragment,
+  useContext,
+  useState,
+  Router,
+  useEffect,
+} from "react";
 import {
   NavBarDiv,
   LeftNavBarDiv,
@@ -11,18 +17,22 @@ import { useHistory, withRouter } from "react-router-dom";
 import { AuthenticationContext } from "../../../AuthenticationContext";
 import { logout } from "../../apiFunctions";
 export default function LandingPageNavigation() {
-  const [authentication, setAuthentication] = useContext(AuthenticationContext);
-  console.log(JSON.stringify(authentication));
-  console.log(authentication["uid"]);
-  let history = useHistory();
+  const { authentication, setAuthentication, isLoggedIn, setIsLoggedIn } =
+    useContext(AuthenticationContext);
 
+  console.log(isLoggedIn, authentication);
+  let history = useHistory();
+  console.log(history);
   const signout = () => {
-    if (authentication["uid"] == null) {
+    if (!authentication || authentication["uid"] == null) {
       history.push("/login");
     } else {
       setAuthentication({});
-      logout();
-      history.push("/");
+      logout().then(() => {
+        localStorage.setItem("loggedIn", JSON.stringify(false));
+        setIsLoggedIn(false);
+        history.push("/");
+      });
     }
   };
 
@@ -34,20 +44,25 @@ export default function LandingPageNavigation() {
       {/* <Router> */}
       <NavBarDiv>
         <LeftNavBarDiv>
-          <HomeLink id="/" onClick={routeMainfeed}>
+          <HomeLink
+            id={`${isLoggedIn ? "/mainfeed" : "/"}`}
+            onClick={routeMainfeed}
+          >
             Pipeline
           </HomeLink>
           {/* <SearchBar /> */}
         </LeftNavBarDiv>
         <RightNavBarDiv>
           {/* <NavLink>{authentication.displayName}</NavLink> */}
-          <NavLink>About</NavLink>
+          <NavLink id="/about" onClick={routeMainfeed}>
+            About
+          </NavLink>
           <React.Fragment>
             <NavLink onClick={signout}>
-              {authentication["uid"] == null ? "Log In" : "Log Out"}
+              {!isLoggedIn ? "Log In" : "Log Out"}
             </NavLink>
           </React.Fragment>
-          {authentication["uid"] == null && (
+          {!isLoggedIn && (
             <React.Fragment>
               <SignUpLink id="/signup" onClick={routeMainfeed}>
                 Sign Up

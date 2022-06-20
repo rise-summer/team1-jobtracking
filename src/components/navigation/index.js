@@ -17,7 +17,8 @@ import { AuthenticationContext } from "../../AuthenticationContext";
 import { logout } from "../apiFunctions";
 
 export default function Navigation() {
-  const [authentication, setAuthentication] = useContext(AuthenticationContext);
+  const { authentication, setAuthentication, isLoggedIn, setIsLoggedIn } =
+    useContext(AuthenticationContext);
   console.log(JSON.stringify(authentication));
   console.log(authentication["uid"]);
   let history = useHistory();
@@ -27,8 +28,11 @@ export default function Navigation() {
       history.push("/login");
     } else {
       setAuthentication({});
-      logout();
-      history.push("/");
+      logout().then(() => {
+        history.push("/");
+        localStorage.setItem("loggedIn", JSON.stringify(false));
+        setIsLoggedIn(false);
+      });
     }
   };
 
@@ -53,7 +57,7 @@ export default function Navigation() {
           </NavLink>
           <React.Fragment>
             <NavLink onClick={signout}>
-              {authentication["uid"] == null ? "Log In" : "Log Out"}
+              {!isLoggedIn ? "Log In" : "Log Out"}
             </NavLink>
           </React.Fragment>
         </RightNavBarDiv>

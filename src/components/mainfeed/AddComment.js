@@ -21,7 +21,8 @@ const AddComment = ({ id, setComments }) => {
         postid: id,
         message: message,
         date: firebase.firestore.Timestamp.now(),
-        displayName: auth.currentUser.displayName
+        displayName: auth.currentUser.displayName,
+        author: auth.currentUser.email,
       });
     }
   };

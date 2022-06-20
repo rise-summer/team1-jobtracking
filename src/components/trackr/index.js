@@ -1,5 +1,6 @@
 import React, { Fragment, useContext, useState, useEffect } from "react";
 import Navigation from "../navigation";
+import { useHistory } from "react-router-dom";
 import {
   MainBody,
   BackgroundDiv,
@@ -30,20 +31,25 @@ import {
 import Application from "./components/applicationfeed/Application";
 import EmptyApplication from "./components/applicationfeed/emptyapplication";
 import { AuthenticationContext } from "../../AuthenticationContext";
-import { auth, firestore } from "../../firebaseSetup";
+import { firestore } from "../../firebaseSetup";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
 export default function Trackr(props) {
-  const [authentication, setAuthentication] = useContext(AuthenticationContext);
+  let history = useHistory();
+  const { authentication, setAuthentication } = useContext(
+    AuthenticationContext
+  );
   const applicationRef = firestore
-    .collection(`jobs/${auth.currentUser.uid}/jobs`)
+    .collection(`jobs/${authentication["uid"]}/jobs`)
     .orderBy("date_updated", "desc");
-  const [applicationsInitialValue] = useCollectionData(applicationRef, {
+  let [applicationsInitialValue] = useCollectionData(applicationRef, {
     idField: "id",
   });
   const [applications, setApplications] = useState();
   useEffect(() => {
     setApplications(applicationsInitialValue);
+    console.log(applicationRef);
+    console.log(applicationsInitialValue);
   }, [applicationsInitialValue]);
 
   function sortApplications(sortButton) {
@@ -82,7 +88,10 @@ export default function Trackr(props) {
                 <Title>Your Applications</Title>
                 <NewAppBtnDiv>
                   <NewAppBtn
-                    onClick={() => props.history.push("/trackr/track1")}
+                    onClick={() => {
+                      console.log("push");
+                      history.push("/trackr/track1");
+                    }}
                   >
                     New App
                   </NewAppBtn>
@@ -91,9 +100,7 @@ export default function Trackr(props) {
                   className="dropdown"
                   onChange={(e) => sortApplications(e)}
                 >
-                  <Option value="" selected disabled hidden>
-                    Sort by
-                  </Option>
+                  <Option value="">Sort by</Option>
                   <Option value="DEADLINE"> Deadline</Option>
                   <Option value="STATUS"> Status</Option>
                 </Sort>

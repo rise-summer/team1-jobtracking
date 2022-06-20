@@ -15,7 +15,9 @@ const CommentSection = ({ id }) => {
   //     message: "Thanks! I will let Joe know.",
   //   },
   // ]);
-  const commentRef = firestore.collection(`posts/${id}/comments`);
+  const commentRef = firestore
+    .collection(`posts/${id}/comments`)
+    .orderBy("date", "asc");
   const [comments] = useCollectionData(commentRef, { idField: "id" });
   console.log(comments);
   console.log(id);
@@ -34,7 +36,7 @@ const CommentSection = ({ id }) => {
 export default CommentSection;
 
 const Container = styled.div`
-  background: #FFFFFF;
+  background: #ffffff;
   padding: 5px;
   border-radius: 0px 0px 10px 10px;
 `;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import edit from "../../../../images/edit_icon.svg";
@@ -8,9 +8,7 @@ import down from "../../../../images/downarrow.svg";
 import up from "../../../../images/uparrow.svg";
 import axios from "axios";
 import { firestore, auth } from "../../../../firebaseSetup";
-
-
-
+import firebase from "../../../../firebaseSetup";
 export default function Application({
   app_status,
   company,
@@ -20,18 +18,23 @@ export default function Application({
   location,
   description,
   notes,
-  date_updated
+  date_updated,
 }) {
   // console.log(props)
-  console.log(app_status,
+  console.log(
+    app_status,
     company,
     position,
     id,
     deadline,
     location,
     description,
-    notes, date_updated)
+    notes,
+    date_updated
+  );
   const [clicked, setClicked] = useState(false);
+  const [updatedNotes, setUpdatedNotes] = useState(notes);
+  const debounced = useDebounce(updatedNotes);
   const history = useHistory();
 
   const extend = (e) => {
@@ -40,7 +43,7 @@ export default function Application({
   };
 
   function getStatus() {
-    switch (app_status) {
+    switch (app_status.toString()) {
       case "0":
         return "Interested";
       case "1":
@@ -54,15 +57,45 @@ export default function Application({
     }
   }
 
+  const update = async (newNotes) => {
+    try {
+      const update_res = firestore
+        .collection(`jobs/${auth.currentUser.uid}/jobs`)
+        .doc(id)
+        .update({
+          link: link,
+          position: position,
+          company: company,
+          deadline: deadline,
+          location: location,
+          description: description,
+          app_status: app_status,
+          date_updated: firebase.firestore.Timestamp.now(),
+          notes: newNotes,
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const deleteApplication = async (event, id) => {
     try {
-      const delete_res = firestore.collection(`jobs/${auth.currentUser.uid}/jobs`).doc(id).delete();
+      const delete_res = firestore
+        .collection(`jobs/${auth.currentUser.uid}/jobs`)
+        .doc(id)
+        .delete();
       event.preventDefault();
       console.log(delete_res);
     } catch (err) {
       console.log(err);
     }
   };
+  useEffect(() => {
+    if (notes !== debounced) {
+      update(debounced);
+      console.log(debounced);
+    }
+  }, [debounced]);
 
   return (
     <div>
@@ -128,6 +161,7 @@ export default function Application({
               id="textarea"
               placeholder="Notes: 
               Personal application log notes go here. The user can talk about things privately without sharing here. "
+              onChange={(e) => setUpdatedNotes(e.target.value)}
             >
               {notes}
             </Notes>
@@ -143,6 +177,15 @@ export default function Application({
       </Content>
     </div>
   );
+}
+
+function useDebounce(notes, delay = 500) {
+  const [debounced, setDebounced] = useState(notes);
+  useEffect(() => {
+    const timer = setTimeout(() => setDebounced(notes), delay);
+    return () => clearTimeout(timer);
+  }, [notes, delay]);
+  return debounced;
 }
 
 const Content = styled.div`
