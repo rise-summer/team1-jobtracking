@@ -10,7 +10,6 @@ export const BackgroundDiv = styled.div`
   background: #ebebeb;
   padding: 20px 20vw;
   min-height: calc(100vh - 118px);
- 
 `;
 
 export const Heading = styled.div`
@@ -31,7 +30,7 @@ export const Text = styled.div`
 `;
 
 export const NewPostButton = styled.button`
-  margin-left: 35vw;
+  margin-left: 30vw;
   background: #175596;
   border-radius: 10px;
   min-width: 135px;

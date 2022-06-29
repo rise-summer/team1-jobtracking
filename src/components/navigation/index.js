@@ -1,8 +1,9 @@
 import React, { Fragment, useContext, Router } from "react";
+import Search from "./search/index";
 import {
   NavBarDiv,
   LeftNavBarDiv,
-  // SearchBar,
+  SearchBar,
   RightNavBarDiv,
   HomeLink,
   NavLink,
@@ -16,7 +17,7 @@ import { AuthenticationContext } from "../../AuthenticationContext";
 
 import { logout } from "../apiFunctions";
 
-export default function Navigation() {
+export default function Navigation(props) {
   const { authentication, setAuthentication, isLoggedIn, setIsLoggedIn } =
     useContext(AuthenticationContext);
   console.log(JSON.stringify(authentication));
@@ -48,12 +49,15 @@ export default function Navigation() {
           <HomeLink id="/mainfeed" onClick={routeMainfeed}>
             Pipeline
           </HomeLink>
-          {/* <SearchBar /> */}
+          {props.children}
         </LeftNavBarDiv>
         <RightNavBarDiv>
           {/* <NavLink>{authentication.displayName}</NavLink> */}
           <NavLink id="/trackr" onClick={routeMainfeed}>
             Tracker
+          </NavLink>
+          <NavLink id="/yourposts" onClick={routeMainfeed}>
+            Your Posts
           </NavLink>
           <React.Fragment>
             <NavLink onClick={signout}>

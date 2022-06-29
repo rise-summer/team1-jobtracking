@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from "react";
+import React, { Fragment, useContext, useEffect } from "react";
 import Navigation from "../navigation";
 import { Heading, Text, NewPostButton, BackgroundDiv, MainBody } from "./style";
 import { useState } from "react";
@@ -8,14 +8,60 @@ import firebase from "../../firebaseSetup";
 import "firebase/compat/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { firestore, auth } from "../../firebaseSetup";
-
+import Search from "../navigation/search";
 const MainFeed = () => {
+  const [searchValue, setSearchValue] = useState("");
   const [showPost, setShowPost] = useState(false);
   const [numPosts, setNumPosts] = useState(1);
   const postRef = firestore.collection(`posts`).orderBy("time", "desc");
-  const [posts] = useCollectionData(postRef, { idField: "id" });
-  console.log(posts);
-
+  const [initialPosts] = useCollectionData(postRef, { idField: "id" });
+  const [posts, setPosts] = useState();
+  useEffect(() => {
+    setPosts(
+      initialPosts
+        ? initialPosts.filter((p) => {
+            if (searchValue) {
+              let title = p.title.toLowerCase();
+              let description = p.description.toLowerCase();
+              let search = searchValue.toLowerCase();
+              if (title.includes(search) || description.includes(search))
+                return p;
+            } else {
+              return p;
+            }
+          })
+        : initialPosts
+    );
+  }, [initialPosts]);
+  useEffect(() => {
+    console.log(searchValue);
+    console.log(posts);
+    let newPosts;
+    if (initialPosts) {
+      if (searchValue) {
+        newPosts = initialPosts.filter((p) => {
+          let title = p.title.toLowerCase();
+          let description = p.description.toLowerCase();
+          let search = searchValue
+            .toLowerCase()
+            .replace(/[.,\/#!$?%\^&\*;:{}=\-_`~()]/g, "")
+            .split(" ")
+            .filter((word) => word !== "");
+          console.log(title, description, search);
+          if (
+            search.every((word) => {
+              return title.indexOf(word) >= 0 || description.indexOf(word) >= 0;
+            })
+          )
+            return p;
+        });
+      } else {
+        newPosts = initialPosts;
+      }
+      setPosts(newPosts);
+    }
+    console.log(newPosts);
+  }, [searchValue]);
   // const toggleShowPost = () => {
   //   if (showPost) {
   //     setShowPost(false);
@@ -27,7 +73,9 @@ const MainFeed = () => {
   return (
     <Fragment>
       <MainBody>
-        <Navigation />
+        <Navigation>
+          <Search setSearchValue={setSearchValue} />
+        </Navigation>
         <BackgroundDiv>
           {showPost ? (
             <AddPost
@@ -39,7 +87,11 @@ const MainFeed = () => {
             ""
           )}
           <Heading>
-            <Text> Most Recent Posts </Text>
+            <Text>
+              {searchValue
+                ? `Posts containing: "${searchValue}"`
+                : "Most Recent Posts"}{" "}
+            </Text>
             {showPost ? (
               ""
             ) : (
@@ -49,7 +101,10 @@ const MainFeed = () => {
             )}
           </Heading>
           {posts && console.log(posts.map((post) => post))}
-          {posts && posts.map((post) => <Post key={post.id} {...post} />)}
+          {posts &&
+            posts.map((post) => (
+              <Post key={post.id} {...post} toBold={searchValue} />
+            ))}
         </BackgroundDiv>
       </MainBody>
     </Fragment>

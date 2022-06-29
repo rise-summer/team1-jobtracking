@@ -66,7 +66,7 @@ export const NavLink = styled.a`
   font-size: 25px;
   text-decoration: none;
   min-width: 70px;
-  margin: 6px 0vw 0px 2vw;
+  margin: 0px 0vw 0px 2vw;
   color: #175596;
   &:hover {
     color: #2071c7;

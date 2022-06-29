@@ -6,14 +6,26 @@ import dots from "../../images/three_vertical_dots.svg";
 import editfig from "../../images/edit_icon.svg";
 import trashfig from "../../images/trash.svg";
 import { firestore } from "../../firebaseSetup";
-
-const Post = ({ id, author, displayName, title, time, description }) => {
+import firebase from "../../firebaseSetup";
+import { slice } from "cheerio/lib/api/traversing";
+import parse from "html-react-parser";
+const Post = ({
+  id,
+  author,
+  displayName,
+  title,
+  time,
+  description,
+  toBold,
+}) => {
   const [drop, setDrop] = useState(false);
   const [edit, setEdit] = useState(false);
   const ref = useRef();
+  const contentRef = useRef();
   const postRef = firestore.collection(`posts`);
   const [editedTitle, setEditedTitle] = useState(title);
   const [editedDescription, setEditedDescription] = useState(description);
+  const [error, setError] = useState({ title: "", description: "" });
   const { authentication, setAuthentication } = useContext(
     AuthenticationContext
   );
@@ -28,6 +40,7 @@ const Post = ({ id, author, displayName, title, time, description }) => {
         setDrop(false);
       }
     };
+
     console.log(drop);
     document.addEventListener("mousedown", checkIfClickedOutside);
 
@@ -37,19 +50,73 @@ const Post = ({ id, author, displayName, title, time, description }) => {
     };
   }, [drop]);
 
+  useEffect(() => {
+    const checkIfClickedOutside = (e) => {
+      // If the menu is open and the clicked target is not within the menu,
+      // then close the menu
+      if (
+        edit &&
+        contentRef.current &&
+        !contentRef.current.contains(e.target)
+      ) {
+        setEdit(false);
+        setError({ title: "", description: "" });
+        setEditedDescription(description);
+        setEditedTitle(title);
+      }
+    };
+
+    document.addEventListener("mousedown", checkIfClickedOutside);
+
+    return () => {
+      // Cleanup the event listener
+      document.removeEventListener("mousedown", checkIfClickedOutside);
+    };
+  }, [edit]);
+  useEffect(() => {
+    console.log(editedDescription);
+  }, [editedDescription]);
   function handleKeyDown(event) {
     if (event.key === "Enter") {
-      setEdit(!edit);
-      postRef
-        .doc(id)
-        .update({ description: editedDescription, title: editedTitle });
+      event.preventDefault();
+      if (editedDescription && editedTitle) {
+        setEdit(!edit);
+        postRef.doc(id).update({
+          description: editedDescription,
+          title: editedTitle,
+          time: firebase.firestore.Timestamp.now(),
+        });
+      } else {
+        setError({
+          title: editedTitle ? "" : "Title cannot be empty",
+          description: editedDescription ? "" : "Description cannot be empty",
+        });
+      }
     }
     setDrop(false);
   }
 
+  const boldDescription = () => {
+    if (!toBold) return description;
+    let copy = (" " + description).slice(1);
+    const substrings = toBold
+      .replace(/[.,\/#!$?%\^&\*;:{}=\-_`~()]/g, "")
+      .split(" ")
+      .filter((word) => word !== "");
+    console.log(substrings);
+    for (let i = 0; i < substrings.length; i++) {
+      console.log(substrings[i]);
+      let reg = RegExp(`\\b${substrings[i]}\\b`, "gmi");
+      console.log(reg);
+      copy = copy.replace(reg, `<b>${substrings[i]}</b> `);
+      console.log(copy);
+    }
+    console.log(copy, toBold);
+    return copy;
+  };
   return edit ? (
     <Feed>
-      <Content>
+      <Content ref={contentRef}>
         <EditTitle
           onChange={(e) => setEditedTitle(e.target.value)}
           onKeyPress={(e) => handleKeyDown(e)}
@@ -57,6 +124,7 @@ const Post = ({ id, author, displayName, title, time, description }) => {
         >
           {title}
         </EditTitle>
+        {error.title && <p style={{ color: "red" }}>{error.title}</p>}
         <Date>
           {displayName} {time.toDate().toLocaleString()}
         </Date>
@@ -66,6 +134,9 @@ const Post = ({ id, author, displayName, title, time, description }) => {
         >
           {description}
         </EditArea>
+        {error.description && (
+          <p style={{ color: "red" }}>{error.description}</p>
+        )}
         {/*<RoleInfo>
           <div>CompanyAndPosition</div>
           <div>Industry</div>
@@ -106,7 +177,7 @@ const Post = ({ id, author, displayName, title, time, description }) => {
         <Date>
           {displayName} {time.toDate().toLocaleString()}
         </Date>
-        <Description>{description}</Description>
+        <Description>{parse(boldDescription())}</Description>
         {/*<RoleInfo>
           <div>CompanyAndPosition</div>
           <div>Industry</div>

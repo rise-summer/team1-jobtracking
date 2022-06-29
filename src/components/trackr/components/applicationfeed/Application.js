@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import edit from "../../../../images/edit_icon.svg";
@@ -19,6 +19,7 @@ export default function Application({
   description,
   notes,
   date_updated,
+  sortApplications,
 }) {
   // console.log(props)
   console.log(
@@ -32,10 +33,20 @@ export default function Application({
     notes,
     date_updated
   );
+  const firstRender = useRef(true);
   const [clicked, setClicked] = useState(false);
   const [updatedNotes, setUpdatedNotes] = useState(notes);
-  const debounced = useDebounce(updatedNotes);
+  const [updatedStatus, setUpdatedStatus] = useState(app_status);
+  const debouncedNotes = useDebounce(updatedNotes);
+  const debouncedStatus = useDebounce(updatedStatus);
   const history = useHistory();
+
+  useLayoutEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
+  });
 
   const extend = (e) => {
     e.stopPropagation();
@@ -43,7 +54,7 @@ export default function Application({
   };
 
   function getStatus() {
-    switch (app_status.toString()) {
+    switch (updatedStatus.toString()) {
       case "0":
         return "Interested";
       case "1":
@@ -57,7 +68,7 @@ export default function Application({
     }
   }
 
-  const update = async (newNotes) => {
+  const update = async (newNotes, newStatus) => {
     try {
       const update_res = firestore
         .collection(`jobs/${auth.currentUser.uid}/jobs`)
@@ -69,7 +80,7 @@ export default function Application({
           deadline: deadline,
           location: location,
           description: description,
-          app_status: app_status,
+          app_status: newStatus,
           date_updated: firebase.firestore.Timestamp.now(),
           notes: newNotes,
         });
@@ -91,11 +102,13 @@ export default function Application({
     }
   };
   useEffect(() => {
-    if (notes !== debounced) {
-      update(debounced);
-      console.log(debounced);
+    if (
+      !firstRender.current &&
+      (debouncedNotes !== notes || app_status !== debouncedStatus)
+    ) {
+      update(debouncedNotes, debouncedStatus);
     }
-  }, [debounced]);
+  }, [debouncedNotes, debouncedStatus]);
 
   return (
     <div>
@@ -112,8 +125,8 @@ export default function Application({
                 type="range"
                 min="0"
                 max="3"
-                value={app_status}
-                disabled
+                value={updatedStatus}
+                onChange={(e) => setUpdatedStatus(e.target.value)}
               />
             </BorderBox>
           </Center>
@@ -130,11 +143,11 @@ export default function Application({
               >
                 <Svg src={edit}></Svg>
               </RBtn>
-              <a href={link} target="blank">
+              {/*<a href={link} target="blank">
                 <RBtn id="link">
                   <Svg src={link}></Svg>
                 </RBtn>
-              </a>
+              </a> */}
               <RBtn onClick={(event) => deleteApplication(event, id)}>
                 <Svg src={trash}></Svg>
               </RBtn>
@@ -150,10 +163,13 @@ export default function Application({
               </TopText>
               <TopText>
                 <span style={{ fontWeight: "bold" }}>Deadline:</span>{" "}
-                {deadline.toDate().toLocaleString()}
+                {deadline.toDate().getTime() !== new Date(0).getTime()
+                  ? deadline.toDate().toLocaleString()
+                  : "N/A"}
               </TopText>
               <TopText>
-                <span style={{ fontWeight: "bold" }}>Location:</span> {location}
+                <span style={{ fontWeight: "bold" }}>Location:</span>{" "}
+                {location ? location : "N/A"}
               </TopText>
             </Topline>
             <Description>{description}</Description>

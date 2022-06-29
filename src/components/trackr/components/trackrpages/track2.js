@@ -44,7 +44,7 @@ export default function Track2(props) {
     return <Redirect to="/trackr" />;
   } else {
     jobsRef = firestore.collection(`jobs/${authentication["uid"]}/jobs`);
-
+    console.log(state);
     async function handleSubmit(e) {
       e.preventDefault();
       console.log(stage);
@@ -90,9 +90,11 @@ export default function Track2(props) {
           <BackgroundDiv>
             <ContentDiv>
               <BackBtn>
-                <a href="/trackr/track1">
-                  <BackSvg src={backarrow} alt="backarrow error"></BackSvg>
-                </a>
+                <BackSvg
+                  src={backarrow}
+                  alt="backarrow error"
+                  onClick={() => history.push("/trackr/track1")}
+                />
               </BackBtn>
               <Heading>
                 <Title>Great!</Title>

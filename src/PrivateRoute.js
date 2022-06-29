@@ -3,9 +3,8 @@ import { Route, Redirect } from "react-router-dom";
 import { AuthenticationContext } from "./AuthenticationContext";
 import { useContext } from "react";
 export default function PrivateRoute({ children, ...rest }) {
-  const { authentication, setAuthentication, isLoggedIn } = useContext(
-    AuthenticationContext
-  );
+  const { authentication, isLoggedIn } = useContext(AuthenticationContext);
+  console.log(authentication);
   return (
     <Route
       exact

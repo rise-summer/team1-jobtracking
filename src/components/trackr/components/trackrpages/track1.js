@@ -27,18 +27,18 @@ export default function Track1() {
   const [loading, setLoading] = useState(undefined);
   const history = useHistory();
   var sanitizedMessage = "";
-  const scrape = firebase.functions().httpsCallable("scrape");
+  const scraper = firebase.functions().httpsCallable("scrape");
 
   async function handleSubmit(event) {
     var data = {};
     event.preventDefault();
     setLoading(true);
-    await scrape({
+    await scraper({
       link: link,
     })
       .then((result) => {
-        console.log(result.data.data);
-        data = { ...result.data.data };
+        console.log(result, result.data);
+        data = { ...result.data.result };
         data.link = link;
         console.log(data);
         setLoading(false);
