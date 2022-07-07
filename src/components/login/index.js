@@ -1,6 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
+import ResetModal from "./resetModal";
 import { auth } from "../../firebaseSetup";
 import { login } from "../apiFunctions";
+import { resetPasswordEmail } from "../apiFunctions";
 import {
   MainBody,
   LogoDiv,
@@ -29,6 +31,8 @@ export default function Login(props) {
   console.log(authentication);
 
   const [email, setEmail] = useState("");
+  const [passwordModal, setPasswordModal] = useState(false);
+  const [resetPassword, setResetPassword] = useState(false);
   const [password, setPassword] = useState("");
   const [error, setError] = useState({ header: "", email: "", password: "" });
   const location = useLocation();
@@ -74,9 +78,28 @@ export default function Login(props) {
       setPassword(value);
     }
   };
-
+  const handlePasswordModal = () => {
+    console.log(passwordModal);
+    setPasswordModal(true);
+  };
+  const handleReset = (e) => {
+    resetPasswordEmail(e)
+      .then(() => {
+        setResetPassword(true);
+      })
+      .catch((err) => {
+        setError({ header: err.message, email: "", password: "" });
+      });
+  };
   return (
     <MainBody>
+      {passwordModal && (
+        <ResetModal
+          isModal={passwordModal}
+          setPasswordModal={setPasswordModal}
+          resetPassword={handleReset}
+        />
+      )}
       <div>
         <LogoDiv>
           <HomeLink to="/">Pipeline</HomeLink>
@@ -105,6 +128,15 @@ export default function Login(props) {
               <Button type="submit">Log In</Button>
               <SignUpButton href="/SignUp">
                 Don’t have an account? Sign up here.
+              </SignUpButton>
+              <br />
+              <SignUpButton
+                style={{ cursor: "pointer" }}
+                onClick={handlePasswordModal}
+              >
+                {resetPassword
+                  ? "Password has been reset"
+                  : "Click here to send a password reset email."}
               </SignUpButton>
             </form>
           </ContentDiv>

@@ -90,8 +90,20 @@ export default function YourPosts(props) {
           <Search setSearchValue={setSearchValue} />
         </Navigation>
         <BackgroundDiv>
-          <a onClick={() => history.push("/trackr")}>
-            <BackSvg src={Back} alt="backarrow error" />
+          <a
+            style={{
+              display: "flex",
+              justifyContent: "flex-start",
+              alignItems: "center",
+              cursor: "pointer",
+              color: "#677394",
+            }}
+            onClick={() => history.push("/mainfeed")}
+          >
+            <span style={{ marginTop: "2px", marginRight: "4px" }}>◀</span>
+            <span style={{ paddingLeft: "5px" }}>
+              <b>back to applications</b>
+            </span>
           </a>
           {isNewPostBtnClicked ? (
             <AddPost
@@ -103,16 +115,20 @@ export default function YourPosts(props) {
           ) : (
             <div></div>
           )}
-          <Heading>
-            <Title> Your Posts </Title>
-
+          <Title style={{ marginTop: "10px" }}> Your Posts </Title>
+          <Heading style={{ marginTop: "10px" }}>
+            <Text>
+              {searchValue
+                ? `Posts containing "${searchValue}"`
+                : "Most recent posts"}
+            </Text>
             <NewPostButton
               onClick={() => setisNewPostBtnClicked(!isNewPostBtnClicked)}
             >
               create new post
             </NewPostButton>
           </Heading>
-          <Text>{searchValue && `posts containing "${searchValue}"`}</Text>
+
           {posts &&
             posts.map((post) => {
               return <Post key={post.id} {...post} toBold={searchValue} />;

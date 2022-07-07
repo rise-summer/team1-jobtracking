@@ -2,12 +2,11 @@ import styled from "styled-components";
 
 export const MainBody = styled.div`
   min-width: 700px;
-  font-family: Sans-Serif;
+  font-family: "Open Sans", Sans-Serif;
   width: 100vw;
   height: 100vh;
   //margin: 0 20px 20px 0;
   justify-content: center;
-  
 `;
 
 export const BackgroundDiv = styled.div`
@@ -29,7 +28,6 @@ export const ContentDiv = styled.div`
 
 export const Headding = styled.div`
   background: #175596;
-  overflow: hidden;
   border-radius: 5px;
 `;
 
@@ -43,8 +41,8 @@ export const HeadingContent = styled.div`
 export const Title = styled.div`
   font-style: normal;
   font-weight: bold;
-  font-size: 25px;
-  letter-spacing: 3pt;
+  font-size: 24px;
+  letter-spacing: 1pt;
   text-align: left;
   color: #ffffff;
   /* display: block; */
@@ -63,9 +61,7 @@ export const NewAppBtnDiv = styled.button`
   width: 90px;
   text-decoration: none;
   cursor: pointer;
-  &:hover {
-    background: #c0c0c0;
-  }
+
   &:active {
     transform: scale(0.97);
     transition: 0.1s;
@@ -79,26 +75,123 @@ export const NewAppBtn = styled.a`
   font-size: 18px;
 `;
 
-export const Sort = styled.select`
-  background: #f5f5f5;
-  border: none;
-  outline: none;
-  border-radius: 10px;
-  text-align: center;
+/*
+rewrite the sort stuff to be a custom dropdown menu instead, bc it is not very pretty otherwise
+*/
+
+export const CustomSortContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
   margin: auto 10px;
   padding-left: 5px;
-  width: 90px;
-  font-size: 18px;
+  width: 210px;
   height: 35px;
-  font-weight: none;
+  border-radius: 10px;
   cursor: pointer;
-  &:hover {
-    background: #c0c0c0;
+
+  background: #f5f5f5;
+`;
+export const CustomSortButton = styled.div`
+  position: relative;
+  vertical-align: middle;
+  text-align: center;
+  height: 100%;
+  & > * {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    min-width: 100%;
+    transition: all 0.5 ease;
+    position: absolute;
+    left: -6px;
+    top: 0px;
+    margin-top: 1rem;
+  }
+  &:hover > *:nth-last-child(1) {
+    border-radius: 0 0 10px 10px;
+  }
+  &:hover > *,
+  & > *:hover {
+    cursor: pointer;
+    visibility: visible;
+    opacity: 1;
+    display: block;
+    background: red;
+    width: 215px;
+    height: 35px;
+  }
+`;
+export const CustomSortOptions = styled.div`
+  z-index: 3;
+`;
+export const CustomSortArrowContainer = styled.div`
+  -self: center;
+`;
+export const CustomSortArrow = styled.div``;
+
+export const SortContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin: auto 10px;
+  padding-left: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  user-select: none;
+  & > select:active {
+    transform: scale(0.97);
+    transition: 0.1s;
+  }
+  & > * {
+    overflow: hidden;
   }
   &:active {
     transform: scale(0.97);
     transition: 0.1s;
   }
+  background: #f5f5f5;
+  transition: all 0.2s ease;
+`;
+export const Sort = styled.select`
+  border: none;
+  outline: none;
+  text-align: center;
+  width: 210px;
+  font-size: 18px;
+  height: 35px;
+  font-weight: none;
+  cursor: pointer;
+  border-radius: 10px;
+  /* for Firefox */
+  -moz-appearance: none;
+  /* for Chrome */
+  -webkit-appearance: none;
+  & > option {
+    width: 100%;
+  }
+  background: #f5f5f5;
+`;
+
+export const ArrowContainer = styled.div`
+  height: 35px;
+  overflow: hidden;
+  width: 17px;
+  background: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+  & > * {
+    border-radius: 10px;
+  }
+`;
+export const Arrow = styled.div`
+  height: 17px;
+  font-size: 14px;
+  width: 17px;
 `;
 
 export const Option = styled.option`
@@ -166,7 +259,7 @@ export const ExitBtn = styled.button`
 export const Name = styled.textarea`
   font-size: 25px;
   font-weight: bold;
-  font-family: Sans-Serif;
+  font-family: "Open Sans", Sans-Serif;
   margin: 20px auto auto auto;
   text-align: center;
   resize: none;
@@ -187,7 +280,7 @@ export const InfoDiv = styled.div`
 `;
 
 export const Info = styled.textarea`
-  font-family: Sans-Serif;
+  font-family: "Open Sans", Sans-Serif;
   font-size: 16px;
   resize: none;
   border: none;

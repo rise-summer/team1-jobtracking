@@ -39,23 +39,34 @@ export default function Track3(props) {
           <BackgroundDiv>
             <ContentDiv>
               <Heading>
-                <Title>Great job applying!</Title>
+                <Title style={{ margin: "50px 0 20px 0" }}>
+                  Great job applying!
+                </Title>
                 <Subtitle>
                   You have successfully added {hash} to your tracked
                   applications.
                 </Subtitle>
 
-                {position && (
+                {/*position && (
                   <React.Fragment>
                     <Subtitle>See what other people are saying here:</Subtitle>
                     <Subtitle2>#{position}</Subtitle2>
                   </React.Fragment>
-                )}
+                )*/}
 
-                <div>
-                  <SubmitBtn onClick={() => history.push("/trackr")}>
-                    Complete
-                  </SubmitBtn>
+                <div
+                  style={{
+                    cursor: "pointer",
+                    fontWeight: 800,
+                    color: "#175596",
+                    margin: "30px 0 20px 0",
+                    fontSize: "20px",
+                  }}
+                  onClick={() => history.push("/trackr")}
+                >
+                  {" "}
+                  ◀ <span style={{ paddingLeft: "10px" }}></span>Back to
+                  applications
                 </div>
               </Heading>
             </ContentDiv>

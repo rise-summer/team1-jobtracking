@@ -2,7 +2,7 @@ import React, { useState, useEffect, useLayoutEffect, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import edit from "../../../../images/edit_icon.svg";
-import link from "../../../../images/link.svg";
+//import share from "../../../../images/link.svg";
 import trash from "../../../../images/trash.svg";
 import down from "../../../../images/downarrow.svg";
 import up from "../../../../images/uparrow.svg";
@@ -10,6 +10,7 @@ import axios from "axios";
 import { firestore, auth } from "../../../../firebaseSetup";
 import firebase from "../../../../firebaseSetup";
 export default function Application({
+  link,
   app_status,
   company,
   position,
@@ -23,6 +24,7 @@ export default function Application({
 }) {
   // console.log(props)
   console.log(
+    link,
     app_status,
     company,
     position,
@@ -116,7 +118,19 @@ export default function Application({
         <Top>
           <Left>
             <CompanyName>{company}</CompanyName>
-            <PositionName>{position}</PositionName>
+            <PositionName>
+              {link ? (
+                <A
+                  target={"_blank"}
+                  href={link}
+                  style={{ textDecoration: "none" }}
+                >
+                  {position}
+                </A>
+              ) : (
+                `${position}`
+              )}
+            </PositionName>
           </Left>
           <Center>
             <BorderBox>
@@ -172,7 +186,7 @@ export default function Application({
                 {location ? location : "N/A"}
               </TopText>
             </Topline>
-            <Description>{description}</Description>
+            <Description style={{ fontWeight: 400 }}>{description}</Description>
             <Notes
               id="textarea"
               placeholder="Notes: 
@@ -213,6 +227,7 @@ const Content = styled.div`
   &:hover {
     background: #fffd66;
   }
+  transition: all 0.3s ease;
 `;
 
 const CompanyName = styled.div`
@@ -272,13 +287,15 @@ const RBtn = styled.button`
   border: none;
   box-sizing: border-box;
   border-radius: 5px;
-  padding: 5px;
+
   //font-weight: 600;
   font-size: 11px;
   /* justify-content: center; */
   /* text-align: center; */
-  align-content: center;
-  background: #ededed;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 2px solid #6175a9;
   margin: 5px 2px;
   width: 60px;
   height: 23px;
@@ -286,12 +303,14 @@ const RBtn = styled.button`
   display: flex;
   text-decoration: none;
   :hover {
-    background: #c0c0c0;
+    background: #ededed;
   }
+  transition: all 0.3s ease;
 `;
 
 const LinkBtn = styled.a`
   text-decoration: none;
+  transition: all 0.3s ease;
 `;
 
 const Extra = styled.div``;
@@ -322,7 +341,7 @@ const Description = styled.div`
 `;
 
 const Notes = styled.textarea`
-  font-family: sans-serif;
+  font-family: "Open Sans", sans-serif;
   border: 2px solid #8191ba;
   box-sizing: border-box;
   border-radius: 14px;
@@ -349,4 +368,12 @@ const Arwdiv = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
+`;
+
+const A = styled.a`
+  color: black;
+  transition: all 0.3s ease;
+  &:hover {
+    color: #175596;
+  }
 `;

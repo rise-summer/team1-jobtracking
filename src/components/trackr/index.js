@@ -1,5 +1,6 @@
 import React, { Fragment, useContext, useState, useEffect } from "react";
 import Navigation from "../navigation";
+import { SearchBar } from "../navigation/style";
 import { useHistory } from "react-router-dom";
 import {
   MainBody,
@@ -12,6 +13,13 @@ import {
   ContentDiv,
   Option,
   HeadingContent,
+  SortContainer,
+  Arrow,
+  ArrowContainer,
+  CustomSortContainer,
+  CustomSortArrow,
+  CustomSortButton,
+  CustomSortOptions,
   // ProfileDiv,
   // Name,
   // EditBtn,
@@ -45,6 +53,8 @@ export default function Trackr(props) {
   let [applicationsInitialValue] = useCollectionData(applicationRef, {
     idField: "id",
   });
+  const [search, setSearch] = useState("");
+  const debouncedSearch = useDebounce(search);
   const [applications, setApplications] = useState();
   const [order, setOrder] = useState("ASC");
   const [sort, setSort] = useState("UPDATED");
@@ -93,11 +103,21 @@ export default function Trackr(props) {
         return undefined;
     }
   }
-
+  useEffect(() => {
+    if (debouncedSearch !== "") {
+      history.push("/mainfeed", { searchValue: debouncedSearch });
+    }
+  }, [debouncedSearch]);
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
+  // if search is used, redirect to
   return (
     <Fragment>
       <MainBody>
-        <Navigation />
+        <Navigation>
+          <SearchBar onChange={(e) => handleSearch(e)} />
+        </Navigation>
         <BackgroundDiv>
           <ContentDiv>
             <Headding>
@@ -113,22 +133,31 @@ export default function Trackr(props) {
                     New App
                   </NewAppBtn>
                 </NewAppBtnDiv>
-                <Sort
-                  className="dropdown"
-                  onChange={(e) => setSort(e.target.value)}
-                >
-                  <Option value="">Sort by</Option>
-                  <Option value="UPDATED">Updated </Option>
-                  <Option value="DEADLINE"> Deadline</Option>
-                  <Option value="STATUS"> Status</Option>
-                </Sort>
-                <Sort
-                  className="dropdown"
-                  onChange={(e) => setOrder(e.target.value)}
-                >
-                  <Option value="ASC">Asc</Option>
-                  <Option value="DESC">Desc</Option>
-                </Sort>
+                <SortContainer>
+                  <Sort onChange={(e) => setSort(e.target.value)}>
+                    <Option value="UPDATED">Sort by recently updated</Option>
+                    <Option value="DEADLINE"> Deadline</Option>
+                    <Option value="STATUS"> Status</Option>
+                  </Sort>
+                  <ArrowContainer>
+                    <Arrow
+                      style={{
+                        color: `${order === "ASC" ? "#175596" : "black"}`,
+                      }}
+                      onClick={() => setOrder("ASC")}
+                    >
+                      ▲
+                    </Arrow>
+                    <Arrow
+                      style={{
+                        color: `${order === "DESC" ? "#175596" : "black"}`,
+                      }}
+                      onClick={() => setOrder("DESC")}
+                    >
+                      ▼
+                    </Arrow>
+                  </ArrowContainer>
+                </SortContainer>
               </HeadingContent>
             </Headding>
             {applications && applications.length === 0 ? (
@@ -149,3 +178,21 @@ export default function Trackr(props) {
     </Fragment>
   );
 }
+function useDebounce(notes, delay = 500) {
+  const [debounced, setDebounced] = useState(notes);
+  useEffect(() => {
+    const timer = setTimeout(() => setDebounced(notes), delay);
+    return () => clearTimeout(timer);
+  }, [notes, delay]);
+  return debounced;
+}
+
+/*
+<Sort
+                  className="dropdown"
+                  onChange={(e) => setOrder(e.target.value)}
+                >
+                  <Option value="ASC">Asc</Option>
+                  <Option value="DESC">Desc</Option>
+                </Sort>
+*/

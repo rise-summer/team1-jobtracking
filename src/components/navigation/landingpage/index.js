@@ -55,17 +55,17 @@ export default function LandingPageNavigation() {
         <RightNavBarDiv>
           {/* <NavLink>{authentication.displayName}</NavLink> */}
           <NavLink id="/about" onClick={routeMainfeed}>
-            About
+            about
           </NavLink>
           <React.Fragment>
             <NavLink onClick={signout}>
-              {!isLoggedIn ? "Log In" : "Log Out"}
+              {!isLoggedIn ? "log in" : "log out"}
             </NavLink>
           </React.Fragment>
           {!isLoggedIn && (
             <React.Fragment>
               <SignUpLink id="/signup" onClick={routeMainfeed}>
-                Sign Up
+                sign up
               </SignUpLink>
             </React.Fragment>
           )}

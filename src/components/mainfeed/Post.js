@@ -108,7 +108,7 @@ const Post = ({
       console.log(substrings[i]);
       let reg = RegExp(`\\b${substrings[i]}\\b`, "gmi");
       console.log(reg);
-      copy = copy.replace(reg, `<b>${substrings[i]}</b> `);
+      copy = copy.replace(reg, `<b>${substrings[i]}</b>`);
       console.log(copy);
     }
     console.log(copy, toBold);
@@ -195,7 +195,7 @@ export default Post;
 
 const Feed = styled.div`
   margin: 10px auto auto auto;
-  font-family: "Open Sans", sans-serif;
+  : "Open Sans", sans-serif;
   font-style: normal;
   justify-content: center;
   align-items: center;
@@ -284,9 +284,8 @@ const Options = styled.div`
 
 const DropDownContent = styled.div`
   position: absolute;
-  background-color: #f1f1f1;
   min-width: 16px;
-  background: #ffffff;
+  background-color: #ffffff !important;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 16px;
   z-index: 1;
@@ -294,22 +293,25 @@ const DropDownContent = styled.div`
 
 const Link = styled.button`
   color: black;
-  padding: 12px 16px;
+  padding: 10px 16px;
   display: block;
   border: none;
+  background-color: inherit;
+  border-radius: 10px;
   &:active {
     transform: scale(0.8);
     transition: 0.1s;
     filter: opacity(30%);
   }
   cursor: pointer;
+  font-weight: 800;
 `;
 
 const EditArea = styled.textarea`
   border: none;
   resize: none;
   width: 70%;
-  font-family: sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-size: 16px;
   line-height: 22px;
   letter-spacing: 0.5px;
@@ -327,5 +329,5 @@ const EditTitle = styled.textarea`
   color: #000000;
   display: inline-block;
   width: 90%;
-  font-family: sans-serif;
+  font-family: "Open Sans", sans-serif;
 `;

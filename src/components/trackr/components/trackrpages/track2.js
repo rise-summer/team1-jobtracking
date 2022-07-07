@@ -37,7 +37,7 @@ export default function Track2(props) {
   const company = useFormInput(state ? state.company : "");
   const deadline = useFormInput("");
   const location = useFormInput(state ? state.place : "");
-  const description = useFormInput(state ? state.desc : "");
+  const description = useFormInput(state ? state.description : "");
   let jobsRef;
 
   if (JSON.stringify(props) === "{}") {
@@ -45,6 +45,7 @@ export default function Track2(props) {
   } else {
     jobsRef = firestore.collection(`jobs/${authentication["uid"]}/jobs`);
     console.log(state);
+    console.log(description);
     async function handleSubmit(e) {
       e.preventDefault();
       console.log(stage);

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { SearchBar } from "../style.js";
 export default function Search(props) {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(
+    props.searchValue ? props.searchValue : ""
+  );
   const handleUpdate = (search) => {
     setValue(search);
   };
@@ -9,7 +11,9 @@ export default function Search(props) {
   useEffect(() => {
     props.setSearchValue(debouncedSearch);
   }, [debouncedSearch]);
-  return <SearchBar onChange={(e) => handleUpdate(e.target.value)} />;
+  return (
+    <SearchBar value={value} onChange={(e) => handleUpdate(e.target.value)} />
+  );
 }
 
 function useDebounce(notes, delay = 500) {

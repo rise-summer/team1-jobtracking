@@ -136,7 +136,7 @@ export default function SignUp(props) {
 }
 
 const HomeLink = styled(Link)`
-  font-family: Sans-Serif;
+  font-family: "Open Sans", Sans-Serif;
   color: #175596;
   text-decoration: none;
   font-weight: bold;

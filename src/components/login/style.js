@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export const MainBody = styled.div`
   font-size: 24px;
-  font-family: Sans-Serif;
+  font-family: "Open Sans", Sans-Serif;
   font-style: normal;
   height: 100%;
   width: 100%;
@@ -66,7 +66,7 @@ export const Item = styled.div`
 `;
 
 export const Email = styled.input.attrs({
-  placeholder: "email or username",
+  placeholder: "email",
 })`
   font-size: 20px;
   border: none;
@@ -146,7 +146,7 @@ export const SignUpButton = styled.a`
 `;
 
 export const HomeLink = styled(Link)`
-  font-family: Sans-Serif;
+  font-family: "Open Sans", Sans-Serif;
   color: #175596;
   text-decoration: none;
   font-weight: bold;

@@ -4,7 +4,7 @@ export const NavBarDiv = styled.div`
   display: flex;
   justify-content: center;
   overflow: hidden;
-  font-family: Sans-Serif;
+  font-family: "Open Sans", Sans-Serif;
   padding: 20px 10vw 20px 10vw;
   overflow: hidden;
   /* position: fixed;

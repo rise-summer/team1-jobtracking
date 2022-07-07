@@ -15,3 +15,7 @@ export const login = (email, password) => {
 export const logout = async () => {
   await auth.signOut();
 };
+
+export const resetPasswordEmail = (email) => {
+  return auth.sendPasswordResetEmail(email);
+};

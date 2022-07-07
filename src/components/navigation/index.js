@@ -54,14 +54,14 @@ export default function Navigation(props) {
         <RightNavBarDiv>
           {/* <NavLink>{authentication.displayName}</NavLink> */}
           <NavLink id="/trackr" onClick={routeMainfeed}>
-            Tracker
+            tracker
           </NavLink>
           <NavLink id="/yourposts" onClick={routeMainfeed}>
-            Your Posts
+            your posts
           </NavLink>
           <React.Fragment>
             <NavLink onClick={signout}>
-              {!isLoggedIn ? "Log In" : "Log Out"}
+              {!isLoggedIn ? "log in" : "log out"}
             </NavLink>
           </React.Fragment>
         </RightNavBarDiv>

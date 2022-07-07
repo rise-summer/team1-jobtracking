@@ -60,7 +60,9 @@ const AddPost = ({ toggleShowPost }) => {
         {/* <Input type="text" placeholder="Position" />
         <Input type="text" placeholder="Industry" />
         <Input type="text" placeholder="Status" /> */}
-        <Submit>Post</Submit>
+        <SubmitContainer>
+          <Submit>Post</Submit>
+        </SubmitContainer>
       </form>
     </Container>
   );
@@ -99,7 +101,7 @@ const Description = styled.textarea`
   min-height: 7vh;
   resize: none;
   width: 100%;
-  font-family: sans-serif;
+  font-family: "Open Sans", sans-serif;
 `;
 
 const Input = styled.input`
@@ -107,6 +109,11 @@ const Input = styled.input`
   font-size: 20px;
 `;
 
+const SubmitContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+`;
 // Modified NewPostButton from ./style.js
 const Submit = styled.button`
   background: #175596;
@@ -114,7 +121,7 @@ const Submit = styled.button`
   min-height: 30px;
   width: 60px;
   text-align: center;
-  /* margin-left: auto; */
+  margin-left: auto;
   font-style: normal;
   font-weight: bold;
   font-size: 15px;

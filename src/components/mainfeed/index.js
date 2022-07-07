@@ -9,13 +9,20 @@ import "firebase/compat/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { firestore, auth } from "../../firebaseSetup";
 import Search from "../navigation/search";
-const MainFeed = () => {
-  const [searchValue, setSearchValue] = useState("");
+const MainFeed = (props) => {
+  const [searchValue, setSearchValue] = useState(
+    props.location.state ? props.location.state.searchValue : ""
+  );
   const [showPost, setShowPost] = useState(false);
   const [numPosts, setNumPosts] = useState(1);
   const postRef = firestore.collection(`posts`).orderBy("time", "desc");
   const [initialPosts] = useCollectionData(postRef, { idField: "id" });
   const [posts, setPosts] = useState();
+  useEffect(() => {
+    if (props.location.state) {
+      setSearchValue(props.location.state.searchValue);
+    }
+  }, [props.location.state]);
   useEffect(() => {
     setPosts(
       initialPosts
@@ -74,7 +81,7 @@ const MainFeed = () => {
     <Fragment>
       <MainBody>
         <Navigation>
-          <Search setSearchValue={setSearchValue} />
+          <Search searchValue={searchValue} setSearchValue={setSearchValue} />
         </Navigation>
         <BackgroundDiv>
           {showPost ? (

@@ -162,7 +162,7 @@ const EditArea = styled.textarea`
   border: none;
   resize: none;
   width: 70%;
-  font-family: sans-serif;
+  :sans-serif ;
   font-size: 16px;
   line-height: 22px;
   letter-spacing: 0.5px;
