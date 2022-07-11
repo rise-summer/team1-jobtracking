@@ -22,14 +22,9 @@ import { AuthenticationContext } from "../../AuthenticationContext";
 import { useLocation } from "react-router-dom";
 
 export default function Login(props) {
-  // const log_in = useSelector((state) => state.isLogged);
-  // console.log(log_in);
-  // const dispatch = useDispatch();
   const { authentication, setAuthentication, setIsLoggedIn } = useContext(
     AuthenticationContext
   );
-  console.log(authentication);
-
   const [email, setEmail] = useState("");
   const [passwordModal, setPasswordModal] = useState(false);
   const [resetPassword, setResetPassword] = useState(false);
@@ -38,14 +33,13 @@ export default function Login(props) {
   const location = useLocation();
   const { state } = location;
   useEffect(() => {
-    console.log(state);
     if (state && state.from) {
       setError({ header: "Please log-in", email: "", password: "" });
     }
   }, []);
   const submit = async (e) => {
     e.preventDefault();
-    console.log("Event: Form Submit");
+
     if (email === "" || password === "") {
       setError({
         header: "",

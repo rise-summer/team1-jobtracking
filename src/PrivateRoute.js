@@ -4,7 +4,6 @@ import { AuthenticationContext } from "./AuthenticationContext";
 import { useContext } from "react";
 export default function PrivateRoute({ children, ...rest }) {
   const { authentication, isLoggedIn } = useContext(AuthenticationContext);
-  console.log(authentication);
   return (
     <Route
       exact

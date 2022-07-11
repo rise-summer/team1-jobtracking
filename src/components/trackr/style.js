@@ -5,6 +5,7 @@ export const MainBody = styled.div`
   font-family: "Open Sans", Sans-Serif;
   width: 100vw;
   height: 100vh;
+  overflow-y: auto;
   //margin: 0 20px 20px 0;
   justify-content: center;
 `;
@@ -21,47 +22,74 @@ export const BackgroundDiv = styled.div`
 
 export const ContentDiv = styled.div`
   padding: 20px 0px 20px 0vw;
-  width: 60vw;
+  width: 80vw;
   min-width: 570px;
   overflow: auto;
+  padding-right: 5px;
 `;
 
-export const Headding = styled.div`
-  background: #175596;
+export const Heading = styled.div`
+  background: #f2f2f2;
   border-radius: 5px;
+  margin-top: 30px;
 `;
 
 export const HeadingContent = styled.div`
-  display: flex;
+  display: grid;
   //min-width: 645px;
   border-radius: 5px 5px 0px 0px;
   height: 70px;
+  grid-template-columns: 3fr 1.5fr 1.25fr 1.25fr 0.5fr;
+  grid-gap: 20px;
+`;
+
+export const Column = styled.div`
+  justify-self: start;
+  font-weight: 500;
+  font-size: 16px;
+  align-self: center;
+  &:nth-child(1) {
+    margin-left: 40px;
+  }
+  &:nth-last-child(1) {
+    margin-right: 10px;
+  }
+`;
+
+export const ColumnSort = styled.span`
+  display: inline-block;
+  font-size: 12px;
+  transition: 0.2s ease;
+
+  &:hover {
+    cursor: pointer;
+  }
+  transform: rotate(
+    ${(props) => (props.direction === "DESC" ? "-180deg" : "0deg")}
+  );
 `;
 
 export const Title = styled.div`
   font-style: normal;
   font-weight: bold;
-  font-size: 24px;
+  font-size: 30px;
+  color:#175596
   letter-spacing: 1pt;
   text-align: left;
-  color: #ffffff;
   /* display: block; */
   margin: auto auto auto 15px;
   /* min-width: 270px; */
 `;
 
 export const NewAppBtnDiv = styled.button`
-  background: #f5f5f5;
+  background: #175596;
   border-radius: 10px;
   border: none;
   outline: none;
   text-align: center;
-  margin: auto 10px;
-  height: 35px;
-  width: 90px;
+  padding: 0 8px;
   text-decoration: none;
   cursor: pointer;
-
   &:active {
     transform: scale(0.97);
     transition: 0.1s;
@@ -70,9 +98,13 @@ export const NewAppBtnDiv = styled.button`
 
 export const NewAppBtn = styled.a`
   text-decoration: none;
-  color: #000000;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-weight: none;
   font-size: 18px;
+  height: 100%;
 `;
 
 /*

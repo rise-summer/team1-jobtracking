@@ -9,7 +9,6 @@ export const AuthenticationProvider = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(
     JSON.parse(localStorage.getItem("loggedIn"))
   );
-  console.log(isLoggedIn);
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentuser) => {
       if (currentuser) {

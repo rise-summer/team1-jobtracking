@@ -53,8 +53,6 @@ export default function YourPosts(props) {
     }
   }, [initialPosts]);
   useEffect(() => {
-    console.log(searchValue);
-    console.log(posts);
     let newPosts;
     if (initialPosts) {
       if (searchValue) {
@@ -81,7 +79,6 @@ export default function YourPosts(props) {
       }
       setPosts(newPosts);
     }
-    console.log(newPosts);
   }, [searchValue]);
   return (
     <Fragment>

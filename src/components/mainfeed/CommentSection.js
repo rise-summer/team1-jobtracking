@@ -19,8 +19,6 @@ const CommentSection = ({ id }) => {
     .collection(`posts/${id}/comments`)
     .orderBy("date", "asc");
   const [comments] = useCollectionData(commentRef, { idField: "id" });
-  console.log(comments);
-  console.log(id);
 
   return (
     <Container>

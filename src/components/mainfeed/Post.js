@@ -30,8 +30,6 @@ const Post = ({
     AuthenticationContext
   );
 
-  console.log(id);
-  console.log(author, displayName, title, time, description);
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
       // If the menu is open and the clicked target is not within the menu,
@@ -73,9 +71,7 @@ const Post = ({
       document.removeEventListener("mousedown", checkIfClickedOutside);
     };
   }, [edit]);
-  useEffect(() => {
-    console.log(editedDescription);
-  }, [editedDescription]);
+
   function handleKeyDown(event) {
     if (event.key === "Enter") {
       event.preventDefault();
@@ -105,11 +101,8 @@ const Post = ({
       .filter((word) => word !== "");
     console.log(substrings);
     for (let i = 0; i < substrings.length; i++) {
-      console.log(substrings[i]);
       let reg = RegExp(`\\b${substrings[i]}\\b`, "gmi");
-      console.log(reg);
       copy = copy.replace(reg, `<b>${substrings[i]}</b>`);
-      console.log(copy);
     }
     console.log(copy, toBold);
     return copy;

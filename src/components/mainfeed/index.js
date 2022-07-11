@@ -41,8 +41,6 @@ const MainFeed = (props) => {
     );
   }, [initialPosts]);
   useEffect(() => {
-    console.log(searchValue);
-    console.log(posts);
     let newPosts;
     if (initialPosts) {
       if (searchValue) {
@@ -67,7 +65,6 @@ const MainFeed = (props) => {
       }
       setPosts(newPosts);
     }
-    console.log(newPosts);
   }, [searchValue]);
   // const toggleShowPost = () => {
   //   if (showPost) {
@@ -81,7 +78,11 @@ const MainFeed = (props) => {
     <Fragment>
       <MainBody>
         <Navigation>
-          <Search searchValue={searchValue} setSearchValue={setSearchValue} />
+          <Search
+            focus={props.location.state}
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+          />
         </Navigation>
         <BackgroundDiv>
           {showPost ? (

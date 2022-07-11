@@ -20,8 +20,7 @@ import { logout } from "../apiFunctions";
 export default function Navigation(props) {
   const { authentication, setAuthentication, isLoggedIn, setIsLoggedIn } =
     useContext(AuthenticationContext);
-  console.log(JSON.stringify(authentication));
-  console.log(authentication["uid"]);
+
   let history = useHistory();
 
   const signout = () => {
@@ -54,14 +53,14 @@ export default function Navigation(props) {
         <RightNavBarDiv>
           {/* <NavLink>{authentication.displayName}</NavLink> */}
           <NavLink id="/trackr" onClick={routeMainfeed}>
-            tracker
+            Tracker
           </NavLink>
           <NavLink id="/yourposts" onClick={routeMainfeed}>
-            your posts
+            Your posts
           </NavLink>
           <React.Fragment>
             <NavLink onClick={signout}>
-              {!isLoggedIn ? "log in" : "log out"}
+              {!isLoggedIn ? "Log in" : "Log out"}
             </NavLink>
           </React.Fragment>
         </RightNavBarDiv>

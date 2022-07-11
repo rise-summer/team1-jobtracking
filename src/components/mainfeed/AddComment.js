@@ -7,9 +7,6 @@ import { auth, firestore } from "../../firebaseSetup";
 import firebase from "../../firebaseSetup";
 
 const AddComment = ({ id, setComments }) => {
-  // const authentication = useSelector((state) => state.isLogged.authentication);
-  // console.log(authentication);
-  console.log(id);
   const commentRef = firestore.collection(`posts/${id}/comments`);
 
   const submitComment = (e) => {

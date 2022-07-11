@@ -1,16 +1,24 @@
-import React, { Fragment, useContext, useState, useEffect } from "react";
+import React, {
+  Fragment,
+  useRef,
+  useContext,
+  useState,
+  useEffect,
+} from "react";
 import Navigation from "../navigation";
 import { SearchBar } from "../navigation/style";
 import { useHistory } from "react-router-dom";
 import {
   MainBody,
   BackgroundDiv,
-  Headding,
+  Heading,
+  ColumnSort,
   Title,
   NewAppBtnDiv,
   NewAppBtn,
   Sort,
   ContentDiv,
+  Column,
   Option,
   HeadingContent,
   SortContainer,
@@ -40,33 +48,45 @@ import Application from "./components/applicationfeed/Application";
 import EmptyApplication from "./components/applicationfeed/emptyapplication";
 import { AuthenticationContext } from "../../AuthenticationContext";
 import { firestore } from "../../firebaseSetup";
-import { useCollectionData } from "react-firebase-hooks/firestore";
 
 export default function Trackr(props) {
   let history = useHistory();
   const { authentication, setAuthentication } = useContext(
     AuthenticationContext
   );
-  const applicationRef = firestore
-    .collection(`jobs/${authentication["uid"]}/jobs`)
-    .orderBy("date_updated", "asc");
-  let [applicationsInitialValue] = useCollectionData(applicationRef, {
-    idField: "id",
-  });
   const [search, setSearch] = useState("");
   const debouncedSearch = useDebounce(search);
   const [applications, setApplications] = useState();
   const [order, setOrder] = useState("ASC");
+  const [updatedOrder, setUpdatedOrder] = useState("ASC");
+  const [statusOrder, setStatusOrder] = useState("ASC");
   const [sort, setSort] = useState("UPDATED");
+
+  const getJobs = async () => {
+    const jobs = await firestore
+      .collection(`jobs/${authentication["uid"]}/jobs`)
+      .orderBy("date_updated", "asc")
+      .get()
+      .then((snapshot) => {
+        const temp = snapshot.docs.map((doc) => {
+          return { id: doc.id, ...doc.data() };
+        });
+        sortApplications(order, sort, temp);
+      });
+  };
   useEffect(() => {
-    //setApplications(sortApplications(order, sort, applicationsInitialValue));
-    if (applicationsInitialValue) {
-      sortApplications(order, sort, applicationsInitialValue);
+    if (authentication["uid"]) {
+      getJobs();
     }
-  }, [applicationsInitialValue]);
+  }, [authentication]);
   useEffect(() => {
     if (applications) sortApplications(order, sort, applications);
   }, [order, sort]);
+  const handleOrderChange = (newSort, newOrder) => {
+    setOrder(newOrder);
+    setSort(newSort);
+  };
+  console.log("trackr loaded");
   function sortApplications(order, sort, applications) {
     console.log("called");
     let updatedApplications = [...applications];
@@ -120,46 +140,82 @@ export default function Trackr(props) {
         </Navigation>
         <BackgroundDiv>
           <ContentDiv>
-            <Headding>
-              <HeadingContent>
-                <Title>Your Applications</Title>
-                <NewAppBtnDiv>
-                  <NewAppBtn
-                    onClick={() => {
-                      console.log("push");
-                      history.push("/trackr/track1");
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Title>Your Applications</Title>
+              <NewAppBtnDiv>
+                <NewAppBtn
+                  style={{ fontFamily: "Open Sans" }}
+                  onClick={() => {
+                    console.log("push");
+                    history.push("/trackr/track1");
+                  }}
+                >
+                  <span
+                    style={{
+                      display: "block",
+                      fontSize: "30px",
+                      fontWeight: 100,
+                      marginRight: "5px",
                     }}
                   >
-                    New App
-                  </NewAppBtn>
-                </NewAppBtnDiv>
-                <SortContainer>
-                  <Sort onChange={(e) => setSort(e.target.value)}>
-                    <Option value="UPDATED">Sort by recently updated</Option>
-                    <Option value="DEADLINE"> Deadline</Option>
-                    <Option value="STATUS"> Status</Option>
-                  </Sort>
-                  <ArrowContainer>
-                    <Arrow
-                      style={{
-                        color: `${order === "ASC" ? "#175596" : "black"}`,
-                      }}
-                      onClick={() => setOrder("ASC")}
-                    >
-                      ▲
-                    </Arrow>
-                    <Arrow
-                      style={{
-                        color: `${order === "DESC" ? "#175596" : "black"}`,
-                      }}
-                      onClick={() => setOrder("DESC")}
-                    >
-                      ▼
-                    </Arrow>
-                  </ArrowContainer>
-                </SortContainer>
+                    +
+                  </span>{" "}
+                  Track new application
+                </NewAppBtn>
+              </NewAppBtnDiv>
+            </div>
+            <Heading>
+              <HeadingContent>
+                <Column>Position</Column>
+                <Column>Company</Column>
+                <Column>
+                  Last updated{" "}
+                  <ColumnSort
+                    direction={`${
+                      sort == "UPDATED"
+                        ? order === "ASC"
+                          ? "ASC"
+                          : "DESC"
+                        : "ASC"
+                    }`}
+                    onClick={() =>
+                      handleOrderChange(
+                        "UPDATED",
+                        `${order === "ASC" ? "DESC" : "ASC"}`
+                      )
+                    }
+                  >
+                    ▼
+                  </ColumnSort>
+                </Column>
+                <Column>
+                  Status{" "}
+                  <ColumnSort
+                    direction={`${
+                      sort === "STATUS"
+                        ? order === "ASC"
+                          ? "ASC"
+                          : "DESC"
+                        : "ASC"
+                    }`}
+                    onClick={() =>
+                      handleOrderChange(
+                        "STATUS",
+                        `${order === "ASC" ? "DESC" : "ASC"}`
+                      )
+                    }
+                  >
+                    ▼
+                  </ColumnSort>
+                </Column>
               </HeadingContent>
-            </Headding>
+            </Heading>
             {applications && applications.length === 0 ? (
               <EmptyApplication></EmptyApplication>
             ) : (
@@ -169,6 +225,9 @@ export default function Trackr(props) {
                   key={application.id}
                   {...application}
                   sortApplications={sortApplications}
+                  order={order}
+                  sort={sort}
+                  getJobs={getJobs}
                 />
               ))
             )}
@@ -186,13 +245,3 @@ function useDebounce(notes, delay = 500) {
   }, [notes, delay]);
   return debounced;
 }
-
-/*
-<Sort
-                  className="dropdown"
-                  onChange={(e) => setOrder(e.target.value)}
-                >
-                  <Option value="ASC">Asc</Option>
-                  <Option value="DESC">Desc</Option>
-                </Sort>
-*/

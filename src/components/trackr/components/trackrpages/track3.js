@@ -1,8 +1,9 @@
 // import { Slider } from "antd";
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import Navigation from "../../../navigation";
 import { useHistory } from "react-router-dom";
+import party from "party-js";
 import {
   ContentDiv,
   Title,
@@ -15,10 +16,30 @@ import {
 } from "./style";
 
 export default function Track3(props) {
+  const [contentRef, setContentRef] = useState();
   const history = useHistory();
   let application;
   let position;
   let hash;
+  useEffect(() => {
+    if (contentRef) {
+      party.confetti(contentRef, {
+        count: party.variation.range(45, 55),
+        spread: party.variation.range(15, 50),
+        speed: 650,
+        color: () =>
+          party.Color.fromHsl(party.random.randomRange(0, 360), 100, 50),
+        shapes: [
+          "square",
+          "rectangle",
+          "roundedSquare",
+          "roundedRectangle",
+          "circle",
+        ],
+      });
+    }
+  }, [contentRef]);
+
   if (JSON.stringify(props) === "{}") {
     return <Redirect to="/trackr" />;
   } else if (props.location.state == undefined) {
@@ -37,7 +58,7 @@ export default function Track3(props) {
         <Outer>
           <Navigation />
           <BackgroundDiv>
-            <ContentDiv>
+            <ContentDiv ref={setContentRef}>
               <Heading>
                 <Title style={{ margin: "50px 0 20px 0" }}>
                   Great job applying!

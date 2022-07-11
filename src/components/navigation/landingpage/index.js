@@ -22,7 +22,7 @@ export default function LandingPageNavigation() {
 
   console.log(isLoggedIn, authentication);
   let history = useHistory();
-  console.log(history);
+
   const signout = () => {
     if (!authentication || authentication["uid"] == null) {
       history.push("/login");
