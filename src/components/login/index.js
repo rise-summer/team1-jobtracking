@@ -16,13 +16,14 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 
 import { AuthenticationContext } from "../../AuthenticationContext";
+import firebase from "../../firebaseSetup";
 
 export default function Login(props) {
   // const log_in = useSelector((state) => state.isLogged);
   // console.log(log_in);
   // const dispatch = useDispatch();
   const [authentication, setAuthentication] = useContext(AuthenticationContext);
-  console.log(authentication)
+  console.log(authentication);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -35,23 +36,23 @@ export default function Login(props) {
       console.log("missing fields");
       return;
     } else {
-      login(email, password).then((res) => {
-        console.log(res);
-        console.log("redirect to home feed");
+      firebase
+        .auth()
+        .setPersistence("session")
+        .then(() => {
+          firebase
+            .auth()
+            .signInWithEmailAndPassword(email, password)
+            .then((res) => {
+              console.log(res);
+              console.log("redirect to home feed");
 
-        setAuthentication(auth.currentUser);
-        console.log(auth.currentUser.getIdToken());
-        console.log(auth.currentUser)
-        // dispatch({
-        //   type: "SIGN_IN",
-        //   payload: { token: auth.currentUser.getIdToken(), authentication: auth.currentUser },
-        // });
-        props.history.push("/mainfeed");
-
-        // redirect to home feed
-        //console.log(auth.currentUser);
-        //console.log(auth.currentUser.displayName);
-      });
+              setAuthentication(auth.currentUser);
+              console.log(auth.currentUser.getIdToken());
+              console.log(auth.currentUser);
+              props.history.push("/mainfeed");
+            });
+        });
     }
   };
 

@@ -48,6 +48,7 @@ const MainFeed = () => {
               </NewPostButton>
             )}
           </Heading>
+          {console.log('hello')}
           {posts && console.log(posts.map((post) => post))}
           {posts && posts.map((post) => <Post key={post.id} {...post}/>)}
         </BackgroundDiv>

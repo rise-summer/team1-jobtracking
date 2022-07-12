@@ -47,7 +47,7 @@ export default function Track2(props) {
       company: company.value ? company.value : "",
       app_status: slider ? slider : 0,
       link: link.value ? link.value : "",
-      deadline: deadline.value ? firebase.firestore.Timestamp.fromDate(new Date(deadline.value)) : firebase.firestore.Timestamp.fromDate(0),
+      deadline: deadline.value ? firebase.firestore.Timestamp.fromDate(new Date(deadline.value)) : firebase.firestore.Timestamp.now(),
       location: location.value ? location.value : "",
       description: description.value ? description.value : "",
       notes: "",
@@ -95,7 +95,7 @@ export default function Track2(props) {
                 <Input2 placeholder="Software Engineering Intern" {...role} />
                 <Input2 placeholder="Facebook" {...company} />
                 <Input2
-                  placeholder="Deadline: 12/01/20"
+                  defaultValue="2014-02-09"
                   type="date"
                   {...deadline}
                 />

@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from "react";
+import React, { Fragment, useContextm, useEffect } from "react";
 import Navigation from "../navigation";
 import {
   MainBody,
@@ -29,14 +29,23 @@ import {
 } from "./style";
 import Application from "./components/applicationfeed/Application";
 import EmptyApplication from "./components/applicationfeed/emptyapplication";
-import { AuthenticationContext } from "../../AuthenticationContext";
+// import { AuthenticationContext } from "../../AuthenticationContext";
 import { auth, firestore } from "../../firebaseSetup";
 import { useCollectionData } from "react-firebase-hooks/firestore";
+import firebase from "../../firebaseSetup";
 
 export default function Trackr(props) {
-  const [authentication, setAuthentication] = useContext(AuthenticationContext);
-  const applicationRef = firestore.collection(`jobs/${auth.currentUser.uid}/jobs`);
+
+  
+  alert(firebase.auth().currentUser.uid)
+
+  const applicationRef = firestore.collection(`jobs/${firebase.auth().currentUser.uid}/jobs`);
   const [applications] = useCollectionData(applicationRef, {idField: "id"});
+  
+  
+
+  // const [authentication, setAuthentication] = useContext(AuthenticationContext);
+  
   // const [applications, setApplications] = useState([]);
 
 
