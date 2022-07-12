@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 export const Title = styled.div`
-  font-family: "Avenir Black", "Arial Black", sans-serif;
+  font-family: "Open Sans", "Avenir Black", "Arial Black", sans-serif;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 800;
   font-size: 30px;
   /* identical to box height */
 
@@ -41,6 +41,7 @@ export const NewPostButton = styled.button`
   background: #175596;
   border-radius: 10px;
   height: 35px;
+  margin-left: 10px;
   min-width: 130px;
   font-style: normal;
   font-size: 15px;

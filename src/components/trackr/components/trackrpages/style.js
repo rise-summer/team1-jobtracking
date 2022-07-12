@@ -8,9 +8,9 @@ export const Outer = styled.div`
 
 export const BackgroundDiv = styled.div`
   background: #ebebeb;
-  flex:1;
-  display:flex;
-  flex-direction:column;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const ContentDiv = styled.div`
@@ -56,7 +56,7 @@ export const BackSvg = styled.img`
 
 export const Title = styled.div`
   font-weight: 500;
-  font-size: 30px;
+  font-size: 50px;
   text-align: center;
   margin: 0px;
 `;
@@ -70,6 +70,7 @@ export const Subtitle = styled.div`
 
 export const Input = styled.input`
   background: #ffffff;
+  font-family: "Open Sans";
   box-shadow: 2px 4px 4px #9a9a9a;
   border-radius: 15px;
   width: 650px;
@@ -81,13 +82,23 @@ export const Input = styled.input`
   margin: 10px auto;
   padding: 0px 20px 0px 20px;
   &::placeholder {
-    font-style: italic;
+    font-weight: 400;
     font-size: 20px;
     color: #6f6f6f;
+  }
+  &::-webkit-input-placeholder {
+    font-weight: 100;
+  }
+  &::-moz-placeholder {
+    font-weight: 100;
+  }
+  &::-ms-input-placeholder {
+    font-weight: 100;
   }
 `;
 export const Input2 = styled.input`
   background: #ffffff;
+  font-family: "Open Sans";
   box-shadow: 2px 4px 4px #9a9a9a;
   border-radius: 15px;
   width: 300px;
@@ -99,9 +110,18 @@ export const Input2 = styled.input`
   margin: 10px 10px 10px 10px;
   padding: 0px 20px 0px 20px;
   &::placeholder {
-    font-style: italic;
+    font-style: 100;
     font-size: 20px;
     color: #6f6f6f;
+  }
+  &::-webkit-input-placeholder {
+    font-weight: 100;
+  }
+  &::-moz-placeholder {
+    font-weight: 100;
+  }
+  &::-ms-input-placeholder {
+    font-weight: 100;
   }
 `;
 
@@ -114,7 +134,7 @@ export const SubmitBtn = styled.button`
   color: #f2f0f0;
   margin: 30px auto;
   display: block;
-  width: 140px;
+  width: 200px;
   height: 49px;
   outline: none;
   border: none;
@@ -133,7 +153,7 @@ export const TextAreaDiv = styled.div`
 `;
 
 export const Textarea = styled.textarea`
-  font-family: "Open Sans", sans-serif;
+  font-family: "Open Sans", "Open Sans", sans-serif;
   background: #ffffff;
   border: none;
   outline: none;
@@ -152,6 +172,7 @@ export const Textarea = styled.textarea`
     //padding: 15px 15px 15px 15px;
   }
   margin: 0px auto;
+  white-space: pre-wrap;
 `;
 
 export const Slider = styled.input`

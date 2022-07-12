@@ -1,9 +1,12 @@
 import React, { Fragment, useContext, Router } from "react";
+import Search from "./search/index";
 import {
   NavBarDiv,
   LeftNavBarDiv,
-  // SearchBar,
+  SearchBar,
   RightNavBarDiv,
+  HomeLink,
+  NavLink,
 } from "./style.js";
 import { useHistory, withRouter } from "react-router-dom";
 
@@ -14,10 +17,10 @@ import { AuthenticationContext } from "../../AuthenticationContext";
 
 import { logout } from "../apiFunctions";
 
-export default function Navigation() {
-  const [authentication, setAuthentication] = useContext(AuthenticationContext);
-  console.log(JSON.stringify(authentication));
-  console.log(authentication["uid"]);
+export default function Navigation(props) {
+  const { authentication, setAuthentication, isLoggedIn, setIsLoggedIn } =
+    useContext(AuthenticationContext);
+
   let history = useHistory();
 
   const signout = () => {
@@ -25,14 +28,15 @@ export default function Navigation() {
       history.push("/login");
     } else {
       setAuthentication({});
-      logout();
-      history.push("/");
+      logout().then(() => {
+        history.push("/");
+        localStorage.setItem("loggedIn", JSON.stringify(false));
+        setIsLoggedIn(false);
+      });
     }
   };
 
   const routeMainfeed = (e) => {
-
-
     history.push(e.target.id);
   };
 
@@ -44,16 +48,19 @@ export default function Navigation() {
           <HomeLink id="/mainfeed" onClick={routeMainfeed}>
             Pipeline
           </HomeLink>
-          {/* <SearchBar /> */}
+          {props.children}
         </LeftNavBarDiv>
         <RightNavBarDiv>
           {/* <NavLink>{authentication.displayName}</NavLink> */}
           <NavLink id="/trackr" onClick={routeMainfeed}>
             Tracker
           </NavLink>
+          <NavLink id="/yourposts" onClick={routeMainfeed}>
+            Your posts
+          </NavLink>
           <React.Fragment>
             <NavLink onClick={signout}>
-              {authentication["uid"] == null ? "Log In" : "Log Out"}
+              {!isLoggedIn ? "Log in" : "Log out"}
             </NavLink>
           </React.Fragment>
         </RightNavBarDiv>
@@ -64,39 +71,3 @@ export default function Navigation() {
 }
 
 // export default withRouter(Navigation);
-
-const HomeLink = styled.a`
-  font-weight: 800;
-  font-size: 25px;
-  padding: 0px 20px 0px 0px;
-  /* identical to box height */
-  letter-spacing: 0.3px;
-  color: #175596;
-  text-decoration: none;
-  &:hover {
-    color: #2071c7;
-    cursor: pointer;
-  }
-  &:active {
-    transform: scale(0.97);
-    transition: 0.1s;
-  }
-`;
-
-const NavLink = styled.a`
-  font-weight: bold;
-  font-weight: 800;
-  font-size: 25px;
-  text-decoration: none;
-  min-width: 70px;
-  margin: 6px 0vw 0px 2vw;
-  color: #175596;
-  &:hover {
-    color: #2071c7;
-    cursor: pointer;
-  }
-  &:active {
-    transform: scale(0.97);
-    transition: 0.1s;
-  }
-`;

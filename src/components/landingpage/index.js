@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import Navigation from "../navigation";
+import LandingPageNavigation from "../navigation/landingpage";
 import {
   MainBody,
   BackgroundDiv,
@@ -15,7 +16,7 @@ const LandingPage = (props) => {
   return (
     <Fragment>
       <MainBody>
-        <Navigation />
+        <LandingPageNavigation />
         <BackgroundDiv>
           <HalfBox>
             <Title>The job search just got easier.</Title>
@@ -24,10 +25,10 @@ const LandingPage = (props) => {
               faster.
             </Subtitle>
             <div>
-              <form> 
-                <div style={{margin:"10vh auto", width: '75%'}}>
-                <Email placeholder="Your email" />
-                <Submit>Find Out How</Submit>
+              <form>
+                <div style={{ margin: "10vh auto", width: "75%" }}>
+                  <Email placeholder="Your email" />
+                  <Submit>Find Out How</Submit>
                 </div>
               </form>
             </div>

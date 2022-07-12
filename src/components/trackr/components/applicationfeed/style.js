@@ -11,6 +11,26 @@ export const Content = styled.div`
   }
 `;
 
+export const ContentGrid = styled.div`
+  display: grid;
+  grid-template-columns: 3fr 1.5fr 1.25fr 1.25fr 0.5fr;
+  grid-gap: 20px;
+  height: 70px;
+`;
+
+export const ContentColumn = styled.div`
+  justify-self: start;
+  font-size: ${(props) => (props.fontSize ? props.fontSize : "16px")};
+  align-self: center;
+  &:nth-child(1) {
+    margin-left: 40px;
+  }
+  &:nth-last-child(1) {
+    justify-self: center;
+    align-self: center;
+  }
+`;
+
 export const CompanyName = styled.div`
   font-size: 16px;
   line-height: 22px;
@@ -20,6 +40,10 @@ export const PositionName = styled.div`
   font-weight: 600;
   font-size: 20px;
   line-height: 22px;
+  transition: all 0.2s ease;
+  &:hover {
+    color: #175596;
+  }
 `;
 
 export const Slider = styled.input``;
@@ -55,6 +79,7 @@ export const Status = styled.div`
 `;
 
 export const RBtn = styled.button`
+  font-family: "Open Sans";
   border: 2px solid #6175a9;
   box-sizing: border-box;
   border-radius: 5px;
@@ -102,7 +127,7 @@ export const Description = styled.div`
   color: #5a5a5a;
 `;
 export const Notes = styled.textarea`
-  font-family: sans-serif;
+  font-family: "Open Sans", sans-serif;
   border: 2px solid #8191ba;
   box-sizing: border-box;
   border-radius: 14px;

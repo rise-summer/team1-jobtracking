@@ -1,12 +1,16 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import styled from "styled-components";
 import { firestore } from "../../firebaseSetup";
 import dots from "../../images/three_vertical_dots.svg";
 import editfig from "../../images/edit_icon.svg";
 import trashfig from "../../images/trash.svg";
+import { AuthenticationContext } from "../../AuthenticationContext";
 
-const Comment = ({ id, date, message, displayName, postid }) => {
+const Comment = ({ id, date, message, displayName, postid, author }) => {
   const [drop, setDrop] = useState(false);
+  const { authentication, setAuthentication } = useContext(
+    AuthenticationContext
+  );
   const commentRef = firestore.collection(`posts/${postid}/comments`);
   const [edit, setEdit] = useState(false);
   const [editedText, setEditedText] = useState(message);
@@ -44,9 +48,7 @@ const Comment = ({ id, date, message, displayName, postid }) => {
   return edit ? (
     <Container>
       <Side>
-        <Title>
-          {displayName}
-        </Title>
+        <Title>{displayName}</Title>
         <Subtitle>{date.toDate().toLocaleString()}</Subtitle>
       </Side>
       <EditArea
@@ -60,33 +62,33 @@ const Comment = ({ id, date, message, displayName, postid }) => {
   ) : (
     <Container>
       <Side>
-        <Title>
-          {displayName}
-        </Title>
+        <Title>{displayName}</Title>
         <Subtitle>{date.toDate().toLocaleString()}</Subtitle>
       </Side>
       <Message>{message}</Message>
-      <Options ref={ref}>
-        <Dots
-          src={dots}
-          alt="options"
-          onClick={() => setDrop(!drop)}
-          onBlur={() => setDrop(false)}
-        ></Dots>
-        {drop ? (
-          <DropDownContent>
-            <Link onClick={() => setEdit(true)}>
-              <img src={editfig} alt="edit"></img>
-            </Link>
-            <Link onClick={() => commentRef.doc(id).delete()}>
-              {" "}
-              <img src={trashfig} alt="trash"></img>
-            </Link>
-          </DropDownContent>
-        ) : (
-          ""
-        )}
-      </Options>
+      {authentication["email"] === author && (
+        <Options ref={ref}>
+          <Dots
+            src={dots}
+            alt="options"
+            onClick={() => setDrop(!drop)}
+            onBlur={() => setDrop(false)}
+          ></Dots>
+          {drop ? (
+            <DropDownContent>
+              <Link onClick={() => setEdit(true)}>
+                <img src={editfig} alt="edit"></img>
+              </Link>
+              <Link onClick={() => commentRef.doc(id).delete()}>
+                {" "}
+                <img src={trashfig} alt="trash"></img>
+              </Link>
+            </DropDownContent>
+          ) : (
+            ""
+          )}
+        </Options>
+      )}
     </Container>
   );
 };
@@ -160,7 +162,7 @@ const EditArea = styled.textarea`
   border: none;
   resize: none;
   width: 70%;
-  font-family: sans-serif;
+  :sans-serif ;
   font-size: 16px;
   line-height: 22px;
   letter-spacing: 0.5px;

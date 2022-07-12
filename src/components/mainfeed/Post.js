@@ -1,20 +1,35 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
+import { AuthenticationContext } from "../../AuthenticationContext";
 import styled from "styled-components";
 import CommentSection from "./CommentSection";
 import dots from "../../images/three_vertical_dots.svg";
 import editfig from "../../images/edit_icon.svg";
 import trashfig from "../../images/trash.svg";
 import { firestore } from "../../firebaseSetup";
-
-const Post = ({ id, author, title, time, description }) => {
+import firebase from "../../firebaseSetup";
+import { slice } from "cheerio/lib/api/traversing";
+import parse from "html-react-parser";
+const Post = ({
+  id,
+  author,
+  displayName,
+  title,
+  time,
+  description,
+  toBold,
+}) => {
   const [drop, setDrop] = useState(false);
   const [edit, setEdit] = useState(false);
   const ref = useRef();
+  const contentRef = useRef();
   const postRef = firestore.collection(`posts`);
   const [editedTitle, setEditedTitle] = useState(title);
   const [editedDescription, setEditedDescription] = useState(description);
+  const [error, setError] = useState({ title: "", description: "" });
+  const { authentication, setAuthentication } = useContext(
+    AuthenticationContext
+  );
 
-  console.log(id);
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
       // If the menu is open and the clicked target is not within the menu,
@@ -23,6 +38,7 @@ const Post = ({ id, author, title, time, description }) => {
         setDrop(false);
       }
     };
+
     console.log(drop);
     document.addEventListener("mousedown", checkIfClickedOutside);
 
@@ -32,19 +48,68 @@ const Post = ({ id, author, title, time, description }) => {
     };
   }, [drop]);
 
+  useEffect(() => {
+    const checkIfClickedOutside = (e) => {
+      // If the menu is open and the clicked target is not within the menu,
+      // then close the menu
+      if (
+        edit &&
+        contentRef.current &&
+        !contentRef.current.contains(e.target)
+      ) {
+        setEdit(false);
+        setError({ title: "", description: "" });
+        setEditedDescription(description);
+        setEditedTitle(title);
+      }
+    };
+
+    document.addEventListener("mousedown", checkIfClickedOutside);
+
+    return () => {
+      // Cleanup the event listener
+      document.removeEventListener("mousedown", checkIfClickedOutside);
+    };
+  }, [edit]);
+
   function handleKeyDown(event) {
     if (event.key === "Enter") {
-      setEdit(!edit);
-      postRef
-        .doc(id)
-        .update({ description: editedDescription, title: editedTitle });
+      event.preventDefault();
+      if (editedDescription && editedTitle) {
+        setEdit(!edit);
+        postRef.doc(id).update({
+          description: editedDescription,
+          title: editedTitle,
+          time: firebase.firestore.Timestamp.now(),
+        });
+      } else {
+        setError({
+          title: editedTitle ? "" : "Title cannot be empty",
+          description: editedDescription ? "" : "Description cannot be empty",
+        });
+      }
     }
     setDrop(false);
   }
 
+  const boldDescription = () => {
+    if (!toBold) return description;
+    let copy = (" " + description).slice(1);
+    const substrings = toBold
+      .replace(/[.,\/#!$?%\^&\*;:{}=\-_`~()]/g, "")
+      .split(" ")
+      .filter((word) => word !== "");
+    console.log(substrings);
+    for (let i = 0; i < substrings.length; i++) {
+      let reg = RegExp(`\\b${substrings[i]}\\b`, "gmi");
+      copy = copy.replace(reg, `<b>${substrings[i]}</b>`);
+    }
+    console.log(copy, toBold);
+    return copy;
+  };
   return edit ? (
     <Feed>
-      <Content>
+      <Content ref={contentRef}>
         <EditTitle
           onChange={(e) => setEditedTitle(e.target.value)}
           onKeyPress={(e) => handleKeyDown(e)}
@@ -52,8 +117,9 @@ const Post = ({ id, author, title, time, description }) => {
         >
           {title}
         </EditTitle>
+        {error.title && <p style={{ color: "red" }}>{error.title}</p>}
         <Date>
-          {author} {time.toDate().toLocaleString()}
+          {displayName} {time.toDate().toLocaleString()}
         </Date>
         <EditArea
           onChange={(e) => setEditedDescription(e.target.value)}
@@ -61,6 +127,9 @@ const Post = ({ id, author, title, time, description }) => {
         >
           {description}
         </EditArea>
+        {error.description && (
+          <p style={{ color: "red" }}>{error.description}</p>
+        )}
         {/*<RoleInfo>
           <div>CompanyAndPosition</div>
           <div>Industry</div>
@@ -75,31 +144,33 @@ const Post = ({ id, author, title, time, description }) => {
     <Feed>
       <Content>
         <Title>{title}</Title>
-        <Options ref={ref}>
-          <Dots
-            src={dots}
-            alt="options"
-            onClick={() => setDrop(!drop)}
-            onBlur={() => setDrop(false)}
-          ></Dots>
-          {drop ? (
-            <DropDownContent>
-              <Link onClick={() => setEdit(true)}>
-                <img src={editfig} alt="edit"></img>
-              </Link>
-              <Link onClick={() => postRef.doc(id).delete()}>
-                {" "}
-                <img src={trashfig} alt="trash"></img>
-              </Link>
-            </DropDownContent>
-          ) : (
-            ""
-          )}
-        </Options>
+        {authentication["email"] === author && (
+          <Options ref={ref}>
+            <Dots
+              src={dots}
+              alt="options"
+              onClick={() => setDrop(!drop)}
+              onBlur={() => setDrop(false)}
+            ></Dots>
+            {drop ? (
+              <DropDownContent>
+                <Link onClick={() => setEdit(true)}>
+                  <img src={editfig} alt="edit"></img>
+                </Link>
+                <Link onClick={() => postRef.doc(id).delete()}>
+                  {" "}
+                  <img src={trashfig} alt="trash"></img>
+                </Link>
+              </DropDownContent>
+            ) : (
+              ""
+            )}
+          </Options>
+        )}
         <Date>
-          {author} {time.toDate().toLocaleString()}
+          {displayName} {time.toDate().toLocaleString()}
         </Date>
-        <Description>{description}</Description>
+        <Description>{parse(boldDescription())}</Description>
         {/*<RoleInfo>
           <div>CompanyAndPosition</div>
           <div>Industry</div>
@@ -117,7 +188,7 @@ export default Post;
 
 const Feed = styled.div`
   margin: 10px auto auto auto;
-  font-family: "Open Sans", sans-serif;
+  : "Open Sans", sans-serif;
   font-style: normal;
   justify-content: center;
   align-items: center;
@@ -206,9 +277,8 @@ const Options = styled.div`
 
 const DropDownContent = styled.div`
   position: absolute;
-  background-color: #f1f1f1;
   min-width: 16px;
-  background: #ffffff;
+  background-color: #ffffff !important;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 16px;
   z-index: 1;
@@ -216,22 +286,25 @@ const DropDownContent = styled.div`
 
 const Link = styled.button`
   color: black;
-  padding: 12px 16px;
+  padding: 10px 16px;
   display: block;
   border: none;
+  background-color: inherit;
+  border-radius: 10px;
   &:active {
     transform: scale(0.8);
     transition: 0.1s;
     filter: opacity(30%);
   }
   cursor: pointer;
+  font-weight: 800;
 `;
 
 const EditArea = styled.textarea`
   border: none;
   resize: none;
   width: 70%;
-  font-family: sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-size: 16px;
   line-height: 22px;
   letter-spacing: 0.5px;
@@ -249,5 +322,5 @@ const EditTitle = styled.textarea`
   color: #000000;
   display: inline-block;
   width: 90%;
-  font-family: sans-serif;
+  font-family: "Open Sans", sans-serif;
 `;

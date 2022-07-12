@@ -2,12 +2,12 @@ import styled from "styled-components";
 
 export const MainBody = styled.div`
   min-width: 700px;
-  font-family: Sans-Serif;
+  font-family: "Open Sans", Sans-Serif;
   width: 100vw;
   height: 100vh;
+  overflow-y: auto;
   //margin: 0 20px 20px 0;
   justify-content: center;
-  
 `;
 
 export const BackgroundDiv = styled.div`
@@ -22,50 +22,74 @@ export const BackgroundDiv = styled.div`
 
 export const ContentDiv = styled.div`
   padding: 20px 0px 20px 0vw;
-  width: 60vw;
+  width: 80vw;
   min-width: 570px;
   overflow: auto;
+  padding-right: 5px;
 `;
 
-export const Headding = styled.div`
-  background: #175596;
-  overflow: hidden;
+export const Heading = styled.div`
+  background: #f2f2f2;
   border-radius: 5px;
+  margin-top: 30px;
 `;
 
 export const HeadingContent = styled.div`
-  display: flex;
+  display: grid;
   //min-width: 645px;
   border-radius: 5px 5px 0px 0px;
   height: 70px;
+  grid-template-columns: 3fr 1.5fr 1.25fr 1.25fr 0.5fr;
+  grid-gap: 20px;
+`;
+
+export const Column = styled.div`
+  justify-self: start;
+  font-weight: 500;
+  font-size: 16px;
+  align-self: center;
+  &:nth-child(1) {
+    margin-left: 40px;
+  }
+  &:nth-last-child(1) {
+    margin-right: 10px;
+  }
+`;
+
+export const ColumnSort = styled.span`
+  display: inline-block;
+  font-size: 12px;
+  transition: 0.2s ease;
+
+  &:hover {
+    cursor: pointer;
+  }
+  transform: rotate(
+    ${(props) => (props.direction === "DESC" ? "-180deg" : "0deg")}
+  );
 `;
 
 export const Title = styled.div`
   font-style: normal;
   font-weight: bold;
-  font-size: 25px;
-  letter-spacing: 3pt;
+  font-size: 30px;
+  color:#175596
+  letter-spacing: 1pt;
   text-align: left;
-  color: #ffffff;
   /* display: block; */
   margin: auto auto auto 15px;
   /* min-width: 270px; */
 `;
 
 export const NewAppBtnDiv = styled.button`
-  background: #f5f5f5;
+  background: #175596;
   border-radius: 10px;
   border: none;
   outline: none;
   text-align: center;
-  margin: auto 10px;
-  height: 35px;
-  width: 90px;
+  padding: 0 8px;
   text-decoration: none;
   cursor: pointer;
-  &:hover {
-    background: #c0c0c0;
-  }
   &:active {
     transform: scale(0.97);
     transition: 0.1s;
@@ -74,31 +98,132 @@ export const NewAppBtnDiv = styled.button`
 
 export const NewAppBtn = styled.a`
   text-decoration: none;
-  color: #000000;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-weight: none;
   font-size: 18px;
+  height: 100%;
 `;
 
-export const Sort = styled.select`
-  background: #f5f5f5;
-  border: none;
-  outline: none;
-  border-radius: 10px;
-  text-align: center;
+/*
+rewrite the sort stuff to be a custom dropdown menu instead, bc it is not very pretty otherwise
+*/
+
+export const CustomSortContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
   margin: auto 10px;
   padding-left: 5px;
-  width: 90px;
-  font-size: 18px;
+  width: 210px;
   height: 35px;
-  font-weight: none;
+  border-radius: 10px;
   cursor: pointer;
-  &:hover {
-    background: #c0c0c0;
+
+  background: #f5f5f5;
+`;
+export const CustomSortButton = styled.div`
+  position: relative;
+  vertical-align: middle;
+  text-align: center;
+  height: 100%;
+  & > * {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    min-width: 100%;
+    transition: all 0.5 ease;
+    position: absolute;
+    left: -6px;
+    top: 0px;
+    margin-top: 1rem;
+  }
+  &:hover > *:nth-last-child(1) {
+    border-radius: 0 0 10px 10px;
+  }
+  &:hover > *,
+  & > *:hover {
+    cursor: pointer;
+    visibility: visible;
+    opacity: 1;
+    display: block;
+    background: red;
+    width: 215px;
+    height: 35px;
+  }
+`;
+export const CustomSortOptions = styled.div`
+  z-index: 3;
+`;
+export const CustomSortArrowContainer = styled.div`
+  -self: center;
+`;
+export const CustomSortArrow = styled.div``;
+
+export const SortContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin: auto 10px;
+  padding-left: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  user-select: none;
+  & > select:active {
+    transform: scale(0.97);
+    transition: 0.1s;
+  }
+  & > * {
+    overflow: hidden;
   }
   &:active {
     transform: scale(0.97);
     transition: 0.1s;
   }
+  background: #f5f5f5;
+  transition: all 0.2s ease;
+`;
+export const Sort = styled.select`
+  border: none;
+  outline: none;
+  text-align: center;
+  width: 210px;
+  font-size: 18px;
+  height: 35px;
+  font-weight: none;
+  cursor: pointer;
+  border-radius: 10px;
+  /* for Firefox */
+  -moz-appearance: none;
+  /* for Chrome */
+  -webkit-appearance: none;
+  & > option {
+    width: 100%;
+  }
+  background: #f5f5f5;
+`;
+
+export const ArrowContainer = styled.div`
+  height: 35px;
+  overflow: hidden;
+  width: 17px;
+  background: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+  & > * {
+    border-radius: 10px;
+  }
+`;
+export const Arrow = styled.div`
+  height: 17px;
+  font-size: 14px;
+  width: 17px;
 `;
 
 export const Option = styled.option`
@@ -166,7 +291,7 @@ export const ExitBtn = styled.button`
 export const Name = styled.textarea`
   font-size: 25px;
   font-weight: bold;
-  font-family: Sans-Serif;
+  font-family: "Open Sans", Sans-Serif;
   margin: 20px auto auto auto;
   text-align: center;
   resize: none;
@@ -187,7 +312,7 @@ export const InfoDiv = styled.div`
 `;
 
 export const Info = styled.textarea`
-  font-family: Sans-Serif;
+  font-family: "Open Sans", Sans-Serif;
   font-size: 16px;
   resize: none;
   border: none;
