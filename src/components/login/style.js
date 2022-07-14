@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export const MainBody = styled.div`
   font-size: 24px;
-  font-family: Sans-Serif;
+  font-family: "Open Sans", Sans-Serif;
   font-style: normal;
   height: 100%;
   width: 100%;
@@ -30,17 +30,25 @@ export const LogoDiv = styled.div`
   }
 `;
 
+export const ContainerDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 60px);
+  width: 100%;
+`;
+
 export const ContentDiv = styled.div`
   width: 450px;
-  height: 250px;
-  margin: 20vh auto auto auto;
+  height: fit-content;
   position: relative;
   /* left: 10%;
   top: 20%; */
   z-index: 2;
   background: #f5f5f5;
   border-radius: 30px;
-  padding: 40px 60px 40px 60px;
+  padding: 40px 60px 20px 60px;
   //justify-content: center;
 `;
 
@@ -58,7 +66,7 @@ export const Item = styled.div`
 `;
 
 export const Email = styled.input.attrs({
-  placeholder: "email or username",
+  placeholder: "email",
 })`
   font-size: 20px;
   border: none;
@@ -137,9 +145,8 @@ export const SignUpButton = styled.a`
   }
 `;
 
-
 export const HomeLink = styled(Link)`
-  font-family: Sans-Serif;
+  font-family: "Open Sans", Sans-Serif;
   color: #175596;
   text-decoration: none;
   font-weight: bold;
@@ -150,3 +157,21 @@ export const HomeLink = styled(Link)`
   }
 `;
 
+export const HeaderError = styled.div`
+  color: red;
+  background-color: pink;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: fit-content;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  text-align: left;
+`;
+export const InlineError = styled.div`
+  font-size: 20px;
+  padding-top: 5px;
+  color: red;
+`;

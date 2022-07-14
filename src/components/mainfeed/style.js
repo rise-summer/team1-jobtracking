@@ -10,19 +10,18 @@ export const BackgroundDiv = styled.div`
   background: #ebebeb;
   padding: 20px 20vw;
   min-height: calc(100vh - 118px);
- 
 `;
 
 export const Heading = styled.div`
   display: flex;
   margin-top: 30px;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: flex-start;
 `;
 
 export const Text = styled.div`
   justify-content: right;
   min-width: 210px;
-  padding-right: 30px;
   font-style: normal;
   font-weight: bold;
   font-size: 20px;
@@ -31,9 +30,10 @@ export const Text = styled.div`
 `;
 
 export const NewPostButton = styled.button`
-  margin-left: 35vw;
   background: #175596;
   border-radius: 10px;
+  padding: 5px;
+  margin-left: 10px;
   min-width: 135px;
   font-style: normal;
   font-weight: bold;
