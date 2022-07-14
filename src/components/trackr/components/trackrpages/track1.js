@@ -34,6 +34,9 @@ export default function Track1() {
   var sanitizedMessage = "";
   const linkedInScraper = firebase.functions().httpsCallable("linkedInScraper");
   const indeedScraper = firebase.functions().httpsCallable("indeedScraper");
+  const monsterScraper = firebase.functions().httpsCallable('monsterScraper')
+  const zipRecruiterScraper = firebase.functions().httpsCallable('zipRecruiterScraper')
+  const googleScraper = firebase.functions().httpsCallable('googleScraper')
   //const angelScraper = firebase.functions().httpsCallable("angelScraper");
   const chooseScraper = (link) => {
     const { hostname } = new URL(link);
@@ -47,6 +50,22 @@ export default function Track1() {
         link: link,
       });
     }
+    if (hostname === "www.monster.com") {
+      return monsterScraper({
+        link: link,
+      });
+    }
+    if (hostname === "www.ziprecruiter.com") {
+      return zipRecruiterScraper({
+        link: link,
+      });
+    }
+    if (hostname === "www.google.com") {
+      return googleScraper({
+        link: link,
+      });
+    }
+
     /*
     if (hostname === "angel.co") {
       return angelScraper({
@@ -56,7 +75,7 @@ export default function Track1() {
     */
   };
   const isInAvailableDomains = (link) => {
-    const availableDomains = ["www.linkedin.com", "www.indeed.com"];
+    const availableDomains = ["www.linkedin.com", "www.indeed.com", "www.monster.com", "www.ziprecruiter.com", 'www.google.com'];
     try {
       const { hostname } = new URL(link);
       console.log(hostname, link);

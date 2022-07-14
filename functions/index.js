@@ -84,7 +84,7 @@ exports.indeedScraper = functions
     // if (req.link.includes("www.linkedin.com")){
     //   return await linkedin(req.link)
     // }
-    const link = req.link
+    const link = req.link;
     const args = [
       "--no-sandbox",
       "--disable-setuid-sandbox",
@@ -94,7 +94,7 @@ exports.indeedScraper = functions
       "--ignore-certifcate-errors-spki-list",
       '--user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3312.0 Safari/537.36"',
     ];
-  
+
     const options = {
       args,
       headless: true,
@@ -202,84 +202,190 @@ exports.linkedInScraper = functions
     return { data: result };
   });
 
-async function linkedin(link){
-  const args = [
-    "--no-sandbox",
-    "--disable-setuid-sandbox",
-    "--disable-infobars",
-    "--window-position=0,0",
-    "--ignore-certifcate-errors",
-    "--ignore-certifcate-errors-spki-list",
-    '--user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3312.0 Safari/537.36"',
-  ];
+exports.monsterScraper = functions
+  .runWith({ memory: "1GB" })
+  .https.onCall(async (req, context) => {
+    const args = [
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+      "--disable-infobars",
+      "--window-position=0,0",
+      "--ignore-certifcate-errors",
+      "--ignore-certifcate-errors-spki-list",
+      '--user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3312.0 Safari/537.36"',
+    ];
 
-  const options = {
-    args,
-    headless: true,
-    ignoreHTTPSErrors: true,
-    // userDataDir: "./tmp",
-  };
-
-  const browser = await puppeteer.launch(options);
-  const page = await browser.newPage();
-  await page.goto(link, { waitUntil: "networkidle0" });
-  let data = await page.evaluate((link_id) => {
-    const title = document.querySelector('h1.top-card-layout__title.topcard__title').innerText
-    const company = document.querySelector('a.topcard__org-name-link.topcard__flavor--black-link').innerText
-    const place = document.querySelector('span.topcard__flavor.topcard__flavor--bullet').innerText;
-    let desc = document.querySelector('div.show-more-less-html__markup').innerText;
-    desc = desc.replace(/(<.*>)/g, "");
-
-    return { title, company, place, desc };
-  }, link);
-
-  await browser.close();
-  return { data: data };
-}
-
-async function google(link) {
-  const args = [
-    "--no-sandbox",
-    "--disable-setuid-sandbox",
-    "--disable-infobars",
-    "--window-position=0,0",
-    "--ignore-certifcate-errors",
-    "--ignore-certifcate-errors-spki-list",
-    '--user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3312.0 Safari/537.36"',
-  ];
-
-  const options = {
-    args,
-    headless: true,
-    ignoreHTTPSErrors: true,
-    // userDataDir: "./tmp",
-  };
-
-  const browser = await puppeteer.launch(options);
-  const page = await browser.newPage();
-  const split = link.split("=");
-  console.log("link", link);
-  const link_id = split[split.length - 2].split("%")[0] + "==";
-  console.log("link_id", link_id);
-  // const parms = { id: link_id };
-
-  await page.goto(link, { waitUntil: "networkidle0" });
-  // const html = await page.evaluate(
-  //   () => document.querySelector("*").outerHTML
-  // );
-  let data = await page.evaluate((link_id) => {
-    const parent = document.querySelector(
-      "[data-encoded-doc-id=" + "'" + link_id + "'" + "]"
+    const options = {
+      args,
+      headless: true,
+      ignoreHTTPSErrors: true,
+      // userDataDir: "./tmp",
+    };
+    puppeteer.use(StealthPlugin());
+    const browser = await puppeteer.launch(options);
+    const page = await browser.newPage();
+    page.setUserAgent(
+      "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.75 Safari/537.36"
     );
-    const title = parent.querySelector("h2.KLsYvd").innerHTML;
-    const company = parent.querySelector("div.sMzDkb").innerHTML;
-    // const place = parent.querySelectorAll("div.sMzDkb")[1].innerHTML;
-    // let desc = parent.querySelector("span.HBvzbc").innerHTML;
-    // desc = desc.replace(/(<.*>)/g, "");
+    //const split = link.split("=");
+    //console.log(2, split);
+    //const link_id = split[split.length - 2].split("%")[0] + "==";
+    // const parms = { id: link_id };
 
-    return { title };
-  }, link_id);
-  console.log(3, "hel");
-  await browser.close();
-  return { data: data };
-}
+    //await page.goto(link, { waitUntil: "networkidle0" });
+    // const html = await page.evaluate(
+    //   () => document.querySelector("*").outerHTML
+    // );
+    //let data = await page.evaluate((link_id) => {
+    await page.goto(req.link);
+    await page.waitForSelector(".headerstyle__JobViewHeaderTitle-sc-1ijq9nh-5");
+    //await page.waitForSelector(".topcard__flavor-row");
+    //await page.waitForSelector(".description__text");
+    const result = await page.evaluate(() => {
+      let title = document.querySelector(
+        ".headerstyle__JobViewHeaderTitle-sc-1ijq9nh-5"
+      ).innerHTML;
+      let company = document.querySelector(
+        ".headerstyle__JobViewHeaderCompany-sc-1ijq9nh-6"
+      ).innerHTML;
+      let place = document.querySelector(
+        ".headerstyle__JobViewHeaderLocation-sc-1ijq9nh-4"
+      ).innerHTML;
+      let desc = document.querySelector(
+        ".descriptionstyles__DescriptionBody-sc-13ve12b-4"
+      ).innerHTML;
+      desc = desc.replace(/<br>|<br\/>|<br \/>/gi, "\n");
+      desc = desc.replace(/(<([^>]+)>)/gi, "").trim();
+      company = company.replace("[\\n]", "").trim();
+      place = place.replace("[\\n]", "").trim();
+      return {
+        title: title,
+        company: company,
+        place: place,
+        description: desc,
+      };
+    });
+    console.log(result);
+    await browser.close();
+    return { data: result };
+  });
+
+exports.zipRecruiterScraper = functions
+  .runWith({ memory: "1GB" })
+  .https.onCall(async (req, context) => {
+    const args = [
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+      "--disable-infobars",
+      "--window-position=0,0",
+      "--ignore-certifcate-errors",
+      "--ignore-certifcate-errors-spki-list",
+      '--user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3312.0 Safari/537.36"',
+    ];
+
+    const options = {
+      args,
+      headless: true,
+      ignoreHTTPSErrors: true,
+      // userDataDir: "./tmp",
+    };
+    puppeteer.use(StealthPlugin());
+    const browser = await puppeteer.launch(options);
+    const page = await browser.newPage();
+    page.setUserAgent(
+      "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.75 Safari/537.36"
+    );
+    //const split = link.split("=");
+    //console.log(2, split);
+    //const link_id = split[split.length - 2].split("%")[0] + "==";
+    // const parms = { id: link_id };
+
+    //await page.goto(link, { waitUntil: "networkidle0" });
+    // const html = await page.evaluate(
+    //   () => document.querySelector("*").outerHTML
+    // );
+    //let data = await page.evaluate((link_id) => {
+    await page.goto(req.link);
+    await page.waitForSelector(".job_title");
+    //await page.waitForSelector(".topcard__flavor-row");
+    //await page.waitForSelector(".description__text");
+    const result = await page.evaluate(() => {
+      let title = document.querySelector(".job_title").innerText;
+      let company = document.querySelector(".job_details_link").innerHTML;
+      let place = document.querySelector("span[data-name = address").innerHTML;
+      let desc = document.querySelector(".jobDescriptionSection").innerHTML;
+      desc = desc.replace(/<br>|<br\/>|<br \/>/gi, "\n");
+      desc = desc.replace(/(<([^>]+)>)/gi, "").trim();
+      company = company.replace("[\\n]", "").trim();
+      place = place.replace("[\\n]", "").trim();
+      return {
+        title: title,
+        company: company,
+        place: place,
+        description: desc,
+      };
+    });
+    console.log(result);
+    await browser.close();
+    return { data: result };
+  });
+
+  exports.googleScraper = functions
+  .runWith({ memory: "1GB" })
+  .https.onCall(async (req, context) => {
+    const args = [
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+      "--disable-infobars",
+      "--window-position=0,0",
+      "--ignore-certifcate-errors",
+      "--ignore-certifcate-errors-spki-list",
+      '--user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3312.0 Safari/537.36"',
+    ];
+
+    const options = {
+      args,
+      headless: true,
+      ignoreHTTPSErrors: true,
+      // userDataDir: "./tmp",
+    };
+    puppeteer.use(StealthPlugin());
+    const browser = await puppeteer.launch(options);
+    const page = await browser.newPage();
+    page.setUserAgent(
+      "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.75 Safari/537.36"
+    );
+    //const split = link.split("=");
+    //console.log(2, split);
+    //const link_id = split[split.length - 2].split("%")[0] + "==";
+    // const parms = { id: link_id };
+
+    //await page.goto(link, { waitUntil: "networkidle0" });
+    // const html = await page.evaluate(
+    //   () => document.querySelector("*").outerHTML
+    // );
+    //let data = await page.evaluate((link_id) => {
+    await page.goto(req.link);
+    await page.waitForSelector(".KLsYvd");
+    //await page.waitForSelector(".topcard__flavor-row");
+    //await page.waitForSelector(".description__text");
+    const result = await page.evaluate(() => {
+      let title = document.querySelector(".KLsYvd").innerHTML;
+      let company = document.querySelector(".nJlQNd ").innerHTML;
+      let place = document.querySelectorAll('.sMzDkb')[1].innerHTML
+      let desc = document.querySelector(".HBvzbc").innerHTML;
+      desc = desc.replace(/<br>|<br\/>|<br \/>/gi, "\n");
+      desc = desc.replace(/(<([^>]+)>)/gi, "").trim();
+      company = company.replace("[\\n]", "").trim();
+      place = place.replace("[\\n]", "").trim();
+      return {
+        title: title,
+        company: company,
+        place: place,
+        description: desc,
+      };
+    });
+    console.log(result);
+    await browser.close();
+    return { data: result };
+  });

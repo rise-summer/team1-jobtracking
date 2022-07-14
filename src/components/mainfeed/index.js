@@ -72,7 +72,6 @@ const MainFeed = (props) => {
   //   } else {
   //     setShowPost(true);
   //   }
-  // };
 
   return (
     <Fragment>
@@ -108,7 +107,7 @@ const MainFeed = (props) => {
               </NewPostButton>
             )}
           </Heading>
-          {console.log('hello')}
+          {console.log("hello")}
           {posts && console.log(posts.map((post) => post))}
           {posts &&
             posts.map((post) => (
