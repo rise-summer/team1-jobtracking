@@ -24,7 +24,9 @@ import {
 
 export default function SignUp(props) {
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(
+    props.location.state ? props.location.state.email : ""
+  );
   const [password, setPassword] = useState("");
   const [cnfmpwd, setCnfmpwd] = useState("");
   const [error, setError] = useState({
@@ -80,6 +82,10 @@ export default function SignUp(props) {
     }
   };
 
+  // swap username and email
+  // make sure if its responsiveness
+  // caching, limit writes
+  //
   return (
     <MainBody>
       <BackgroundDiv>

@@ -1,13 +1,10 @@
-import React, {
-  Fragment,
-  useRef,
-  useContext,
-  useState,
-  useEffect,
-} from "react";
+import React, { Fragment, useContext, useState, useEffect } from "react";
+import glass from "../../images/magnifying_glass.svg";
 import Navigation from "../navigation";
 import { SearchBar } from "../navigation/style";
 import { useHistory } from "react-router-dom";
+import useAppzi from "../../hooks/useAppzi";
+import useDebounce from "../../hooks/useDebounce";
 import {
   MainBody,
   BackgroundDiv,
@@ -16,40 +13,18 @@ import {
   Title,
   NewAppBtnDiv,
   NewAppBtn,
-  Sort,
   ContentDiv,
   Column,
-  Option,
   HeadingContent,
-  SortContainer,
-  Arrow,
-  ArrowContainer,
-  CustomSortContainer,
-  CustomSortArrow,
-  CustomSortButton,
-  CustomSortOptions,
-  // ProfileDiv,
-  // Name,
-  // EditBtn,
-  // ExitBtn,
-  // BtnDiv,
-  // Info,
-  // HashTagDiv,
-  // HashTag,
-  // SearchDiv,
-  // Searches,
-  // ViewPostBtnDiv,
-  // ViewPostBtn,
-  // SearchTitle,
-  // InfoPrompt,
-  // InfoDiv,
 } from "./style";
+import { Button } from "../../styles/shared";
 import Application from "./components/applicationfeed/Application";
 import EmptyApplication from "./components/applicationfeed/emptyapplication";
 import { AuthenticationContext } from "../../AuthenticationContext";
 import { firestore } from "../../firebaseSetup";
 
 export default function Trackr(props) {
+  useAppzi("rddQu");
   let history = useHistory();
   const { authentication, setAuthentication } = useContext(
     AuthenticationContext
@@ -71,7 +46,7 @@ export default function Trackr(props) {
         const temp = snapshot.docs.map((doc) => {
           return { id: doc.id, ...doc.data() };
         });
-        sortApplications(order, sort, temp);
+        sortApplications(updatedOrder, statusOrder, sort, temp);
       });
   };
   useEffect(() => {
@@ -80,32 +55,25 @@ export default function Trackr(props) {
     }
   }, [authentication]);
   useEffect(() => {
-    if (applications) sortApplications(order, sort, applications);
-  }, [order, sort]);
+    if (applications) getJobs();
+  }, [statusOrder, updatedOrder, sort]);
   const handleOrderChange = (newSort, newOrder) => {
-    setOrder(newOrder);
     setSort(newSort);
+    if (newSort === "UPDATED") {
+      setUpdatedOrder(newOrder);
+    } else {
+      setStatusOrder(newOrder);
+    }
   };
   console.log("trackr loaded");
-  function sortApplications(order, sort, applications) {
+  function sortApplications(updatedOrder, statusOrder, sort, applications) {
     console.log("called");
     let updatedApplications = [...applications];
     switch (sort) {
-      case "DEADLINE":
-        console.log("sort by deadline from furthest to closest");
-        updatedApplications.sort((a, b) => {
-          let aDate = a.deadline.toDate();
-          let bDate = b.deadline.toDate();
-          if (aDate.getTime() === new Date(0).getTime()) return bDate;
-          if (aDate.getTime() === new Date(0).getTime()) return aDate;
-          return order === "ASC" ? aDate - bDate : bDate - aDate;
-        });
-        setApplications(updatedApplications);
-        break;
       case "STATUS":
         console.log("sort by status (interested => offer)");
         updatedApplications.sort((a, b) => {
-          return order === "ASC"
+          return statusOrder === "ASC"
             ? a.app_status - b.app_status
             : b.app_status - a.app_status;
         });
@@ -115,7 +83,7 @@ export default function Trackr(props) {
         updatedApplications.sort((a, b) => {
           let aDate = a.date_updated.toDate();
           let bDate = b.date_updated.toDate();
-          return order === "ASC" ? aDate - bDate : bDate - aDate;
+          return updatedOrder === "ASC" ? aDate - bDate : bDate - aDate;
         });
         setApplications(updatedApplications);
         break;
@@ -124,19 +92,24 @@ export default function Trackr(props) {
     }
   }
   useEffect(() => {
+    console.log(statusOrder, updatedOrder, sort);
+  }, [statusOrder, updatedOrder, sort]);
+  useEffect(() => {
     if (debouncedSearch !== "") {
-      history.push("/mainfeed", { searchValue: debouncedSearch });
+      history.push({
+        pathname: "/mainfeed",
+        state: { searchValue: debouncedSearch },
+      });
     }
   }, [debouncedSearch]);
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
-  // if search is used, redirect to
   return (
     <Fragment>
       <MainBody>
         <Navigation>
-          <SearchBar onChange={(e) => handleSearch(e)} />
+          <SearchBar image={glass} onChange={(e) => handleSearch(e)} />
         </Navigation>
         <BackgroundDiv>
           <ContentDiv>
@@ -148,27 +121,32 @@ export default function Trackr(props) {
               }}
             >
               <Title>Your Applications</Title>
-              <NewAppBtnDiv>
-                <NewAppBtn
-                  style={{ fontFamily: "Open Sans" }}
-                  onClick={() => {
-                    console.log("push");
-                    history.push("/trackr/track1");
+
+              <Button
+                primary
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  fontSize: "16px",
+                  lineHeight: "22px",
+                }}
+                onClick={() => {
+                  history.push("/trackr/track1");
+                }}
+              >
+                <span
+                  style={{
+                    display: "block",
+                    fontSize: "30px",
+                    fontWeight: 100,
+                    marginRight: "5px",
                   }}
                 >
-                  <span
-                    style={{
-                      display: "block",
-                      fontSize: "30px",
-                      fontWeight: 100,
-                      marginRight: "5px",
-                    }}
-                  >
-                    +
-                  </span>{" "}
-                  Track new application
-                </NewAppBtn>
-              </NewAppBtnDiv>
+                  +
+                </span>{" "}
+                Track new application
+              </Button>
             </div>
             <Heading>
               <HeadingContent>
@@ -179,7 +157,7 @@ export default function Trackr(props) {
                   <ColumnSort
                     direction={`${
                       sort == "UPDATED"
-                        ? order === "ASC"
+                        ? updatedOrder === "ASC"
                           ? "ASC"
                           : "DESC"
                         : "ASC"
@@ -187,7 +165,7 @@ export default function Trackr(props) {
                     onClick={() =>
                       handleOrderChange(
                         "UPDATED",
-                        `${order === "ASC" ? "DESC" : "ASC"}`
+                        `${updatedOrder === "ASC" ? "DESC" : "ASC"}`
                       )
                     }
                   >
@@ -199,7 +177,7 @@ export default function Trackr(props) {
                   <ColumnSort
                     direction={`${
                       sort === "STATUS"
-                        ? order === "ASC"
+                        ? statusOrder === "ASC"
                           ? "ASC"
                           : "DESC"
                         : "ASC"
@@ -207,7 +185,7 @@ export default function Trackr(props) {
                     onClick={() =>
                       handleOrderChange(
                         "STATUS",
-                        `${order === "ASC" ? "DESC" : "ASC"}`
+                        `${statusOrder === "ASC" ? "DESC" : "ASC"}`
                       )
                     }
                   >
@@ -224,9 +202,6 @@ export default function Trackr(props) {
                 <Application
                   key={application.id}
                   {...application}
-                  sortApplications={sortApplications}
-                  order={order}
-                  sort={sort}
                   getJobs={getJobs}
                 />
               ))
@@ -236,12 +211,4 @@ export default function Trackr(props) {
       </MainBody>
     </Fragment>
   );
-}
-function useDebounce(notes, delay = 500) {
-  const [debounced, setDebounced] = useState(notes);
-  useEffect(() => {
-    const timer = setTimeout(() => setDebounced(notes), delay);
-    return () => clearTimeout(timer);
-  }, [notes, delay]);
-  return debounced;
 }

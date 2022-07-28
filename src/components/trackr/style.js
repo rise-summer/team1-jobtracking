@@ -107,62 +107,6 @@ export const NewAppBtn = styled.a`
   height: 100%;
 `;
 
-/*
-rewrite the sort stuff to be a custom dropdown menu instead, bc it is not very pretty otherwise
-*/
-
-export const CustomSortContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  margin: auto 10px;
-  padding-left: 5px;
-  width: 210px;
-  height: 35px;
-  border-radius: 10px;
-  cursor: pointer;
-
-  background: #f5f5f5;
-`;
-export const CustomSortButton = styled.div`
-  position: relative;
-  vertical-align: middle;
-  text-align: center;
-  height: 100%;
-  & > * {
-    visibility: hidden;
-    opacity: 0;
-    pointer-events: none;
-    min-width: 100%;
-    transition: all 0.5 ease;
-    position: absolute;
-    left: -6px;
-    top: 0px;
-    margin-top: 1rem;
-  }
-  &:hover > *:nth-last-child(1) {
-    border-radius: 0 0 10px 10px;
-  }
-  &:hover > *,
-  & > *:hover {
-    cursor: pointer;
-    visibility: visible;
-    opacity: 1;
-    display: block;
-    background: red;
-    width: 215px;
-    height: 35px;
-  }
-`;
-export const CustomSortOptions = styled.div`
-  z-index: 3;
-`;
-export const CustomSortArrowContainer = styled.div`
-  -self: center;
-`;
-export const CustomSortArrow = styled.div``;
-
 export const SortContainer = styled.div`
   display: flex;
   justify-content: center;

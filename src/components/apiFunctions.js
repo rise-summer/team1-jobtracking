@@ -1,5 +1,18 @@
-import axios from "axios";
-import { auth } from "../firebaseSetup";
+import { auth, firestore } from "../firebaseSetup";
+import {
+  getFirestore,
+  query,
+  getDocs,
+  collection,
+  where,
+  addDoc,
+} from "firebase/firestore";
+import { GoogleAuthProvider } from "firebase/auth";
+const googleProvider = new GoogleAuthProvider();
+const db = getFirestore();
+export const signInWithGoogle = async () => {
+  return auth.signInWithPopup(auth, googleProvider);
+};
 
 export const signupFirebase = async (user) => {
   await auth.createUserWithEmailAndPassword(user["email"], user["password"]);

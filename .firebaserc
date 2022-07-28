@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "mypipeline-development"
-  }
+    "default": "mypipeline-development",
+    "production": "mypipeline-production"
+  },
+  "targets": {}
 }

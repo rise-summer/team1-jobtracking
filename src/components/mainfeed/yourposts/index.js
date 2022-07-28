@@ -8,7 +8,7 @@ import {
   NewPostButton,
 } from "../style";
 import { Title, BackSvg } from "./style";
-
+import useAppzi from "../../../hooks/useAppzi";
 import { useState, useEffect } from "react";
 import AddPost from "../AddPost";
 import Post from "../Post";
@@ -22,6 +22,7 @@ import Search from "../../navigation/search";
 import { useHistory } from "react-router-dom";
 
 export default function YourPosts(props) {
+  useAppzi("rddQu");
   const { authentication, setAuthentication } = useContext(
     AuthenticationContext
   );

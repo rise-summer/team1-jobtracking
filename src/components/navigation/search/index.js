@@ -1,4 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
+import useDebounce from "../../../hooks/useDebounce";
+import glass from "../../../images/magnifying_glass.svg";
 import { SearchBar } from "../style.js";
 export default function Search(props) {
   const searchRef = useRef();
@@ -30,19 +32,11 @@ export default function Search(props) {
   }, [debouncedSearch]);
   return (
     <SearchBar
+      image={glass}
       ref={searchRef}
       focus={focus}
       value={value}
       onChange={(e) => handleUpdate(e.target.value)}
     />
   );
-}
-
-function useDebounce(notes, delay = 500) {
-  const [debounced, setDebounced] = useState(notes);
-  useEffect(() => {
-    const timer = setTimeout(() => setDebounced(notes), delay);
-    return () => clearTimeout(timer);
-  }, [notes, delay]);
-  return debounced;
 }

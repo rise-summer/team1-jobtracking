@@ -1,4 +1,7 @@
+const express = require("express");
 // need firebase creds first to upload.
+const cors = require("cors")({ origin: true });
+
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 admin.initializeApp(functions.config().firebase);
@@ -14,6 +17,7 @@ const StealthPlugin = require("puppeteer-extra-plugin-stealth");
 exports.angelScraper = functions
   .runWith({ memory: "1GB" })
   .https.onCall(async (req, context) => {
+    
     const args = [
       "--no-sandbox",
       "--disable-setuid-sandbox",
@@ -71,8 +75,10 @@ exports.angelScraper = functions
     await browser.close();
     return { data: result };
   });
+  
 */
 exports.indeedScraper = functions
+
   .runWith({ memory: "1GB" })
   .https.onCall(async (req, context) => {
     // if (!req.link.includes("www.google.com/search?q=google+jobs")) {
@@ -138,7 +144,13 @@ exports.indeedScraper = functions
     return { data: result };
   });
 
+/*
+app.post("/api/linkedInScraper", (req, res) => {
+  cors(req, res, () => {});
+});
+*/
 exports.linkedInScraper = functions
+  .region("us-central1")
   .runWith({ memory: "1GB" })
   .https.onCall(async (req, context) => {
     const args = [
@@ -153,7 +165,7 @@ exports.linkedInScraper = functions
 
     const options = {
       args,
-      headless: true,
+      headless: false,
       ignoreHTTPSErrors: true,
       // userDataDir: "./tmp",
     };
@@ -174,6 +186,7 @@ exports.linkedInScraper = functions
     // );
     //let data = await page.evaluate((link_id) => {
     await page.goto(req.link);
+
     await page.waitForSelector(".topcard__title");
     //await page.waitForSelector(".topcard__flavor-row");
     //await page.waitForSelector(".description__text");
@@ -201,7 +214,6 @@ exports.linkedInScraper = functions
     await browser.close();
     return { data: result };
   });
-
 exports.monsterScraper = functions
   .runWith({ memory: "1GB" })
   .https.onCall(async (req, context) => {
@@ -330,7 +342,7 @@ exports.zipRecruiterScraper = functions
     return { data: result };
   });
 
-  exports.googleScraper = functions
+exports.googleScraper = functions
   .runWith({ memory: "1GB" })
   .https.onCall(async (req, context) => {
     const args = [
@@ -366,13 +378,14 @@ exports.zipRecruiterScraper = functions
     // );
     //let data = await page.evaluate((link_id) => {
     await page.goto(req.link);
+
     await page.waitForSelector(".KLsYvd");
     //await page.waitForSelector(".topcard__flavor-row");
     //await page.waitForSelector(".description__text");
     const result = await page.evaluate(() => {
       let title = document.querySelector(".KLsYvd").innerHTML;
       let company = document.querySelector(".nJlQNd ").innerHTML;
-      let place = document.querySelectorAll('.sMzDkb')[1].innerHTML
+      let place = document.querySelectorAll(".sMzDkb")[1].innerHTML;
       let desc = document.querySelector(".HBvzbc").innerHTML;
       desc = desc.replace(/<br>|<br\/>|<br \/>/gi, "\n");
       desc = desc.replace(/(<([^>]+)>)/gi, "").trim();

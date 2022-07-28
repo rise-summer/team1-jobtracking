@@ -21,10 +21,13 @@ import {
   SubmitBtn,
   Textarea,
 } from "./style";
+import { SubmitButton } from "../../../../styles/shared";
+import useAppzi from "../../../../hooks/useAppzi";
 import firebase, { auth, firestore } from "../../../../firebaseSetup";
 import { AuthenticationContext } from "../../../../AuthenticationContext";
 
 export default function Track2(props) {
+  useAppzi("rddQu");
   const { authentication, setAuthentication } = useContext(
     AuthenticationContext
   );
@@ -68,7 +71,11 @@ export default function Track2(props) {
 
       history.push({
         pathname: "/trackr/track3",
-        state: JSON.stringify({ company: company.value, position: role.value }),
+        state: JSON.stringify({
+          company: company.value,
+          position: role.value,
+          app_status: slider ? slider : "0",
+        }),
       });
     }
 
@@ -131,7 +138,12 @@ export default function Track2(props) {
                       onChange={handleSlider}
                     />
                   </SliderDiv>
-                  <SubmitBtn>Complete</SubmitBtn>
+                  <SubmitButton
+                    primary
+                    bold
+                    value="Complete Update"
+                    style={{ margin: "30px auto", fontSize: "20px" }}
+                  ></SubmitButton>
                 </form>
               </Heading>
             </ContentDiv>

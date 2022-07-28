@@ -10,12 +10,12 @@ import {
   BackgroundDiv,
   Subtitle,
   Heading,
-  SubmitBtn,
-  Subtitle2,
   Outer,
 } from "./style";
-
+import useAppzi from "../../../../hooks/useAppzi";
+import { Button } from "../../../../styles/shared";
 export default function Track3(props) {
+  useAppzi("rddQu");
   const [contentRef, setContentRef] = useState();
   const history = useHistory();
   let application;
@@ -46,13 +46,13 @@ export default function Track3(props) {
     return <Redirect to="/trackr" />;
   } else {
     application = JSON.parse(props.location.state);
-    console.log(application);
     position = application.position ? application.position : "";
     hash = position ? (
       <span style={{ color: "#2071c7" }}>{"\t" + position}</span>
     ) : (
       <span>a new job</span>
     );
+    console.log();
     return (
       <Fragment>
         <Outer>
@@ -74,20 +74,31 @@ export default function Track3(props) {
                     <Subtitle2>#{position}</Subtitle2>
                   </React.Fragment>
                 )*/}
-
                 <div
                   style={{
-                    cursor: "pointer",
-                    fontWeight: 800,
-                    color: "#175596",
-                    margin: "30px 0 20px 0",
-                    fontSize: "20px",
+                    display: "flex",
+                    justifyContent: "space-around",
+                    alignItems: "center",
+                    marginTop: "50px",
+                    marginBottom: "25px",
                   }}
-                  onClick={() => history.push("/trackr")}
                 >
-                  {" "}
-                  ◀ <span style={{ paddingLeft: "10px" }}></span>Back to
-                  applications
+                  <Button secondary onClick={() => history.push("/trackr")}>
+                    Go back to your applications
+                  </Button>
+                  <Button
+                    primary
+                    onClick={() =>
+                      history.push({
+                        pathname: "/mainfeed",
+                        state: {
+                          application: JSON.stringify(application),
+                        },
+                      })
+                    }
+                  >
+                    Share your journey with others
+                  </Button>
                 </div>
               </Heading>
             </ContentDiv>

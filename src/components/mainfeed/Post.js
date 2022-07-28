@@ -7,8 +7,10 @@ import editfig from "../../images/edit_icon.svg";
 import trashfig from "../../images/trash.svg";
 import { firestore } from "../../firebaseSetup";
 import firebase from "../../firebaseSetup";
+import DropDownContainer from "./DropDownContainer";
 import { slice } from "cheerio/lib/api/traversing";
 import parse from "html-react-parser";
+import { Dropdown } from "antd";
 const Post = ({
   id,
   author,
@@ -29,7 +31,7 @@ const Post = ({
   const { authentication, setAuthentication } = useContext(
     AuthenticationContext
   );
-
+  const canEditPost = !edit && authentication["email"] === author;
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
       // If the menu is open and the clicked target is not within the menu,
@@ -77,6 +79,7 @@ const Post = ({
       event.preventDefault();
       if (editedDescription && editedTitle) {
         setEdit(!edit);
+        setError({ title: "", description: "" });
         postRef.doc(id).update({
           description: editedDescription,
           title: editedTitle,
@@ -107,78 +110,58 @@ const Post = ({
     console.log(copy, toBold);
     return copy;
   };
-  return edit ? (
+  const handleDrop = () => {
+    setDrop(!drop);
+  };
+  const handleEdit = () => {
+    setEdit(true);
+  };
+  const handleDelete = () => {
+    postRef.doc(id).delete();
+  };
+  return (
     <Feed>
       <Content ref={contentRef}>
-        <EditTitle
-          onChange={(e) => setEditedTitle(e.target.value)}
-          onKeyPress={(e) => handleKeyDown(e)}
-          rows="1"
-        >
-          {title}
-        </EditTitle>
+        <PostHeader>
+          {edit ? (
+            <EditTitle
+              onChange={(e) => setEditedTitle(e.target.value)}
+              onKeyPress={(e) => handleKeyDown(e)}
+              rows="1"
+            >
+              {title}
+            </EditTitle>
+          ) : (
+            <Title>{title}</Title>
+          )}
+          {canEditPost && (
+            <DropDownContainer
+              drop={drop}
+              handleDrop={handleDrop}
+              handleEdit={handleEdit}
+              handleDelete={handleDelete}
+            />
+          )}
+        </PostHeader>
         {error.title && <p style={{ color: "red" }}>{error.title}</p>}
         <Date>
           {displayName} {time.toDate().toLocaleString()}
         </Date>
-        <EditArea
-          onChange={(e) => setEditedDescription(e.target.value)}
-          onKeyPress={(e) => handleKeyDown(e)}
-        >
-          {description}
-        </EditArea>
+        {edit ? (
+          <EditArea
+            onChange={(e) => setEditedDescription(e.target.value)}
+            onKeyPress={(e) => handleKeyDown(e)}
+          >
+            {description}
+          </EditArea>
+        ) : (
+          <Description>{parse(boldDescription())}</Description>
+        )}
         {error.description && (
           <p style={{ color: "red" }}>{error.description}</p>
         )}
-        {/*<RoleInfo>
-          <div>CompanyAndPosition</div>
-          <div>Industry</div>
-          <div>Status</div>
-        </RoleInfo>*/}
         <hr />
       </Content>
-
-      <CommentSection id={id} />
-    </Feed>
-  ) : (
-    <Feed>
-      <Content>
-        <Title>{title}</Title>
-        {authentication["email"] === author && (
-          <Options ref={ref}>
-            <Dots
-              src={dots}
-              alt="options"
-              onClick={() => setDrop(!drop)}
-              onBlur={() => setDrop(false)}
-            ></Dots>
-            {drop ? (
-              <DropDownContent>
-                <Link onClick={() => setEdit(true)}>
-                  <img src={editfig} alt="edit"></img>
-                </Link>
-                <Link onClick={() => postRef.doc(id).delete()}>
-                  {" "}
-                  <img src={trashfig} alt="trash"></img>
-                </Link>
-              </DropDownContent>
-            ) : (
-              ""
-            )}
-          </Options>
-        )}
-        <Date>
-          {displayName} {time.toDate().toLocaleString()}
-        </Date>
-        <Description>{parse(boldDescription())}</Description>
-        {/*<RoleInfo>
-          <div>CompanyAndPosition</div>
-          <div>Industry</div>
-          <div>Status</div>
-        </RoleInfo>*/}
-        <hr />
-      </Content>
-
       <CommentSection id={id} />
     </Feed>
   );
@@ -197,11 +180,16 @@ const Feed = styled.div`
   border-radius: 16px;
 `;
 
+const PostHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
 const Content = styled.div`
   background: #ffffff;
   border-radius: 10px 10px 0px 0px;
   padding: 15px;
-  overflow: hidden;
+
   //min-width: 70vw;
   min-width: 400px;
   font-size: 24px;
@@ -215,13 +203,12 @@ const Content = styled.div`
 const Title = styled.div`
   font-size: 24px;
   line-height: 33px;
-  /* identical to box height */
 
   letter-spacing: 0.5px;
   font-weight: bold;
   color: #000000;
   display: inline-block;
-  width: 90%;
+  flex: 1;
 `;
 
 const Date = styled.div`
@@ -243,67 +230,10 @@ const Description = styled.div`
   font-size: 14px;
 `;
 
-const RoleInfo = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  color: #888888;
-  font-size: 14px;
-`;
-
-const Comment = styled.div`
-  background: #e8e5e5;
-  box-shadow: 0px 4px 2px rgba(189, 189, 189, 0.25);
-  border-radius: 10px;
-`;
-
-const Dots = styled.img`
-  width: 25px;
-  height: 25px;
-  &:active {
-    transform: scale(0.8);
-    transition: 0.1s;
-    filter: opacity(30%);
-  }
-  filter: opacity(50%);
-  text-decoration: none;
-  display: inline-block;
-  margin-top: 10px;
-`;
-
-const Options = styled.div`
-  position: relative;
-  display: inline-block;
-`;
-
-const DropDownContent = styled.div`
-  position: absolute;
-  min-width: 16px;
-  background-color: #ffffff !important;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 16px;
-  z-index: 1;
-`;
-
-const Link = styled.button`
-  color: black;
-  padding: 10px 16px;
-  display: block;
-  border: none;
-  background-color: inherit;
-  border-radius: 10px;
-  &:active {
-    transform: scale(0.8);
-    transition: 0.1s;
-    filter: opacity(30%);
-  }
-  cursor: pointer;
-  font-weight: 800;
-`;
-
 const EditArea = styled.textarea`
   border: none;
   resize: none;
-  width: 70%;
+  width: 100%;
   font-family: "Open Sans", sans-serif;
   font-size: 16px;
   line-height: 22px;
@@ -312,11 +242,10 @@ const EditArea = styled.textarea`
 
 const EditTitle = styled.textarea`
   border: none;
+  flex: 1;
   resize: none;
   font-size: 24px;
   line-height: 33px;
-  /* identical to box height */
-
   letter-spacing: 0.5px;
   font-weight: bold;
   color: #000000;
@@ -324,3 +253,28 @@ const EditTitle = styled.textarea`
   width: 90%;
   font-family: "Open Sans", sans-serif;
 `;
+
+/*
+
+          <Options ref={ref}>
+            <Dots
+              src={dots}
+              alt="options"
+              onClick={() => setDrop(!drop)}
+              onBlur={() => setDrop(false)}
+            ></Dots>
+            {drop ? (
+              <DropDownContent>
+                <Link onClick={() => setEdit(true)}>
+                  <img src={editfig} alt="edit"></img>
+                </Link>
+                <Link onClick={() =>}>
+                  {" "}
+                  <img src={trashfig} alt="trash"></img>
+                </Link>
+              </DropDownContent>
+            ) : (
+              ""
+            )}
+          </Options>
+*/

@@ -2,20 +2,46 @@ import axios from "axios";
 import moment from "moment";
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
-
+import { SubmitButton, Button } from "../../styles/shared";
 import { AuthenticationContext } from "../../AuthenticationContext";
 import { auth, firestore } from "../../firebaseSetup";
 import firebase from "../../firebaseSetup";
 import "firebase/firestore";
 
-const AddPost = ({ toggleShowPost }) => {
-  // const [authentication, setAuthentication] = useContext(AuthenticationContext);
-
-  const [title, setTitle] = useState("");
+const AddPost = ({ toggleShowPost, application }) => {
+  console.log(application);
+  const status = application ? application.app_status : "";
+  const company = application ? application.company : "";
+  const position = application ? application.position : "";
+  const getVerb = (status) => {
+    if (status === "0") {
+      return "am interested in";
+    }
+    if (status === "1") {
+      return "applied for";
+    }
+    if (status === "2") {
+      return "am interviewing for";
+    }
+    if (status === "3") {
+      return "got an offer for";
+    }
+    return "am interested in";
+  };
+  const [title, setTitle] = useState(
+    application
+      ? `I ${getVerb(status)} a ${
+          position ? position : "new"
+        } position at ${company}!`
+      : ""
+  );
   const [description, setDescription] = useState("");
   const currentUser = auth.currentUser;
   const postRef = firestore.collection(`posts`);
   const [error, setError] = useState({ title: "", description: "" });
+  const handleCancel = () => {
+    toggleShowPost(false);
+  };
   const submitPost = async (e) => {
     e.preventDefault();
     if (title && description) {
@@ -61,7 +87,14 @@ const AddPost = ({ toggleShowPost }) => {
         <Input type="text" placeholder="Industry" />
         <Input type="text" placeholder="Status" /> */}
         <SubmitContainer>
-          <Submit>Post</Submit>
+          <Button secondary onClick={handleCancel}>
+            Cancel
+          </Button>
+          <SubmitButton
+            primary
+            value="Post"
+            style={{ marginLeft: "6px" }}
+          ></SubmitButton>
         </SubmitContainer>
       </form>
     </Container>

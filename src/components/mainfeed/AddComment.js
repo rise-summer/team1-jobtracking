@@ -41,16 +41,18 @@ const AddComment = ({ id, setComments }) => {
 export default AddComment;
 
 const Container = styled.div`
-  background-color: white;
-  border-radius: 5px;
+  background-color: #f7f7f7;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
   padding: 10px;
   margin: 10px;
 `;
 
 const Side = styled.div`
   display: inline-block;
-  margin-right: 50px;
   width: 20%;
+  flex: 1;
 `;
 
 const Input = styled.input`
@@ -60,4 +62,5 @@ const Input = styled.input`
   font-size: 14px;
   outline: none;
   width: 70%;
+  flex: 2;
 `;

@@ -12,7 +12,6 @@ import {
   Input,
   SubmitBtn,
   BackgroundDiv,
-  BackBtn,
   BackSvg,
   Outer,
 } from "./style";
@@ -22,21 +21,30 @@ import {
   connectFunctionsEmulator,
   httpsCallable,
 } from "firebase/functions";
+import useAppzi from "../../../../hooks/useAppzi";
 import firebase from "../../../../firebaseSetup";
 import styled from "styled-components";
 
 export default function Track1() {
-  firebase.functions().useEmulator("localhost", 5001);
+  useAppzi("rddQu");
+  if (window.location.hostname === "localhost") {
+    firebase.functions().useEmulator("localhost", 5001);
+  }
   const [link, setLink] = useState(undefined);
   const [res, setRes] = useState({});
   const [loading, setLoading] = useState(undefined);
   const history = useHistory();
   var sanitizedMessage = "";
-  const linkedInScraper = firebase.functions().httpsCallable("linkedInScraper");
+  const linkedInScraper = firebase
+    .app()
+    .functions("us-central1")
+    .httpsCallable("linkedInScraper");
   const indeedScraper = firebase.functions().httpsCallable("indeedScraper");
-  const monsterScraper = firebase.functions().httpsCallable('monsterScraper')
-  const zipRecruiterScraper = firebase.functions().httpsCallable('zipRecruiterScraper')
-  const googleScraper = firebase.functions().httpsCallable('googleScraper')
+  const monsterScraper = firebase.functions().httpsCallable("monsterScraper");
+  const zipRecruiterScraper = firebase
+    .functions()
+    .httpsCallable("zipRecruiterScraper");
+  const googleScraper = firebase.functions().httpsCallable("googleScraper");
   //const angelScraper = firebase.functions().httpsCallable("angelScraper");
   const chooseScraper = (link) => {
     const { hostname } = new URL(link);
@@ -75,7 +83,13 @@ export default function Track1() {
     */
   };
   const isInAvailableDomains = (link) => {
-    const availableDomains = ["www.linkedin.com", "www.indeed.com", "www.monster.com", "www.ziprecruiter.com", 'www.google.com'];
+    const availableDomains = [
+      "www.linkedin.com",
+      "www.indeed.com",
+      "www.monster.com",
+      "www.ziprecruiter.com",
+      "www.google.com",
+    ];
     try {
       const { hostname } = new URL(link);
       console.log(hostname, link);
@@ -126,9 +140,9 @@ export default function Track1() {
                 color: "#677394",
                 margin: "10px",
               }}
-              onClick={() => history.push("/mainfeed")}
+              onClick={() => history.push("/trackr")}
             >
-              <span style={{ marginTop: "2px", marginRight: "4px" }}>◀</span>
+              <BackSvg src={backarrow}></BackSvg>
               <span style={{ paddingLeft: "5px" }}>
                 <b>back to applications</b>
               </span>

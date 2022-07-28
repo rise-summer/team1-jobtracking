@@ -5,12 +5,28 @@
   },
   "hosting": {
     "public": "build",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
+      {
+        "source": "linkedInScraper",
+        "function": "linkedInScraper"
+      },
+      {
+        "source": "indeedScraper",
+        "function": "indeedScraper"
+      },
+      {
+        "source": "monsterScraper",
+        "function": "monsterScraper"
+      },
+      {
+        "source": "zipRecruiterScraper",
+        "function": "zipRecruiterScraper"
+      },
+      {
+        "source": "googleScraper",
+        "function": "googleScraper"
+      },
       {
         "source": "**",
         "destination": "/index.html"

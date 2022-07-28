@@ -21,8 +21,9 @@ const Content = styled.div`
   padding: 10px 40px;
   margin-top: 10px;
   margin-bottom: 10px;
+  transition: 0.3s ease;
   &:hover {
-    background: #fffd66;
+    background: #eff4fc;
   }
 `;
 

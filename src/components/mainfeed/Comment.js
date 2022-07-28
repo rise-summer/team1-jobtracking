@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import styled from "styled-components";
+import DropDownContainer from "./DropDownContainer";
 import { firestore } from "../../firebaseSetup";
-import dots from "../../images/three_vertical_dots.svg";
-import editfig from "../../images/edit_icon.svg";
-import trashfig from "../../images/trash.svg";
+
 import { AuthenticationContext } from "../../AuthenticationContext";
 
 const Comment = ({ id, date, message, displayName, postid, author }) => {
@@ -14,80 +13,52 @@ const Comment = ({ id, date, message, displayName, postid, author }) => {
   const commentRef = firestore.collection(`posts/${postid}/comments`);
   const [edit, setEdit] = useState(false);
   const [editedText, setEditedText] = useState(message);
-  const ref = useRef();
-
-  useEffect(() => {
-    const checkIfClickedOutside = (e) => {
-      // If the menu is open and the clicked target is not within the menu,
-      // then close the menu
-      if (drop && ref.current && !ref.current.contains(e.target)) {
-        setDrop(false);
-      }
-    };
-    console.log(drop);
-    document.addEventListener("mousedown", checkIfClickedOutside);
-
-    return () => {
-      // Cleanup the event listener
-      document.removeEventListener("mousedown", checkIfClickedOutside);
-    };
-  }, [drop]);
-  // function deleteComment(){
-  //   commentRef.doc(id).delete()
-  // }
 
   function handleKeyDown(event) {
     if (event.key === "Enter") {
+      console.log(editedText);
       setEdit(!edit);
       commentRef.doc(id).update({ message: editedText });
     }
     setDrop(false);
   }
+  const handleEdit = () => {
+    setEdit(true);
+  };
+  const handleDelete = () => {
+    commentRef.doc(id).delete();
+  };
+  const handleDrop = () => {
+    setDrop(!drop);
+  };
 
-  console.log(id);
-  return edit ? (
-    <Container>
+  const canEditComment = !edit && authentication["email"] === author;
+  return (
+    <Container edit={edit}>
       <Side>
         <Title>{displayName}</Title>
         <Subtitle>{date.toDate().toLocaleString()}</Subtitle>
       </Side>
-      <EditArea
-        autoFocus
-        onChange={(e) => setEditedText(e.target.value)}
-        onKeyPress={(e) => handleKeyDown(e)}
-      >
-        {message}
-      </EditArea>
-    </Container>
-  ) : (
-    <Container>
-      <Side>
-        <Title>{displayName}</Title>
-        <Subtitle>{date.toDate().toLocaleString()}</Subtitle>
-      </Side>
-      <Message>{message}</Message>
-      {authentication["email"] === author && (
-        <Options ref={ref}>
-          <Dots
-            src={dots}
-            alt="options"
-            onClick={() => setDrop(!drop)}
-            onBlur={() => setDrop(false)}
-          ></Dots>
-          {drop ? (
-            <DropDownContent>
-              <Link onClick={() => setEdit(true)}>
-                <img src={editfig} alt="edit"></img>
-              </Link>
-              <Link onClick={() => commentRef.doc(id).delete()}>
-                {" "}
-                <img src={trashfig} alt="trash"></img>
-              </Link>
-            </DropDownContent>
-          ) : (
-            ""
-          )}
-        </Options>
+      {edit ? (
+        <EditArea
+          className="comment"
+          autoFocus
+          contentEditable
+          onChange={(e) => setEditedText(e.target.value)}
+          onKeyPress={(e) => handleKeyDown(e)}
+        >
+          {message}
+        </EditArea>
+      ) : (
+        <Message>{message}</Message>
+      )}
+      {canEditComment && (
+        <DropDownContainer
+          drop={drop}
+          handleDrop={handleDrop}
+          handleEdit={handleEdit}
+          handleDelete={handleDelete}
+        />
       )}
     </Container>
   );
@@ -97,6 +68,10 @@ export default Comment;
 
 const Container = styled.div`
   border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  ${(props) => props.edit && "gap: 20px;"}
   font-size: 20px;
   padding: 10px;
   margin: 10px;
@@ -105,67 +80,24 @@ const Container = styled.div`
 `;
 
 const Side = styled.div`
-  display: inline-block;
-  width: 20%;
+  flex: 1;
   font-size: 16px;
-  margin: auto 0;
 `;
 
 const Message = styled.div`
+  flex: 2;
   display: inline-block;
-  width: 70%;
   font-size: 14px;
-`;
-
-const Dots = styled.img`
-  width: 25px;
-  height: 25px;
-  &:active {
-    transform: scale(0.8);
-    transition: 0.1s;
-    filter: opacity(30%);
-  }
-  filter: opacity(50%);
-  text-decoration: none;
-`;
-
-const Options = styled.div`
-  position: relative;
-  display: inline-block;
-`;
-
-const DropDownContent = styled.div`
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 16px;
-  background: #ffffff;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 16px;
-  z-index: 1;
-`;
-
-const Link = styled.button`
-  color: black;
-  padding: 12px 16px;
-  display: block;
-  border: none;
-  &:active {
-    transform: scale(0.8);
-    transition: 0.1s;
-    filter: opacity(30%);
-  }
-  cursor: pointer;
 `;
 
 const EditArea = styled.textarea`
   background: #f7f7f7;
   border: none;
-  resize: none;
   width: 70%;
-  :sans-serif ;
   font-size: 16px;
   line-height: 22px;
   letter-spacing: 0.5px;
+  overflow: hidden;
 `;
 
 const Title = styled.div`

@@ -16,7 +16,7 @@ export const Heading = styled.div`
   display: flex;
   margin-top: 30px;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: ${(props) => (props.searchValue ? "flex-start" : "center")};
 `;
 
 export const Text = styled.div`

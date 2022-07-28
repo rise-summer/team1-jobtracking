@@ -12,6 +12,7 @@ import {
   HomeLink,
   NavLink,
 } from "../style.js";
+import { Button } from "../../../styles/shared.js";
 import { SignUpLink } from "./style.js";
 import { useHistory, withRouter } from "react-router-dom";
 import { AuthenticationContext } from "../../../AuthenticationContext";
@@ -42,7 +43,7 @@ export default function LandingPageNavigation() {
   return (
     <Fragment>
       {/* <Router> */}
-      <NavBarDiv>
+      <NavBarDiv style={{ alignItems: "center" }}>
         <LeftNavBarDiv>
           <HomeLink
             id={`${isLoggedIn ? "/mainfeed" : "/"}`}
@@ -53,27 +54,26 @@ export default function LandingPageNavigation() {
           {/* <SearchBar /> */}
         </LeftNavBarDiv>
         <RightNavBarDiv>
-          {/* <NavLink>{authentication.displayName}</NavLink> */}
+          {/* <NavLink>{authentication.displayName}</NavLink> 
           <NavLink id="/about" onClick={routeMainfeed}>
             about
           </NavLink>
+          */}
+
           <React.Fragment>
-            <NavLink onClick={signout}>
+            <NavLink style={{ alignSelf: "center" }} onClick={signout}>
               {!isLoggedIn ? "log in" : "log out"}
             </NavLink>
           </React.Fragment>
           {!isLoggedIn && (
             <React.Fragment>
-              <SignUpLink id="/signup" onClick={routeMainfeed}>
+              <Button primary id="/signup" onClick={routeMainfeed}>
                 sign up
-              </SignUpLink>
+              </Button>
             </React.Fragment>
           )}
         </RightNavBarDiv>
       </NavBarDiv>
-      {/* </Router> */}
     </Fragment>
   );
 }
-
-// export default withRouter(Navigation);

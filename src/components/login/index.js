@@ -2,7 +2,8 @@ import React, { useContext, useState, useEffect } from "react";
 import ResetModal from "./resetModal";
 import { auth } from "../../firebaseSetup";
 import { login } from "../apiFunctions";
-import { resetPasswordEmail } from "../apiFunctions";
+import { resetPasswordEmail, signInWithGoogle } from "../apiFunctions";
+import { GoogleLogin } from "@react-oauth/google";
 import {
   MainBody,
   LogoDiv,
@@ -61,6 +62,8 @@ export default function Login(props) {
       //
     }
   };
+  const handleGoogleSuccess = () => {};
+  const handleGoogleFailure = () => {};
 
   const handleChange = (e) => {
     const value =
@@ -139,3 +142,18 @@ export default function Login(props) {
     </MainBody>
   );
 }
+
+/*
+    const user = res.user;
+    const usersRef = firestore.collection("users");
+    const userExistsQuery = usersRef.where("uid", "==", user.uid);
+    const docs = await getDocs(userExistsQuery);
+    if (docs.docs.length === 0) {
+      await addDoc(collection(db, "users"), {
+        uid: user.uid,
+        name: user.email.split("@")[0],
+        authProvider: "google",
+        email: user.email,
+      });
+    }
+*/

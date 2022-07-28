@@ -6,6 +6,7 @@ import Login from "./components/login";
 import SignUp from "./components/signup";
 import MainFeed from "./components/mainfeed";
 import Trackr from "./components/trackr";
+import Settings from "./components/settings";
 import Track1 from "./components/trackr/components/trackrpages/track1";
 import Track2 from "./components/trackr/components/trackrpages/track2";
 import Track3 from "./components/trackr/components/trackrpages/track3";
@@ -44,9 +45,9 @@ class App extends React.Component {
             <PrivateRoute path="/yourposts">
               <YourPosts />
             </PrivateRoute>
-            <Route path="*">
-              <NotFound />
-            </Route>
+            <PrivateRoute path="/settings">
+              <Settings />
+            </PrivateRoute>
           </Switch>
         </BrowserRouter>
       </div>

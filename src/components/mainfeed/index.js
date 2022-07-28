@@ -1,7 +1,10 @@
 import React, { Fragment, useContext, useEffect } from "react";
 import Navigation from "../navigation";
+import EmptyPost from "./EmptyPost";
 import { Heading, Text, NewPostButton, BackgroundDiv, MainBody } from "./style";
+import { Button } from "../../styles/shared";
 import { useState } from "react";
+import useAppzi from "../../hooks/useAppzi";
 import AddPost from "./AddPost";
 import Post from "./Post";
 import firebase from "../../firebaseSetup";
@@ -10,10 +13,21 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 import { firestore, auth } from "../../firebaseSetup";
 import Search from "../navigation/search";
 const MainFeed = (props) => {
+  useAppzi("rddQu");
   const [searchValue, setSearchValue] = useState(
-    props.location.state ? props.location.state.searchValue : ""
+    props.location.state && props.location.state.searchValue
+      ? props.location.state.searchValue
+      : ""
   );
-  const [showPost, setShowPost] = useState(false);
+
+  const [application, setApplication] = useState(
+    props.location.state && props.location.state.application
+      ? JSON.parse(props.location.state.application)
+      : ""
+  );
+  const [showPost, setShowPost] = useState(
+    props.location.state && props.location.state.application ? true : false
+  );
   const [numPosts, setNumPosts] = useState(1);
   const postRef = firestore.collection(`posts`).orderBy("time", "desc");
   const [initialPosts] = useCollectionData(postRef, { idField: "id" });
@@ -21,8 +35,12 @@ const MainFeed = (props) => {
   useEffect(() => {
     if (props.location.state) {
       setSearchValue(props.location.state.searchValue);
+      setApplication(JSON.parse(props.location.state.application));
     }
   }, [props.location.state]);
+  useEffect(() => {
+    console.log(posts);
+  }, [posts]);
   useEffect(() => {
     setPosts(
       initialPosts
@@ -66,19 +84,13 @@ const MainFeed = (props) => {
       setPosts(newPosts);
     }
   }, [searchValue]);
-  // const toggleShowPost = () => {
-  //   if (showPost) {
-  //     setShowPost(false);
-  //   } else {
-  //     setShowPost(true);
-  //   }
 
   return (
     <Fragment>
       <MainBody>
         <Navigation>
           <Search
-            focus={props.location.state}
+            focus={props.location.state && props.location.state.searchValue}
             searchValue={searchValue}
             setSearchValue={setSearchValue}
           />
@@ -89,11 +101,16 @@ const MainFeed = (props) => {
               numPosts={numPosts}
               setNumPosts={setNumPosts}
               toggleShowPost={setShowPost}
+              application={
+                props.location.state && props.location.state.application
+                  ? application
+                  : ""
+              }
             />
           ) : (
             ""
           )}
-          <Heading>
+          <Heading searchValue={searchValue}>
             <Text>
               {searchValue
                 ? `Posts containing: "${searchValue}"`
@@ -102,17 +119,25 @@ const MainFeed = (props) => {
             {showPost ? (
               ""
             ) : (
-              <NewPostButton onClick={() => setShowPost(!showPost)}>
+              <Button
+                primary
+                bold
+                style={{
+                  fontSize: "15px",
+                  marginLeft: "10vw",
+                  minWidth: "135px",
+                }}
+                onClick={() => setShowPost(!showPost)}
+              >
                 Create New Post
-              </NewPostButton>
+              </Button>
             )}
           </Heading>
-          {console.log("hello")}
-          {posts && console.log(posts.map((post) => post))}
           {posts &&
             posts.map((post) => (
               <Post key={post.id} {...post} toBold={searchValue} />
             ))}
+          {(!posts || posts.length === 0) && <EmptyPost />}
         </BackgroundDiv>
       </MainBody>
     </Fragment>

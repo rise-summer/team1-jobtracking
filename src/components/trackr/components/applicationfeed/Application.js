@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useLayoutEffect, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import styled, { css } from "styled-components";
-
+import { Button } from "../../../../styles/shared";
 import edit from "../../../../images/edit_icon.svg";
-//import share from "../../../../images/link.svg";
 import trash from "../../../../images/trash.svg";
 import dots from "../../../../images/three_vertical_dots.svg";
-
-import party from "party-js";
+import link_svg from "../../../../images/external_link.svg";
+import ButtonDropDown from "./ButtonDropDown";
 import { ContentGrid, ContentColumn } from "./style";
 import { firestore, auth } from "../../../../firebaseSetup";
 import firebase from "../../../../firebaseSetup";
+import { ApplicationButton } from "../../../../styles/shared";
 export default function Application({
   link,
   app_status,
@@ -22,13 +22,10 @@ export default function Application({
   description,
   notes,
   date_updated,
-  sortApplications,
-  order,
-  sort,
   getJobs,
 }) {
-  console.log("application loaded");
   const [statusRef, setStatusRef] = useState();
+  const popupRef = useRef();
   const dropDownRef = useRef();
   const firstRender = useRef(true);
   const [clicked, setClicked] = useState(false);
@@ -38,12 +35,48 @@ export default function Application({
     description.substring(0, 100),
     description.substring(100, description.length),
   ]);
+  const [time, setTime] = useState(date_updated);
+  const [popup, setPopup] = useState(false);
   const [dropDown, setDropDown] = useState(false);
+  const [buttonDrop, setButtonDrop] = useState(false);
+  const [buttonColor, setButtonColor] = useState([
+    "#6175A9",
+    "#61A5A9",
+    "#A21660",
+    "#9FA216",
+    "#61A975",
+    "#A99161",
+    "#A96199",
+  ]);
+  const buttonRef = useRef();
   const [readMore, setReadMore] = useState(false);
   const debouncedNotes = useDebounce(updatedNotes);
   const debouncedStatus = useDebounce(updatedStatus);
+
   const history = useHistory();
 
+  const buttonSvg = (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      role="img"
+      width="1em"
+      height="1em"
+      preserveAspectRatio="xMidYMid meet"
+      viewBox="0 0 24 24"
+    >
+      <g transform="translate(24 0) scale(-1 1)">
+        <path
+          fill="white"
+          d="M20 2H8c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zM8 16V4h12l.002 12H8z"
+        />
+        <path
+          fill="white"
+          d="M4 8H2v12c0 1.103.897 2 2 2h12v-2H4V8zm11-2h-2v3h-3v2h3v3h2v-3h3V9h-3z"
+        />
+      </g>
+    </svg>
+  );
   useLayoutEffect(() => {
     if (firstRender.current) {
       firstRender.current = false;
@@ -71,28 +104,64 @@ export default function Application({
     };
   }, [dropDown]);
 
+  useEffect(() => {
+    const checkIfClickedOutside = (e) => {
+      // If the menu is open and the clicked target is not within the menu,
+      // then close the menu
+      if (popup && popupRef.current && !popupRef.current.contains(e.target)) {
+        setPopup(false);
+      }
+    };
+    document.addEventListener("mousedown", checkIfClickedOutside);
+
+    return () => {
+      // Cleanup the event listener
+      document.removeEventListener("mousedown", checkIfClickedOutside);
+    };
+  }, [popup]);
+
   const extend = (e) => {
     e.stopPropagation();
     setClicked((prevClicked) => !prevClicked);
   };
+  const handlePopup = (newTime) => {
+    // handle popup logic on update
+    setPopup(true);
+    localStorage.setItem(
+      "lastPopupDate",
+      JSON.stringify(newTime.toDate().getTime())
+    );
+    //setPopup(true);
+    // update localstorage
+  };
+  // move checkifclickedoutside to hook
+  // popup check ifclickoutside
+  // have x button
+  // if button to update, history.push(mainfeed, {position, status})
+  // make sure new status is pushed!!!
 
-  function getStatus() {
+  const getStatus = () => {
     switch (updatedStatus.toString()) {
       case "0":
         return "Interested";
       case "1":
         return "Applied";
       case "2":
-        return "Interview";
+        return "Interviewed";
       case "3":
-        return "Offer";
-      default:
-        return undefined;
+        return "Offered";
+      case "4":
+        return "Accepted";
+      case "5":
+        return "Rejected";
+      case "6":
+        return "Declined";
     }
-  }
+  };
 
   const update = async (newNotes, newStatus) => {
     try {
+      const newTime = firebase.firestore.Timestamp.now();
       const update_res = firestore
         .collection(`jobs/${auth.currentUser.uid}/jobs`)
         .doc(id)
@@ -104,8 +173,26 @@ export default function Application({
           location: location,
           description: description,
           app_status: newStatus,
-          date_updated: firebase.firestore.Timestamp.now(),
+          date_updated: newTime,
           notes: newNotes,
+        })
+        .then(() => {
+          setTime(newTime);
+          if (app_status != newStatus) {
+            const lastPopupDate = JSON.parse(
+              localStorage.getItem("lastPopupDate")
+            );
+            if (lastPopupDate !== null) {
+              console.log(typeof lastPopupDate);
+              const diff =
+                Math.abs(newTime.toDate().getTime() - lastPopupDate) / 3600000; // get hour diff between times
+              if (diff >= 24) {
+                handlePopup(newTime);
+              }
+            } else {
+              handlePopup(newTime);
+            }
+          }
         });
     } catch (err) {
       console.log(err);
@@ -117,9 +204,11 @@ export default function Application({
       const delete_res = await firestore
         .collection(`jobs/${auth.currentUser.uid}/jobs`)
         .doc(id)
-        .delete();
+        .delete()
+        .then(() => {
+          getJobs();
+        });
       event.preventDefault();
-      getJobs();
     } catch (err) {
       console.log(err);
     }
@@ -140,47 +229,78 @@ export default function Application({
           <ContentColumn>{position}</ContentColumn>
           <ContentColumn>{company}</ContentColumn>
           <ContentColumn fontSize="14px">
-            {date_updated.toDate().toLocaleDateString(undefined, {
+            {time.toDate().toLocaleDateString(undefined, {
               year: "numeric",
               month: "long",
               day: "numeric",
             })}
             <br />
-            {date_updated.toDate().toLocaleTimeString(undefined, {
+            {time.toDate().toLocaleTimeString(undefined, {
               hour: "numeric",
               minute: "numeric",
             })}
           </ContentColumn>
-          <ContentColumn onClick={(e) => e.stopPropagation()}>
-            <Status>{getStatus()}</Status>
-            <Slider
+          <ContentColumn
+            style={{ position: "relative" }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/*<Slider
               ref={setStatusRef}
               type="range"
               min="0"
               max="3"
               value={updatedStatus}
               onChange={(e) => {
-                party.confetti(statusRef, {
-                  count: party.variation.range(30, 45),
-                  spread: party.variation.range(15, 50),
-
-                  color: () =>
-                    party.Color.fromHsl(
-                      party.random.randomRange(0, 360),
-                      100,
-                      50
-                    ),
-                  shapes: [
-                    "square",
-                    "rectangle",
-                    "roundedSquare",
-                    "roundedRectangle",
-                    "circle",
-                  ],
-                });
                 setUpdatedStatus(e.target.value);
               }}
-            />
+            ></Slider>*/}
+            <ApplicationButton
+              style={{
+                position: "relative",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                zIndex: 2,
+              }}
+              drop={buttonDrop}
+              color={buttonColor[updatedStatus ? updatedStatus : app_status]}
+              onClick={() => setButtonDrop(!buttonDrop)}
+              ref={buttonRef}
+            >
+              {buttonSvg}{" "}
+              <span style={{ marginLeft: "5px" }}>{getStatus(app_status)}</span>
+              {buttonDrop && (
+                <ButtonDropDown
+                  color={
+                    buttonColor[updatedStatus ? updatedStatus : app_status]
+                  }
+                  setUpdatedStatus={setUpdatedStatus}
+                  setButtonDrop={setButtonDrop}
+                  app_status={app_status}
+                />
+              )}
+            </ApplicationButton>
+            <PostPopup ref={popupRef} active={popup}>
+              <p style={{ margin: "4px", textAlign: "center" }}>Good job!</p>
+              <Button
+                onClick={() =>
+                  history.push({
+                    pathname: "mainfeed",
+                    state: {
+                      application: JSON.stringify({
+                        position: position,
+                        app_status: debouncedStatus,
+                        company: company,
+                      }),
+                    },
+                  })
+                }
+                style={{ fontSize: "14px", padding: "4px 8px" }}
+                primary
+              >
+                Share
+              </Button>
+            </PostPopup>
           </ContentColumn>
           <ContentColumn>
             <ButtonBox style={{ position: "relative" }}>
@@ -199,7 +319,7 @@ export default function Application({
                     bottom: "-70px",
                     zIndex: "10",
                     right: 0,
-                    width: "150px",
+                    width: "170px",
                     backgroundColor: "#fff",
                     boxShadow:
                       "0px 5px 13px -7px #5c5c5c, 5px 5px 15px 5px rgba(100,100,100,0.1)",
@@ -239,6 +359,28 @@ export default function Application({
                       Delete row
                     </span>
                   </RBtn>
+                  {link && (
+                    <ExternalLink
+                      href={link}
+                      target="_blank"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                      }}
+                    >
+                      <RBtn>
+                        <Svg src={link_svg}></Svg>
+                        <span
+                          style={{
+                            display: "block",
+                            fontSize: "12px",
+                            marginLeft: "10px",
+                          }}
+                        >
+                          View Application
+                        </span>
+                      </RBtn>
+                    </ExternalLink>
+                  )}
                 </div>
               )}
             </ButtonBox>
@@ -253,17 +395,7 @@ export default function Application({
               : deadline.toDate().toLocaleDateString()}
           </Subtitle>
           <Subtitle>Location: {location ? `${location}` : "N/A"}</Subtitle>
-          {link && (
-            <Subtitle>
-              <ExternalLink
-                onClick={(e) => e.stopPropagation()}
-                target="_blank"
-                href={link}
-              >
-                Go to application page.
-              </ExternalLink>
-            </Subtitle>
-          )}
+
           <Notes
             onClick={(e) => e.stopPropagation()}
             id="textarea"
@@ -275,22 +407,26 @@ export default function Application({
           </Notes>
           <Description
             onClick={(e) => e.stopPropagation()}
-            style={{ fontWeight: 400 }}
+            style={{ fontWeight: 400, width: "98%" }}
           >
             {splitDescription[0]}
             {readMore && splitDescription[1]}
-            <ReadMore
-              onClick={(e) => {
-                e.stopPropagation();
-                setReadMore(!readMore);
-              }}
-              style={{ marginLeft: `${!readMore ? "0px" : "3px"}` }}
-            >
-              {!readMore && (
-                <span style={{ fontWeight: 400, marginLeft: "3px" }}>...</span>
-              )}
-              {!readMore ? "Read More" : " Read Less"}
-            </ReadMore>
+            {splitDescription[1] && (
+              <ReadMore
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setReadMore(!readMore);
+                }}
+                style={{ marginLeft: `${!readMore ? "0px" : "3px"}` }}
+              >
+                {!readMore && (
+                  <span style={{ fontWeight: 400, marginLeft: "3px" }}>
+                    ...
+                  </span>
+                )}
+                {!readMore ? "Read More" : " Read Less"}
+              </ReadMore>
+            )}
           </Description>
         </Extra>
       </Content>
@@ -442,7 +578,7 @@ const Notes = styled.textarea`
   border-radius: 14px;
   resize: none;
   padding: 10px;
-  width: 100%;
+  width: 99%;
   min-height: 80px;
   font-size: 12px;
   line-height: 15px;
@@ -455,19 +591,29 @@ const Notes = styled.textarea`
 const Svg = styled.img`
   height: 50%;
 `;
-
-const Arwdiv = styled.div`
+const PostPopup = styled.div`
+  position: absolute;
+  top: -80px;
+  width: 100%;
+  height: 80px;
+  transition: 0.3s ease;
+  background-color: #fff;
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: 0px 5px 13px -7px #5c5c5c,
+    5px 5px 15px 5px rgba(100, 100, 100, 0.1);
+  cursor: default;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  text-align: center;
-`;
+  justify-content: center;
+  border-radius: 4px;
 
-const A = styled.a`
-  color: black;
-  transition: all 0.3s ease;
-  &:hover {
-    color: #175596;
-  }
+  ${(props) =>
+    props.active &&
+    `
+  opacity:1;
+  pointer-events:auto;
+
+  `};
 `;

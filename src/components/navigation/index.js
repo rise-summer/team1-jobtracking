@@ -3,7 +3,6 @@ import Search from "./search/index";
 import {
   NavBarDiv,
   LeftNavBarDiv,
-  SearchBar,
   RightNavBarDiv,
   HomeLink,
   NavLink,
@@ -58,11 +57,12 @@ export default function Navigation(props) {
           <NavLink id="/yourposts" onClick={routeMainfeed}>
             Your posts
           </NavLink>
-          <React.Fragment>
-            <NavLink onClick={signout}>
-              {!isLoggedIn ? "Log in" : "Log out"}
-            </NavLink>
-          </React.Fragment>
+          <NavLink onClick={signout}>
+            {!isLoggedIn ? "Log in" : "Log out"}
+          </NavLink>
+          {/*<NavLink id="/settings" onClick={routeMainfeed}>
+            Settings
+  </NavLink>*/}
         </RightNavBarDiv>
       </NavBarDiv>
       {/* </Router> */}
