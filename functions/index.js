@@ -323,9 +323,13 @@ exports.zipRecruiterScraper = functions
     //await page.waitForSelector(".description__text");
     const result = await page.evaluate(() => {
       let title = document.querySelector(".job_title").innerText;
-      let company = document.querySelector(".job_details_link").innerHTML;
-      let place = document.querySelector("span[data-name = address").innerHTML;
-      let desc = document.querySelector(".jobDescriptionSection").innerHTML;
+      let company = document.querySelector(
+        ".job_sub>.sub_item:nth-child(1)"
+      ).innerHTML;
+      let place = document.querySelector(
+        ".job_sub>.sub_item:nth-child(2)"
+      ).innerHTML;
+      let desc = document.querySelector(".job_description").innerHTML;
       desc = desc.replace(/<br>|<br\/>|<br \/>/gi, "\n");
       desc = desc.replace(/(<([^>]+)>)/gi, "").trim();
       company = company.replace("[\\n]", "").trim();

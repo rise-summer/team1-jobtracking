@@ -13,21 +13,11 @@
   },
   "main": "index.js",
   "dependencies": {
-<<<<<<< HEAD
-    "@google-cloud/storage": "^6.2.3",
-    "firebase-admin": "^11.0.0",
-    "firebase-functions": "^3.22.0",
-    "puppeteer": "^13.0.0",
-    "puppeteer-extra": "^3.3.0",
-    "puppeteer-extra-plugin-adblocker": "^2.13.0",
-    "puppeteer-extra-plugin-stealth": "^2.10.1"
-=======
     "firebase-admin": "^9.8.0",
     "firebase-functions": "^3.14.1",
     "puppeteer": "^13.0.0",
     "puppeteer-extra": "^3.3.4",
     "puppeteer-extra-plugin-stealth": "^2.11.0"
->>>>>>> bdf3901cbff3c3ee4cc6c2a0ef3bd97b4ca07cc9
   },
   "devDependencies": {
     "firebase-functions-test": "^0.2.0"
