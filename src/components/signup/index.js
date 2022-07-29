@@ -5,8 +5,9 @@ import { signupFirebase, registerDB } from "../apiFunctions";
 import { auth } from "../../firebaseSetup";
 import { useState, useEffect } from "react";
 import firebase from "../../firebaseSetup";
+import {firestore} from "../../firebaseSetup";
 import "firebase/firestore";
-
+import { useCollectionData } from "react-firebase-hooks/firestore";
 import {
   MainBody,
   LogoDiv,
@@ -36,10 +37,18 @@ export default function SignUp(props) {
     password: "",
     cnfmpwd: "",
   });
+  const usersRef = firestore.collection(`users`)
+  const [users] = useCollectionData(usersRef, {idField: 'id'})
+  console.log(users)
+  const usernames = (users || []).map(e => e.username)
+  console.log(usernames)
+  const emails = (users || []).map(e => e.email)
+  console.log(emails)
 
   const submit = async (e) => {
     e.preventDefault();
     console.log("Event: Form Submit");
+    
     if (username === "" || email === "" || password === "" || cnfmpwd === "") {
       setError({
         header: "",
@@ -48,7 +57,28 @@ export default function SignUp(props) {
         password: `${!password ? "Please enter a password" : ""}`,
         cnfmpwd: `${!cnfmpwd ? "Please enter a password" : ""}`,
       });
-    } else if (password === cnfmpwd) {
+    } else if (usernames.includes(username)) {
+      console.log("error")
+      setError({
+        header: "Username in use, please choose another",
+        username: "",
+        email: "",
+        password: "",
+        cnfmpwd: "",
+      });
+
+    }else if (emails.includes(email)) {
+      console.log("error")
+      setError({
+        header: "Username in use, please choose another",
+        username: "",
+        email: "",
+        password: "",
+        cnfmpwd: "",
+      });
+
+    }
+    else if (password === cnfmpwd) {
       const newUser = {
         username: username,
         email: email,
