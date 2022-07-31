@@ -1,9 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
+import styled from "styled-components";
 import ResetModal from "./resetModal";
 import { auth } from "../../firebaseSetup";
 import { login } from "../apiFunctions";
 import { resetPasswordEmail, signInWithGoogle } from "../apiFunctions";
 import { GoogleLogin } from "@react-oauth/google";
+import { SubmitButton } from "../../styles/shared";
 import {
   MainBody,
   LogoDiv,
@@ -11,6 +13,7 @@ import {
   Button,
   ContainerDiv,
   ContentDiv,
+  Logo,
   HomeLink,
   Email,
   Pwd,
@@ -30,23 +33,19 @@ export default function Login(props) {
   const [passwordModal, setPasswordModal] = useState(false);
   const [resetPassword, setResetPassword] = useState(false);
   const [password, setPassword] = useState("");
-  const [error, setError] = useState({ header: "", email: "", password: "" });
+  const [error, setError] = useState();
   const location = useLocation();
   const { state } = location;
   useEffect(() => {
     if (state && state.from) {
-      setError({ header: "Please log-in", email: "", password: "" });
+      setError("Please login.");
     }
   }, []);
   const submit = async (e) => {
     e.preventDefault();
 
     if (email === "" || password === "") {
-      setError({
-        header: "",
-        email: `${email ? "" : "Please enter an email"}`,
-        password: `${password ? "" : "Please enter a password"}`,
-      });
+      setError("All fields are required");
       return;
     } else {
       login(email, password)
@@ -56,14 +55,10 @@ export default function Login(props) {
           setIsLoggedIn(true);
           props.history.push(state && state.from ? state.from : "/mainfeed");
         })
-        .catch((err) =>
-          setError({ header: err.message, email: "", password: "" })
-        );
+        .catch((err) => setError(err.message));
       //
     }
   };
-  const handleGoogleSuccess = () => {};
-  const handleGoogleFailure = () => {};
 
   const handleChange = (e) => {
     const value =
@@ -85,7 +80,8 @@ export default function Login(props) {
         setResetPassword(true);
       })
       .catch((err) => {
-        setError({ header: err.message, email: "", password: "" });
+        setError(err.message);
+        setPasswordModal(false);
       });
   };
   return (
@@ -99,12 +95,11 @@ export default function Login(props) {
       )}
       <div>
         <LogoDiv>
-          <HomeLink to="/">Pipeline</HomeLink>
+          <Logo href="/">Pipeline</Logo>
         </LogoDiv>
         <ContainerDiv>
           <ContentDiv>
             <form onSubmit={submit}>
-              {error.header && <HeaderError>{error.header}</HeaderError>}
               <Item className="title">Welcome Back</Item>
               <Email
                 className="email"
@@ -113,7 +108,6 @@ export default function Login(props) {
                 value={email}
                 onChange={handleChange}
               ></Email>
-              {error.email && <InlineError>{error.email}</InlineError>}
               <Pwd
                 className="pwd"
                 type="password"
@@ -121,8 +115,12 @@ export default function Login(props) {
                 value={password}
                 onChange={handleChange}
               ></Pwd>
-              {error.password && <InlineError>{error.password}</InlineError>}
-              <Button type="submit">Log In</Button>
+              {error ? <Error>{error}</Error> : <br />}
+              <SubmitButton
+                primary
+                value="Log In"
+                style={{ margin: "15px 20px 15px 0" }}
+              ></SubmitButton>
               <SignUpButton href="/SignUp">
                 Don’t have an account? Sign up here.
               </SignUpButton>
@@ -142,18 +140,8 @@ export default function Login(props) {
     </MainBody>
   );
 }
-
-/*
-    const user = res.user;
-    const usersRef = firestore.collection("users");
-    const userExistsQuery = usersRef.where("uid", "==", user.uid);
-    const docs = await getDocs(userExistsQuery);
-    if (docs.docs.length === 0) {
-      await addDoc(collection(db, "users"), {
-        uid: user.uid,
-        name: user.email.split("@")[0],
-        authProvider: "google",
-        email: user.email,
-      });
-    }
-*/
+const Error = styled.div`
+  font-size: 16px;
+  margin: 20px 0 10px 0;
+  color: #eb5757;
+`;

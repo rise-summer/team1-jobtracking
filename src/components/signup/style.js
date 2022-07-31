@@ -12,13 +12,16 @@ export const MainBody = styled.div`
   //justify-content: center;
   background: linear-gradient(
     to right,
-    #dbdbdb 0%,
-    #dbdbdb 35%,
+    #175596 0%,
+    #175596 35%,
     #617aba 35%,
     #617aba 100%
   );
 `;
-export const BackgroundDiv = styled.div``;
+export const BackgroundDiv = styled.div`
+  width: 100%;
+  height: 100%;
+`;
 
 export const ContainerDiv = styled.div`
   display: flex;
@@ -31,10 +34,11 @@ export const ContainerDiv = styled.div`
 export const LogoDiv = styled.div`
   margin-left: 30px;
   margin-top: 20px;
-  &:active {
-    transform: scale(0.97);
-    transition: 0.1s;
-  }
+  color: white;
+`;
+export const Logo = styled.a`
+  text-decoration: none;
+  color: white;
 `;
 
 export const ContentDiv = styled.div`
@@ -73,6 +77,7 @@ export const UserName = styled.input.attrs({
   background: #ffffff;
   width: 400px;
   height: 40px;
+  margin-top: 10px;
   padding: 0px 30px 0 20px;
   &::placeholder {
     font-size: 20px;

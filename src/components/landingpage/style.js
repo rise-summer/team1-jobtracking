@@ -6,23 +6,33 @@ export const MainBody = styled.div`
 
 export const BackgroundDiv = styled.div``;
 export const Headline = styled.div`
-  margin-top: 10vh;
+  margin-top: 12.5vh;
   text-align: center;
-  margin-bottom: 10vh;
+  margin-bottom: 12.5vh;
 `;
 
 export const LandingPageGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  row-gap: 100px;
+  row-gap: 225px;
+  width: 65vw;
+  column-gap: 25px;
+  margin-bottom: 40px;
 `;
 export const LandingPageGridContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  ${(props) =>
+    props.center &&
+    `justify-content: center;
+  align-items: center;`}
+  justify-self:flex-start;
+  align-self: center;
 `;
 
+export const Highlight = styled.span`
+  color: #175596;
+`;
 export const Button = styled.button`
   background: #175596;
   color: #fff;
@@ -85,31 +95,42 @@ export const FullBox = styled.div`
 `;
 
 export const Title = styled.div`
-  font-weight: bold;
-  font-size: 60px;
-  line-height: 87px;
-  /* display: flex; */
-  align-items: center;
-  letter-spacing: 0.5px;
+  font-weight: 800;
+  font-size: 56px;
+  letter-spacing: -3.5px;
+  line-height: 62px;
   margin: 0 auto;
   position: relative;
   width: 75%;
   /* text-align: center; */
+  margin-bottom: 30px;
+`;
+
+export const SubHeader = styled.div`
+  font-weight: 600;
+  font-size: 28px;
+  margin-bottom: 10px;
+  letter-spacing: -2px;
 `;
 
 export const Subtitle = styled.div`
-  font-weight: 600;
+  font-weight: 500;
   font-size: 16px;
-  line-height: 30px;
-
+  line-height: 25px;
+  font-family: "Open Sans";
   /* or 150% */
 
   /* display: flex; */
   align-items: center;
-  letter-spacing: 1.1px;
   margin: 0 auto;
-  width: 75%;
+  width: 60%;
   /* text-align: center; */
+`;
+export const GridDescription = styled.div`
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 25px;
+  font-family: "Open Sans";
 `;
 
 export const Textbox = styled.div`
@@ -130,4 +151,17 @@ export const Image = styled.img`
 
 export const ImageContainer = styled.div`
   position: relative;
+`;
+
+export const VideoContainer = styled.div`
+  width: 80vw;
+  min-height: 80vh;
+  background-color: #175596;
+  color: white;
+  padding: 20px 25px 30px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;

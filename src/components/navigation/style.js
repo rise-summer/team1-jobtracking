@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { lightBoxShadow } from "../../styles/shared";
 export const NavBarDiv = styled.div`
   display: flex;
   justify-content: center;
@@ -10,6 +10,7 @@ export const NavBarDiv = styled.div`
   overflow: hidden;
   /* position: fixed;
   top: 100; */
+  ${(props) => props.shadow && lightBoxShadow}
 `;
 //Left side of Nav Bar
 export const LeftNavBarDiv = styled.div`

@@ -13,21 +13,22 @@ export const MainBody = styled.div`
   //justify-content: center;
   background: linear-gradient(
     to right,
-    #dbdbdb 0%,
-    #dbdbdb 35%,
+    #175596 0%,
+    #175596 35%,
     #617aba 35%,
     #617aba 100%
   );
 `;
 
+export const Logo = styled.a`
+  text-decoration: none;
+  color: white;
+`;
+
 export const LogoDiv = styled.div`
   margin-left: 30px;
   margin-top: 20px;
-  color: #000000;
-  &:active {
-    transform: scale(0.97);
-    transition: 0.1s;
-  }
+  color: white;
 `;
 
 export const ContainerDiv = styled.div`
@@ -114,7 +115,7 @@ export const Button = styled.button`
   /* identical to box height */
   border-radius: 10px;
   padding: 5px 10px 5px 10px;
-  margin: 15px 20px 30px 0px;
+  margin: 15px 20px 15px 0px;
   border: none;
   outline: none;
   color: #ffffff;

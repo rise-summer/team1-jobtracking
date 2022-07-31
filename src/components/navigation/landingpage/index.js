@@ -1,10 +1,4 @@
-import React, {
-  Fragment,
-  useContext,
-  useState,
-  Router,
-  useEffect,
-} from "react";
+import React, { Fragment, useContext } from "react";
 import {
   NavBarDiv,
   LeftNavBarDiv,
@@ -12,12 +6,33 @@ import {
   HomeLink,
   NavLink,
 } from "../style.js";
-import { Button } from "../../../styles/shared.js";
+import { LandingPageButton, heavyBoxShadow } from "../../../styles/shared.js";
 import { SignUpLink } from "./style.js";
 import { useHistory, withRouter } from "react-router-dom";
 import { AuthenticationContext } from "../../../AuthenticationContext";
 import { logout } from "../../apiFunctions";
 export default function LandingPageNavigation() {
+  const svg = (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      role="img"
+      width="25px"
+      height="25px"
+      preserveAspectRatio="xMidYMid meet"
+      viewBox="0 0 24 24"
+    >
+      <path
+        fill="none"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M18 6L6 18M8 6h10v10"
+      />
+    </svg>
+  );
+
   const { authentication, setAuthentication, isLoggedIn, setIsLoggedIn } =
     useContext(AuthenticationContext);
 
@@ -42,15 +57,24 @@ export default function LandingPageNavigation() {
   };
   return (
     <Fragment>
-      {/* <Router> */}
-      <NavBarDiv style={{ alignItems: "center" }}>
+      <NavBarDiv style={{ alignItems: "center", padding: "20px 30px" }} shadow>
         <LeftNavBarDiv>
-          <HomeLink
-            id={`${isLoggedIn ? "/mainfeed" : "/"}`}
-            onClick={routeMainfeed}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
           >
-            Pipeline
-          </HomeLink>
+            {svg}
+            <HomeLink
+              id={`${isLoggedIn ? "/mainfeed" : "/"}`}
+              onClick={routeMainfeed}
+              style={{ fontWeight: 600, marginLeft: "5px" }}
+            >
+              Pipeline
+            </HomeLink>
+          </div>
           {/* <SearchBar /> */}
         </LeftNavBarDiv>
         <RightNavBarDiv>
@@ -61,15 +85,23 @@ export default function LandingPageNavigation() {
           */}
 
           <React.Fragment>
-            <NavLink style={{ alignSelf: "center" }} onClick={signout}>
-              {!isLoggedIn ? "log in" : "log out"}
+            <NavLink
+              style={{ alignSelf: "center", fontWeight: "bold" }}
+              onClick={signout}
+            >
+              {!isLoggedIn ? "Log In" : "Log Out"}
             </NavLink>
           </React.Fragment>
           {!isLoggedIn && (
             <React.Fragment>
-              <Button primary id="/signup" onClick={routeMainfeed}>
-                sign up
-              </Button>
+              <LandingPageButton
+                style={{ fontWeight: "bold" }}
+                primary
+                id="/signup"
+                onClick={routeMainfeed}
+              >
+                Sign Up
+              </LandingPageButton>
             </React.Fragment>
           )}
         </RightNavBarDiv>

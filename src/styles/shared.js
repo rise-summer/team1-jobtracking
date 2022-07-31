@@ -46,6 +46,27 @@ color:#175596;
 background-color:#175596;
 `};
 `;
+export const LandingPageButton = styled.div`
+  ${defaultButtonStyles}
+  ${heavyBoxShadow}
+  border-radius:999px;
+  padding: 12px 20px;
+
+  ${(props) => props.bold && "font-weight:700;"}
+  ${(props) =>
+    props.secondary &&
+    `
+        padding: 10px 18px;
+border:2px solid #175596;
+background-color:#fff;
+color:#175596;
+`}
+  ${(props) =>
+    props.primary &&
+    `color:#fff;
+background-color:#175596;
+`};
+`;
 export const SubmitButton = styled.input.attrs((props) => ({
   type: "submit",
 }))`
