@@ -93,7 +93,7 @@ export default function YourPosts(props) {
         </Navigation>
         <BackgroundDiv>
           {!searchValue ? (
-            <HeaderTitle>Your posts</HeaderTitle>
+            <HeaderTitle>Your Posts</HeaderTitle>
           ) : (
             <Heading searchValue={searchValue}>
               <Text>Search Results for:</Text>

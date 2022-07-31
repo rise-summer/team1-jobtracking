@@ -48,8 +48,12 @@ const MainFeed = (props) => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     if (props.location.state) {
-      setSearchValue(props.location.state.searchValue);
-      setApplication(JSON.parse(props.location.state.application));
+      if (props.location.state.searchValue) {
+        setSearchValue(props.location.state.searchValue);
+      }
+      if (props.location.state.application) {
+        setApplication(JSON.parse(props.location.state.application));
+      }
     }
   }, [props.location.state]);
   useEffect(() => {
@@ -128,8 +132,11 @@ const MainFeed = (props) => {
               <Text>Search Results for:</Text>
               <SearchText>{searchValue}</SearchText>
               <Text>
-                {posts.length} post{posts.length == 1 ? "" : "s"} about this
-                topic
+                {posts &&
+                  `${posts.length} post${
+                    posts.length == 1 ? "" : "s"
+                  } about this
+                topic`}
               </Text>
             </Heading>
           )}

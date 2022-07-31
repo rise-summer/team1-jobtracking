@@ -8,7 +8,7 @@ export const MainBody = styled.div`
 
 export const BackgroundDiv = styled.div`
   background: #ebebeb;
-  padding: 20px 20vw;
+  padding: 20px 15vw;
   min-height: calc(100vh - 118px);
 `;
 
