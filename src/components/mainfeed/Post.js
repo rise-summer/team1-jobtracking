@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect, useContext } from "react";
 import { AuthenticationContext } from "../../AuthenticationContext";
 import styled from "styled-components";
 import CommentSection from "./CommentSection";
+import { standardBoxShadow } from "../../styles/shared";
 import dots from "../../images/three_vertical_dots.svg";
 import editfig from "../../images/edit_icon.svg";
 import trashfig from "../../images/trash.svg";
@@ -11,6 +12,8 @@ import DropDownContainer from "./DropDownContainer";
 import { slice } from "cheerio/lib/api/traversing";
 import parse from "html-react-parser";
 import { Dropdown } from "antd";
+import EditPost from "./EditPost";
+import DeletePost from "./DeletePost";
 const Post = ({
   id,
   author,
@@ -22,6 +25,7 @@ const Post = ({
 }) => {
   const [drop, setDrop] = useState(false);
   const [edit, setEdit] = useState(false);
+  const [deleteState, setDeleteState] = useState(false);
   const ref = useRef();
   const contentRef = useRef();
   const postRef = firestore.collection(`posts`);
@@ -41,7 +45,6 @@ const Post = ({
       }
     };
 
-    console.log(drop);
     document.addEventListener("mousedown", checkIfClickedOutside);
 
     return () => {
@@ -50,50 +53,15 @@ const Post = ({
     };
   }, [drop]);
 
-  useEffect(() => {
-    const checkIfClickedOutside = (e) => {
-      // If the menu is open and the clicked target is not within the menu,
-      // then close the menu
-      if (
-        edit &&
-        contentRef.current &&
-        !contentRef.current.contains(e.target)
-      ) {
-        setEdit(false);
-        setError({ title: "", description: "" });
-        setEditedDescription(description);
-        setEditedTitle(title);
-      }
-    };
-
-    document.addEventListener("mousedown", checkIfClickedOutside);
-
-    return () => {
-      // Cleanup the event listener
-      document.removeEventListener("mousedown", checkIfClickedOutside);
-    };
-  }, [edit]);
-
-  function handleKeyDown(event) {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      if (editedDescription && editedTitle) {
-        setEdit(!edit);
-        setError({ title: "", description: "" });
-        postRef.doc(id).update({
-          description: editedDescription,
-          title: editedTitle,
-          time: firebase.firestore.Timestamp.now(),
-        });
-      } else {
-        setError({
-          title: editedTitle ? "" : "Title cannot be empty",
-          description: editedDescription ? "" : "Description cannot be empty",
-        });
-      }
-    }
+  const handlePostUpdate = (newTitle, newDescription) => {
+    postRef.doc(id).update({
+      description: newDescription,
+      title: newTitle,
+      time: firebase.firestore.Timestamp.now(),
+    });
+    setEdit(false);
     setDrop(false);
-  }
+  };
 
   const boldDescription = () => {
     if (!toBold) return description;
@@ -114,56 +82,70 @@ const Post = ({
     setDrop(!drop);
   };
   const handleEdit = () => {
-    setEdit(true);
+    setEdit(!edit);
+    setDrop(false);
+  };
+  const handlePostDelete = () => {
+    console.log("A");
+    postRef.doc(id).delete();
+    setDeleteState(false);
   };
   const handleDelete = () => {
-    postRef.doc(id).delete();
+    setDeleteState(!deleteState);
+    setDrop(false);
   };
   return (
-    <Feed>
-      <Content ref={contentRef}>
-        <PostHeader>
-          {edit ? (
-            <EditTitle
-              onChange={(e) => setEditedTitle(e.target.value)}
-              onKeyPress={(e) => handleKeyDown(e)}
-              rows="1"
-            >
-              {title}
-            </EditTitle>
-          ) : (
+    <>
+      {edit && (
+        <EditPost
+          handlePostUpdate={handlePostUpdate}
+          title={title}
+          description={description}
+          handleEdit={handleEdit}
+        />
+      )}
+      {deleteState && (
+        <DeletePost
+          handlePostDelete={handlePostDelete}
+          handleDelete={handleDelete}
+        />
+      )}
+      <Feed>
+        <Content ref={contentRef}>
+          <PostHeader>
             <Title>{title}</Title>
-          )}
-          {canEditPost && (
-            <DropDownContainer
-              drop={drop}
-              handleDrop={handleDrop}
-              handleEdit={handleEdit}
-              handleDelete={handleDelete}
-            />
-          )}
-        </PostHeader>
-        {error.title && <p style={{ color: "red" }}>{error.title}</p>}
-        <Date>
-          {displayName} {time.toDate().toLocaleString()}
-        </Date>
-        {edit ? (
-          <EditArea
-            onChange={(e) => setEditedDescription(e.target.value)}
-            onKeyPress={(e) => handleKeyDown(e)}
-          >
-            {description}
-          </EditArea>
-        ) : (
+
+            {canEditPost && (
+              <DropDownContainer
+                drop={drop}
+                handleDrop={handleDrop}
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
+                type="post"
+              />
+            )}
+          </PostHeader>
+          <Date>
+            {time.toDate().toLocaleTimeString(undefined, {
+              hour: "numeric",
+              minute: "numeric",
+            })}
+            {", "}
+            {time.toDate().toLocaleDateString(undefined, {
+              weekday: "long",
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+          </Date>
+
           <Description>{parse(boldDescription())}</Description>
-        )}
-        {error.description && (
-          <p style={{ color: "red" }}>{error.description}</p>
-        )}
-        <hr />
-      </Content>
-      <CommentSection id={id} />
-    </Feed>
+
+          <hr />
+        </Content>
+        <CommentSection id={id} />
+      </Feed>
+    </>
   );
 };
 
@@ -176,8 +158,10 @@ const Feed = styled.div`
   justify-content: center;
   align-items: center;
   background: #ffffff;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  //box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 16px;
+  ${standardBoxShadow}
+  //margin-bottom:16px;
 `;
 
 const PostHeader = styled.div`
@@ -203,7 +187,6 @@ const Content = styled.div`
 const Title = styled.div`
   font-size: 24px;
   line-height: 33px;
-
   letter-spacing: 0.5px;
   font-weight: bold;
   color: #000000;
@@ -253,28 +236,3 @@ const EditTitle = styled.textarea`
   width: 90%;
   font-family: "Open Sans", sans-serif;
 `;
-
-/*
-
-          <Options ref={ref}>
-            <Dots
-              src={dots}
-              alt="options"
-              onClick={() => setDrop(!drop)}
-              onBlur={() => setDrop(false)}
-            ></Dots>
-            {drop ? (
-              <DropDownContent>
-                <Link onClick={() => setEdit(true)}>
-                  <img src={editfig} alt="edit"></img>
-                </Link>
-                <Link onClick={() =>}>
-                  {" "}
-                  <img src={trashfig} alt="trash"></img>
-                </Link>
-              </DropDownContent>
-            ) : (
-              ""
-            )}
-          </Options>
-*/

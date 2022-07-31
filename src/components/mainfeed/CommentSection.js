@@ -22,7 +22,6 @@ const CommentSection = ({ id }) => {
 
   return (
     <Container>
-      {comments && console.log(comments.map((comment) => comment))}
       {comments &&
         comments.map((comment) => <Comment key={comment.id} {...comment} />)}
 

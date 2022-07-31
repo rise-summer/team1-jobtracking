@@ -2,7 +2,7 @@ import axios from "axios";
 import moment from "moment";
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
-import { SubmitButton, Button } from "../../styles/shared";
+import { SubmitButton, Button, standardBoxShadow } from "../../styles/shared";
 import { AuthenticationContext } from "../../AuthenticationContext";
 import { auth, firestore } from "../../firebaseSetup";
 import firebase from "../../firebaseSetup";
@@ -38,7 +38,7 @@ const AddPost = ({ toggleShowPost, application }) => {
   const [description, setDescription] = useState("");
   const currentUser = auth.currentUser;
   const postRef = firestore.collection(`posts`);
-  const [error, setError] = useState({ title: "", description: "" });
+  const [error, setError] = useState("");
   const handleCancel = () => {
     toggleShowPost(false);
   };
@@ -56,11 +56,11 @@ const AddPost = ({ toggleShowPost, application }) => {
         displayName: auth.currentUser.displayName,
       });
       toggleShowPost(false);
+      setError("");
+      setTitle("");
+      setDescription("");
     } else {
-      setError({
-        title: title ? "" : "Please enter a title",
-        description: description ? "" : "Please enter a description",
-      });
+      setError("Post content cannot be empty!");
     }
   };
 
@@ -70,30 +70,24 @@ const AddPost = ({ toggleShowPost, application }) => {
         <Title
           value={title}
           type="text"
-          placeholder="Title of Post"
+          placeholder="What are you up to?"
           onChange={(e) => setTitle(e.target.value)}
         />
-        {error.title && <p style={{ color: "red" }}>{error.title}</p>}
-        <hr />
         <Description
           value={description}
-          placeholder="Write a description here"
+          placeholder="Share an update with your community on how you're doing."
           onChange={(e) => setDescription(e.target.value)}
         ></Description>
-        {error.description && (
-          <p style={{ color: "red" }}>{error.description}</p>
-        )}
+
         {/* <Input type="text" placeholder="Position" />
         <Input type="text" placeholder="Industry" />
         <Input type="text" placeholder="Status" /> */}
         <SubmitContainer>
-          <Button secondary onClick={handleCancel}>
-            Cancel
-          </Button>
+          {error && <div style={{ color: "#EB5757" }}>{error}</div>}
           <SubmitButton
             primary
             value="Post"
-            style={{ marginLeft: "6px" }}
+            style={{ marginLeft: "15px" }}
           ></SubmitButton>
         </SubmitContainer>
       </form>
@@ -106,6 +100,7 @@ export default AddPost;
 const Container = styled.div`
   background-color: white;
   border-radius: 10px;
+  ${standardBoxShadow}
   padding: 1em;
   *:focus {
     outline: none;
@@ -115,10 +110,14 @@ const Container = styled.div`
 const Title = styled.input`
   border: none;
   display: inline-block;
-  font-size: 2vh;
+  font-size: 24px;
+  font-weight: 700;
+  font-family: "Open Sans";
   margin-left: auto;
   margin-right: auto;
   width: 97%;
+  margin-bottom: 12px;
+  line-height: 33px;
 `;
 
 const CloseButton = styled.button`

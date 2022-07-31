@@ -18,13 +18,13 @@ export const LeftNavBarDiv = styled.div`
 `;
 
 export const SearchBar = styled.input.attrs({
-  placeholder: "Search",
+  placeholder: "Search for a position",
 })`
   width: ${(props) => (props.focus ? "40vw" : "30vw")};
   background: url(${(props) => props.image}) no-repeat scroll 10px 12px;
   background-size: 15px;
   height: 38px;
-  padding: 0 30px;
+  padding: 0 35px;
   box-sizing: border-box;
   border: none;
   outline: none;
@@ -64,7 +64,7 @@ export const HomeLink = styled.a`
 
 export const NavLink = styled.a`
   font-weight: bold;
-  font-weight: 700;
+  font-weight: 400;
   font-size: 18px;
   text-decoration: none;
   min-width: 70px;

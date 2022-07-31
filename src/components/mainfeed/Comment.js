@@ -37,7 +37,16 @@ const Comment = ({ id, date, message, displayName, postid, author }) => {
     <Container edit={edit}>
       <Side>
         <Title>{displayName}</Title>
-        <Subtitle>{date.toDate().toLocaleString()}</Subtitle>
+        <Subtitle>
+          {date.toDate().toLocaleTimeString(undefined, {
+            hour: "numeric",
+            minute: "numeric",
+          })}
+          {", "}
+          {date.toDate().toLocaleDateString(undefined, {
+            weekday: "long",
+          })}
+        </Subtitle>
       </Side>
       {edit ? (
         <EditArea
@@ -58,6 +67,7 @@ const Comment = ({ id, date, message, displayName, postid, author }) => {
           handleDrop={handleDrop}
           handleEdit={handleEdit}
           handleDelete={handleDelete}
+          type="comment"
         />
       )}
     </Container>
@@ -82,6 +92,7 @@ const Container = styled.div`
 const Side = styled.div`
   flex: 1;
   font-size: 16px;
+  word-break: break-all;
 `;
 
 const Message = styled.div`

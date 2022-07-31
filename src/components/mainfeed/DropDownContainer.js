@@ -31,12 +31,12 @@ const DropDownContainer = (props) => {
         <DropDownContent>
           <Link onClick={props.handleEdit}>
             <Icon icon="charm:pencil" />
-            <DropDownText>Edit comment</DropDownText>
+            <DropDownText>Edit {props.type}</DropDownText>
           </Link>
           <Link onClick={props.handleDelete}>
             {" "}
             <Icon icon="bx:trash" />
-            <DropDownText>Delete comment</DropDownText>
+            <DropDownText>Delete {props.type}</DropDownText>
           </Link>
         </DropDownContent>
       )}

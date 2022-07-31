@@ -1,12 +1,16 @@
 import React, { Fragment, useContext } from "react";
 import Navigation from "../../navigation";
+import styled from "styled-components";
 import {
   Heading,
   Text,
+  SearchText,
   BackgroundDiv,
   MainBody,
   NewPostButton,
+  LoaderContainer,
 } from "../style";
+import Loader from "react-loader-spinner";
 import { Title, BackSvg } from "./style";
 import useAppzi from "../../../hooks/useAppzi";
 import { useState, useEffect } from "react";
@@ -88,51 +92,41 @@ export default function YourPosts(props) {
           <Search setSearchValue={setSearchValue} />
         </Navigation>
         <BackgroundDiv>
-          <a
-            style={{
-              display: "flex",
-              justifyContent: "flex-start",
-              alignItems: "center",
-              cursor: "pointer",
-              color: "#677394",
-            }}
-            onClick={() => history.push("/mainfeed")}
-          >
-            <span style={{ marginTop: "2px", marginRight: "4px" }}>◀</span>
-            <span style={{ paddingLeft: "5px" }}>
-              <b>back to applications</b>
-            </span>
-          </a>
-          {isNewPostBtnClicked ? (
-            <AddPost
-              numPosts={numPosts}
-              setNumPosts={setNumPosts}
-              setPosts={setPosts}
-              toggleShowPost={setisNewPostBtnClicked}
-            />
+          {!searchValue ? (
+            <HeaderTitle>Your posts</HeaderTitle>
           ) : (
-            <div></div>
+            <Heading searchValue={searchValue}>
+              <Text>Search Results for:</Text>
+              <SearchText>{searchValue}</SearchText>
+              <Text>
+                {posts.length} post{posts.length == 1 ? "" : "s"} about this
+                topic
+              </Text>
+            </Heading>
           )}
-          <Title style={{ marginTop: "10px" }}> Your Posts </Title>
-          <Heading style={{ marginTop: "10px" }}>
-            <Text>
-              {searchValue
-                ? `Posts containing "${searchValue}"`
-                : "Most recent posts"}
-            </Text>
-            <NewPostButton
-              onClick={() => setisNewPostBtnClicked(!isNewPostBtnClicked)}
-            >
-              create new post
-            </NewPostButton>
-          </Heading>
-
-          {posts &&
+          {posts ? (
             posts.map((post) => {
               return <Post key={post.id} {...post} toBold={searchValue} />;
-            })}
+            })
+          ) : (
+            <LoaderContainer>
+              <Loader type="ThreeDots" color="#175596" />
+            </LoaderContainer>
+          )}
         </BackgroundDiv>
       </MainBody>
     </Fragment>
   );
 }
+
+const HeaderTitle = styled.div`
+  font-style: normal;
+  font-weight: bold;
+  font-size: 30px;
+  margin-bottom: 30px;
+  letter-spacing: 1pt;
+  text-align: left;
+  /* display: block; */
+  margin: auto auto auto 15px;
+  /* min-width: 270px; */
+`;

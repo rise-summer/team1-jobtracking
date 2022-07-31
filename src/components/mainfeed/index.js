@@ -1,7 +1,17 @@
 import React, { Fragment, useContext, useEffect } from "react";
+import Loader from "react-loader-spinner";
+import styled from "styled-components";
 import Navigation from "../navigation";
 import EmptyPost from "./EmptyPost";
-import { Heading, Text, NewPostButton, BackgroundDiv, MainBody } from "./style";
+import {
+  Heading,
+  SearchText,
+  Text,
+  LoaderContainer,
+  NewPostButton,
+  BackgroundDiv,
+  MainBody,
+} from "./style";
 import { Button } from "../../styles/shared";
 import { useState } from "react";
 import useAppzi from "../../hooks/useAppzi";
@@ -12,6 +22,9 @@ import "firebase/compat/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { firestore, auth } from "../../firebaseSetup";
 import Search from "../navigation/search";
+/* 
+todo would be content loader so that page loads at once.
+*/
 const MainFeed = (props) => {
   useAppzi("rddQu");
   const [searchValue, setSearchValue] = useState(
@@ -32,6 +45,7 @@ const MainFeed = (props) => {
   const postRef = firestore.collection(`posts`).orderBy("time", "desc");
   const [initialPosts] = useCollectionData(postRef, { idField: "id" });
   const [posts, setPosts] = useState();
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     if (props.location.state) {
       setSearchValue(props.location.state.searchValue);
@@ -39,7 +53,9 @@ const MainFeed = (props) => {
     }
   }, [props.location.state]);
   useEffect(() => {
-    console.log(posts);
+    if (posts) {
+      setLoading(false);
+    }
   }, [posts]);
   useEffect(() => {
     setPosts(
@@ -96,7 +112,7 @@ const MainFeed = (props) => {
           />
         </Navigation>
         <BackgroundDiv>
-          {showPost ? (
+          {!searchValue ? (
             <AddPost
               numPosts={numPosts}
               setNumPosts={setNumPosts}
@@ -108,36 +124,25 @@ const MainFeed = (props) => {
               }
             />
           ) : (
-            ""
+            <Heading searchValue={searchValue}>
+              <Text>Search Results for:</Text>
+              <SearchText>{searchValue}</SearchText>
+              <Text>
+                {posts.length} post{posts.length == 1 ? "" : "s"} about this
+                topic
+              </Text>
+            </Heading>
           )}
-          <Heading searchValue={searchValue}>
-            <Text>
-              {searchValue
-                ? `Posts containing: "${searchValue}"`
-                : "Most Recent Posts"}{" "}
-            </Text>
-            {showPost ? (
-              ""
-            ) : (
-              <Button
-                primary
-                bold
-                style={{
-                  fontSize: "15px",
-                  marginLeft: "10vw",
-                  minWidth: "135px",
-                }}
-                onClick={() => setShowPost(!showPost)}
-              >
-                Create New Post
-              </Button>
-            )}
-          </Heading>
-          {posts &&
+
+          {posts ? (
             posts.map((post) => (
               <Post key={post.id} {...post} toBold={searchValue} />
-            ))}
-          {(!posts || posts.length === 0) && <EmptyPost />}
+            ))
+          ) : (
+            <LoaderContainer>
+              <Loader type="ThreeDots" color="#175596" />
+            </LoaderContainer>
+          )}
         </BackgroundDiv>
       </MainBody>
     </Fragment>
@@ -145,11 +150,3 @@ const MainFeed = (props) => {
 };
 
 export default MainFeed;
-
-// <Post
-//   id={post.id}
-//   author={post.author}
-//   title={post.title}
-//   date={post.date}
-//   description={post.content}
-// >

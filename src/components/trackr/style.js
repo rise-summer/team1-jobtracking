@@ -22,7 +22,7 @@ export const BackgroundDiv = styled.div`
 
 export const ContentDiv = styled.div`
   padding: 20px 0px 20px 0vw;
-  width: 80vw;
+  width: 60vw;
   min-width: 570px;
   overflow: auto;
   padding-right: 5px;
