@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { standardBoxShadow } from "../../../../styles/shared";
 export const Outer = styled.div`
   display: flex;
   flex-direction: column;
@@ -8,6 +8,7 @@ export const Outer = styled.div`
 
 export const BackgroundDiv = styled.div`
   background: #ebebeb;
+  ${(props) => props.drop && `padding-bottom:35vh;`}
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -62,7 +63,7 @@ export const Title = styled.div`
 `;
 
 export const Subtitle = styled.div`
-  font-weight: 600;
+  font-weight: 400;
   font-size: 20px;
   text-align: center;
   margin: 10px;
@@ -240,6 +241,22 @@ export const SliderDiv = styled.div`
   border-radius: 15px;
   padding: 10px;
   margin: 0px auto;
+`;
+export const ApplicationButtonContainer = styled.div`
+  margin: 0 auto;
+  width: 175px;
+  font-size: 18px;
+  padding: 20px;
+  border-radius: 12px;
+  background-color: white;
+  position: relative;
+  ${standardBoxShadow}
+  ${(props) =>
+    props.drop && `box-shadow:none; border-radius:12px 12px 0 0; padding:22px;`}
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 `;
 
 export const Label = styled.div`

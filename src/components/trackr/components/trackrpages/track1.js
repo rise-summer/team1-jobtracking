@@ -96,7 +96,14 @@ export default function Track1() {
       return availableDomains.includes(hostname);
     } catch (err) {
       console.log(err);
-      history.push({ pathname: "/trackr/track2", state: { link: link } });
+      history.push({
+        pathname: "/trackr/track2",
+        state: {
+          link: link,
+          error:
+            "Sorry, we were unable to grab the application information. Please type in the application information.",
+        },
+      });
     }
   };
   async function handleSubmit(event) {
@@ -118,10 +125,24 @@ export default function Track1() {
         })
         .catch((err) => {
           console.log(err);
-          history.push({ pathname: "/trackr/track2", state: { link: link } });
+          history.push({
+            pathname: "/trackr/track2",
+            state: {
+              link: link,
+              error:
+                "Sorry, we were unable to grab the application information. Please type in the application information.",
+            },
+          });
         });
     } else {
-      history.push({ pathname: "/trackr/track2", state: { link: link } });
+      history.push({
+        pathname: "/trackr/track2",
+        state: {
+          link: link,
+          error:
+            "Sorry, we were unable to grab the application information. Please type in the application information.",
+        },
+      });
     }
   }
 

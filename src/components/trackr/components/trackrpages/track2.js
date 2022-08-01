@@ -4,6 +4,8 @@ import backarrow from "../../../../images/backarrow.svg";
 import { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import ButtonDropDown from "../applicationfeed/ButtonDropDown";
+import { ApplicationButton } from "../../../../styles/shared";
 import {
   BackgroundDiv,
   ContentDiv,
@@ -19,6 +21,7 @@ import {
   SliderDiv,
   Label,
   SubmitBtn,
+  ApplicationButtonContainer,
   Textarea,
 } from "./style";
 import { SubmitButton } from "../../../../styles/shared";
@@ -31,17 +34,125 @@ export default function Track2(props) {
   const { authentication, setAuthentication } = useContext(
     AuthenticationContext
   );
-  const [slider, setSlider] = useState(0);
-  const [stage, setStage] = useState("Interested");
+  const buttonSvg1 = (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      role="img"
+      width="1em"
+      height="1em"
+      preserveAspectRatio="xMidYMid meet"
+      viewBox="0 0 24 24"
+    >
+      <g transform="translate(24 0) scale(-1 1)">
+        <path
+          fill="white"
+          d="M20 2H8c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zM8 16V4h12l.002 12H8z"
+        />
+        <path
+          fill="white"
+          d="M4 8H2v12c0 1.103.897 2 2 2h12v-2H4V8zm11-2h-2v3h-3v2h3v3h2v-3h3V9h-3z"
+        />
+      </g>
+    </svg>
+  );
+  const buttonSvg2 = (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      role="img"
+      width="1em"
+      height="1em"
+      preserveAspectRatio="xMidYMid meet"
+      viewBox="0 0 24 24"
+    >
+      <path
+        fill="none"
+        stroke="white"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="m4 12l6 6L20 6"
+      />
+    </svg>
+  );
+  const buttonSvg3 = (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      role="img"
+      width="1em"
+      height="1em"
+      preserveAspectRatio="xMidYMid meet"
+      viewBox="0 0 24 24"
+    >
+      <g fill="none" stroke="white" stroke-width="2">
+        <circle cx="12" cy="7" r="5" />
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M17 14h.352a3 3 0 0 1 2.976 2.628l.391 3.124A2 2 0 0 1 18.734 22H5.266a2 2 0 0 1-1.985-2.248l.39-3.124A3 3 0 0 1 6.649 14H7"
+        />
+      </g>
+    </svg>
+  );
+  const statusConverter = [
+    "Interested",
+    "Applied",
+    "Interviewed",
+    "Offered",
+    "Accepted",
+    "Rejected",
+    "Declined",
+  ];
+  const colors = [
+    "#6175A9",
+    "#61A5A9",
+    "#A21660",
+    "#9FA216",
+    "#61A975",
+    "#A99161",
+    "#A96199",
+  ];
+  const svgOrder = [
+    buttonSvg1,
+    buttonSvg2,
+    buttonSvg3,
+    buttonSvg2,
+    buttonSvg1,
+    buttonSvg1,
+    buttonSvg1,
+  ];
+
+  const [slider, setSlider] = useState();
+  const [stage, setStage] = useState();
   const history = useHistory();
   const state = props.location.state;
+  let error = state && state.error ? state.error : "";
   const link = useFormInput(state ? state.link : "");
   const role = useFormInput(state ? state.title : "");
   const company = useFormInput(state ? state.company : "");
   const deadline = useFormInput("");
   const location = useFormInput(state ? state.place : "");
   const description = useFormInput(state ? state.description : "");
+  const [drop, setDrop] = useState(false);
   let jobsRef;
+  const downArrowSvg = (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      role="img"
+      width="1em"
+      height="1em"
+      preserveAspectRatio="xMidYMid meet"
+      viewBox="0 0 1024 1024"
+    >
+      <path
+        fill="black"
+        d="M831.872 340.864L512 652.672L192.128 340.864a30.592 30.592 0 0 0-42.752 0a29.12 29.12 0 0 0 0 41.6L489.664 714.24a32 32 0 0 0 44.672 0l340.288-331.712a29.12 29.12 0 0 0 0-41.728a30.592 30.592 0 0 0-42.752 0z"
+      />
+    </svg>
+  );
 
   if (JSON.stringify(props) === "{}") {
     return <Redirect to="/trackr" />;
@@ -95,8 +206,8 @@ export default function Track2(props) {
       <Fragment>
         <div>
           <Navigation />
-          <BackgroundDiv>
-            <ContentDiv>
+          <BackgroundDiv drop={drop}>
+            <ContentDiv style={{ marginTop: "20px" }}>
               <BackBtn>
                 <BackSvg
                   src={backarrow}
@@ -106,7 +217,9 @@ export default function Track2(props) {
               </BackBtn>
               <Heading>
                 <Title>Great!</Title>
-                <Subtitle>Click to edit any of the parameters</Subtitle>
+                <Subtitle style={{ color: `${error ? "#EB5757" : "black"} ` }}>
+                  {error ? error : "Click to edit any of the parameters"}
+                </Subtitle>
                 <form onSubmit={handleSubmit}>
                   <Input
                     placeholder="https://link_to_your_application_here.com"
@@ -128,21 +241,44 @@ export default function Track2(props) {
                     />
                   </TextAreaDiv>
                   <Subtitle>What stage are you in applying?</Subtitle>
-                  <SliderDiv>
-                    <Label>{stage}</Label>
-                    <Slider
-                      type="range"
-                      min="0"
-                      max="3"
-                      value={slider}
-                      onChange={handleSlider}
-                    />
-                  </SliderDiv>
+                  <ApplicationButtonContainer
+                    drop={drop}
+                    onClick={() => setDrop(!drop)}
+                  >
+                    {slider ? (
+                      <ApplicationButton color={colors[slider]}>
+                        {svgOrder[slider]}
+                        {statusConverter[slider]}
+                      </ApplicationButton>
+                    ) : (
+                      <>
+                        <div>Select Your Status</div>
+                        <div
+                          style={{
+                            display: "flex",
+                            transform: `${drop ? "rotate(-180deg)" : ""}`,
+                            justifyContent: "center",
+                            alignItems: "center",
+                            marginTop: "3px",
+                            marginLeft: "5px",
+                          }}
+                        >
+                          {downArrowSvg}
+                        </div>
+                      </>
+                    )}
+
+                    {drop && (
+                      <ButtonDropDown
+                        setButtonDrop={setDrop}
+                        setUpdatedStatus={setSlider}
+                      ></ButtonDropDown>
+                    )}
+                  </ApplicationButtonContainer>
                   <SubmitButton
                     primary
-                    bold
-                    value="Complete Update"
-                    style={{ margin: "30px auto", fontSize: "20px" }}
+                    value="Finish adding application"
+                    style={{ margin: "30px auto" }}
                   ></SubmitButton>
                 </form>
               </Heading>

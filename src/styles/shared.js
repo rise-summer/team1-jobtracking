@@ -92,10 +92,9 @@ background-color:#175596;
 export const ApplicationButton = styled.div`
   width: fit-content;
   padding: 8px 16px;
+  border-radius: 12px;
   min-width: 94px;
   line-height: 22px;
-  ${(props) =>
-    props.drop ? "border-radius:12px 12px 0 0;" : "border-radius: 12px;"}
   font-family: "Open Sans";
   text-align: center;
   font-size: 17px;

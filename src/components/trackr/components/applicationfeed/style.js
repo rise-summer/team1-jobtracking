@@ -1,15 +1,37 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
+export const Menu = styled.div`
+  z-index: 3;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  color: white;
+  background-color: white;
+  border-radius: 0 0 12px 12px;
+  transition: all 0.3s ease-out;
+`;
 export const Content = styled.div`
   background: #ffffff;
   border-radius: 5px;
-  width: 100%;
-  padding: 10px 40px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  padding: 10px 0;
+  margin: 10px auto;
+  min-height: 70px;
+  max-height: 70px;
   &:hover {
-    background: #fffd66;
+    background: #eff4fc;
+    cursor: pointer;
   }
+  &:hover .button--dropdown {
+    background: #eff4fc;
+    cursor: pointer;
+  }
+  transition: all 0.3s ease-out;
+  ${({ clicked }) =>
+    clicked &&
+    css`
+      max-height: 4500px;
+    `}
 `;
 
 export const ContentGrid = styled.div`

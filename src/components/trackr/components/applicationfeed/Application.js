@@ -7,7 +7,7 @@ import trash from "../../../../images/trash.svg";
 import dots from "../../../../images/three_vertical_dots.svg";
 import link_svg from "../../../../images/external_link.svg";
 import ButtonDropDown from "./ButtonDropDown";
-import { ContentGrid, ContentColumn } from "./style";
+import { ContentGrid, ContentColumn, Content } from "./style";
 import { firestore, auth } from "../../../../firebaseSetup";
 import firebase from "../../../../firebaseSetup";
 import { ApplicationButton } from "../../../../styles/shared";
@@ -55,7 +55,7 @@ export default function Application({
 
   const history = useHistory();
 
-  const buttonSvg = (
+  const buttonSvg1 = (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
@@ -77,6 +77,57 @@ export default function Application({
       </g>
     </svg>
   );
+  const buttonSvg2 = (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      role="img"
+      width="1em"
+      height="1em"
+      preserveAspectRatio="xMidYMid meet"
+      viewBox="0 0 24 24"
+    >
+      <path
+        fill="none"
+        stroke="white"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="m4 12l6 6L20 6"
+      />
+    </svg>
+  );
+  const buttonSvg3 = (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      role="img"
+      width="1em"
+      height="1em"
+      preserveAspectRatio="xMidYMid meet"
+      viewBox="0 0 24 24"
+    >
+      <g fill="none" stroke="white" stroke-width="2">
+        <circle cx="12" cy="7" r="5" />
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M17 14h.352a3 3 0 0 1 2.976 2.628l.391 3.124A2 2 0 0 1 18.734 22H5.266a2 2 0 0 1-1.985-2.248l.39-3.124A3 3 0 0 1 6.649 14H7"
+        />
+      </g>
+    </svg>
+  );
+
+  const svgOrder = [
+    buttonSvg1,
+    buttonSvg2,
+    buttonSvg3,
+    buttonSvg2,
+    buttonSvg1,
+    buttonSvg1,
+    buttonSvg1,
+  ];
+
   useLayoutEffect(() => {
     if (firstRender.current) {
       firstRender.current = false;
@@ -254,20 +305,20 @@ export default function Application({
                 setUpdatedStatus(e.target.value);
               }}
             ></Slider>*/}
+
             <ApplicationButton
               style={{
                 position: "relative",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                zIndex: 2,
               }}
               drop={buttonDrop}
-              color={buttonColor[updatedStatus ? updatedStatus : app_status]}
+              color={buttonColor[updatedStatus]}
               onClick={() => setButtonDrop(!buttonDrop)}
               ref={buttonRef}
             >
-              {buttonSvg}{" "}
+              {svgOrder[updatedStatus]}{" "}
               <span style={{ marginLeft: "5px" }}>{getStatus(app_status)}</span>
               {buttonDrop && (
                 <ButtonDropDown
@@ -276,7 +327,7 @@ export default function Application({
                   }
                   setUpdatedStatus={setUpdatedStatus}
                   setButtonDrop={setButtonDrop}
-                  app_status={app_status}
+                  class={"button--dropdown"}
                 />
               )}
             </ApplicationButton>
@@ -442,25 +493,6 @@ function useDebounce(notes, delay = 500) {
   }, [notes, delay]);
   return debounced;
 }
-
-const Content = styled.div`
-  background: #ffffff;
-  border-radius: 5px;
-  padding: 10px 0;
-  margin: 10px auto;
-  min-height: 70px;
-  max-height: 70px;
-  &:hover {
-    background: #eff4fc;
-    cursor: pointer;
-  }
-  transition: all 0.3s ease-out;
-  ${({ clicked }) =>
-    clicked &&
-    css`
-      max-height: 4500px;
-    `}
-`;
 
 const Slider = styled.input`
   height: 5px;

@@ -27,7 +27,10 @@ export const ContentDiv = styled.div`
   overflow: auto;
   padding-right: 5px;
 `;
-
+export const LoaderContainer = styled.div`
+  margin: 20px 0;
+  text-align: center;
+`;
 export const Heading = styled.div`
   background: #f2f2f2;
   border-radius: 5px;

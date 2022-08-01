@@ -5,9 +5,12 @@ import { SearchBar } from "../navigation/style";
 import { useHistory } from "react-router-dom";
 import useAppzi from "../../hooks/useAppzi";
 import useDebounce from "../../hooks/useDebounce";
+import Loader from "react-loader-spinner";
+
 import {
   MainBody,
   BackgroundDiv,
+  LoaderContainer,
   Heading,
   ColumnSort,
   Title,
@@ -205,6 +208,11 @@ export default function Trackr(props) {
                   getJobs={getJobs}
                 />
               ))
+            )}
+            {!applications && (
+              <LoaderContainer>
+                <Loader type="ThreeDots" color="#175596" />
+              </LoaderContainer>
             )}
           </ContentDiv>
         </BackgroundDiv>

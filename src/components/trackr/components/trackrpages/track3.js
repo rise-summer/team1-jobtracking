@@ -60,24 +60,17 @@ export default function Track3(props) {
           <BackgroundDiv>
             <ContentDiv ref={setContentRef}>
               <Heading>
-                <Title style={{ margin: "50px 0 20px 0" }}>
-                  Great job applying!
-                </Title>
+                <Title style={{ margin: "50px 0 20px 0" }}>Congrats!</Title>
                 <Subtitle>
-                  You have successfully added {hash} to your tracked
-                  applications.
+                  Onto the next step in this journey! <br />
+                  Your journey will help inspire others if you share your
+                  progress.
                 </Subtitle>
 
-                {/*position && (
-                  <React.Fragment>
-                    <Subtitle>See what other people are saying here:</Subtitle>
-                    <Subtitle2>#{position}</Subtitle2>
-                  </React.Fragment>
-                )*/}
                 <div
                   style={{
                     display: "flex",
-                    justifyContent: "space-around",
+                    justifyContent: "center",
                     alignItems: "center",
                     marginTop: "50px",
                     marginBottom: "25px",
@@ -88,6 +81,7 @@ export default function Track3(props) {
                   </Button>
                   <Button
                     primary
+                    style={{ marginLeft: "50px" }}
                     onClick={() =>
                       history.push({
                         pathname: "/mainfeed",
